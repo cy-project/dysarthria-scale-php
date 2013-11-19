@@ -1,6 +1,6 @@
-<?
+<?php
 
-class permission 
+class Permission 
 {
 	
 	function __construct()
@@ -9,6 +9,16 @@ class permission
 		$CI = & get_instance();
 		$CI->load->model('Permission_model');
 	}
+	
+	public function test()
+	{
+		$pm = new Permission_model;
+		
+		return $pm->testmodel();
+	
+	
+	}
+	
 	
 	public function addPermission($uid)
 	{
