@@ -14,14 +14,14 @@ class Sheep extends CI_Controller
 	{
 		$per = new permission;
 		
-		$data = $per->test();
+		$data = $per->selectPermission(2);
 		
-		$per->addPermission(1,2);//組合鍵問題
+		//$per->addPermission(1,2);//組合鍵問題
 		
 		
 		foreach ($data->result() as $row)
 		{
-			echo $row->name.'</p>';
+			echo $row->group_id.'</p>';
 		}
 	
 		

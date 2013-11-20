@@ -70,11 +70,13 @@ class Permission_model extends CI_Model
 	
 	}
 	
-	public function selectPermissionList($uid)
+	public function selectPermission($uid)
 	{
 		$this->db->select('`group_id`');
 		
 		$this->db->from('permission_list');
+		
+		$this->db->where('member_id',$uid);
 		
 		$result = $this->db->get();
 		

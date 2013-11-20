@@ -37,7 +37,14 @@ class Permission
 		
 	
 	}
-
+	
+	public function selectPermission($uid)
+	{
+		$pm = new Permission_model;
+		
+		return $pm->selectPermission($uid);
+	
+	}
 
 
 }
