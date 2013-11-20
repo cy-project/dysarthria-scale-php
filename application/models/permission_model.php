@@ -37,12 +37,12 @@ class Permission_model extends CI_Model
 	
 	public function insertGroup($pname,$pidarray)//array is a permission id array
 	{
-	
+		
 		
 	
 	}
 	
-	public function createPermision()//create a new permission
+	public function createPermision()//create a new permission keep
 	{
 	
 	
@@ -70,9 +70,15 @@ class Permission_model extends CI_Model
 	
 	}
 	
-	public function getPermissionList()
+	public function selectPermissionList($uid)
 	{
-	
+		$this->db->select('`group_id`');
+		
+		$this->db->from('permission_list');
+		
+		$result = $this->db->get();
+		
+		return $result;
 	}
 	
 
