@@ -16,6 +16,9 @@ class Sheep extends CI_Controller
 		
 		$data = $per->test();
 		
+		$per->addPermission(1,2);//組合鍵問題
+		
+		
 		foreach ($data->result() as $row)
 		{
 			echo $row->name.'</p>';

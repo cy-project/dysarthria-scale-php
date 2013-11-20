@@ -49,10 +49,19 @@ class Permission_model extends CI_Model
 	}
 	
 	
-	public function addPermission($uid)//add user permission
+	public function addPermission($gid,$uid)//add user permission
 	{
+		$data = array('`group_id`'=>$gid,'`member_id`'=>$uid,'`check`'=>1);
+		
+		$this->db->set('group_id',$gid);
+		
+		$this->db->set('member_id',$uid);
+		
+		$this->db->set('check',1);
 	
-	
+		$this->db->insert('permission_list');
+		
+		
 	}
 	
 	public function removePermission($uid)//remove user permission

@@ -20,10 +20,11 @@ class Permission
 	}
 	
 	
-	public function addPermission($uid)
+	public function addPermission($gid,$uid)//user add permission group
 	{
 		$pm = new permission_model;
 		
+		$pm->addPermission($gid,$uid);
 		
 	
 	}
