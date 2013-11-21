@@ -14,17 +14,20 @@ class Sheep extends CI_Controller
 	{
 		$per = new permission;
 		
-		$data = $per->selectPermission(2);
+		//$data = $per->selectPermission(2);
 		
-		//$per->addPermission(1,2);//組合鍵問題
+	//	$per->createGroup('檢測');//組合鍵問題
 		
+		$pid = array(4,5,6);
 		
-		foreach ($data->result() as $row)
+		$per->insertGroup('檢測',$pid);
+		
+	/*	foreach ($data->result() as $row)
 		{
 			echo $row->group_id.'</p>';
 		}
 	
-		
+		*/
 	}
 	
 	

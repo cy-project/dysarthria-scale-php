@@ -20,20 +20,20 @@ class Permission
 	}
 	
 	
-	public function addPermission($gid,$uid)//user add permission group
+	public function insertGroup($name,$uid)//user add permission group
 	{
 		$pm = new permission_model;
 		
-		$pm->addPermission($gid,$uid);
+		$pm->insertGroup($name,$uid);
 		
 	
 	}
 	
-	public function createGroup($pidarray)//create a permission group
+	public function createGroup($name)//create a permission group
 	{
 		$pm = new Permission_model;
 		
-		
+		$pm->createGroup($name);
 		
 	
 	}
