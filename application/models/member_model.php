@@ -15,7 +15,7 @@ class Member_model extends CI_Model
 
 	public function insertMember($person)
 	{
-		
+
 		$this->db->set('account',$person->account);
 		$this->db->set('password',$person->password);
 		$this->db->set('mail',$person->mail);
