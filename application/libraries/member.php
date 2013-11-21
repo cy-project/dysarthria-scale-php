@@ -11,18 +11,10 @@ class Member
 	
 	}
 	
-	public function register($data_array)
+	public function register($person)
 	{
-		$person = new Personal_data;
-		
-		foreach()
-		{
-		
-		
-		}
-		
-		
-	
+		$mm = new Member_model;
+		$mm->insertMember($person);
 	}
 	
 	public function remove()
