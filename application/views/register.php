@@ -30,7 +30,7 @@
 					
 					<input type="text" name="contact" id="contact" placeholder="緊急聯絡人" autocomplete="off" tabindex="6" class="txtinput">
 					
-					<input type="tel" name="telephone" id="telephone" placeholder="聯絡電話2" tabindex="7" class="txtinput">
+					<input type="tel" name="telephone2" id="telephone" placeholder="聯絡電話2" tabindex="7" class="txtinput">
 					
 				</section> 
 				
@@ -38,10 +38,10 @@
 					<section id="recipientcase">
 					<h3>身分選擇:</h3>
 						<select id="recipient" name="recipient" tabindex="6" class="selmenu">
-							<option value="staff">語言治療師</option>
-							<option value="editor">幼教老師</option>
-							<option value="technical">其他使用者</option>
-							<option value="pr">實習生</option>
+							<option value="語言治療師">語言治療師</option>
+							<option value="幼教老師">幼教老師</option>
+							<option value="其他使用者">其他使用者</option>
+							<option value="實習生">實習生</option>
 						</select>
 					</section>
 				</section>
