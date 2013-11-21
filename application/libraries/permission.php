@@ -20,11 +20,11 @@ class Permission
 	}
 	
 	
-	public function insertGroup($name,$uid)//user add permission group
+	public function insertGroup($name,$pidarray)//user add permission group
 	{
 		$pm = new permission_model;
 		
-		$pm->insertGroup($name,$uid);
+		$pm->insertGroup($name,$pidarray);
 		
 	
 	}
@@ -38,7 +38,22 @@ class Permission
 	
 	}
 	
-	public function selectPermission($uid)
+	public function addPermission($gid,$uid,$pid)//add user permission gid->group_id uid->member_id pid->project_id=0 mean is all
+	{
+		$pm = new Permission_model;
+		
+		$pm->addPermission($gid,$uid,$pid);
+	}
+	
+	public function removePermission($gid,$uid,$pid)
+	{
+		$pm = new Permission_model;
+		
+		$pm->removePermission($gid,$uid,$pid);
+	
+	}
+	
+	public function selectPermission($uid)//return gid object array
 	{
 		$pm = new Permission_model;
 		

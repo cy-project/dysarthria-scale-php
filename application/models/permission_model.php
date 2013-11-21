@@ -21,9 +21,7 @@ class Permission_model extends CI_Model
 		$data = $this->db->get();
 		
 		return $data;
-		
 
-	
 	}
 	
 	public function createGroup($name)
@@ -71,12 +69,14 @@ class Permission_model extends CI_Model
 	}
 	
 	
-	public function addPermission($gid,$uid)//add user permission
+	public function addPermission($gid,$uid,$pid)//add user permission 還要加判斷避免重複增加
 	{
 		
 		$this->db->set('group_id',$gid);
 		
 		$this->db->set('member_id',$uid);
+		
+		$this->db->set('project_id',$pid);
 		
 		$this->db->set('check',1);
 	
@@ -85,9 +85,15 @@ class Permission_model extends CI_Model
 		
 	}
 	
-	public function removePermission($uid)//remove user permission
+	public function removePermission($gid,$uid,$pid)//remove user permission
 	{
-	
+		$this->db->where('group_id',$gid);
+		
+		$this->db->where('member_id',$uid);
+		
+		$this->db->where('project_id',$pid);
+		
+		$this->db->delete('permission_list');
 	
 	}
 	

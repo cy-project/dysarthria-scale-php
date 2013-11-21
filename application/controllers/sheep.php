@@ -20,7 +20,7 @@ class Sheep extends CI_Controller
 		
 		$pid = array(4,5,6);
 		
-		$per->insertGroup('檢測',$pid);
+		$per->removePermission(1,1,1);
 		
 	/*	foreach ($data->result() as $row)
 		{
