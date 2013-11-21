@@ -10,6 +10,7 @@ class Personal_data
 	tel2 緊急連絡電話
 	name 姓名
 	contacter 緊急連絡人姓名
+	identity 身分
 	status 是否被停權 1代表停權 0代表沒被停權
 	
 	
