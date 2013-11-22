@@ -23,9 +23,26 @@ class Member_model extends CI_Model
 		$this->db->set('name',$person->name);
 		$this->db->set('contacter',$person->contacter);
 		$this->db->set('identity',$person->identity);
-		$this->db->set('status',0);
+		$this->db->set('status',1);
 		$this->db->insert('member');
 	
+	}
+	
+	public function removeMember($uid)
+	{
+		$this->db->where('id',$uid);
+		
+		$this->db->delete('member');
+	
+	}
+	
+	public function freezeMember($uid)
+	{
+		$data = array('status'=>0);
+		
+		$this->db->where('id',$uid);
+		
+		$this->db->update('member',$data);
 	}
 
 
