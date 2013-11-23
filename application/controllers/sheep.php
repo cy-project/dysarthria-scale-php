@@ -5,16 +5,16 @@ class Sheep extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('Member');
+		$this->load->model('Dispatch_model');
 		
 	
 	}
 	
 	public function index()
 	{
-		$mm = new Member;
+		$dm = new Dispatch_model;
 		
-		$mm->remove(3);
+		$dm->getTestingList(1);
 		//$data = $per->selectPermission(2);
 		
 	//	$per->createGroup('檢測');//組合鍵問題
