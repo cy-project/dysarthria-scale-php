@@ -15,7 +15,10 @@ class Member_model extends CI_Model
 
 	public function insertMember($person)
 	{
+<<<<<<< HEAD
 
+=======
+>>>>>>> eea7443a571b230f72a82a8985d3f433cc6bb530
 		$this->db->set('account',$person->account);
 		$this->db->set('password',$person->password);
 		$this->db->set('mail',$person->mail);
@@ -24,10 +27,34 @@ class Member_model extends CI_Model
 		$this->db->set('name',$person->name);
 		$this->db->set('contacter',$person->contacter);
 		$this->db->set('identity',$person->identity);
+<<<<<<< HEAD
 		$this->db->set('status',0);
 		$this->db->insert('member');
 	
 	}
+=======
+		$this->db->set('status',1);
+		$this->db->insert('member');
+	
+	}
+	
+	public function removeMember($uid)
+	{
+		$this->db->where('id',$uid);
+		
+		$this->db->delete('member');
+	
+	}
+	
+	public function freezeMember($uid)
+	{
+		$data = array('status'=>0);
+		
+		$this->db->where('id',$uid);
+		
+		$this->db->update('member',$data);
+	}
+>>>>>>> eea7443a571b230f72a82a8985d3f433cc6bb530
 
 
 }
