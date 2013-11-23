@@ -30,6 +30,17 @@ class Member
 		
 		$mm->freezeMember($uid);
 	}
+	
+	public function update($uid,$array)
+	{
+		/**
+		array struct like this array('column_name'=>value,'column_name'=>value);
+		*/
+	
+		$mm = new Member_model;
+		
+		$mm->updateMember($uid,$array);
+	}
 
 
 }

@@ -44,6 +44,13 @@ class Member_model extends CI_Model
 		
 		$this->db->update('member',$data);
 	}
+	
+	public function updateMember($uid,$array)
+	{
+		$this->db->where('id',$uid);
+		
+		$this->db->update('member',$array);
+	}
 
 
 }
