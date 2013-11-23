@@ -37,6 +37,11 @@ class Userapplication extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('sidebar-nav');
 	}
+	public function usersadmin()
+	{
+		$this->load->helper('url');
+		$this->load->view('users-admin');
+	}
 }
 
 /* End of file welcome.php */

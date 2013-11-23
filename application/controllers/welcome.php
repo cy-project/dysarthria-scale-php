@@ -2,47 +2,45 @@
 
 class Welcome extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+	function __construct()
+	{
+		parent::__construct();
+		
+		$this->load->library('Personal_data');
+		$this->load->library('member');
+	
+	}
+
 	public function index()
 	{
 		$this->load->view('index');
-		$this->load->helper('url');
 	}
-	public function head()
+	public function slide()
 	{
-		$this->load->helper('url');
-		$this->load->view('head');
+		$this->load->view('slideshow');
 	}
-	public function navbar()
+	public function login()
 	{
-		$this->load->helper('url');
-		$this->load->view('navbar');
+		$this->load->view('login');
 	}
-	public function sidebar()
+	public function register()
 	{
-		$this->load->helper('url');
-		$this->load->view('sidebar-nav');
+		$this->load->view('register');
 	}
-	public function news()
-	{
-		$this->load->helper('url');
-		$this->load->view('index-news');
-	}
+	
+	public function registering(){  
+        $person = new Personal_data;
+		$mem = new Member;
+		
+		$person->account = $this->input->post("account");  
+        $person->password = $this->input->post("password");  
+        $person->name = $this->input->post("name");  
+        $person->mail = $this->input->post("email");
+        $person->tel1 = $this->input->post("telephone");
+        $person->contacter = $this->input->post("contact");
+        $person->tel2 = $this->input->post("telephone2");
+        $person->identity = $this->input->post("recipient");
+		
+		$mem->register($person);
+    } 
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */

@@ -14,7 +14,7 @@
         </div>
         
                 <ul class="breadcrumb">
-            <li><a href="<?=base_url()?>">首頁</a> <span class="divider">/</span></li>
+            <li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
             <li class="active">權限申請狀況</li>
         </ul>
 

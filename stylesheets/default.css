@@ -1,0 +1,85 @@
+@charset utf-8;
+/*
+
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+
+Code licensed under the BSD License:
+
+http://developer.yahoo.net/yui/license.txt
+
+version: 3.0.0
+
+build: 1549
+
+*/html{color:#000;background:#FFF;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0; margin: 10px 0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+li{list-style:none;}
+caption,th{text-align:left;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;font-variant:normal;}
+sup{vertical-align:text-top;}
+sub{vertical-align:text-bottom;}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
+input,textarea,select{font-size:100%;}
+legend{color:#000;}
+body{
+	font-family: "Microsoft JhengHei","Microsoft YaHei",Arial,simhei,"Trebuchet MS",Verdana,Sans-Serif;
+	font-size:small;
+	font:x-small;
+}
+select,input,button,textarea{font:99% arial,helvetica,clean,sans-serif;}
+table{font-size:inherit;font:100%;}
+pre,code,kbd,samp,tt{font-family:monospace;font-size:108%;line-height:100%;}
+/*
+
+Basic
+
+===========*/a img{border:0;}
+a {color:#3DAD9F;text-decoration:none;}
+a:focus,a:hover,a:active{color:#379d90;}
+a.rss{background:url(../images/rss/feed-icon.png) no-repeat center right;padding-right:32px;}
+/*
+
+Classes
+
+==============*/.clear{clear:both;}
+br.clear{display:block;}
+.accesskey{color:inherit;/*visibility:hidden;*//*position:absolute;*/text-indent:-999em;}
+.column{display:inline;float:left;position:relative;}
+.colmask{clear:both;overflow:hidden;position:relative;}
+.colmask:after{clear:both; content:" "; height:1px; visible:hidden;}
+* html .colmask{height:1%;}
+ul.nav{clear:both;overflow:hidden;position:relative;}
+ul.nav:after{clear:both;content:" ";height:1px; visible:hidden;}
+ul.nav li{display:inline;float:left;position:relative;}
+ul.nav li a,ul.nav li a:visited{display:block;text-decoration:none;}
+ul.nav li a:focus,ul.nav li a:hover,ul.nav li a:active{text-decoration:underline;}
+ul.nav li a span{cursor:pointer;display:block;position:absolute;}
+ul.list a,ol.list a,ul.list a:visited,ol.list a:visited{color:inherit;text-decoration:none;}
+ul.list a:focus,ul.list a:hover,ul.list a:active,ol.list a:focus,ol.list a:hover,ol.list a:active{text-decoration:underline;}
+ul.links a:hover,ul.links a:focus,ul.links a:active,ol.links a:hover,ol.links a:focus,ol.links a:active{background-color:#e4e9e6;text-decoration:none;}
+ul.links a,ol.links a{display:block;padding:1px 0;}
+/*
+
+ Page Structure
+
+==============*/html{background-color:#e4dfd7;background-color:#fff;}
+html,body,#doc{height:100%;}
+body > #doc{height:auto;min-height:100%;}
+#doc{background-color:#fff;/*background-color: #f2f4f0;*/}
+#doc-inner{padding-bottom:170px;padding-bottom:135px;}
+body#index #doc-inner{padding-bottom:135px;}
+#header,#navigation,#content,#gateways-box,#news-mod,#secondary-content-bd-inner,#footer{width:960px;margin:0 auto;}
+body#index #content{width:auto;margin:0;}
+#hd{background:#ebe8e4 url(../images/hd_bg.png) repeat-x;height:180px;overflow:hidden;}
+#hdr{background:transparent url(../images/hdr_bg.png) no-repeat top center;height:180px;}
+#doc-inner > #hd{min-height:180px;height:auto;}
+/*
+
+	=相片輪播
+
+*/#slideshow{/*background-color:#444;*/width:1200px;height:250px;overflow:hidden;}
+

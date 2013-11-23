@@ -4,6 +4,7 @@
     include "head.php";
   ?> 
   <body> 
+	<!--<![endif]-->
     <?
 	  include "navbar.php";
 	  include "sidebar-nav.php";
@@ -12,19 +13,20 @@
         
         <div class="header">
             
-            <h1 class="page-title">專案管理</h1>
+            <h1 class="page-title">教師</h1>
         </div>
         
                 <ul class="breadcrumb">
-            <li><a href="<?=base_url("/Dysarthria/index"?>">首頁</a> <span class="divider">/</span></li>
-            <li class="active">專案管理</li>
+            <li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
+            <li class="active">教師</li>
         </ul>
 
         <div class="container-fluid">
             <div class="row-fluid">
                     
 <div class="btn-toolbar">
-    <a href="project-newproject.html"><button class="btn btn-primary"><i class="icon-plus"></i> 新增</button></a>
+    <button class="btn btn-primary"><i class="icon-plus"></i> 新增身分</button>
+    <button class="btn">搜尋</button>
   <div class="btn-group">
   </div>
 </div>
@@ -32,55 +34,30 @@
     <table class="table">
       <thead>
         <tr>
-          <th style="width: 26px;">#</th>
-          <th>年份</th>
-          <th>學校名稱</th>
+          <th>#</th>
+          <th>身分名稱</th>
           <th>人數</th>
-          <th>地區</th>
-          <th>專案管理員</th>
-          <th>日期設定</th>
-          <th>人員管理</th>
-          <th style="width: 26px;"></th>
+          <th>權限</th>
+          <th style="width: 60px;">編輯權限</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td>2013</td>
-          <td>OO幼稚園</td>
-          <td>25</td>
-          <td>高雄左營</td>
-          <td>大學生A</td>
-          <td>2013/9/25 <a href="#"><i class="icon-calendar"></i></a></td>
-          <td><a href="project-dispatch.html">派遣</a></td>
+          <td><a href="#">教師</a></td>
+          <td>18</td>
+          <td>OO幼兒園</td>
           <td>
-              <a href="project-data.html"><i class="icon-arrow-right"></i></a>
+              <a href="user-teacher.html"><i class="icon-pencil"></i></a>
           </td>
         </tr>
         <tr>
           <td>2</td>
-		  <td>2013</td>
-          <td>XX幼稚園</td>
-          <td>30</td>
-          <td>屏東</td>
-		  <td>大學生B</td>
-		  <td> <a href="#"><i class="icon-calendar"></i></a></td>
-		  <td><a href="project-dispatch.html">派遣</a></td>
-          <td>
-              <a href="#"><i class="icon-arrow-right"></i></a>
-          </td>
-        </tr>
-		<tr>
+          <td><a href="#">語言治療師</a></td>
           <td>3</td>
-		  <td>2012</td>
-          <td>ABC幼稚園</td>
-          <td>50</td>
-          <td>桃園</td>
-		  <td>大學生C</td>
-		  <td>尚未派遣</td>
-		  <td><a href="project-dispatch.html">派遣</a></td>
+          <td>XX幼兒園</td>
           <td>
-              <a href="#"><i class="icon-arrow-right"></i></a>
+			  <a href="user-teacher.html"><i class="icon-pencil"></i></a>
           </td>
         </tr>
       </tbody>

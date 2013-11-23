@@ -249,6 +249,9 @@ a.block-heading,
   border-top: 1px solid #fff;
   outline: none;
 }
+a.disnon {
+  display: inline;
+}
 a.block-heading:hover,
 .block-heading a:hover {
   background: #dddddd;
@@ -366,6 +369,7 @@ a.block-heading:hover,
 .btn {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
+  border-radius: 0px;
 }
 .btn-primary {
   background-color: #414959;
@@ -682,7 +686,7 @@ input[type="password"] {
   text-align: center;
 }
 .stat-widget-container .stat-widget {
-  width: 25%;
+  width: 33%;
   float: left;
 }
 .stat-widget-container .stat-widget .stat-button {
