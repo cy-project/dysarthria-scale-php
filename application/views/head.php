@@ -13,11 +13,7 @@
 	<script src="<?=base_url("lib/bootstrap/js/bootstrap.js")?>" type="text/javascript"></script>
     <script src="<?=base_url("/js/sorttable.js")?>" type="text/javascript"></script>	
     <script src="<?=base_url("/js/jquery.cookie.js")?>" type="text/javascript"></script>	
-<<<<<<< HEAD
-=======
-	<script src="<?=base_url("/lib/bootstrap/js/bootstrap.js")?>" type="text/javascript"></script>
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
->>>>>>> e7b872056cdeda6ab0f7792af24d68bc899d07bf
 
     <!-- Demo page code -->
 
