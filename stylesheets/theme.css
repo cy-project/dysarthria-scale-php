@@ -142,6 +142,9 @@ hr {
 .page-content {
   padding: 1em;
 }
+textarea.news {
+width: 98%;
+}
 footer {
   padding: 1em;
   margin-top: 4em;
