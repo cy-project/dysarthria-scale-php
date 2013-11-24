@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="stylesheet" type="text/css" href="<?=base_url("/lib/bootstrap/css/bootstrap.css")?>">
+    <link rel="STU icon" href="<?=base_url("/images/favicon.png")?>">
+	<link rel="stylesheet" type="text/css" href="<?=base_url("/lib/bootstrap/css/bootstrap.css")?>">
     <link rel="stylesheet" type="text/css" href="<?=base_url("/stylesheets/theme.css")?>">
     <link rel="stylesheet" href="<?=base_url("/lib/font-awesome/css/font-awesome.css")?>">
     <script src="<?=base_url("/lib/jquery-1.7.2.min.js")?>" type="text/javascript"></script>
+	<script src="<?=base_url("lib/bootstrap/js/bootstrap.js")?>" type="text/javascript"></script>
     <script src="<?=base_url("/js/sorttable.js")?>" type="text/javascript"></script>	
     <script src="<?=base_url("/js/jquery.cookie.js")?>" type="text/javascript"></script>	
-	<script src="<?=base_url("lib/bootstrap/js/bootstrap.js")?>" type="text/javascript"></script>
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
     <!-- Demo page code -->
 
@@ -32,18 +32,12 @@
             color: #fff;
             font-weight: bold;
         }
-	</style>
+    </style>
+
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?=base_url("/assets/ico/apple-touch-icon-144-precomposed.png")?>">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?=base_url("/assets/ico/apple-touch-icon-114-precomposed.png")?>">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?=base_url("/assets/ico/apple-touch-icon-114-precomposed.png")?>">
-    <link rel="apple-touch-icon-precomposed" href="<?=base_url("/assets/ico/apple-touch-icon-57-precomposed.png")?>">
   </head>
 
   <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->

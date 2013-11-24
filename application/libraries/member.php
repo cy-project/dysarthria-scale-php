@@ -11,23 +11,13 @@ class Member
 	
 	}
 	
-<<<<<<< HEAD
-	public function register($person)
-=======
 	public function register($person)//µù¥U
->>>>>>> eea7443a571b230f72a82a8985d3f433cc6bb530
 	{
 		$mm = new Member_model;
 		$mm->insertMember($person);
 	}
 	
-<<<<<<< HEAD
-	public function remove()
-	{
-	
-	}
-	
-=======
+
 	public function remove($uid)//§R°£
 	{
 		$mm = new Member_model;
@@ -35,13 +25,35 @@ class Member
 		$mm->removeMember($uid);
 	}
 	
-	public function freeze($uid)//°±Åv
+	public function freeze($uid)//åœæ¬Š
 	{
 		$mm = new Member_Model;
 		
 		$mm->freezeMember($uid);
 	}
->>>>>>> eea7443a571b230f72a82a8985d3f433cc6bb530
+
+	
+	public function update($uid,$array)
+	{
+		/**
+		array struct like this array('column_name'=>value,'column_name'=>value);
+		*/
+	
+		$mm = new Member_model;
+		
+		$mm->updateMember($uid,$array);
+	}
+	
+	
+	public function getMemberData($uid)
+	{
+		$mm = new Member_model;
+		
+		$person = $mm->getMemberData($uid);
+		
+		return $person;
+	}
+
 
 
 }

@@ -15,8 +15,8 @@
             <h1 class="page-title">專案管理</h1>
         </div>
         
-                <ul class="breadcrumb">
-            <li><a href="<?=base_url("/Dysarthria/index"?>">首頁</a> <span class="divider">/</span></li>
+        <ul class="breadcrumb">
+            <li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
             <li class="active">專案管理</li>
         </ul>
 

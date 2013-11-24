@@ -10,11 +10,15 @@ class projectview_admin extends CI_Controller {
 		
 	}
 	public function new_picking(){
-		$test=$_POST['name_button'];
-		$test1=$_POST['name'];
-		$this->data['count_button']=$test;
-		$this->data['count_page']=$test1;
-		echo $this->data['count_button'];
+		$number_button=$_POST['number_button'];
+		$number_page=$_POST['number_page'];
+		if($number_button==1&&$number_page==1)//新增受測者
+			echo'/subjects_view_glossary';
+		elseif($number_button==2&&$number_page==1)//派遣
+			echo '/new_personnel_Practitioner';
+		elseif($number_page==2&&$number_button==1)//新增
+			echo '/new_personnel_Practitioner';
+		
 	}
 	public function new_personnel_Practitioner(){
 		$this->load->view('New-personnel-Practitioner');
