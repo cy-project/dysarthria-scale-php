@@ -13,9 +13,12 @@ class Dispatch_json
 		$dm = new Dispatch_model();
 		$array = $dm->createDispatchJson($pid);
 		
-		$fp = fopen("SCHEDULE/schedule_20131124_1.json","a");
-		fwrite($fp, json_encode($array));
 		
+		//echo $array->exam_info[0]['start'];
+		
+		/*$fp = fopen("SCHEDULE/schedule_20131124_1.json","a");
+		fwrite($fp, json_encode($array));
+		*/
 	} 
 
 }
