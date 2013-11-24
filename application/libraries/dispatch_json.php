@@ -8,7 +8,7 @@ class Dispatch_json
 		$CI->load->model('Dispatch_model');
 	}
 	
-	public function dispatch($pid)
+	public function dispatch($pid,$times)
 	{
 		$dm = new Dispatch_model();
 		$array = $dm->createDispatchJson($pid);
@@ -20,7 +20,7 @@ class Dispatch_json
 		
 		$date = $date[0].$date[1].$date[2];
 
-		$fp = fopen("SCHEDULE/schedule_".$date."_1.json","a");
+		$fp = fopen("SCHEDULE/schedule_".$date."_".$times.".json","a");
 		fwrite($fp, json_encode($array));
 		
 	} 

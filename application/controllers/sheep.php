@@ -17,7 +17,7 @@ class Sheep extends CI_Controller
 
 		$dm = new Dispatch_json;
 		
-		$dm->dispatch(1);
+		$dm->dispatch(1,2);
 
 	}
 	
