@@ -56,6 +56,26 @@ class Member_model extends CI_Model
 		$this->db->update('member',$array);
 	}
 	
+	public function selectAccount($account)
+	{
+		$person = new Personal_data();
+		$this->db->select('`account`');
+		$this->db->from('member');
+		$this->db->where('account',$account);
+		$data = $this->db->get();
+		
+		if ($data->num_rows > 0)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+		
+	}
+	
+	
 	public function getMemberData($uid)
 	{
 		$person = new Personal_data();
