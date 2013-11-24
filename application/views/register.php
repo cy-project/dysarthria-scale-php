@@ -15,7 +15,6 @@
 	<section id="container">
 		<span class="chyron"><em><a href="<?=base_url()?>">&laquo; 回首頁</a></em></span>
 		<h2>請填寫您的基本資料</h2>
-<<<<<<< HEAD
 		<form name="hongkiat" id="hongkiat-form" method="post" action="<?=base_url("/Welcome/registering")?>">
 			<div id="wrapping" class="clearfix">
 				<section id="aligned">
@@ -41,15 +40,35 @@
 					
 					<input type="text" name="passwordrt" id="passwordrt" placeholder="確認密碼" autocomplete="off" tabindex="2" class="txtinput">
 					
+					<?php if(isset($name)){ ?>
+					<input type="text" name="name" id="name" value="<?=htmlspecialchars($name)?>" placeholder="姓名" autocomplete="off" tabindex="3" class="txtinput">
+					<?php }else{ ?>
 					<input type="text" name="name" id="name" placeholder="姓名" autocomplete="off" tabindex="3" class="txtinput">
-				
+					<?php } ?>
+					
+					<?php if(isset($mail)){ ?>
+					<input type="email" name="email" id="email" value="<?=htmlspecialchars($mail)?>" placeholder="電子郵件" autocomplete="off" tabindex="4" class="txtinput">
+					<?php }else{ ?>
 					<input type="email" name="email" id="email" placeholder="電子郵件" autocomplete="off" tabindex="4" class="txtinput">
+					<?php } ?>
 				
+					<?php if(isset($tel1)){ ?>
+					<input type="tel" name="telephone" id="telephone" value="<?=htmlspecialchars($tel1)?>" placeholder="聯絡電話1" tabindex="5" class="txtinput">
+					<?php }else{ ?>
 					<input type="tel" name="telephone" id="telephone" placeholder="聯絡電話1" tabindex="5" class="txtinput">
+					<?php } ?>
 					
+					<?php if(isset($contacter)){ ?>
+					<input type="text" name="contact" id="contact" value="<?=htmlspecialchars($contacter)?>" placeholder="緊急聯絡人" autocomplete="off" tabindex="6" class="txtinput">
+					<?php }else{ ?>
 					<input type="text" name="contact" id="contact" placeholder="緊急聯絡人" autocomplete="off" tabindex="6" class="txtinput">
-					
+					<?php } ?>
+				
+					<?php if(isset($tel2)){ ?>
+					<input type="tel" name="telephone2" id="telephone" value="<?=htmlspecialchars($tel2)?>" placeholder="聯絡電話2" tabindex="7" class="txtinput">
+					<?php }else{ ?>
 					<input type="tel" name="telephone2" id="telephone" placeholder="聯絡電話2" tabindex="7" class="txtinput">
+					<?php } ?>
 					
 				</section> 
 				

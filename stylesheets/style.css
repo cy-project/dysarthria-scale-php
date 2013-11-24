@@ -105,12 +105,9 @@ background: #fff url('../images/account.png') 5px 4px no-repeat;
 #hongkiat-form input#password {
 background: #fff url('../images/password.png') 5px 4px no-repeat;
 }
-<<<<<<< HEAD
 #hongkiat-form input#passwordrt {
 background: #fff url('../images/password.png') 5px 4px no-repeat;
 }
-=======
->>>>>>> cff1d80203e7d54a1cda95260dc203b749554df7
 #hongkiat-form input#contact{
 background: #fff url('../images/contact.png') 5px 4px no-repeat;
 }
@@ -178,6 +175,7 @@ color: #676767;
 padding: 9px !important;
 border: 1px solid #aaa;
 width: 200px;
+height: 40px;
 }
 
 /** custom buttons **/

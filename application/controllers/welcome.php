@@ -41,7 +41,13 @@ class Welcome extends CI_Controller {
 		if( trim($account) =="" || trim($password) =="" || trim($name) =="" || trim($mail) =="" || trim($tel1) =="" || trim($contacter) =="" || trim($tel2) =="" || trim($identity) =="" ){  
 			$this->load->view('register',Array(  
 				"errorMessage" => "資料不得有空值，請重新輸入！" ,  
-				"account" => $account  
+				"account" => $account ,
+				"name" => $name ,
+				"mail" => $mail ,
+				"tel1" => $tel1 ,
+				"contacter" => $contacter ,
+				"tel2" => $tel2 ,
+				"identity" => $identity
 			));  
 			return false;  
 		}  
@@ -49,7 +55,13 @@ class Welcome extends CI_Controller {
 		if( $password != $passwordrt ){  
 			$this->load->view('register',Array(  
 				"errorMessage" => "密碼不相同，請重新輸入！" ,  
-				"account" => $account  
+				"account" => $account ,
+				"name" => $name ,
+				"mail" => $mail ,
+				"tel1" => $tel1 ,
+				"contacter" => $contacter ,
+				"tel2" => $tel2 ,
+				"identity" => $identity
 			));  
 			return false;  
 		}  
@@ -68,10 +80,9 @@ class Welcome extends CI_Controller {
 		$mem->register($person);
 		
 		$this->load->view('register',Array(  
-				"successMessage" => "你已經完成註冊，接下來馬上到登入頁面去試試看吧！  
-				<a href=" . base_url() . ">回首頁</a> " ,  
-			)); 
-		
+			"successMessage" => "你已經完成註冊，接下來馬上到登入頁面去試試看吧！  
+			<a href=" . base_url() . ">回首頁</a> " ,  
+		)); 
     }
 	
 	public function login()
