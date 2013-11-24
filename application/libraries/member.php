@@ -11,13 +11,14 @@ class Member
 	
 	}
 	
-	public function register($person)//è¨»å†Š
+	public function register($person)//µù¥U
 	{
 		$mm = new Member_model;
 		$mm->insertMember($person);
 	}
 	
-	public function remove($uid)//åˆªé™¤
+
+	public function remove($uid)//§R°£
 	{
 		$mm = new Member_model;
 		
@@ -30,6 +31,7 @@ class Member
 		
 		$mm->freezeMember($uid);
 	}
+
 	
 	public function update($uid,$array)
 	{
@@ -51,6 +53,7 @@ class Member
 		
 		return $person;
 	}
+
 
 
 }

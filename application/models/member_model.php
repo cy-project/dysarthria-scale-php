@@ -15,6 +15,7 @@ class Member_model extends CI_Model
 
 	public function insertMember($person)
 	{
+
 		$this->db->set('account',$person->account);
 		$this->db->set('password',$person->password);
 		$this->db->set('mail',$person->mail);
@@ -23,6 +24,12 @@ class Member_model extends CI_Model
 		$this->db->set('name',$person->name);
 		$this->db->set('contacter',$person->contacter);
 		$this->db->set('identity',$person->identity);
+
+		$this->db->set('status',0);
+		$this->db->insert('member');
+	
+	}
+
 		$this->db->set('status',1);
 		$this->db->insert('member');
 	
@@ -44,6 +51,7 @@ class Member_model extends CI_Model
 		
 		$this->db->update('member',$data);
 	}
+
 	
 	public function updateMember($uid,$array)
 	{
@@ -81,5 +89,6 @@ class Member_model extends CI_Model
 		}
 	
 	}
+
 
 }
