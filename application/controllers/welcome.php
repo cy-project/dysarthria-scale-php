@@ -8,7 +8,6 @@ class Welcome extends CI_Controller {
 		
 		$this->load->library('Personal_data');
 		$this->load->library('member');
-	
 	}
 
 	public function index()

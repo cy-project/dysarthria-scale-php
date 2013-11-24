@@ -14,7 +14,7 @@
 			<div class="content">
 			<!-------------------------------------------------------------------------------路徑------------------------------------------------------------------------->
 				<div class="header">
-					<h1 class="page-title">專案管理</h1>
+					<h1 class="page-title">幼音評測</h1>
 				</div>
 				<ul class="breadcrumb">
 					<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
@@ -25,15 +25,14 @@
 				<div class="container-fluid">
 				<!-------------------------------------------------------------------------------內容------------------------------------------------------------------------->
 					<div class="row-fluid">
-						<div class="btn-toolbar">
-							<span>
-								<a href="<?=base_url("/projectview_admin")?>"><button class="btn btn-primary" id="new_people" onclick="ButtonClick(1)"><i class="icon-plus"></i>新增</button></a>
-							</span>
-							<span>
-								<button class="btn btn-primary" id="dispatch" onclick="ButtonClick(2)'">派遣</button>
-							</span>
-						</div>
-						
+							<div class="btn-toolbar">
+								<span>
+								<button class="btn btn-primary" id="new_people" onclick="test()"><i class="icon-plus"></i>新增</button>
+								</span>
+								<span>
+									<button class="btn btn-primary" id="dispatch" onclick="ButtonClick(2)'">派遣</button>
+								</span>
+							</div>
 						<div class="well" >
 							<ul class="nav nav-tabs" style="margin-bottom: 0px;">
 								<li class="active" name="board"><a id="practitioner" href="#university_student" data-toggle="tab" onclick="OneClick(1)">施測者</a></li>
@@ -44,313 +43,267 @@
 								<li name="board"><a id="applicants" href="#application" data-toggle="tab">申請者</a></li>
 							</ul>
 							<div id="myTabContent" class="tab-content">
-									<div class="tab-pane active in" id="chit">
+									<div class="tab-pane active in" id="university_student">
 										<div class="well" style="border: 0px;">
-											<table class="sortable table"><!--受測者-->
-												<thead>
-													<tr>
-														<th><a href="#">#</a></th>
-														<th><a href="#">學生姓名</a></th>
-														<th><a href="#">年齡</a></th>
-														<th><a href="#">班級</a></th>
-														<th><a href="#">評分狀況</a></th>
-														<th><a href="#">施測者</a></th>
-														<th><a href="#">評測者</a></th>
-														<th class="sorttable_nosort">編輯</th>
-														<th class="sorttable_nosort">檢視</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td id="number_sybjects_1">1</td>
-														<td id="name_sybjects_1">王小明</td>
-														<td id="age_sybjects_1">7</td>
-														<td id="class_sybjects_1">大班</td>
-														<td id="fraction_dybjects_1">75%</td>
-														<td id="rater_dybjects_1">Mark</td>
-														<td id="evaluators_dybjects_1">評測者A</td>
-														<td>
-															<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-															<a href="subjects_view"><i class="icon-eye-open"></i></a>
-														</td>
-													</tr>
-													<tr>
-														<td id="number_sybjects_2">2</td>
-														<td id="name_sybjects_2">李小刀</td>
-														<td id="age_sybjects_2">6</td>
-														<td id="class_sybjects_2">中班</td>
-														<td id="fraction_sybjects_2">65%</td>
-														<td id="rater_dybjects_2">Ashley</td>
-														<td id="evaluators_sybjects_2">評測者C</td>
-														<td>
-															<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-															<a href="subjects_view"><i class="icon-eye-open"></i></a>
-														</td>
-													</tr>
+											<form name="project_admet" action="<?=base_url("/projectview_admin/practitioner_alter")?>" method="post">
+												<table class="sortable table"><!--施測者-->
+													<thead>
 														<tr>
-														<td id="number_sybjects_3">3</td>
-														<td id="name_sybjects_3">馬小九</td>
-														<td id="age_sybjects_3">6</td>
-														<td id="class_sybjects_3">中班</td>
-														<td id="fraction_sybjects_3">85%</td>
-														<td id="rater_dybjects_3">Mark</td>
-														<td id="evaluators_sybjects_3">評測者B</td>
-														<td>
-															<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-															<a href="subjects_view"><i class="icon-eye-open"></i></a>
-														</td>
-													</tr>
-													<tr>
-														<td id="number_sybjects_4">4</td>
-														<td id="name_sybjects_4">周小倫</td>
-														<td id="age_sybjects_4">7</td>
-														<td id="class_sybjects_4">大班</td>
-														<td id="fraction_sybjects_4">90%</td>
-														<td id="rater_dybjects_4">Ashley</td>
-														<td id="evaluators_sybjects_4">評測者A</td>
-														<td>
-															<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-															<a href="subjects_view"><i class="icon-eye-open"></i></a>
-														</td>
-													</tr>
-													<tr>
-														<td id="number_sybjects_5">5</td>
-														<td id="name_sybjects_5">張大三</td>
-														<td id="age_sybjects_5">5</td>
-														<td id="class_sybjects_5">小班</td>
-														<td id="fraction_sybjects_5">65%</td>
-														<td id="rater_dybjects_5">John</td>
-														<td id="evaluators_sybjects_5">評測者B</td>
-														<td>
-															<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-															<a href="subjects_view"><i class="icon-eye-open"></i></a>
-														</td>
-													</tr>
-													<tr>
-														<td id="number_sybjects_6">6</td>
-														<td id="name_sybjects_6">李大仁</td>
-														<td id="age_sybjects_6">8</td>
-														<td id="class_sybjects_6">大班</td>
-														<td id="fraction_sybjects_6">95%</td>
-														<td id="rater_dybjects_6">John</td>
-														<td id="evaluators_sybjects_6">評測者C</td>
-														<td>
-															<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-															<a href="subjects_view"><i class="icon-eye-open"></i></a>
-														</td>
-													</tr>
-													<tr>
-														<td id="number_sybjects_7">7</td>
-														<td id="name_sybjects_7">王小明</td>
-														<td id="age_sybjects_7">7</td>
-														<td id="class_sybjects_7">大班</td>
-														<td id="fraction_dybjects_7">75%</td>
-														<td id="rater_dybjects_7">Mark</td>
-														<td id="evaluators_dybjects_7">評測者A</td>
-														<td>
-															<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-																<a href="subjects_view"><i class="icon-eye-open"></i></a>
-														</td>
-													</tr>
-													<tr>
-														<td id="number_sybjects_8">8</td>
-														<td id="name_sybjects_8">李小刀</td>
-														<td id="age_sybjects_8">6</td>
-														<td id="class_sybjects_8">中班</td>
-														<td id="fraction_sybjects_8">65%</td>
-														<td id="rater_dybjects_8">Ashley</td>
-														<td id="evaluators_sybjects_8">評測者C</td>
-														<td>
-															<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-															<a href="subjects_view"><i class="icon-eye-open"></i></a>
-														</td>
-													</tr>
-													<tr>
-														<td id="number_sybjects_9">9</td>
-														<td id="name_sybjects_9">馬小九</td>
-														<td id="age_sybjects_9">6</td>
-														<td id="class_sybjects_9">中班</td>
-														<td id="fraction_sybjects_9">85%</td>
-														<td id="rater_dybjects_9">Mark</td>
-														<td id="evaluators_sybjects_9">評測者B</td>
-														<td>
-															<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-															<a href="subjects_view"><i class="icon-eye-open"></i></a>
-														</td>
-													</tr>
-													<tr>
-														<td id="number_sybjects_10">10</td>
-														<td id="name_sybjects_10">周小倫</td>
-														<td id="age_sybjects_10">7</td>
-														<td id="class_sybjects_10">大班</td>
-														<td id="fraction_sybjects_10">90%</td>
-														<td id="rater_dybjects_10">Ashley</td>
-														<td id="evaluators_sybjects_10">評測者A</td>
-														<td>
-															<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-															<a href="subjects_view"><i class="icon-eye-open"></i></a>
-														</td>
-													</tr>
-												</tbody>
-											</table>
+															<th><a href="#">#</a></th>
+															<th><a href="#">姓名</a></th>
+															<th><a href="#">專案權限</a></th>
+															<th><a href="#">施測期限</a></th>
+															<th class="sorttable_nosort" onclick="checkall()"><a href="#">派遣(全選)</a></th>
+															<th class="sorttable_nosort">編輯</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td id="number_surveying_1">1</td>
+															<td id="name_surveying_1">Mark</td>
+															<td id="competence_surveying_1">大學生</td>
+															<td id="time_surveying_1">2013-11-11</td>
+															<td>
+																<input type="checkbox" name="selected" value="1">
+															</td>
+															<td>
+																<a href="<?=base_url("/projectview_admin/practitioner_alter")?>?name=Mark"><i class="icon-pencil"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td>2</td>
+															<td>Ashley</td>
+															<td>教師</td>
+															<td>2013-11-11</td>
+															<td>
+																<input type="checkbox" name="selected" value="2">
+															</td>
+															<td>
+																<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-pencil"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td>3</td>
+															<td>Audrey</td>
+															<td>大學生</td>
+															<td>2013-11-11</td>
+															<td>
+																<input type="checkbox" name="selected" value="3">
+															</td>
+															<td>
+																<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-pencil"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td>4</td>
+															<td>John</td>
+															<td>大學生</td>
+															<td>2013-11-11</td>
+															<td>
+																<input type="checkbox" name="selected" value="4">
+															</td>
+															<td>
+																<a href="project_see.php"><i class="icon-pencil"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td>5</td>
+															<td>Aaron</td>
+															<td>語言治療師</td>
+															<td>2013-11-11</td>
+															<td>
+																<input type="checkbox" name="selected" value="5">
+															</td>
+															<td>
+																<a href="project_see.php"><i class="icon-pencil"></i></a>
+															</td>
+															</tr>
+														<tr>
+															<td>6</td>
+															<td>Chris</td>
+															<td>教師</td>
+															<td>2013-11-11</td>
+															<td>
+																<input type="checkbox" name="selected" value="6">
+															</td>
+															<td>
+																<a href="project_see.php"><i class="icon-pencil"></i></a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</form>
 										</div>
 									</div>
-								<div class="tab-pane fade" id="university_student"><!--施測者-->
+								<div class="tab-pane fade" id="chit">
 									<div class="well" style="border: 0px;">
-										<table class="sortable table">
-											<thead>
-													<tr>
-													<th><a href="#">#</a></th>
-													<th><a href="#">姓名</a></th>
-													<th><a href="#">專案權限</a></th>
-													<th><a href="#">施測期限</a></th>
-													<th class="sorttable_nosort" onclick="checkall()"><a href="#">派遣(全選)</a></th>
-													<th class="sorttable_nosort">編輯</th>
-												</tr>
-												</thead>
-											<tbody>
-												<tr>
-													<td id="number_surveying_1">1</td>
-													<td id="name_surveying_1">Mark</td>
-													<td id="competence_surveying_1">大學生</td>
-													<td id="time_surveying_1">2013-11-11</td>
-													<td>
-														<input type="checkbox" name="selected" value="1">
-													</td>
-													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
-													</td>
-												</tr>
-												<tr>
-													<td>2</td>
-													<td>Ashley</td>
-													<td>教師</td>
-													<td>2013-11-11</td>
-													<td>
-														<input type="checkbox" name="selected" value="2">
-													</td>
-													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
-													</td>
-												</tr>
-												<tr>
-													<td>3</td>
-													<td>Audrey</td>
-													<td>大學生</td>
-													<td>2013-11-11</td>
-													<td>
-														<input type="checkbox" name="selected" value="3">
-													</td>
-													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
-													</td>
-												</tr>
-												<tr>
-													<td>4</td>
-													<td>John</td>
-													<td>大學生</td>
-													<td>2013-11-11</td>
-													<td>
-														<input type="checkbox" name="selected" value="4">
-													</td>
-													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
-													</td>
-												</tr>
-												<tr>
-													<td>5</td>
-													<td>Aaron</td>
-													<td>語言治療師</td>
-													<td>2013-11-11</td>
-													<td>
-														<input type="checkbox" name="selected" value="5">
-													</td>
-													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
-													</td>
-													</tr>
-												<tr>
-													<td>6</td>
-													<td>Chris</td>
-													<td>教師</td>
-													<td>2013-11-11</td>
-													<td>
-														<input type="checkbox" name="selected" value="6">
-													</td>
-													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
-													</td>
-												</tr>
-												<tr>
-													<td>7</td>
-													<td>Mark</td>
-													<td>大學生</td>
-													<td>2013-11-11</td>
-													<td>
-														<input type="checkbox" name="selected" value="7">
-													</td>
-													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
-													</td>
-												</tr>
-												<tr>
-													<td>8</td>
-													<td>Ashley</td>
-													<td>教師</td>
-													<td>2013-11-11</td>
-													<td>
-														<input type="checkbox" name="selected" value="8">
-													</td>
-													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
-													</td>
-												</tr>
-												<tr>
-													<td>9</td>
-													<td>Audrey</td>
-													<td>大學生</td>
-													<td>2013-11-11</td>
-													<td>
-														<input type="checkbox" name="selected" value="9">
-													</td>
-													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
-													</td>
-												</tr>
-												<tr>
-													<td>10</td>
-													<td>John</td>
-													<td>大學生</td>
-													<td>2013-11-11</td>
-													<td>
-														<input type="checkbox" name="selected" value="10">
-													</td>
-													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
-													</td>
-												</tr>
-											</tbody>
-										</table>
+										<table class="sortable table"><!--受測者-->
+													<thead>
+														<tr>
+															<th><a href="#">#</a></th>
+															<th><a href="#">學生姓名</a></th>
+															<th><a href="#">年齡</a></th>
+															<th><a href="#">班級</a></th>
+															<th><a href="#">評分狀況</a></th>
+															<th><a href="#">施測者</a></th>
+															<th><a href="#">評測者</a></th>
+															<th class="sorttable_nosort">編輯</th>
+															<th class="sorttable_nosort">檢視</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td id="number_sybjects_1">1</td>
+															<td id="name_sybjects_1">王小明</td>
+															<td id="age_sybjects_1">7</td>
+															<td id="class_sybjects_1">大班</td>
+															<td id="fraction_dybjects_1">75%</td>
+															<td id="rater_dybjects_1">Mark</td>
+															<td id="evaluators_dybjects_1">評測者A</td>
+															<td>
+																<a href="<?=base_url("/projectview_admin/subjects_new_data")?>?name=王小明"><i class="icon-pencil"></i></a>
+															</td>
+															<td>
+																<a href="<?=base_url("/projectview_admin/subjects_view_group")?>"><i class="icon-eye-open"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td id="number_sybjects_2">2</td>
+															<td id="name_sybjects_2">李小刀</td>
+															<td id="age_sybjects_2">6</td>
+															<td id="class_sybjects_2">中班</td>
+															<td id="fraction_sybjects_2">65%</td>
+															<td id="rater_dybjects_2">Ashley</td>
+															<td id="evaluators_sybjects_2">評測者C</td>
+															<td>
+																<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-pencil"></i></a>
+															</td>
+															<td>
+																<a href="<?=base_url("/projectview_admin/subjects_view_group")?>"><i class="icon-eye-open"></i></a>
+															</td>
+														</tr>
+															<tr>
+															<td id="number_sybjects_3">3</td>
+															<td id="name_sybjects_3">馬小九</td>
+															<td id="age_sybjects_3">6</td>
+															<td id="class_sybjects_3">中班</td>
+															<td id="fraction_sybjects_3">85%</td>
+															<td id="rater_dybjects_3">Mark</td>
+															<td id="evaluators_sybjects_3">評測者B</td>
+															<td>
+																<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-pencil"></i></a>
+															</td>
+															<td>
+																<a href="<?=base_url("/projectview_admin/subjects_view_group")?>"><i class="icon-eye-open"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td id="number_sybjects_4">4</td>
+															<td id="name_sybjects_4">周小倫</td>
+															<td id="age_sybjects_4">7</td>
+															<td id="class_sybjects_4">大班</td>
+															<td id="fraction_sybjects_4">90%</td>
+															<td id="rater_dybjects_4">Ashley</td>
+															<td id="evaluators_sybjects_4">評測者A</td>
+															<td>
+																<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-pencil"></i></a>
+															</td>
+															<td>
+																<a href="<?=base_url("/projectview_admin/subjects_view_group")?>"><i class="icon-eye-open"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td id="number_sybjects_5">5</td>
+															<td id="name_sybjects_5">張大三</td>
+															<td id="age_sybjects_5">5</td>
+															<td id="class_sybjects_5">小班</td>
+															<td id="fraction_sybjects_5">65%</td>
+															<td id="rater_dybjects_5">John</td>
+															<td id="evaluators_sybjects_5">評測者B</td>
+															<td>
+																<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
+															</td>
+															<td>
+																<a href="<?=base_url("/projectview_admin/subjects_view_group")?>"><i class="icon-eye-open"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td id="number_sybjects_6">6</td>
+															<td id="name_sybjects_6">李大仁</td>
+															<td id="age_sybjects_6">8</td>
+															<td id="class_sybjects_6">大班</td>
+															<td id="fraction_sybjects_6">95%</td>
+															<td id="rater_dybjects_6">John</td>
+															<td id="evaluators_sybjects_6">評測者C</td>
+															<td>
+																<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
+															</td>
+															<td>
+																<a href="<?=base_url("/projectview_admin/subjects_view_group")?>"><i class="icon-eye-open"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td id="number_sybjects_7">7</td>
+															<td id="name_sybjects_7">王小明</td>
+															<td id="age_sybjects_7">7</td>
+															<td id="class_sybjects_7">大班</td>
+															<td id="fraction_dybjects_7">75%</td>
+															<td id="rater_dybjects_7">Mark</td>
+															<td id="evaluators_dybjects_7">評測者A</td>
+															<td>
+																<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
+															</td>
+															<td>
+																	<a href="subjects_view"><i class="icon-eye-open"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td id="number_sybjects_8">8</td>
+															<td id="name_sybjects_8">李小刀</td>
+															<td id="age_sybjects_8">6</td>
+															<td id="class_sybjects_8">中班</td>
+															<td id="fraction_sybjects_8">65%</td>
+															<td id="rater_dybjects_8">Ashley</td>
+															<td id="evaluators_sybjects_8">評測者C</td>
+															<td>
+																<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
+															</td>
+															<td>
+																<a href="subjects_view"><i class="icon-eye-open"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td id="number_sybjects_9">9</td>
+															<td id="name_sybjects_9">馬小九</td>
+															<td id="age_sybjects_9">6</td>
+															<td id="class_sybjects_9">中班</td>
+															<td id="fraction_sybjects_9">85%</td>
+															<td id="rater_dybjects_9">Mark</td>
+															<td id="evaluators_sybjects_9">評測者B</td>
+															<td>
+																<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
+															</td>
+															<td>
+																<a href="subjects_view"><i class="icon-eye-open"></i></a>
+															</td>
+														</tr>
+														<tr>
+															<td id="number_sybjects_10">10</td>
+															<td id="name_sybjects_10">周小倫</td>
+															<td id="age_sybjects_10">7</td>
+															<td id="class_sybjects_10">大班</td>
+															<td id="fraction_sybjects_10">90%</td>
+															<td id="rater_dybjects_10">Ashley</td>
+															<td id="evaluators_sybjects_10">評測者A</td>
+															<td>
+																<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
+															</td>
+															<td>
+																<a href="subjects_view"><i class="icon-eye-open"></i></a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
 									</div>
 								</div>
 								<div class="tab-pane fade" id="medical">
@@ -374,7 +327,7 @@
 													<td>語言治療師</td>
 													<td>xx診所醫生</td>
 													<td>
-														<a href="project_see.php"><i class="icon-pencil"></i></a>
+														<a href="<?=base_url("/projectview_admin/evaluators_naw_data")?>?name=Manrye"><i class="icon-pencil"></i></a>
 													</td>
 												</tr>
 													<tr>
@@ -770,21 +723,46 @@
 			</div>
 			<script type="text/javascript">
 				var count=1;
-				function ButtonClick(i){
-					var count_botton=i;
-					if(count_botton==1){
-						$.cookie("name_button", count_botton);
-						$closest('form').submit();
-					}else if(count_botton==2){
-						$.cookie("name_button", count_botton);
-						$closest('form').submit();
+				function submit_practitioner(i){
+				
+				}
+				function ButtonClick(i){//將所選按鈕值放置cookie
+					if(i=='1' && ($.cookie('name')=='1'||$.cookie('name')=='3'||$.cookie('name')=='4'||$.cookie('name')=='5')){
+						$.ajax({
+							var URLs= "<?=base_url("/projectview_admin/new_picking")?>"
+							url: URLs,
+							data: {name_button:i, name:$.cookie('name')},
+							type:"POST",
+							dataType:'text',
+
+							success: function(msg){
+								alert(msg);
+								//$('selector').attr('href','msg');
+							},
+							 error:function(xhr, ajaxOptions, thrownError){
+								alert(xhr.status);
+								alert(thrownError);
+							 }
+						});
+						$.cookie("name_button", i);
+						
+						//$('#new_people').closest('form').submit();
+					}else if(i=='1'&& $.cookie('name')=='2'){
+						//$('selector').attr('href','<?=base_url("/projectview_admin/subjects_new_data")?>');
 					}
 				}
-				function OneClick(i) {
-					var name=i;
-					$.cookie("name", name);
+				function test(){ alert("123");}
+				function OneClick(i) 
+				{//將所選分頁值放置cookie
+					alert("123");
+					if($.cookie("name")==null){
+								$.cookie("name", i);
+						}else{
+							// 取出記錄中的 name 跟 count
+							var _name = $.cookie("name");
+						}
 				}
-				function checkall() {
+				function checkall() {//全選功能
 					checkboxes = document.getElementsByName('selected');
 					for(var i=0, n=checkboxes.length;i<=n;i++) 
 					{
@@ -804,6 +782,7 @@
 				}
 			</script>
 			<script>
+				//按鈕隱藏方式
 					$( "#subjects" ).click(function() {
 						$( "#dispatch:last-child" ).hide();
 						$( "#new_people" ).show();

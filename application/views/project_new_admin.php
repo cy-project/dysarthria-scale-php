@@ -12,7 +12,7 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">專案管理</h1>
+					<h1 class="page-title">專案新增</h1>
 				</div>
 				
 					<ul class="breadcrumb">
