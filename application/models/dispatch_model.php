@@ -9,7 +9,7 @@ class Dispatch_model extends CI_Model
 		$this->load->library('Datamodel');
 	}
 	
-	public function getTestingList($pid)//get testing_list
+	public function createDispatchJson($pid)//get testing_list
 	{
 	
 		$array = array();
@@ -101,9 +101,9 @@ class Dispatch_model extends CI_Model
 		$array['subject'] = $children;
 		$array['exam_info'] = $exam_info;
 		$array['examination'] = $examination;
-		$fp = fopen("test/test.json","a");
-		fwrite($fp, json_encode($array));
 		
+		return $array;
+				
 	
 	}
 	
