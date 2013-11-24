@@ -11,17 +11,49 @@ class Member
 	
 	}
 	
-	public function register($person)
+	public function register($person)//µù¥U
 	{
 		$mm = new Member_model;
 		$mm->insertMember($person);
 	}
 	
-	public function remove()
+
+	public function remove($uid)//§R°£
 	{
-	
+		$mm = new Member_model;
+		
+		$mm->removeMember($uid);
 	}
 	
+	public function freeze($uid)//åœæ¬Š
+	{
+		$mm = new Member_Model;
+		
+		$mm->freezeMember($uid);
+	}
+
+	
+	public function update($uid,$array)
+	{
+		/**
+		array struct like this array('column_name'=>value,'column_name'=>value);
+		*/
+	
+		$mm = new Member_model;
+		
+		$mm->updateMember($uid,$array);
+	}
+	
+	
+	public function getMemberData($uid)
+	{
+		$mm = new Member_model;
+		
+		$person = $mm->getMemberData($uid);
+		
+		return $person;
+	}
+
 
 
 }

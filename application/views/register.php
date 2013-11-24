@@ -15,6 +15,7 @@
 	<section id="container">
 		<span class="chyron"><em><a href="<?=base_url()?>">&laquo; 回首頁</a></em></span>
 		<h2>請填寫您的基本資料</h2>
+<<<<<<< HEAD
 		<form name="hongkiat" id="hongkiat-form" method="post" action="<?=base_url("/Welcome/registering")?>">
 			<div id="wrapping" class="clearfix">
 				<section id="aligned">

@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-	<link rel="STU icon" href="<?=base_url("/images/favicon.png")?>">
-    <link rel="stylesheet" type="text/css" href="<?=base_url("/lib/bootstrap/css/bootstrap.css")?>">
+    <link rel="STU icon" href="<?=base_url("/images/favicon.png")?>">
+	<link rel="stylesheet" type="text/css" href="<?=base_url("/lib/bootstrap/css/bootstrap.css")?>">
     <link rel="stylesheet" type="text/css" href="<?=base_url("/stylesheets/theme.css")?>">
     <link rel="stylesheet" href="<?=base_url("/lib/font-awesome/css/font-awesome.css")?>">
-    <script type="text/javascript" src="<?=base_url("/lib/jquery-1.7.2.min.js")?>"></script>
+    <script src="<?=base_url("/lib/jquery-1.7.2.min.js")?>" type="text/javascript"></script>
+    <script src="<?=base_url("/js/sorttable.js")?>" type="text/javascript"></script>	
+    <script src="<?=base_url("/js/jquery.cookie.js")?>" type="text/javascript"></script>	
+	<script src="<?=base_url("lib/bootstrap/js/bootstrap.js")?>" type="text/javascript"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
     <!-- Demo page code -->
 

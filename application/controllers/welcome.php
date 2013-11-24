@@ -18,7 +18,7 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('slideshow');
 	}
-	
+
 	public function register()
 	{
 		$this->load->view('register');
@@ -121,7 +121,5 @@ class Welcome extends CI_Controller {
 		session_start();  
 		session_destroy();  
 		redirect(site_url("/user/login")); //轉回登入頁  
-	}*/
-	
-	 
+	}*/	
 }

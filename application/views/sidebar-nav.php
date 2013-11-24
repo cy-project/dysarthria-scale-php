@@ -7,7 +7,7 @@
 
         <a href="#accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-folder-open"></i>專案</i></a>
         <ul id="accounts-menu" class="nav nav-list collapse in">
-            <li ><a href="<?=base_url("/Projectadmin/project")?>">專案管理</a></li>
+            <li ><a href="<?=base_url("/projectadmin/project_home")?>">專案管理</a></li>
             <li ><a href="users-testlist.html">受測名單</a></li>
         </ul>
 
