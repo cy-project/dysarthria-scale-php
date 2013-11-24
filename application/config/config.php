@@ -14,7 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://120.119.77.23/dysarthria-scale-php/';
+
+$config['base_url']	= 'http://localhost/dysarthria-scale-php/';
 
 /*
 |--------------------------------------------------------------------------

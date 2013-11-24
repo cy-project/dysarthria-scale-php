@@ -1191,6 +1191,12 @@ input[type="color"],
   -o-transition: border linear .2s, box-shadow linear .2s;
   transition: border linear .2s, box-shadow linear .2s;
 }
+<<<<<<< HEAD
+textarea.news {
+	width: 98%;
+}
+=======
+>>>>>>> cff1d80203e7d54a1cda95260dc203b749554df7
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -1332,8 +1338,12 @@ textarea::-webkit-input-placeholder {
   width: 210px;
 }
 .input-xlarge {
+<<<<<<< HEAD
+  width: 270px;
+=======
   width: 200px;
   margin-left: 1%;
+>>>>>>> cff1d80203e7d54a1cda95260dc203b749554df7
 }
 .input-xxlarge {
   width: 530px;
@@ -1927,7 +1937,11 @@ legend + .control-group {
   background-color: #cccccc \9;
 }
 .btn:first-child {
+<<<<<<< HEAD
+  *margin-left: 0;
+=======
   margin-left: 1%;
+>>>>>>> cff1d80203e7d54a1cda95260dc203b749554df7
 }
 .btn:hover {
   color: #333333;
@@ -2045,7 +2059,11 @@ input[type="button"].btn-block {
 .btn-primary.disabled,
 .btn-primary[disabled] {
   color: #ffffff;
+<<<<<<< HEAD
+  background-color: #0044cc;
+=======
   background-color: #444;
+>>>>>>> cff1d80203e7d54a1cda95260dc203b749554df7
   *background-color: #003bb3;
 }
 .btn-primary:active,
@@ -3317,7 +3335,12 @@ input[type="submit"].btn.btn-mini {
   /* IE7 inline-block hack */
 
   *zoom: 1;
+<<<<<<< HEAD
+  margin-left: 0;
+  margin-bottom: 0;
+=======
   margin-left: 36%;
+>>>>>>> cff1d80203e7d54a1cda95260dc203b749554df7
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
