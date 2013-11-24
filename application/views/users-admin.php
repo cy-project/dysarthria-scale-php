@@ -13,12 +13,12 @@
         
         <div class="header">
             
-            <h1 class="page-title">教師</h1>
+            <h1 class="page-title">權限管理</h1>
         </div>
         
                 <ul class="breadcrumb">
             <li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-            <li class="active">教師</li>
+            <li class="active">權限管理</li>
         </ul>
 
         <div class="container-fluid">

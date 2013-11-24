@@ -105,6 +105,9 @@ background: #fff url('../images/account.png') 5px 4px no-repeat;
 #hongkiat-form input#password {
 background: #fff url('../images/password.png') 5px 4px no-repeat;
 }
+#hongkiat-form input#passwordrt {
+background: #fff url('../images/password.png') 5px 4px no-repeat;
+}
 #hongkiat-form input#contact{
 background: #fff url('../images/contact.png') 5px 4px no-repeat;
 }

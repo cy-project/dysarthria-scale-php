@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>構音量表-註冊</title>
   <link rel="STU icon" href="<?=base_url("/images/favicon.png")?>">
+  <link rel="stylesheet" type="text/css" href="<?=base_url("/lib/bootstrap/css/bootstrap.css")?>">
   <link rel="stylesheet" type="text/css" media="all" href="<?=base_url("/stylesheets/style.css")?>">
   <link rel="stylesheet" type="text/css" media="all" href="<?=base_url("/stylesheets/responsive.css")?>">
 </head>
@@ -14,13 +15,30 @@
 	<section id="container">
 		<span class="chyron"><em><a href="<?=base_url()?>">&laquo; 回首頁</a></em></span>
 		<h2>請填寫您的基本資料</h2>
-		<form name="hongkiat" id="hongkiat-form" method="post" action="<?=site_url("/Welcome/registering")?>">
+		<form name="hongkiat" id="hongkiat-form" method="post" action="<?=base_url("/Welcome/registering")?>">
 			<div id="wrapping" class="clearfix">
 				<section id="aligned">
-				
+					
+					<?php  if (isset($errorMessage)){?>
+					<div class="alert alert-error">
+						<?=$errorMessage?>
+					</div>
+					<?php }?>
+					<?php  if (isset($successMessage)){?>
+					<div class="alert alert-success">
+						<?=$successMessage?>
+					</div>
+					<?php }?>
+					
+					<?php if(isset($account)){ ?>
+					<input type="text" name="account" id="account" value="<?=htmlspecialchars($account)?>" placeholder="帳號" autocomplete="off" tabindex="1" class="txtinput">
+					<?php }else{ ?>
 					<input type="text" name="account" id="account" placeholder="帳號" autocomplete="off" tabindex="1" class="txtinput">
+					<?php } ?>
 					
 					<input type="text" name="password" id="password" placeholder="密碼" autocomplete="off" tabindex="2" class="txtinput">
+					
+					<input type="text" name="passwordrt" id="passwordrt" placeholder="確認密碼" autocomplete="off" tabindex="2" class="txtinput">
 					
 					<input type="text" name="name" id="name" placeholder="姓名" autocomplete="off" tabindex="3" class="txtinput">
 				
@@ -37,7 +55,7 @@
 				<section id="aside" class="clearfix">
 					<section id="recipientcase">
 					<h3>身分選擇:</h3>
-						<select id="recipient" name="recipient" tabindex="6" class="selmenu">
+						<select id="recipient" name="recipient" tabindex="8" class="selmenu">
 							<option value="語言治療師">語言治療師</option>
 							<option value="幼教老師">幼教老師</option>
 							<option value="其他使用者">其他使用者</option>
@@ -50,7 +68,7 @@
 
 			<section id="buttons">
 				<input type="reset" name="reset" id="resetbtn" class="resetbtn" value="清除">
-				<input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="7" value="送出">
+				<input type="submit" name="submit" id="submitbtn" class="submitbtn" tabindex="9" value="送出">
 				<br style="clear:both;">
 			</section>
 		</form>
