@@ -56,7 +56,7 @@ class Member
 	
 	
 	
-	public function getMemberData($uid)
+	public function getMemberData($account)
 	{
 		$mm = new Member_model;
 		

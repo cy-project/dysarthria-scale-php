@@ -7,7 +7,7 @@ class Welcome extends CI_Controller {
 		parent::__construct();
 		
 		$this->load->library('Personal_data');
-		$this->load->library('member');
+		$this->load->library('Member');
 	}
 
 	public function index()
@@ -67,22 +67,32 @@ class Welcome extends CI_Controller {
 		}  
 		
 		/*model帳號驗證實作*/
+		$exist = $mem->isExist($account);
 		
-		$person->account = $account;
-        $person->password = $password;
-        $person->name = $name;
-        $person->mail = $mail;
-        $person->tel1 = $tel1;
-        $person->contacter = $contacter;
-        $person->tel2 = $tel2;
-        $person->identity = $identity;
-		
-		$mem->register($person);
-		
-		$this->load->view('register',Array(  
+		if ($exist == 0)
+		{
+			$person->account = $account;
+			$person->password = $password;
+			$person->name = $name;
+			$person->mail = $mail;
+			$person->tel1 = $tel1;
+			$person->contacter = $contacter;
+			$person->tel2 = $tel2;
+			$person->identity = $identity;
+			
+			$mem->register($person);
+			
+			$this->load->view('register',Array(  
 			"successMessage" => "你已經完成註冊，接下來馬上到登入頁面去試試看吧！  
 			<a href=" . base_url() . ">回首頁</a> " ,  
-		)); 
+		));
+		}
+		else
+		{
+		
+		}
+		
+ 
     }
 	
 	public function login()

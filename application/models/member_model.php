@@ -76,12 +76,12 @@ class Member_model extends CI_Model
 	}
 	
 	
-	public function getMemberData($uid)
+	public function getMemberData($account)
 	{
 		$person = new Personal_data();
-		$this->db->select('`account`,`password`,`mail`,`name`,`tel1`,`tel2`,`contacter`,`identity`,`status`');
+		$this->db->select('`id`,`account`,`password`,`mail`,`name`,`tel1`,`tel2`,`contacter`,`identity`,`status`');
 		$this->db->from('member');
-		$this->db->where('id',$uid);
+		$this->db->where('account',$account);
 		$data = $this->db->get();
 		
 		if ($data->num_rows > 0)
