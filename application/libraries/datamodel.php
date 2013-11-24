@@ -21,10 +21,5 @@ class Datamodel
 			return $this->data[$name];
 		}
 	}
-	
-	public function getArray()
-	{
-		return $this->$data;
-	}
 
 }

@@ -5,9 +5,9 @@ class Sheep extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->library('Personal_data');
+		$this->load->model('Member_model');
 		$this->load->library('Dispatch_json');
-		
-	
 	}
 	
 	public function index()
@@ -15,6 +15,16 @@ class Sheep extends CI_Controller
 		$dm = new Dispatch_json;
 		
 		$dm->dispatch(1);
+		
+		
+		
+	/*	$mm = new Member_model;
+		
+		$person = $mm->getMemberData(1);
+		
+		echo 'account '.$person->account;
+		echo 'name '.$person->name;
+		*/
 		//$data = $per->selectPermission(2);
 		
 	//	$per->createGroup('檢測');//組合鍵問題

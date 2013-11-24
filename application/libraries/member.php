@@ -11,20 +11,20 @@ class Member
 	
 	}
 	
-	public function register($person)//µù¥U
+	public function register($person)//è¨»å†Š
 	{
 		$mm = new Member_model;
 		$mm->insertMember($person);
 	}
 	
-	public function remove($uid)//§R°£
+	public function remove($uid)//åˆªé™¤
 	{
 		$mm = new Member_model;
 		
 		$mm->removeMember($uid);
 	}
 	
-	public function freeze($uid)//°±Åv
+	public function freeze($uid)//åœæ¬Š
 	{
 		$mm = new Member_Model;
 		
@@ -40,6 +40,16 @@ class Member
 		$mm = new Member_model;
 		
 		$mm->updateMember($uid,$array);
+	}
+	
+	
+	public function getMemberData($uid)
+	{
+		$mm = new Member_model;
+		
+		$person = $mm->getMemberData($uid);
+		
+		return $person;
 	}
 
 

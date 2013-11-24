@@ -51,6 +51,35 @@ class Member_model extends CI_Model
 		
 		$this->db->update('member',$array);
 	}
-
+	
+	public function getMemberData($uid)
+	{
+		$person = new Personal_data();
+		$this->db->select('`account`,`password`,`mail`,`name`,`tel1`,`tel2`,`contacter`,`identity`,`status`');
+		$this->db->from('member');
+		$this->db->where('id',$uid);
+		$data = $this->db->get();
+		
+		if ($data->num_rows > 0)
+		{
+			$r = $data->result();
+			
+			$params = (array)$r[0];
+			
+			foreach ($params as $k => $v)
+			{
+				
+				$person->$k = $v;
+			
+			}
+			
+			return $person;
+		}
+		else
+		{
+			return 0;
+		}
+	
+	}
 
 }
