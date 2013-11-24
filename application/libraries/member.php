@@ -44,6 +44,17 @@ class Member
 		$mm->updateMember($uid,$array);
 	}
 	
+	public function isExist($account)
+	{
+		$mm = new Member_model;
+		
+		$result = $mm->selectAccount($account);
+		
+		return $result;
+		
+	}
+	
+	
 	
 	public function getMemberData($uid)
 	{
