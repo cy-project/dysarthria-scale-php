@@ -9,7 +9,7 @@
     <title>構音量表診斷系統</title>
 	<link rel="STU icon" href="<?=base_url("/images/favicon.png")?>">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="<?=base_url("/bootstrap/css/bootstrap.css")?>" />
+	<link rel="stylesheet" href="<?=base_url("/lib/bootstrap/css/bootstrap.css")?>">
 	<link rel="stylesheet" href="<?=base_url("/stylesheets/slider.css")?>" type="text/css" media="screen" />
 	<link rel="stylesheet" href="<?=base_url("/stylesheets/default.css")?>" type="text/css" media="screen" />
 	<link rel="stylesheet" href="<?=base_url("/stylesheets/anythingslider.css")?>" type="text/css" media="screen" />
