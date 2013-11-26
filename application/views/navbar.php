@@ -16,6 +16,6 @@
 					</ul>
 				</li>
 			</ul>
-			<a class="brand" href="<?=base_url("/Dysarthria/index")?>"><span class="second">構音量表</span></a>
+			<a class="brand" href="<?=base_url("/dysarthria/index")?>"><span class="second">構音量表</span></a>
         </div>
     </div>

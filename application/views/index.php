@@ -39,8 +39,8 @@
 			  include "slideshow.php";
 			?>
 			</p>
-			<a class="btn btn-large btn-success" href="<?=base_url("/Welcome/register")?>">申請帳號</a>
-			<a class="btn btn-large btn-login" href="<?=base_url("/Welcome/login")?>">會員登入</a>
+			<a class="btn btn-large btn-success" href="<?=base_url("/welcome/register")?>">申請帳號</a>
+			<a class="btn btn-large btn-login" href="<?=base_url("/welcome/login")?>">會員登入</a>
 
       </div>
 

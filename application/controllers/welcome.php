@@ -38,6 +38,7 @@ class Welcome extends CI_Controller {
         $tel2 = $this->input->post("telephone2");
         $identity = $this->input->post("recipient");
 		
+		/*欄位不得為空值判斷*/
 		if( trim($account) =="" || trim($password) =="" || trim($name) =="" || trim($mail) =="" || trim($tel1) =="" || trim($contacter) =="" || trim($tel2) =="" || trim($identity) =="" ){  
 			$this->load->view('register',Array(  
 				"errorMessage" => "資料不得有空值，請重新輸入！" ,  
@@ -51,7 +52,7 @@ class Welcome extends CI_Controller {
 			));  
 			return false;  
 		}  
-	  
+		/*密碼不相同判斷*/
 		if( $password != $passwordrt ){  
 			$this->load->view('register',Array(  
 				"errorMessage" => "密碼不相同，請重新輸入！" ,  
@@ -65,8 +66,21 @@ class Welcome extends CI_Controller {
 			));  
 			return false;  
 		}  
-		
-		/*model帳號驗證實作*/
+		/*使用身分判斷*/
+		if( $identity == "0" ){  
+			$this->load->view('register',Array(  
+				"errorMessage" => "請選擇身分！" ,  
+				"account" => $account ,
+				"name" => $name ,
+				"mail" => $mail ,
+				"tel1" => $tel1 ,
+				"contacter" => $contacter ,
+				"tel2" => $tel2 ,
+				"identity" => $identity
+			));  
+			return false;  
+		} 
+		/*帳號驗證判斷*/
 		$exist = $mem->isExist($account);
 		
 		if ($exist == 0)
@@ -89,7 +103,17 @@ class Welcome extends CI_Controller {
 		}
 		else
 		{
-		
+			$this->load->view('register',Array(  
+				"errorMessage" => "這個帳號已有人使用，請重新輸入帳號！" ,  
+				"account" => $account ,
+				"name" => $name ,
+				"mail" => $mail ,
+				"tel1" => $tel1 ,
+				"contacter" => $contacter ,
+				"tel2" => $tel2 ,
+				"identity" => $identity
+			));  
+			return false;
 		}
 		
  

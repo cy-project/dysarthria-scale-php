@@ -31,7 +31,7 @@
       </div>
   
       <div class="login-help">
-        <p>忘記密碼? <a href="<?=base_url("/Dysarthria/index")?>">點這裡重新設定</a></p>
+        <p>忘記密碼? <a href="<?=base_url("/dysarthria/index")?>">點這裡重新設定</a></p>
       </div>
     </section>
   

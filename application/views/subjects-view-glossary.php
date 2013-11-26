@@ -17,7 +17,7 @@
 				</div>
 				
 					<ul class="breadcrumb">
-						<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
+						<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>d
 						<li><a href="<?=site_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
 						<li><a href="<?=base_url("/projectview_admin/project_board")?>">幼音評測</a> <span class="divider">/</span></li>
 						<li><a href="<?=base_url("/projectview_admin/subjects_view_group")?>">檢視類別</a> <span class="divider">/</span></li>

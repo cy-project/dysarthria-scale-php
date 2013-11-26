@@ -15,7 +15,7 @@
 	<section id="container">
 		<span class="chyron"><em><a href="<?=base_url()?>">&laquo; 回首頁</a></em></span>
 		<h2>請填寫您的基本資料</h2>
-		<form name="hongkiat" id="hongkiat-form" method="post" action="<?=base_url("/Welcome/registering")?>">
+		<form name="hongkiat" id="hongkiat-form" method="post" action="<?=base_url("/welcome/registering")?>">
 			<div id="wrapping" class="clearfix">
 				<section id="aligned">
 					
@@ -36,9 +36,9 @@
 					<input type="text" name="account" id="account" placeholder="帳號" autocomplete="off" tabindex="1" class="txtinput">
 					<?php } ?>
 					
-					<input type="text" name="password" id="password" placeholder="密碼" autocomplete="off" tabindex="2" class="txtinput">
+					<input type="password" name="password" id="password" placeholder="密碼" autocomplete="off" tabindex="2" class="txtinput">
 					
-					<input type="text" name="passwordrt" id="passwordrt" placeholder="確認密碼" autocomplete="off" tabindex="2" class="txtinput">
+					<input type="password" name="passwordrt" id="passwordrt" placeholder="確認密碼" autocomplete="off" tabindex="2" class="txtinput">
 					
 					<?php if(isset($name)){ ?>
 					<input type="text" name="name" id="name" value="<?=htmlspecialchars($name)?>" placeholder="姓名" autocomplete="off" tabindex="3" class="txtinput">
@@ -53,7 +53,7 @@
 					<?php } ?>
 				
 					<?php if(isset($tel1)){ ?>
-					<input type="tel" name="telephone" id="telephone" value="<?=htmlspecialchars($tel1)?>" placeholder="聯絡電話1" tabindex="5" class="txtinput">
+					<input type="tel" name="telephone" id="telephone" value="<?=htmlspecialchars($tel1)?>" placeholder="聯絡電話1(行動電話)" tabindex="5" class="txtinput">
 					<?php }else{ ?>
 					<input type="tel" name="telephone" id="telephone" placeholder="聯絡電話1" tabindex="5" class="txtinput">
 					<?php } ?>
@@ -65,7 +65,7 @@
 					<?php } ?>
 				
 					<?php if(isset($tel2)){ ?>
-					<input type="tel" name="telephone2" id="telephone" value="<?=htmlspecialchars($tel2)?>" placeholder="聯絡電話2" tabindex="7" class="txtinput">
+					<input type="tel" name="telephone2" id="telephone" value="<?=htmlspecialchars($tel2)?>" placeholder="聯絡電話2(行動電話)" tabindex="7" class="txtinput">
 					<?php }else{ ?>
 					<input type="tel" name="telephone2" id="telephone" placeholder="聯絡電話2" tabindex="7" class="txtinput">
 					<?php } ?>
@@ -76,6 +76,7 @@
 					<section id="recipientcase">
 					<h3>身分選擇:</h3>
 						<select id="recipient" name="recipient" tabindex="8" class="selmenu">
+							<option value="0">請選擇</option>
 							<option value="語言治療師">語言治療師</option>
 							<option value="幼教老師">幼教老師</option>
 							<option value="其他使用者">其他使用者</option>

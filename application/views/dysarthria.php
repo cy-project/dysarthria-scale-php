@@ -5,14 +5,14 @@
   ?> 
   <body> 
   <!--<![endif]-->
-    <?
+    <?php
 	  include "navbar.php";
 	  include "sidebar-nav.php";
 	?>
     
     <div class="content">
 		<ul class="breadcrumb">
-			<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a>
+			<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a>
         </ul>
 
         <div class="container-fluid">
@@ -136,7 +136,7 @@
 						</div>
 					</div>
 					<div class="block span6">
-						<p class="block-heading">最新消息 <a href="<?=base_url("/Dysarthria/news")?>" class="disnon"><span class="label label-important">發布消息</span></a></p>
+						<p class="block-heading">最新消息 <a href="<?=base_url("/dysarthria/news")?>" class="disnon"><span class="label label-important">發布消息</span></a></p>
 						<!--a href="index-news.html" class="block-heading" >最新消息 <span class="label label-important">發布消息</span></a-->
 						<div id="tablewidget" class="block-body collapse in">
 							<table class="table">
