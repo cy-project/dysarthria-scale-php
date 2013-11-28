@@ -25,7 +25,7 @@ class Member
 		$mm->removeMember($uid);
 	}
 	
-	public function freeze($uid)//åœæ¬Š
+	public function freeze($uid)//°±Åv
 	{
 		$mm = new Member_Model;
 		
@@ -33,7 +33,7 @@ class Member
 	}
 
 	
-	public function update($uid,$array)
+	public function update($uid,$array)//§ó·s¸ê®Æ
 	{
 		/**
 		array struct like this array('column_name'=>value,'column_name'=>value);
@@ -44,7 +44,7 @@ class Member
 		$mm->updateMember($uid,$array);
 	}
 	
-	public function isExist($account)
+	public function isExist($account)//§PÂ_±b¸¹¬O§_¦s¦b
 	{
 		$mm = new Member_model;
 		
@@ -60,9 +60,13 @@ class Member
 	{
 		$mm = new Member_model;
 		
-		$person = $mm->getMemberData($account);
+		if ($this->isExist($account) != 0)
+		{
+			$person = $mm->getMemberData($account);
 		
-		return $person;
+			return $person;
+		}
+
 	}
 
 
