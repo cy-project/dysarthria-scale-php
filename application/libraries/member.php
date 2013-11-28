@@ -60,7 +60,7 @@ class Member
 	{
 		$mm = new Member_model;
 		
-		$person = $mm->getMemberData($uid);
+		$person = $mm->getMemberData($account);
 		
 		return $person;
 	}

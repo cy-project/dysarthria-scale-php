@@ -8,17 +8,18 @@ class Sheep extends CI_Controller
 
 		$this->load->library('Personal_data');
 		$this->load->model('Member_model');
-		$this->load->library('Dispatch_json');
+		$this->load->library('Member');
 
 	}
 	
 	public function index()
 	{
 
-		$dm = new Dispatch_json;
+		$dm = new Member;
 		
-		 $dm->dispatch(1,1);
-
+		 $p = $dm->getMemberData("root");
+	
+		echo $p->account;
 
 	}
 	
