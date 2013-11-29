@@ -4,7 +4,7 @@
 		include "head.php";
 	?> 
 	<body> 
-		<?
+		<?php
 			include "navbar.php";
 			include "sidebar-nav.php";
 		?>
@@ -15,8 +15,8 @@
 				<h1 class="page-title">幼音評測</h1>
 			</div>
 			<ul class="breadcrumb">
-				<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-				<li><a href="<?=site_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
+				<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
+				<li><a href="<?=base_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
 				<li class="active">幼音評測</li>
 			</ul>
 			<!-------------------------------------------------------------------------------底線------------------------------------------------------------------------->
@@ -67,10 +67,10 @@
 													<td id="rater_dybjects_1">Mark</td>
 													<td id="evaluators_dybjects_1">評測者A</td>
 													<td>
-														<a href="subjects_editor.php"><i class="icon-pencil"></i></a>
+														<a href="<?=base_url("/projectview_admin/subjects_new_data")?>"><i class="icon-pencil"></i></a>
 													</td>
 													<td>
-														<a href="subjects_view"><i class="icon-eye-open"></i></a>
+														<a href="<?=base_url("/projectview_admin/subjects_view_group")?>"><i class="icon-eye-open"></i></a>
 													</td>
 												</tr>
 												<tr>
@@ -769,18 +769,24 @@
 		<script type="text/javascript">
 			var count=1;
 			function ButtonClick(i){
-				var URLs='<?=base_url("/projectview_admin/new_picking")?>';
 				var con=$.cookie("name");
-				alert(con);
+				
+				var URLs='<?=base_url("/projectview_admin/new_picking")?>';
+				
+				if($.cookie("name")==null){
+					con=1;
+					$.cookie("name", con);
+				}
+				else{
+					con=$.cookie("name");
+				}
 				$.ajax({
 					url: URLs,
 					data: {'number_button':i,'number_page':con},
 					type:"POST",
 					dataType:'text',
-						if(i==1)
-							$('#1').attr('href','<?=base_url("/projectview_admin/")?>'+msg);
-						else if(i==2)
-							$('#2').attr('href','<?=base_url("/projectview_admin/")?>'+msg);
+					success: function(msg){
+						document.location.href='<?=base_url("/projectview_admin/")?>'+msg;
 					},
 					error:function(xhr, ajaxOptions, thrownError){
 						alert(xhr.status);
@@ -788,16 +794,8 @@
 					}
 				});
 			}
-			function OneClick(i) {
-				var couht = i;
-				if($.cookie("name")==null){
-					prompt("請問你的大名是？", "abgne.tw");
-					$.cookie("name", couht);
-				}else{
-					prompt("請問你的大名是1？", "abgne.tw");
-					$.cookie("name", couht);
-				}
-				
+			function OneClick(i) {	
+				$.cookie('name', i);
 			}
 			function checkall() {
 				checkboxes = document.getElementsByName('selected');
