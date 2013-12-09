@@ -5,6 +5,7 @@ class Projectadmin extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		session_start();
 	
 	}
 	public function project_home()
@@ -15,6 +16,7 @@ class Projectadmin extends CI_Controller {
 	{
 		$this->load->view('project_new_admin');
 	}
+	
 }
 
 /* End of file welcome.php */

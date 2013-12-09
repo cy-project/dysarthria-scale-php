@@ -46,7 +46,7 @@
           <td>1</td>
           <td><a href="#">教師</a></td>
           <td>18</td>
-          <td>OO幼兒園</td>
+          <td>施測</td>
           <td>
               <a href="user-teacher.html"><i class="icon-pencil"></i></a>
           </td>
@@ -55,7 +55,16 @@
           <td>2</td>
           <td><a href="#">語言治療師</a></td>
           <td>3</td>
-          <td>XX幼兒園</td>
+          <td>檢測</td>
+          <td>
+			  <a href="user-teacher.html"><i class="icon-pencil"></i></a>
+          </td>
+        </tr>
+		<tr>
+          <td>3</td>
+          <td><a href="#">實習生</a></td>
+          <td>26</td>
+          <td>施測</td>
           <td>
 			  <a href="user-teacher.html"><i class="icon-pencil"></i></a>
           </td>
