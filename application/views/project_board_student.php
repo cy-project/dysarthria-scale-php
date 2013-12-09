@@ -10,170 +10,145 @@
 		?>
 
 		<div class="content">
-		<!-------------------------------------------------------------------------------¸ô®|------------------------------------------------------------------------->
+		<!-------------------------------------------------------------------------------è·¯å¾‘------------------------------------------------------------------------->
 			<div class="header">
-				<h1 class="page-title">¥®­µµû´ú</h1>
+				<h1 class="page-title">å¹¼éŸ³è©•æ¸¬</h1>
 			</div>
 			<ul class="breadcrumb">
-				<li><a href="<?=base_url("/Dysarthria/index")?>">­º­¶</a> <span class="divider">/</span></li>
-				<li><a href="<?=base_url("/projectadmin/project_home")?>">±M®×ºÞ²z</a> <span class="divider">/</span></li>
-				<li class="active">¥®­µµû´ú</li>
+				<li><a href="<?=base_url("/Dysarthria/index")?>">é¦–é </a> <span class="divider">/</span></li>
+				<li><a href="<?=base_url("/projectview_student/projectview")?>">å°ˆæ¡ˆç®¡ç†</a> <span class="divider">/</span></li>
+				<li class="active"><?php echo $name;?></li>
 			</ul>
-			<!-------------------------------------------------------------------------------©³½u------------------------------------------------------------------------->
+			<!-------------------------------------------------------------------------------åº•ç·š------------------------------------------------------------------------->
 			<div class="container-fluid">
-			<!-------------------------------------------------------------------------------¤º®e------------------------------------------------------------------------->
+			<!-------------------------------------------------------------------------------å…§å®¹------------------------------------------------------------------------->
 				<div class="row-fluid">
+					<form >
 					<div class="btn-toolbar">
-						<a><button class="btn btn-primary" id="transfer_files"><i class="icon-plus"></i>¤W¶Ç­µÀÉ</button></a>
+						<a><button class="btn btn-primary" id="transfer_files"><i class="icon-plus"></i>ä¸Šå‚³éŸ³æª”</button></a>
 					</div>
 					<div class="well" >
 						<ul class="nav nav-tabs" style="margin-bottom: 0px;">
-							<li class="active" name="board"><a id="surveying" href="#surveying_list" data-toggle="tab" onclick="OneClick(1)">¬I´ú¦W³æ</a></li>
-							<li name="board" ><a id="evaluation" href="#evaluation_list" data-toggle="tab" onclick="OneClick(2)">µû´ú¦W³æ</a></li>
+							<li class="active" name="board"><a id="surveying" href="#surveying_list" data-toggle="tab" onclick="OneClick(1)">æ–½æ¸¬åå–®</a></li>
+							<li name="board" ><a id="evaluation" href="#evaluation_list" data-toggle="tab" onclick="OneClick(2)">è©•æ¸¬åå–®</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 								<div class="tab-pane active in" id="surveying_list">
 									<div class="well" style="border: 0px;">
-										<table class="sortable table"><!--¬I´ú¦W³æ-->
+										<table class="sortable table"><!--æ–½æ¸¬åå–®-->
 											<thead>
 												<tr>
 													<th><a href="#">#</a></th>
-													<th><a href="#">¾Ç¥Í©m¦W</a></th>
-													<th><a href="#">¦~ÄÖ</a></th>
-													<th><a href="#">¯Z¯Å</a></th>
-													<th><a href="#">¦~¯Å</a></th>
-													<th><a href="#">¬I´úª¬ªp</a></th>
-													<th class="sorttable_nosort">ÀËµø</th>
+													<th><a href="#">å¹¼ç¨šåœ’</a></th>
+													<th><a href="#">ç­ç´š</a></th>
+													<th><a href="#">å¹´ç´š</a></th>
+													<th><a href="#">å§“å</a></th>
+													<th><a href="#">å§“åˆ¥</a></th>
+													<th><a href="#">ç”Ÿæ—¥</a></th>
+													<th><a href="#">ä¸»è¦èªžè¨€</a></th>
+													<th><a href="#">ç‹€æ…‹</a></th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
-													<td id="number_sybjects_1">1</td>
-													<td id="name_sybjects_1">¤ý¤p©ú</td>
-													<td id="age_sybjects_1">7</td>
-													<td id="class_sybjects_1">¦V¤é¸ª¯Z</td>
-													<td id="grade_sybjects_1">¤j¯Z</td>
-													<td id="fraction_dybjects_1">¤w¬I´ú</td>
-													<td>
-														<a href="<?=base_url("/projectview_admin/subjects_view_group")?>"><i class="icon-eye-open"></i></a>
-													</td>
+													<td>1</td>
+													<td>çŽ‹å°æ˜Ž</td>
+													<td>7</td>
+													<td>å‘æ—¥è‘µç­</td>
+													<td>å¤§ç­</td>
+													<td>å·²æ–½æ¸¬</td>
 												</tr>
 												<tr>
-													<td id="number_sybjects_2">2</td>
-													<td id="name_sybjects_2">§õ¤p¤M</td>
-													<td id="age_sybjects_2">6</td>
-													<td id="class_sybjects_2">¦V¤é¸ª¯Z</td>
-													<td id="grade_sybjects_2">¤¤¯Z</td>
-													<td id="fraction_sybjects_2">¥¼¬I´ú</td>
-													<td>
-														<a href="subjects_view"><i class="icon-eye-open"></i></a>
-													</td>
+													<td>2</td>
+													<td>æŽå°åˆ€</td>
+													<td>6</td>
+													<td>å‘æ—¥è‘µç­</td>
+													<td>ä¸­ç­</td>
+													<td>æœªæ–½æ¸¬</td>
 												</tr>
 													<tr>
-													<td id="number_sybjects_3">3</td>
-													<td id="name_sybjects_3">°¨¤p¤E</td>
-													<td id="age_sybjects_3">6</td>
-													<td id="class_sybjects_3">¦V¤é¸ª¯Z</td>
-													<td id="grade_sybjects_3">¤¤¯Z</td>
-													<td id="fraction_sybjects_3">¤w¬I´ú</td>
-													<td>
-														<a href="subjects_view"><i class="icon-eye-open"></i></a>
-													</td>
+													<td>3</td>
+													<td>é¦¬å°ä¹</td>
+													<td>6</td>
+													<td>å‘æ—¥è‘µç­</td>
+													<td>ä¸­ç­</td>
+													<td>å·²æ–½æ¸¬</td>
 												</tr>
 												<tr>
-													<td id="number_sybjects_4">4</td>
-													<td id="name_sybjects_4">©P¤p­Û</td>
-													<td id="age_sybjects_4">7</td>
-													<td id="class_sybjects_4">¦V¤é¸ª¯Z</td>
-													<td id="grade_sybjects_4">¤j¯Z</td>
-													<td id="fraction_sybjects_4">¤w¬I´ú</td>
-													<td>
-														<a href="subjects_view"><i class="icon-eye-open"></i></a>
-													</td>
+													<td>4</td>
+													<td>å‘¨å°å€«</td>
+													<td>7</td>
+													<td>å‘æ—¥è‘µç­</td>
+													<td>å¤§ç­</td>
+													<td>å·²æ–½æ¸¬</td>
 												</tr>
 												<tr>
-													<td id="number_sybjects_5">5</td>
-													<td id="name_sybjects_5">±i¤j¤T</td>
-													<td id="age_sybjects_5">5</td>
-													<td id="class_sybjects_5">¦V¤é¸ª¯Z</td>
-													<td id="grade_sybjects_5">¤¤¯Z</td>
-													<td id="fraction_sybjects_5">¥¼¬I´ú</td>
-													<td>
-														<a href="subjects_view"><i class="icon-eye-open"></i></a>
-													</td>
+													<td>5</td>
+													<td>å¼µå¤§ä¸‰</td>
+													<td>5</td>
+													<td>å‘æ—¥è‘µç­</td>
+													<td>ä¸­ç­</td>
+													<td>æœªæ–½æ¸¬</td>
 												</tr>
 												<tr>
-													<td id="number_sybjects_6">6</td>
-													<td id="name_sybjects_6">§õ¤j¤¯</td>
-													<td id="age_sybjects_6">8</td>
-													<td id="class_sybjects_6">¦V¤é¸ª¯Z</td>
-													<td id="grade_sybjects_6">¤j¯Z</td>
-													<td id="fraction_sybjects_6">¤w¬I´ú</td>
-													<td>
-														<a href="subjects_view"><i class="icon-eye-open"></i></a>
-													</td>
+													<td>6</td>
+													<td>æŽå¤§ä»</td>
+													<td>8</td>
+													<td>å‘æ—¥è‘µç­</td>
+													<td>å¤§ç­</td>
+													<td>å·²æ–½æ¸¬</td>
 												</tr>
 												<tr>
-													<td id="number_sybjects_7">7</td>
-													<td id="name_sybjects_7">¤ý¤p©ú</td>
-													<td id="age_sybjects_7">7</td>
-													<td id="class_sybjects_7">¦V¤é¸ª¯Z</td>
-													<td id="grade_sybjects_7">¤j¯Z</td>
-													<td id="fraction_dybjects_7">¥¼¬I´ú</td>
-													<td>
-															<a href="subjects_view"><i class="icon-eye-open"></i></a>
-													</td>
+													<td>7</td>
+													<td>çŽ‹å°æ˜Ž</td>
+													<td>7</td>
+													<td>å‘æ—¥è‘µç­</td>
+													<td>å¤§ç­</td>
+													<td>æœªæ–½æ¸¬</td>
 												</tr>
 												<tr>
-													<td id="number_sybjects_8">8</td>
-													<td id="name_sybjects_8">§õ¤p¤M</td>
-													<td id="age_sybjects_8">6</td>
-													<td id="class_sybjects_8">¦V¤é¸ª¯Z</td>
-													<td id="grade_sybjects_8">¤¤¯Z</td>
-													<td id="fraction_sybjects_8">¥¼¬I´ú</td>
-													<td>
-														<a href="subjects_view"><i class="icon-eye-open"></i></a>
-													</td>
+													<td>8</td>
+													<td>æŽå°åˆ€</td>
+													<td>6</td>
+													<td>å‘æ—¥è‘µç­</td>
+													<td>ä¸­ç­</td>
+													<td>æœªæ–½æ¸¬</td>
 												</tr>
 												<tr>
-													<td id="number_sybjects_9">9</td>
-													<td id="name_sybjects_9">°¨¤p¤E</td>
-													<td id="age_sybjects_9">6</td>
-													<td id="class_sybjects_9">¦V¤é¸ª¯Z</td>
-													<td id="grade_sybjects_9">¤¤¯Z</td>
-													<td id="fraction_sybjects_9">¤w¬I´ú</td>
-													<td>
-														<a href="subjects_view"><i class="icon-eye-open"></i></a>
-													</td>
+													<td>9</td>
+													<td>é¦¬å°ä¹</td>
+													<td>6</td>
+													<td>å‘æ—¥è‘µç­</td>
+													<td>ä¸­ç­</td>
+													<td>å·²æ–½æ¸¬</td>
 												</tr>
 												<tr>
-													<td id="number_sybjects_10">10</td>
-													<td id="name_sybjects_10">©P¤p­Û</td>
-													<td id="age_sybjects_10">7</td>
-													<td id="class_sybjects_10">¦V¤é¸ª¯Z</td>
-													<td id="grade_sybjects_10">¤j¯Z</td>
-													<td id="fraction_sybjects_10">¥¼¬I´ú</td>
-													<td>
-														<a href="subjects_view"><i class="icon-eye-open"></i></a>
-													</td>
+													<td>10</td>
+													<td>å‘¨å°å€«</td>
+													<td>7</td>
+													<td>å‘æ—¥è‘µç­</td>
+													<td>å¤§ç­</td>
+													<td>æœªæ–½æ¸¬</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
-								<form >
-									<div class="tab-pane fade" id="evaluation_list"><!--µû´ú¦W³æ-->
+									<div class="tab-pane fade" id="evaluation_list"><!--è©•æ¸¬åå–®-->
 										<div class="well" style="border: 0px;">
 											<table class="sortable table">
 												<thead>
 														<tr>
 														<th><a href="#">#</a></th>
-														<th><a href="#">®×¨Ò½s¸¹</a></th>
-														<th><a href="#">¦~ÄÖ</a></th>
-														<th><a href="#">¯Z¯Å</a></th>
-														<th><a href="#">¦~¯Å</a></th>
-														<th><a href="#">µû´úª¬ªp</a></th>
-														<th class="sorttable_nosort">µû´ú</th>
+														<th><a href="#">å¹¼ç¨šåœ’</a></th>
+														<th><a href="#">ç­ç´š</a></th>
+														<th><a href="#">å¹´ç´š</a></th>
+														<th><a href="#">å§“å</a></th>
+														<th><a href="#">å§“åˆ¥</a></th>
+														<th><a href="#">ç”Ÿæ—¥</a></th>
+														<th><a href="#">ä¸»è¦èªžè¨€</a></th>
+														<th><a href="#">ç‹€æ…‹</a></th>
+														<th class="sorttable_nosort">æª¢æ¸¬</th>
 													</tr>
 													</thead>
 
@@ -182,110 +157,110 @@
 														<td>1</td>
 														<td>014</td>
 														<td>7</td>
-														<td>¦V¤é¸ª¯Z</td>
-														<td>¤j¯Z</td>
-														<td>¤wµû´ú</td>
+														<td>å‘æ—¥è‘µç­</td>
+														<td>å¤§ç­</td>
+														<td>å·²è©•æ¸¬</td>
 														<td>
-															<a href="#"><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=014&category=è©•æ¸¬"><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 													<tr>
 														<td>2</td>
 														<td>084</td>
 														<td>8</td>
-														<td>¦V¤é¸ª¯Z</td>
-														<td>¤j¯Z</td>
-														<td>¥¼µû´ú</td>
+														<td>å‘æ—¥è‘µç­</td>
+														<td>å¤§ç­</td>
+														<td>æœªè©•æ¸¬</td>
 														<td>
-															<a href="#"><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=084&category=è©•æ¸¬"><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 													<tr>
 														<td>3</td>
 														<td>024</td>
 														<td>5</td>
-														<td>¦V¤é¸ª¯Z</td>
-														<td>¤¤¯Z</td>
-														<td>¤wµû´ú</td>
+														<td>å‘æ—¥è‘µç­</td>
+														<td>ä¸­ç­</td>
+														<td>å·²è©•æ¸¬</td>
 														<td>
-															<a href="#"><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=024&category=è©•æ¸¬"><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 													<tr>
 														<td>4</td>
 														<td>094</td>
 														<td>7</td>
-														<td>¦V¤é¸ª¯Z</td>
-														<td>¤j¯Z</td>
-														<td>¥¼µû´ú</td>
+														<td>å‘æ—¥è‘µç­</td>
+														<td>å¤§ç­</td>
+														<td>æœªè©•æ¸¬</td>
 														<td>
-															<a href="#"><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=094&category=è©•æ¸¬"><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 													<tr>
 														<td>5</td>
 														<td>074</td>
 														<td>5</td>
-														<td>¦V¤é¸ª¯Z</td>
-														<td>¤¤¯Z</td>
-														<td>¤wµû´ú</td>
+														<td>å‘æ—¥è‘µç­</td>
+														<td>ä¸­ç­</td>
+														<td>å·²è©•æ¸¬</td>
 														<td>
-															<a href="#"><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=074&category=è©•æ¸¬"><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 													<tr>
 														<td>6</td>
 														<td>064</td>
 														<td>7</td>
-														<td>¦V¤é¸ª¯Z</td>
-														<td>¤j¯Z</td>
-														<td>¤wµû´ú</td>
+														<td>å‘æ—¥è‘µç­</td>
+														<td>å¤§ç­</td>
+														<td>å·²è©•æ¸¬</td>
 														<td>
-															<a href="#"><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=064&category=è©•æ¸¬"><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 													<tr>
 														<td>7</td>
 														<td>044</td>
 														<td>5</td>
-														<td>¦V¤é¸ª¯Z</td>
-														<td>¤¤¯Z</td>
-														<td>¥¼µû´ú</td>
+														<td>å‘æ—¥è‘µç­</td>
+														<td>ä¸­ç­</td>
+														<td>æœªè©•æ¸¬</td>
 														<td>
-															<a href="#"><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=044&category=è©•æ¸¬"><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 													<tr>
 														<td>8</td>
 														<td>034</td>
 														<td>6</td>
-														<td>¦V¤é¸ª¯Z</td>
-														<td>¤¤¯Z</td>
-														<td>¥¼µû´ú</td>
+														<td>å‘æ—¥è‘µç­</td>
+														<td>ä¸­ç­</td>
+														<td>æœªè©•æ¸¬</td>
 														<td>
-															<a href="#"><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=034&category=è©•æ¸¬"><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 													<tr>
 														<td>9</td>
 														<td>016</td>
 														<td>8</td>
-														<td>¦V¤é¸ª¯Z</td>
-														<td>¤j¯Z</td>
-														<td>¤wµû´ú</td>
+														<td>å‘æ—¥è‘µç­</td>
+														<td>å¤§ç­</td>
+														<td>å·²è©•æ¸¬</td>
 														<td>
-															<a href="#"><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=016&category=è©•æ¸¬"><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 													<tr>
 														<td>10</td>
 														<td>024</td>
 														<td>6</td>
-														<td>¦V¤é¸ª¯Z</td>
-														<td>¤¤¯Z</td>
-														<td>¤wµû´ú</td>
+														<td>å‘æ—¥è‘µç­</td>
+														<td>ä¸­ç­</td>
+														<td>å·²è©•æ¸¬</td>
 														<td>
-															<a href="#"><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=024&category=è©•æ¸¬"><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 												</tbody>
@@ -305,10 +280,10 @@
 							</ul>
 						</div>
 					</div>
-					<!-------------------------------------------------------------------------------©³½u------------------------------------------------------------------------->
+					<!-------------------------------------------------------------------------------åº•ç·š------------------------------------------------------------------------->
 					<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">¡Ñ</button>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
 							<h3 id="myModalLabel">Delete Confirmation</h3>
 						</div>
 						<div class="modal-body">

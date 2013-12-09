@@ -5,7 +5,7 @@
   ?> 
   <body> 
 	<!--<![endif]-->
-    <?
+    <?php
 	  include "navbar.php";
 	  include "sidebar-nav.php";
 	?>

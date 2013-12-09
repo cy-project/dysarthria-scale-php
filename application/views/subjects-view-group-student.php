@@ -13,55 +13,53 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">修改人員(施測者)</h1>
+					<h1 class="page-title"><?php echo $category;echo $name;?></h1>
 				</div>
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
-						<li><a href="<?=base_url("/projectview_admin/project_board")?>">幼音評測</a> <span class="divider">/</span></li>
-						<li class="active">修改人員(施測者)</li>
+						<li><a href="<?=site_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/</span></li>
+						<li><a href="<?=base_url("/projectview_student/project_board")?>?name=幼音評測">幼音評測</a> <span class="divider">/</span></li>
+						<li class="active"><?php echo $category.$name;?></li>
 					</ul>
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" action="<?=site_url("/projectview_admin/project_board")?>" method="post">
-							<div class="btn-toolbar">
-								<button class="btn btn-primary" type="submit"><i class="icon-save"></i>修改</button>
-								<a href=""<?=site_url("/projectview_admin/project_board")?>""><button class="btn btn-primary">取消</button></a>
-							</div>
-							<div class="well">
-								<label>姓名</label>
-								<input type="text" class="input-xlarge" value=<?php echo $name;?> >
-								<label>性別</label>
-								<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selected">男</option>
-									<option>女</option>
-								</select>
-								<label>出生年月日(西元yyyy/mm/dd)</label>
-								<input type="text" value="0000/00/00" class="input-xlarge">
-								<label>所在縣市</label>
-								<input type="text" value="高雄市" class="input-xlarge">
-								<label>職業</label>
-								<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selected">大學生</option>
-									<option>教師</option>
-									<option>治療師</option>
-								</select>
-								<label>專案所屬職位</label>
-								<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selected">施測者</option>
-									<option>評測者</option>
-									<option>專案成員</option>
-									<option>專案管理員</option>
-								</select>
-								<label>權限使用期限</label>
-								<input type="text" value="2013-12-30" class="input-xlarge">
-								<label>備註</label>
-								<textarea value="Smith" rows="3" class="input-xlarge">樹德科技大學學生
-								</textarea>
-							</div>
-						</form>
+						<div class="well" style="border: 0px;">
+										<table class="sortable table">
+											<thead>
+												<tr>
+													<th><a href="#">類別</a></th>
+												</tr>
+											</thead>
+											<tbody> 
+												<tr>
+													<td>
+														<a href="<?=base_url("/projectview_student/subjects_view_glossary_student")?>?name=<?php echo $name?>">字彙<img src="Storytelling.jpg" width="300" height="200"></a>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<a href="http://localhost/dysarthria-scale-php(2)/subjects_view_group.php">字句<img src="digital.jpg" width="300" height="200"></a>
+													</td>
+												<tr>
+													<td>
+														<a href="http://localhost/dysarthria-scale-php(2)/subjects_view_group.php">數數字<img src="Sentence.jpg" width="300" height="200"></a>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<a href="http://localhost/dysarthria-scale-php(2)/subjects_view_group.php">輪替<img src="Glossary.jpg" width="300" height="200"></a>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<a href="http://localhost/dysarthria-scale-php(2)/subjects_view_group.php">說故事<img src="Glossary.jpg" width="300" height="200"></a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

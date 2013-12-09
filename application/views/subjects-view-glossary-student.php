@@ -13,15 +13,15 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">檢視詞彙(王大明)</h1>
+					<h1 class="page-title">檢視詞彙<?php echo $name;?></h1>
 				</div>
 				
 					<ul class="breadcrumb">
-						<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>d
-						<li><a href="<?=site_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
-						<li><a href="<?=base_url("/projectview_admin/project_board")?>">幼音評測</a> <span class="divider">/</span></li>
-						<li><a href="<?=base_url("/projectview_admin/subjects_view_group")?>">檢視類別</a> <span class="divider">/</span></li>
-						<li class="active">檢視詞彙</li>
+						<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
+						<li><a href="<?=site_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/</span></li>
+						<li><a href="<?=base_url("/projectview_student/project_board")?>?name=幼音評測">幼音評測</a> <span class="divider">/</span></li>
+						<li><a href="<?=base_url("/projectview_student/subjects_view_group_student")?>?name=<?php echo $name;?>">檢視類別</a> <span class="divider">/</span></li>
+						<li class="active">檢視詞彙<?php echo $name;?></li>
 					</ul>
 
 				<div class="container-fluid">
@@ -46,6 +46,108 @@
 							<a href="subjects_view.php"><button class="btn btn-primary">確認</button></a>
 							<a href="#myModal" data-toggle="modal"><button class="btn btn-primary">取消</button></a>
 						</div>
+						<div id="myTabContent" class="tab-content">
+								<div class="tab-pane active in" id="surveying_list">
+									<div class="well" style="border: 0px;">
+										<table class="sortable table"><!--施測名單-->
+											<thead>
+												<tr>
+													<th><a href="#">#</a></th>
+													<th><a href="#">幼稚園</a></th>
+													<th><a href="#">班級</a></th>
+													<th><a href="#">年級</a></th>
+													<th><a href="#">姓名</a></th>
+													<th><a href="#">姓別</a></th>
+													<th><a href="#">生日</a></th>
+													<th><a href="#">主要語言</a></th>
+													<th><a href="#">狀態</a></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1</td>
+													<td>王小明</td>
+													<td>7</td>
+													<td>向日葵班</td>
+													<td>大班</td>
+													<td>已施測</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>李小刀</td>
+													<td>6</td>
+													<td>向日葵班</td>
+													<td>中班</td>
+													<td>未施測</td>
+												</tr>
+													<tr>
+													<td>3</td>
+													<td>馬小九</td>
+													<td>6</td>
+													<td>向日葵班</td>
+													<td>中班</td>
+													<td>已施測</td>
+												</tr>
+												<tr>
+													<td>4</td>
+													<td>周小倫</td>
+													<td>7</td>
+													<td>向日葵班</td>
+													<td>大班</td>
+													<td>已施測</td>
+												</tr>
+												<tr>
+													<td>5</td>
+													<td>張大三</td>
+													<td>5</td>
+													<td>向日葵班</td>
+													<td>中班</td>
+													<td>未施測</td>
+												</tr>
+												<tr>
+													<td>6</td>
+													<td>李大仁</td>
+													<td>8</td>
+													<td>向日葵班</td>
+													<td>大班</td>
+													<td>已施測</td>
+												</tr>
+												<tr>
+													<td>7</td>
+													<td>王小明</td>
+													<td>7</td>
+													<td>向日葵班</td>
+													<td>大班</td>
+													<td>未施測</td>
+												</tr>
+												<tr>
+													<td>8</td>
+													<td>李小刀</td>
+													<td>6</td>
+													<td>向日葵班</td>
+													<td>中班</td>
+													<td>未施測</td>
+												</tr>
+												<tr>
+													<td>9</td>
+													<td>馬小九</td>
+													<td>6</td>
+													<td>向日葵班</td>
+													<td>中班</td>
+													<td>已施測</td>
+												</tr>
+												<tr>
+													<td>10</td>
+													<td>周小倫</td>
+													<td>7</td>
+													<td>向日葵班</td>
+													<td>大班</td>
+													<td>未施測</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
 						<div class="well" style="border: 0px;">	
 						</div>
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

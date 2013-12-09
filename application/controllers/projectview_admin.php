@@ -15,7 +15,7 @@ class projectview_admin extends CI_Controller {
 		if($number_button==1&&$number_page==1)//新增受測者
 			echo'/subjects_view_glossary';
 		elseif($number_button==2&&$number_page==1)//派遣
-			echo '/new_personnel_Practitioner';
+			echo '/testview';
 		elseif($number_page==2&&$number_button==1)//新增
 			echo '/new_personnel_Practitioner';
 		
@@ -48,6 +48,9 @@ class projectview_admin extends CI_Controller {
 	}
 	public function subjects_view_glossary(){
 		$this->load->view('subjects-view-glossary',$this->data);
+	}
+	public function testview(){
+		$this->load->view('testview',$this->data);
 	}
 }
 
