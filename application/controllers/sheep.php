@@ -17,12 +17,17 @@ class Sheep extends CI_Controller
 
 		$dm = new Member;
 		
-		 $p = $dm->getMemberData("root");
+		$p = $dm->getMemberData("root");
 	
 		echo $p->account;
+		
+		$uid = 2;
+		
+		$test = array('password'=>'4321');
+		
+		$dm->update($uid,$test);
 
 	}
-	
 	
 
 

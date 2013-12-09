@@ -24,6 +24,11 @@
             <label class="login-help">
               <a href="<?=base_url()?>">回首頁</a>
             </label>
+			<?php  if (isset($errorMessage)){?>
+			<div class="alert alert-error">
+				<?=$errorMessage?>
+			</div>
+			<?php }?>
           </p>
           <p class="submit"><input type="submit" name="commit" value="登入"></p>
         </form>
