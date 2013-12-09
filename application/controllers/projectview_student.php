@@ -5,7 +5,7 @@ class projectview_student extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();	
-		
+		session_start();
 	}
 	public function projectview(){
 		$this->load->view("project_home_student");
