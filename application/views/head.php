@@ -26,7 +26,7 @@
 	$.ajax({
 		type: 'POST',
 		data:{asd:'333',zxc:'222'}, /*呈現資料塞這裡*/
-		url: 'http://127.0.0.1/dysarthria-scale-php/Dysarthria/sidebar_nav',
+		url: '<?=base_url("/Dysarthria/sidebar_nav")?>',
 		dataType: 'html',
 		success: function(response) {
 		$('#sidebar-nav').html(response);
