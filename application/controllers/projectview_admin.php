@@ -7,7 +7,7 @@ class projectview_admin extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();	
-		
+		session_start();
 	}
 	public function new_picking(){
 		$number_button=$_POST['number_button'];
