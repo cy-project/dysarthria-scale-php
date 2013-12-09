@@ -16,13 +16,12 @@ class Sheep extends CI_Controller
 	{
 
 		 $dm = new Dispatch_json;
-		
+
 		 $dm->dispatch(1,1);
 	
-		//echo $p->account;
+
 
 	}
-	
 	
 
 

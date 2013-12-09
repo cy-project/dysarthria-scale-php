@@ -25,10 +25,6 @@
 					
 						<div class="container-fluid">
 							<div class="row-fluid">
-									<div class="btn-toolbar">
-										<a href="<?=base_url("/projectadmin/project_new_admin")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
-									</div>
-								<form action="<?=base_url("projectview_admin/project_board")?>" method="post">
 									<div class="well">
 										<table class="table sortable">
 											<thead>
@@ -51,7 +47,7 @@
 													<td>Mark</td>
 													<td>2013/10/19</td>
 													<td>
-														<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
+														<a href="<?=base_url("/projectview_student/project_board")?>?name=幼音評測"><i class="icon-eye-open"></i></a>
 													</td>
 												</tr>
 												<tr>
@@ -62,7 +58,7 @@
 													<td>Jacky</td>
 													<td>2013/10/20</td>
 													<td>
-														<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
+														<a href="<?=base_url("/projectview_student/project_board")?>?name=構音調查"><i class="icon-eye-open"></i></a>
 													</td>
 												</tr>
 											</tbody>

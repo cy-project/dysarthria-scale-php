@@ -4,7 +4,7 @@
     include "head.php";
   ?>
   <body> 
-    <?
+    <?php
 	  include "navbar.php";
 	  include "sidebar-nav.php";
 	?>
@@ -36,7 +36,6 @@
           <th>姓名</th>
           <th>申請身分</th>
           <th>帳號</th>
-          <th>備註</th>
           <th style="width: 35px;">確認</th>
           <th style="width: 35px;">取消</th>
         </tr>
@@ -47,7 +46,6 @@
           <td>Mark</td>
           <td>大學生</td>
           <td>the_mark7</td>
-          <td>STU學生</td>
           <td>
 			  <a href="#" alt="確認"><i class="icon-ok"></i></a>
           </td>
@@ -60,7 +58,6 @@
           <td>Ashley</td>
           <td>教師</td>
           <td>ash11927</td>
-          <td>桃園OO幼兒園教師</td>
           <td>
 			  <a href="#" alt="確認"><i class="icon-ok"></i></a>
           </td>
@@ -73,7 +70,6 @@
           <td>Audrey</td>
           <td>大學生</td>
           <td>audann84</td>
-          <td></td>
           <td>
 			  <a href="#" alt="確認"><i class="icon-ok"></i></a>
           </td>
@@ -86,7 +82,6 @@
           <td>John</td>
           <td>大學生</td>
           <td>jr5527</td>
-          <td></td>
           <td>
 			  <a href="#" alt="確認"><i class="icon-ok"></i></a>
           </td>
@@ -99,7 +94,6 @@
           <td>Aaron</td>
           <td>語言治療師</td>
           <td>aaron_butler</td>
-          <td></td>
           <td>
 			  <a href="#" alt="確認"><i class="icon-ok"></i></a>
           </td>
@@ -112,7 +106,6 @@
           <td>Chris</td>
           <td>教師</td>
           <td>cab79</td>
-          <td></td>
           <td>
 			  <a href="#" alt="確認"><i class="icon-ok"></i></a>
           </td>

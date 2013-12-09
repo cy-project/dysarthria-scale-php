@@ -121,50 +121,85 @@ class Welcome extends CI_Controller {
 	
 	public function login()
 	{
+		session_start();  
+		if(isset($_SESSION["account"]) && $_SESSION["account"] != null){ //已經登入的話直接回首頁  
+			redirect(base_url("/dysarthria/index")); //轉回首頁  
+			return true;
+		}  
 		$this->load->view('login');
 	}
 	
-	/*public function login(){  
+	public function logining()
+	{  
+		$mem = new Member;
+		
 		session_start();  
-		if(isset($_SESSION["user"]) && $_SESSION["user"] != null){ //已經登入的話直接回首頁  
-			redirect(base_url()); //轉回首頁  
+		if(isset($_SESSION["account"]) && $_SESSION["account"] != null){ //已經登入的話直接回首頁  
+			redirect(base_url("/dysarthria/index")); //轉回首頁  
 			return true;  
 		}  
-	  
-		$this->load->view('login');  
-	} 
-	
-	public function logining(){  
-		session_start();  
-		if(isset($_SESSION["user"]) && $_SESSION["user"] != null){ //已經登入的話直接回首頁  
-			redirect(site_url("/")); //轉回首頁  
-			return true;  
-		}  
-	  
 		$account = trim($this->input->post("account"));  
 		$password = trim($this->input->post("password"));  
-	  
-		$this->load->model("UserModel");  
-		$user = $this->UserModel->getUser($account,$password);  
-	  
-		if($user == null){  
+		
+		$exist = $mem->isExist($account);
+		
+		if($exist == 0)
+		{
 			$this->load->view(  
 				"login",  
-				Array( "pageTitle" => "發文系統 - 會員登入"  ,  
-					"account" => $account,  
-					"errorMessage" => "使用者或密碼錯誤"  
+				Array( "account" => $account ,  
+					"errorMessage" => "使用者帳號或密碼錯誤"  
 				)  
 			);        
-			return true;  
-		}  
-	  
-		$_SESSION["user"] = $user;  
-		redirect(site_url("/")); //轉回首頁  
-	}  
-	  
+			return true;
+		}
+		else
+		{
+			$user = $this->check($account,$password);
+		}
+		
+		if($user == 0)
+		{
+			$this->load->view(  
+				"login",  
+				Array( "account" => $account ,  
+					"errorMessage" => "使用者帳號或密碼錯誤"  
+				)  
+			);        
+			return true;
+		}
+		else
+		{
+			$_SESSION["account"] = $account; //SESSION 帳號
+			
+			$person = $mem->getMemberData($account);
+			$_SESSION["username"] = $person->name; //SESSION 使用者名稱
+			
+			redirect(base_url("/dysarthria/index")); //轉回首頁
+		}
+	} 
+
+	public function check($account,$password)
+	{
+		
+		$mem = new Member;
+		
+		$person = $mem->getMemberData($account);
+
+		if($person->password == $password)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	
+	}
+	
 	public function logout(){  
 		session_start();  
 		session_destroy();  
-		redirect(site_url("/user/login")); //轉回登入頁  
-	}*/	
+		redirect(base_url("/welcome/login")); //轉回登入頁  
+	}
 }

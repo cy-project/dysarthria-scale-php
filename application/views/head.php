@@ -12,9 +12,33 @@
     <script src="<?=base_url("/lib/jquery-1.7.2.min.js")?>" type="text/javascript"></script>
 	<script src="<?=base_url("lib/bootstrap/js/bootstrap.js")?>" type="text/javascript"></script>
     <script src="<?=base_url("/js/sorttable.js")?>" type="text/javascript"></script>	
-    <script src="<?=base_url("/js/jquery.cookie.js")?>" type="text/javascript"></script>	
-	<script src="<?=base_url("/js/jquery-1.9.1.js")?>"></script>
+    <script src="<?=base_url("/js/jquery.cookie.js")?>" type="text/javascript"></script>
+	<script language="JavaScript">
 
+	$().ready(function() {
+		
+		sidebar_nav();
+	
+	});
+
+	function sidebar_nav(){
+	
+	$.ajax({
+		type: 'POST',
+		data:{asd:'333',zxc:'222'}, /*呈現資料塞這裡*/
+		url: 'http://120.119.54.47/dysarthria-scale-php/Dysarthria/sidebar_nav',
+		dataType: 'html',
+		success: function(response) {
+		$('#sidebar-nav').html(response);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+		alert(jqXHR.responseText);
+		},
+	});
+	
+	}
+	
+	</script>
 
     <!-- Demo page code -->
 

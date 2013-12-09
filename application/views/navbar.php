@@ -3,7 +3,7 @@
 			<ul class="nav pull-right">
 				<li id="fat-menu" class="dropdown">
 					<a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-user"></i> Jack Smith
+						<i class="icon-user"></i> <?=$_SESSION["username"]. " 您好"?>
 						<i class="icon-caret-down"></i>
 					</a>
 
@@ -12,7 +12,7 @@
 						<li class="divider"></li>
 						<li><a tabindex="-1" class="visible-phone" href="#">Settings</a></li>
 						<li class="divider visible-phone"></li>
-						<li><a tabindex="-1" href="sign-in.html">Logout</a></li>
+						<li><a tabindex="-1" href="<?=base_url("/welcome/logout")?>">Logout</a></li>
 					</ul>
 				</li>
 			</ul>
