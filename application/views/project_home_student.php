@@ -12,12 +12,12 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">專案管理</h1>
+					<h1 class="page-title">�M�׺޲z</h1>
 				</div>
 				
 					<ul class="breadcrumb">
-						<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li class="active">專案管理</li>
+						<li><a href="<?=base_url("/Dysarthria/index")?>">����</a> <span class="divider">/</span></li>
+						<li class="active">�M�׺޲z</li>
 					</ul>
 
 				<div class="container-fluid">
@@ -25,29 +25,26 @@
 					
 						<div class="container-fluid">
 							<div class="row-fluid">
-									<div class="btn-toolbar">
-										<a href="<?=base_url("/projectadmin/project_new_admin")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
-									</div>
-								<form action="<?=base_url("projectview_admin/project_board")?>" method="post">
+								<form action="<?=base_url("projectview_student/project_board")?>" method="post">
 									<div class="well">
 										<table class="table sortable">
 											<thead>
 												<tr>
 													<th><a href="#">#</a></th>
-													<th><a href="#">專案名稱</a></th>
-													<th><a href="#">人數</a></th>
-													<th><a href="#">地區</a></th>
-													<th><a href="#">專案管理員</a></th>
-													<th><a href="#">專案起始日期</a></th>
-													<th class="sorttable_nosort">檢視</th>
+													<th><a href="#">�M�צW��</a></th>
+													<th><a href="#">�H��</a></th>
+													<th><a href="#">�a��</a></th>
+													<th><a href="#">�M�׺޲z��</a></th>
+													<th><a href="#">�M�װ_�l���</a></th>
+													<th class="sorttable_nosort">�˵�</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
 													<td>1</td>
-													<td>幼音評測</td>
+													<td>��������</td>
 													<td>25</td>
-													<td>高雄左營</td>
+													<td>��������</td>
 													<td>Mark</td>
 													<td>2013/10/19</td>
 													<td>
@@ -56,9 +53,9 @@
 												</tr>
 												<tr>
 													<td>2</td>
-													<td>構音調查</td>
+													<td>�c���լd</td>
 													<td>40</td>
-													<td>屏東</td>
+													<td>�̪F</td>
 													<td>Jacky</td>
 													<td>2013/10/20</td>
 													<td>
@@ -82,7 +79,7 @@
 								</div>
 								<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">��</button>
 										<h3 id="myModalLabel">Delete Confirmation</h3>
 									</div>
 									<div class="modal-body">
