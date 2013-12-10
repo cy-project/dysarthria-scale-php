@@ -54,10 +54,7 @@ class Project_model extends CI_Model
 							$children[$i]->check = $row->check;
 						
 						}
-					}
-
-					
-					
+					}	
 				}
 			
 			}
