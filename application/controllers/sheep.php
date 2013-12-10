@@ -8,24 +8,29 @@ class Sheep extends CI_Controller
 
 		$this->load->library('Personal_data');
 		$this->load->model('Member_model');
-		$this->load->library('Member');
+		$this->load->library('Dispatch_json');
+		$this->load->library('Datamodel');
+		$this->load->model('Project_model');
 
 	}
 	
 	public function index()
 	{
 
-		$dm = new Member;
+		 /*$dm = new Dispatch_json;
+
+		 $dm->dispatch(1,1);
+	*/
+		//echo 'test';
 		
-		$p = $dm->getMemberData("root");
-	
-		echo $p->account;
 		
-		$uid = 2;
 		
-		$test = array('password'=>'4321');
+		/** project_model getTesting List example*/
+		$pm = new Project_model;
 		
-		$dm->update($uid,$test);
+		$test = $pm->getTestingList(1);
+			
+		echo ''.$test[2]->bir;
 
 	}
 	
