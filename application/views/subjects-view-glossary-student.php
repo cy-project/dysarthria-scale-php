@@ -88,62 +88,6 @@
 													<td>中班</td>
 													<td>已施測</td>
 												</tr>
-												<tr>
-													<td>4</td>
-													<td>周小倫</td>
-													<td>7</td>
-													<td>向日葵班</td>
-													<td>大班</td>
-													<td>已施測</td>
-												</tr>
-												<tr>
-													<td>5</td>
-													<td>張大三</td>
-													<td>5</td>
-													<td>向日葵班</td>
-													<td>中班</td>
-													<td>未施測</td>
-												</tr>
-												<tr>
-													<td>6</td>
-													<td>李大仁</td>
-													<td>8</td>
-													<td>向日葵班</td>
-													<td>大班</td>
-													<td>已施測</td>
-												</tr>
-												<tr>
-													<td>7</td>
-													<td>王小明</td>
-													<td>7</td>
-													<td>向日葵班</td>
-													<td>大班</td>
-													<td>未施測</td>
-												</tr>
-												<tr>
-													<td>8</td>
-													<td>李小刀</td>
-													<td>6</td>
-													<td>向日葵班</td>
-													<td>中班</td>
-													<td>未施測</td>
-												</tr>
-												<tr>
-													<td>9</td>
-													<td>馬小九</td>
-													<td>6</td>
-													<td>向日葵班</td>
-													<td>中班</td>
-													<td>已施測</td>
-												</tr>
-												<tr>
-													<td>10</td>
-													<td>周小倫</td>
-													<td>7</td>
-													<td>向日葵班</td>
-													<td>大班</td>
-													<td>未施測</td>
-												</tr>
 											</tbody>
 										</table>
 									</div>

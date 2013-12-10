@@ -9,17 +9,18 @@
 				parent::__construct();
 		
 				$this->load->database();
-				$this->load->library('judge');
 			}
 			
-			public function lond_data($sid){
-				$data = $this->db->get('student');	
+			public function lond_List($member_id){
+				$this->db->select('member_id,project_id');
+				$this->db->from('People_List');
+				$this->db->where('member_id',$member_id);
+				$data = $this->db->get();
 				$r = $data->result();
 				$preame = (array)$r;
-				$value = new judge;
-				$boolen = $value->getname($preame, $sid);
-
-				return $boolen['boolen'];
+				$this->topiarray = $preame;
+				$print($this->topiarray);
+				return $this->topiarray;
 			}
 			
 			public function lond_data_test($sid){

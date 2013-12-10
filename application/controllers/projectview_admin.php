@@ -33,7 +33,7 @@ class projectview_admin extends CI_Controller {
 		$project_name=$_POST['ProjectName'];
 		$Counties=$_POST['Counties'];
 		$Area=$_POST['Area'];
-		$date=  date("Y-m-d");
+		$date=  date("Y/m/d");
 		/*$data->name = $project_name;
 		$data->county = $Counties;
 		$data->area = $Area;
@@ -43,19 +43,21 @@ class projectview_admin extends CI_Controller {
 	}
 	public function project_board()
 	{//檢視專案
-		$this->name=$_GET['name'];
+		$member_id=$_SESSION["id"];
+		echo $member_id;
+		echo $_SESSION["id"];
+		$this->load->
 		$this->load->view('project_board');
 	}	
 	
 	public function subjects_new_data()
 	{//修改資料(受測者)
-		$this->name=$_GET['name'];
-		$this->data['stu_name'] =$this->name;
+		//$this->name=$_GET['name'];
+		$this->data['stu_name'] =$_GET['name'];
 		$this->load->view('subjects-new-data',$this->data);
 	}
 	public function subjects_data()
-	{//新增施測者
-		$data=$_SESSION[''];
+	{//新增受測者
 		$this->load->view('subjects-data');
 	}
 	public function practitioner_alter(){
