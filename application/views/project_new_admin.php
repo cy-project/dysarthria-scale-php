@@ -25,7 +25,7 @@
 					<div class="row-fluid">
 						<div class="container-fluid">
 							<div class="row-fluid">
-								<form action="<?=base_url("/projectview_admin/project_board")?>" method="post">
+								<form action="<?=base_url("/projectview_admin/new_project_board")?>" method="post">
 									<div class="btn-toolbar">
 										<button class="btn btn-primary" id="new_people" onclick="$(this).closest('form').submit()"><i class="icon-plus"></i>建立</button>
 									</div>
@@ -35,21 +35,24 @@
 										</ul>
 										<div class="tab-pane active in" id="chit">
 											<div class="well" style="border: 0px;">
-												<label>名稱</label>
-												<input type="text" value="" class="input-xlarge">
-												<label>地區</label>
-												<input type="text" value="" class="input-xlarge">
+												<label>權限</label>
+												<select name="purview" id="purview" class="input-xlarge">
+													<option selected="selected" value="1">公開(預設)</option>
+													<option value="2">私人</option>
+												</select>
+												<label>專案名稱</label>
+												<input type="text" name="ProjectName" class="input-xlarge">
 												<label>所在縣市</label>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
+												<select name="Counties" id="Counties" class="input-xlarge">
 													<option selected="selected">請選擇</option>
-													<option>高雄市</option>
-													<option>台中市</option>
+													<option value="1">高雄市</option>
+													<option value="2">台中市</option>
 												</select>
 												<label>所在區</label>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
+												<select name="Area" id="Area" class="input-xlarge">
 													<option selected="selected">請選擇</option>
-													<option>楠梓區</option>
-													<option>左營區</option>
+													<option value="1">楠梓區</option>
+													<option value="2">左營區</option>
 												</select>
 											</div>
 										</div>

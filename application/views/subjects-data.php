@@ -13,51 +13,54 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">修改人員(受測者)</h1>
+					<h1 class="page-title">新增受測者</h1>
 				</div>
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
 						<li><a href="<?=site_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
 						<li><a href="<?=base_url("/projectview_admin/project_board")?>">幼音評測</a> <span class="divider">/</span></li>
-						<li class="active">修改人員(受測者)</li>
+						<li class="active">新增受測者</li>
 					</ul>
 
 				<div class="container-fluid">
 					<div class="row-fluid">
 						<form id="tab" action="<?=site_url("/projectview_admin/project_board")?>" method="post">
 							<div class="btn-toolbar">
-								<button class="btn btn-primary" type="submit"><i class="icon-save"></i>修改</button>
+								<button class="btn btn-primary" type="submit"><i class="icon-save"></i>新增</button>
 								<a href=""<?=site_url("/projectview_admin/project_board")?>""><button class="btn btn-primary">取消</button></a>
 							</div>
 							<div class="well">
 								<label>姓名</label>
-								<input type="text" value=<?echo $stu_name;?> class="input-xlarge">
+								<input type="text" class="input-xlarge">
 								<label>性別</label>
 								<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selected" value="-12.0">男</option>
+									<option selected="selected" value="-12.0">請選擇</option>
+									<option value="-11.0">男</option>
 									<option value="-11.0">女</option>
 								</select>
 								<label>出生年月日(西元yyyy/mm/dd)</label>
-								<input type="text" value="2006/11/21" class="input-xlarge">
+								<input type="text" class="input-xlarge">
 								<label>所在縣市</label>
-								<input type="text" value="高雄市" class="input-xlarge">
+								<input type="text" class="input-xlarge">
 								<label>學校</label>
-								<input type="text" value="OO幼稚園" class="input-xlarge">
+								<input type="text" class="input-xlarge">
 								<label>年級</label>
-								<input type="text" value="大班" class="input-xlarge">
+								<input type="text" class="input-xlarge">
 								<label>班級</label>
-								<input type="text" value="向日葵班" class="input-xlarge">
+								<input type="text" class="input-xlarge">
 								<!--<label>家中排行</label>
 								<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selected" value="-11.0">長子</option>
+									<option selected="selected" value="-11.0">請選擇</option>
+									<option value="-12.0">長子</option>
 									<option value="-12.0">長女</option>
 									<option value="-13.0">次子</option>
 									<option value="-13.0">次女</option>
 								</select>-->
 								<label>常用語言</label>
 								<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selecte" value="-12.0">國語</option>
+									<option selected="selecte" value="-12.0">請選擇</option>
+									<option value="-11.0">國語</option>
 									<option value="-11.0">台語</option>
 									<option value="-13.0">英語</option>
 								</select>
