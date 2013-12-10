@@ -1,5 +1,5 @@
 	<div class="sidebar-nav">
-        </ul><a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-user"></i>權限</a>
+        <a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-user"></i>權限</a>
         <ul id="dashboard-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/userapplication/users")?>">權限申請狀況</a></li>
 			<li ><a href="<?=base_url("/userapplication/usersadmin")?>">權限管理</a></li>
