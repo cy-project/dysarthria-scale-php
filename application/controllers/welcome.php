@@ -173,6 +173,7 @@ class Welcome extends CI_Controller {
 			$_SESSION["account"] = $account; //SESSION 帳號
 			
 			$person = $mem->getMemberData($account);
+			$_SESSION["id"] = $person->id; //SESSION 使用者ID
 			$_SESSION["username"] = $person->name; //SESSION 使用者名稱
 			
 			redirect(base_url("/dysarthria/index")); //轉回首頁
