@@ -170,13 +170,27 @@ class Welcome extends CI_Controller {
 		}
 		else
 		{
-			$_SESSION["account"] = $account; //SESSION 帳號
-			
 			$person = $mem->getMemberData($account);
-			$_SESSION["id"] = $person->id; //SESSION 使用者ID
-			$_SESSION["username"] = $person->name; //SESSION 使用者名稱
 			
-			redirect(base_url("/dysarthria/index")); //轉回首頁
+			$_SESSION["status"] = $person->status; //SESSION 使用者身分
+			
+			if($_SESSION["status"] == 0)
+			{
+				$this->load->view(  
+				"login",  
+				Array( "account" => $account ,  
+					"errorMessage" => "您的帳號已被停權，請聯絡管理員復權！"  
+				)  
+				);        
+				return true;
+			}
+			else
+			{
+				$_SESSION["account"] = $account; //SESSION 帳號
+				$_SESSION["id"] = $person->id; //SESSION 使用者ID
+				$_SESSION["username"] = $person->name; //SESSION 使用者名稱
+				redirect(base_url("/dysarthria/index")); //轉回首頁
+			}
 		}
 	} 
 
