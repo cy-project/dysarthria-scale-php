@@ -43,10 +43,12 @@ class projectview_admin extends CI_Controller {
 	}
 	public function project_board()
 	{//檢視專案
+		$cont = array();
 		$member_id=$_SESSION["id"];
-		echo $member_id;
-		echo $_SESSION["id"];
-		$this->load->
+		$this->load->model('test_models');
+		$project_List = new test_models;
+		$cont = $project_List->lond_List($_SESSION["id"]);
+		print($cont);
 		$this->load->view('project_board');
 	}	
 	

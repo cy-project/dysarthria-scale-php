@@ -19,7 +19,7 @@
 				$r = $data->result();
 				$preame = (array)$r;
 				$this->topiarray = $preame;
-				$print($this->topiarray);
+				print($preame);
 				return $this->topiarray;
 			}
 			
