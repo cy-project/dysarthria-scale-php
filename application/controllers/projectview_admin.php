@@ -2,22 +2,20 @@
 
 class projectview_admin extends CI_Controller {
 	var $data = array();
-	var $countt;
-	var $name,$competence,$timeis;
 	function __construct()
 	{
 		parent::__construct();	
-		//$this->load->libaray('Dtat_model');
+		$this->load->library('Datamodel');
 		session_start();
 	}
 	public function new_picking(){
 		$number_button=$_POST['number_button'];
 		$number_page=$_POST['number_page'];
 		if($number_button==1&&$number_page==2)//新增受測者
-			echo'/subjects_data';
+			echo'/subjects_data_new';
 		elseif($number_button==2&&$number_page==1)//派遣
-			echo '/testview';
-		elseif($number_page==2&&$number_button==1)//新增
+			echo '/practitioner_alter';
+		elseif(($number_page==1 || $number_page==3 || $number_page==4 )&&$number_button==1)//設置專案成員位置
 			echo '/new_personnel_Practitioner';
 		
 	}
@@ -27,19 +25,35 @@ class projectview_admin extends CI_Controller {
 	public function new_project_board()
 	{//新增專案
 		
-		//$data = new Data_model();
+		$dota = new Datamodel();
 		
 		$purview=$_POST['purview'];
 		$project_name=$_POST['ProjectName'];
 		$Counties=$_POST['Counties'];
 		$Area=$_POST['Area'];
 		$date=  date("Y/m/d");
-		/*$data->name = $project_name;
-		$data->county = $Counties;
-		$data->area = $Area;
-		$data->status = $purview;
-		$data->cr_date = $date;*/
+		$dota->name = $project_name;
+		$dota->county = $Counties;
+		$dota->area = $Area;
+		$dota->status = $purview;
+		$dota->cr_date = $date;
 		$this->load->view('project_board');
+	}
+	public function subjects_list(){
+		$member_id = $_POST['member_id'];
+		$number_page = $_POST['number_page'];
+		echo $number_page;
+	}
+	public function subjects_data(){
+		$subjects_name=$_POST['subjects_name'];
+		$subjects_sex=$_POST['subjects_sex'];
+		$subjects_birth=$_POST['subjects_birth'];
+		$subjects_counties=$_POST['subjects_counties'];
+		$subjects_school=$_POST['subjects_school'];
+		$subjects_grade=$_POST['subjects_grade'];
+		$subjects_class=$_POST['subjects_class'];
+		$subjects_language=$_POST['subjects_language'];
+		$date=  date("Y/m/d");
 	}
 	public function project_board()
 	{//檢視專案
@@ -48,8 +62,8 @@ class projectview_admin extends CI_Controller {
 		$this->load->model('test_models');
 		$project_List = new test_models;
 		$cont = $project_List->lond_List($_SESSION["id"]);
-		print($cont);
-		$this->load->view('project_board');
+		$this->data['member_id'] = $member_id;
+		$this->load->view('project_board',$this->data);
 	}	
 	
 	public function subjects_new_data()
@@ -58,19 +72,19 @@ class projectview_admin extends CI_Controller {
 		$this->data['stu_name'] =$_GET['name'];
 		$this->load->view('subjects-new-data',$this->data);
 	}
-	public function subjects_data()
+	public function subjects_data_new()
 	{//新增受測者
 		$this->load->view('subjects-data');
 	}
 	public function practitioner_alter(){
-		$this->name=$_GET['name'];
-		$this->data['name'] =$this->name;
+		//$this->name=$_GET['name'];
+		$this->data['name'] =$_GET['name'];
 		$this->load->view('practitioner-alter',$this->data);
 	}
 	public function evaluators_naw_data()
 	{
-		$this->name=$_GET['name'];
-		$this->data['evaluators_name'] =$this->name;
+		//$this->name=$_GET['name'];
+		$this->data['evaluators_name'] =$_GET['name'];
 		$this->load->view('evaluators-naw-data',$this->data);
 	}
 	public function subjects_view_group(){

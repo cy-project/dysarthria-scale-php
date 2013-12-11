@@ -12,14 +12,13 @@
 			}
 			
 			public function lond_List($member_id){
-				$this->db->select('member_id,project_id');
-				$this->db->from('People_List');
-				$this->db->where('member_id',$member_id);
+				$this->db->select('id');
+				$this->db->from('Member');
+				$this->db->where('id',$member_id);
 				$data = $this->db->get();
 				$r = $data->result();
 				$preame = (array)$r;
 				$this->topiarray = $preame;
-				print($preame);
 				return $this->topiarray;
 			}
 			
