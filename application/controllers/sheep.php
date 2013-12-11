@@ -17,21 +17,21 @@ class Sheep extends CI_Controller
 	public function index()
 	{
 
-		 /*$dm = new Dispatch_json;
+		 $dm = new Dispatch_json;
 
 		 $dm->dispatch(1,1);
-	*/
+	
 		//echo 'test';
 		
 		
 		
 		/** project_model getTesting List example*/
-		$pm = new Project_model;
+		/*$pm = new Project_model;
 		
 		$test = $pm->getTestingList(1);
 			
 		echo ''.$test[2]->bir;
-
+*/
 	}
 	
 
