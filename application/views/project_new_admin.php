@@ -67,7 +67,6 @@
 													<option value=" 花蓮縣 "> 花蓮縣 </option>
 													<option value=" 金門縣 "> 金門縣 </option>
 													<option value=" 連江縣 "> 連江縣 </option>
-													<option value=" 南海諸島 "> 南海諸島 </option>
 												</select>
 												<label>所在(鄉/鎮/區)</label>
 												<select name="Area" id="Counties" class="input-xlarge">
@@ -440,8 +439,6 @@
 													<option value="210  北竿">210  北竿</option>
 													<option value="211  莒光">211  莒光</option>
 													<option value="212  東引">212  東引</option>
-													<option value="817  東沙">817  東沙</option>
-													<option value="819  南沙">819  南沙</option>
 												</select>
 											</div>
 										</div>
