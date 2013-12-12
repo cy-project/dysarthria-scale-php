@@ -31,7 +31,7 @@
 												<tr>
 													<th><a href="#">#</a></th>
 													<th><a href="#">專案名稱</a></th>
-													<th><a href="#">人數</a></th>
+													<th><a href="#">縣市</a></th>
 													<th><a href="#">地區</a></th>
 													<th><a href="#">專案管理員</a></th>
 													<th><a href="#">專案起始日期</a></th>
@@ -39,29 +39,23 @@
 												</tr>
 											</thead>
 											<tbody>
+											<?php 
+											$length = count($this->data);
+											for($o = 0;$o<$length;$o++){
+												
+											?>
 												<tr>
-													<td>1</td>
-													<td>幼音評測</td>
-													<td>25</td>
-													<td>高雄左營</td>
-													<td>Mark</td>
-													<td>2013/10/19</td>
+													<td><?php echo $o+1;?></td>
+													<td><?php echo $this->data[$o]->name;?></td>
+													<td><?php echo $this->data[$o]->conuty;?></td>
+													<td><?php echo $this->data[$o]->area;?></td>
+													<td><?php echo $this->data[$o]->conuty;?>Mark</td>
+													<td><?php echo $this->data[$o]->start_date;?></td>
 													<td>
 														<a href="<?=base_url("/projectview_student/project_board")?>?name=幼音評測"><i class="icon-eye-open"></i></a>
 													</td>
 												</tr>
-												<tr>
-													<td>2</td>
-													<td>構音調查</td>
-													<td>40</td>
-													<td>屏東</td>
-													<td>Jacky</td>
-													<td>2013/10/20</td>
-													<td>
-														<a href="<?=base_url("/projectview_student/project_board")?>?name=構音調查"><i class="icon-eye-open"></i></a>
-													</td>
-												</tr>
-											</tbody>
+												<?php }?>
 										</table>
 									</div>
 								</form>

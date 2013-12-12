@@ -140,6 +140,59 @@ class Project_model extends CI_Model
 		$result =  $this->db->get();
 		return $result->result();
 	}
+	
+	public function getProject_List($member_id){
+		$this->db->select('`project_id`');
+		$this->db->where('member_id',$member_id);
+		$this->db->from('people_list');
+		
+		$result = $this->db->get();
+		if ($result->num_rows > 0)
+		{
+			$idx = 0;
+			foreach ($result->result() as $row)
+			{
+				$data = $this->getProjectData($row->project_id);
+				if ($data->num_rows > 0)
+				{
+					$r = $data->result();
+					$length = count($r);
+					for($o = 0;$o<$length;$o++){
+						$params = (array)$r[$o];
+					
+						$children[$idx] = new Datamodel();
+						foreach ($params as $k => $v)
+						{
+							$children[$idx]->$k = $v;
+							// print_r($params);
+							//$manager = $this->getMemberName($r->manager);
+							
+							
+							
+							
+						}
+					}
+				}
+			
+			}
+			return $children;
+		}
+		else
+			return 0;
+		
+		
+		
+	}
+	
+	public function getProjectData($project_id){
+		$this->db->select('`name`,`start_date`,`create_date`,`area`,`county`,`status`,`manager`');
+		$this->db->where('id',$project_id);
+		$this->db->from('project');
+		
+		$result = $this->db->get();
+		
+		return $result;
+	}
 
 }
 
