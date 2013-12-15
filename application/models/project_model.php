@@ -164,12 +164,12 @@ class Project_model extends CI_Model
 						foreach ($params as $k => $v)
 						{
 							$children[$idx]->$k = $v;
-							//$manager = $this->getMemberName($children->manager);
+							$children[$idx]->manger= $this->getMemberName($children[$idx]->manager);
 						}
 						
 					}
 						$idx++;
-						print_r($children);
+						
 				}
 			
 			}

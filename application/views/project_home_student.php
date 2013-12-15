@@ -49,7 +49,7 @@
 													<td><?php echo $this->data[$o]->name;?></td>
 													<td><?php echo $this->data[$o]->county;?></td>
 													<td><?php echo $this->data[$o]->area;?></td>
-													<td><?php echo $this->data[$o]->conuty;?>Mark</td>
+													<td><?php echo $this->data[$o]->manger[0]->name;?></td>
 													<td><?php echo $this->data[$o]->start_date;?></td>
 													<td>
 														<a href="<?=base_url("/projectview_student/project_board")?>?name=幼音評測"><i class="icon-eye-open"></i></a>

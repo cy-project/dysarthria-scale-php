@@ -10,7 +10,7 @@ class Projectadmin extends CI_Controller {
 		$this->load->model('Project_model');
 		$this->load->library('datamodel');
 	}
-	public function project_home()
+	public function project_home() 
 	{
 		setcookie("member_id",$_SESSION['id'],time()+3600);
 		$project_list =  new Project_model();

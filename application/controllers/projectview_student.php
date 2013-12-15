@@ -14,7 +14,7 @@ class projectview_student extends CI_Controller {
 		$member_id = $_SESSION['id'];
 		
 		$this->data = $project_list->getProject_List($member_id);
-		print_r($this->data);
+		//print_r($this->data);
 		$this->load->view("project_home_student",$this->data);
 	}
 	public function project_board(){
