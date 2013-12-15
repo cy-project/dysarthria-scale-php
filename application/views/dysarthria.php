@@ -4,18 +4,15 @@
     include "head.php";
   ?> 
   <body> 
-  <!--<![endif]-->
     <?php
 	  include "navbar.php";
-	  //include "sidebar-nav.php";
 	?>
-	
 	
     <div id="sidebar-nav"></div>
 	
     <div class="content">
 		<ul class="breadcrumb">
-			<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a>
+			<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a></li>
         </ul>
 		<div class="container-fluid">
 		<?php 
