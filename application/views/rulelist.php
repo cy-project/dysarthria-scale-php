@@ -12,12 +12,12 @@
 			
 			<div class="header">
 				
-				<h1 class="page-title">專案管理</h1>
+				<h1 class="page-title">規則清單</h1>
 			</div>
 			
 				<ul class="breadcrumb">
 					<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-					<li class="active">專案管理</li>
+					<li class="active">規則清單</li>
 				</ul>
 
 			<div class="container-fluid">
@@ -26,9 +26,9 @@
 					<div class="container-fluid">
 						<div class="row-fluid">
 								<div class="btn-toolbar">
-									<a href="<?=base_url("/projectadmin/project_new_admin")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
+									<a href="#"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
 								</div>
-							<form action="<?=base_url("projectview_admin/project_board")?>" method="post">
+							<form action="#" method="post">
 								<div class="well">
 									<table class="table sortable">
 										<thead>
