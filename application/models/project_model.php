@@ -158,20 +158,18 @@ class Project_model extends CI_Model
 					$r = $data->result();
 					$length = count($r);
 					for($o = 0;$o<$length;$o++){
-						$params = (array)$r[$o];
+						$params = (array)$r[$length-1];
 					
 						$children[$idx] = new Datamodel();
 						foreach ($params as $k => $v)
 						{
 							$children[$idx]->$k = $v;
-							// print_r($params);
-							//$manager = $this->getMemberName($r->manager);
-							
-							
-							
-							
+							//$manager = $this->getMemberName($children->manager);
 						}
+						
 					}
+						$idx++;
+						print_r($children);
 				}
 			
 			}

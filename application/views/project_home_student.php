@@ -47,7 +47,7 @@
 												<tr>
 													<td><?php echo $o+1;?></td>
 													<td><?php echo $this->data[$o]->name;?></td>
-													<td><?php echo $this->data[$o]->conuty;?></td>
+													<td><?php echo $this->data[$o]->county;?></td>
 													<td><?php echo $this->data[$o]->area;?></td>
 													<td><?php echo $this->data[$o]->conuty;?>Mark</td>
 													<td><?php echo $this->data[$o]->start_date;?></td>
