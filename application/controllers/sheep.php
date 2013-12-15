@@ -11,15 +11,24 @@ class Sheep extends CI_Controller
 		$this->load->library('Dispatch_json');
 		$this->load->library('Datamodel');
 		$this->load->model('Project_model');
-
+		
 	}
 	
 	public function index()
 	{
+		//system('cd java', $return_var);
 
-		 $dm = new Dispatch_json;
+		$last_line = system('java Deczip D:\\test2.zip D:\\', $return_var);
 
-		 $dm->dispatch(1,1);
+ 
+		
+	/*	$test = new Java("Deczip");
+		
+		$test->decompressFile("D:\\test2.zip", "D:\\");
+		
+	/*	 $dm = new Dispatch_json;
+
+		 $dm->dispatch(3,2);
 	
 		//echo 'test';
 		
@@ -32,6 +41,10 @@ class Sheep extends CI_Controller
 			
 		echo ''.$test[2]->bir;
 */
+
+		
+		
+		
 	}
 	
 
