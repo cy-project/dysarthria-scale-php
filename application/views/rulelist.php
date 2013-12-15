@@ -54,17 +54,6 @@
 													<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
 												</td>
 											</tr>
-											<tr>
-												<td>2</td>
-												<td>構音調查</td>
-												<td>40</td>
-												<td>屏東</td>
-												<td>Jacky</td>
-												<td>2013/10/20</td>
-												<td>
-													<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
-												</td>
-											</tr>
 										</tbody>
 									</table>
 								</div>

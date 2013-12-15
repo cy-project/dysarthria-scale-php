@@ -48,10 +48,6 @@
 				/*連江縣*/township[22]=["請選擇", "209 南竿", "210 北竿", "211 莒光", "212 東引"];
 				
 				
-				
-				
-				
-				
 				function county(index){
 					for(var i = 0;i < township[index].length;i++)
 						document.newprojectdata.Area.options[i] = new Option(township[index][i], township[index][i]);	// 設定新選項
