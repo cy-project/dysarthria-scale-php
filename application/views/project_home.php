@@ -19,7 +19,6 @@
 					<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
 					<li class="active">專案管理</li>
 				</ul>
-
 			<div class="container-fluid">
 				<div class="row-fluid">
 				
@@ -104,6 +103,12 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			public function onclik(i){
+				$.cookie('project_id', i);
+				$(this).closest('form').submit();
+			}
+		</script>
 		<script type="text/javascript">
 			$("[rel=tooltip]").tooltip();
 			$(function() {
@@ -112,5 +117,6 @@
 		</script>
 	</body>
 </html>
+>>>>>>> 044195d2cb45c012c77fb0da78204e0b6cc61636
 
 

@@ -33,9 +33,9 @@
 							<li name="board" ><a id="evaluation" href="#evaluation_list" data-toggle="tab" onclick="OneClick(2)">評測名單</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-								<div class="tab-pane active in" id="surveying_list">
+								<div class="tab-pane active in" id="surveying_list"><!--施測名單-->
 									<div class="well" style="border: 0px;">
-										<table class="sortable table"><!--施測名單-->
+										<table class="sortable table">
 											<thead>
 												<tr>
 													<th><a href="#">#</a></th>

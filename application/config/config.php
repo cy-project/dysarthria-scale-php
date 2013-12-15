@@ -15,7 +15,7 @@
 |
 */
 
-$config['base_url']	= 'http://120.119.54.47/dysarthria-scale-php/';
+$config['base_url']	= 'http://120.119.77.23/dysarthria-scale-php/';
 
 /*
 |--------------------------------------------------------------------------
@@ -280,7 +280,7 @@ $config['cookie_secure']	= FALSE;
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
