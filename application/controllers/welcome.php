@@ -28,6 +28,7 @@ class Welcome extends CI_Controller {
         $person = new Personal_data;
 		$mem = new Member;
 		
+		/*儲存使用者輸入資料*/
 		$account = $this->input->post("account");  
         $password = $this->input->post("password");  
         $passwordrt = $this->input->post("passwordrt");  
@@ -39,7 +40,7 @@ class Welcome extends CI_Controller {
         $identity = $this->input->post("recipient");
 		
 		/*欄位不得為空值判斷*/
-		if( trim($account) =="" || trim($password) =="" || trim($name) =="" || trim($mail) =="" || trim($tel1) =="" || trim($contacter) =="" || trim($tel2) =="" || trim($identity) =="" ){  
+		if(trim($account) =="" || trim($password) =="" || trim($name) =="" || trim($mail) =="" || trim($tel1) =="" || trim($contacter) =="" || trim($tel2) =="" || trim($identity) ==""){  
 			$this->load->view('register',Array(  
 				"errorMessage" => "資料不得有空值，請重新輸入！" ,  
 				"account" => $account ,
@@ -53,7 +54,7 @@ class Welcome extends CI_Controller {
 			return false;  
 		}  
 		/*密碼不相同判斷*/
-		if( $password != $passwordrt ){  
+		if($password != $passwordrt){  
 			$this->load->view('register',Array(  
 				"errorMessage" => "密碼不相同，請重新輸入！" ,  
 				"account" => $account ,
@@ -67,7 +68,7 @@ class Welcome extends CI_Controller {
 			return false;  
 		}  
 		/*使用身分判斷*/
-		if( $identity == "0" ){  
+		if($identity == "0"){  
 			$this->load->view('register',Array(  
 				"errorMessage" => "請選擇身分！" ,  
 				"account" => $account ,
@@ -177,10 +178,10 @@ class Welcome extends CI_Controller {
 			if($_SESSION["status"] == 0)
 			{
 				$this->load->view(  
-				"login",  
-				Array( "account" => $account ,  
-					"errorMessage" => "您的帳號已被停權，請聯絡管理員復權！"  
-				)  
+					"login",  
+					Array( "account" => $account ,  
+						"errorMessage" => "您的帳號已被停權，請聯絡管理員復權！"  
+					)  
 				);        
 				return true;
 			}
