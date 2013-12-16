@@ -41,8 +41,8 @@
 											<tbody>
 											<?php 
 											$length = count($this->data);
-											for($o = 0;$o<$length;$o++){
-												
+											for($o = 0;$o < $length;$o++)
+											{
 											?>
 												<tr>
 													<td><?php echo $o+1;?></td>
@@ -55,7 +55,7 @@
 														<a href="<?=base_url("/projectview_student/project_board")?>?name=幼音評測"><i class="icon-eye-open"></i></a>
 													</td>
 												</tr>
-												<?php }?>
+											<?php }?>
 										</table>
 									</div>
 								</form>
