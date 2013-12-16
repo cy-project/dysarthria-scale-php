@@ -1,56 +1,61 @@
-<div id="css_table">
-		
-			  <div class="css_tr">
-				  <div class="css_td">專案名稱</div>
-				  <div class="css_td">檢測者姓名</div>
-				  <div class="css_td">檢測時間</div>
-				  <div class="css_td">幼兒園</div>
-				  <div class="css_td">年級</div>
-				  <div class="css_td">班級</div>
-				  <div class="css_td">幼兒名字</div>
-				  <div class="css_td">性別</div>
-				  <div class="css_td">幼兒語言</div>
-				  <div class="css_td">主題</div>
-				  <div class="css_td">題目</div>
-				  <div class="css_td">檢測分數</div>
-				  <div class="css_td">檢測錯誤碼</div>
-				  <div class="css_td">檢測狀態</div>
-				  <div class="css_td">追蹤狀態</div>
-				  <div class="css_td">重測按鈕</div>
-				    
-			  </div>
-				<?php foreach($track->result() as $row): ?>
-				
-			  <div class="css_tr">
-				  <div class="css_td"><?=$row->project_name?></div>
-				  <div class="css_td"><?=$row->member_name?></div>
-				  <div class="css_td"><?=$row->date?></div>
-				  <div class="css_td"><?=$row->school_name?></div>
-				  <div class="css_td"><?=$row->rank?></div>
-				  <div class="css_td"><?=$row->grade?></div>
-				  <div class="css_td"><?=$row->children_name?></div>
-				  <div class="css_td"><?=$row->sex?></div>
-				  <div class="css_td"><?=$row->language?></div>
-				  <div class="css_td"><?=$row->part_name?></div>
+<table class="sortable table">
+			  <thead>
+					<tr>
+				  <td>專案名稱</td>
+				  <td>評測者姓名</td>
+				  <td>評測時間</td>
+				  <td>幼兒園</td>
+				  <td>年級</td>
+				  <td>班級</td>
+				  <td>幼兒名字</td>
+				  <td>性別</td>
+				  <td>幼兒語言</td>
+				  <td>主題</td>
+				  <td>題目</td>
+				  <td>檢測分數</td>
+				  <td>檢測錯誤碼</td>
+				  <td>檢測狀態</td>
+				  <td>追蹤狀態</td>
+				  <td>重測按鈕</td>
+					</tr>
+			  </thead>
+			 
+			  <tbody> 
+			  <?php foreach($track->result() as $row): ?>
+				<tr>
+				  <td><?=$row->project_name?></td>
+				  <td><?=$row->member_name?></td>
+				  <td><?=$row->date?></td>
+				  <td><?=$row->school_name?></td>
+				  <td><?=$row->rank?></td>
+				  <td><?=$row->grade?></td>
+				  <td><?=$row->children_name?></td>
+				  <td><?=$row->sex?></td>
+				  <td><?=$row->language?></td>
+				  <td><?=$row->part_name?></td>
 				  <?php if($row->part==1){?> 
-				  <div class="css_td"><?=$row->title?></div>
+				  <td><?=$row->title?></td>
 				  <?php }else{?>
-				  <div class="css_td"><?=$row->script?></div>
+				  <td><?=$row->script?></td>
 				  <?php } ?>
 				  
-				  <div class="css_td"><?=$row->judgment_result?></div>
-				  <div class="css_td"><?=$row->judgment_wrongcode?></div>
+				  <td><?=$row->judgment_result?></td>
+				  <td><?=$row->judgment_wrongcode?></td>
 				  <?php if($row->istrace==0){?> 
-				  <div class="css_td">未通過</div>
+				  <td>未通過</td>
 				  <?php }else{?>
-				  <div class="css_td">通過</div>
+				  <td>通過</td>
 				  <?php } ?>
 				  <?php if($row->check==0){?> 
-				  <div class="css_td">未矯正</div>
+				  <td>未矯正</td>
 				  <?php }else{?>
-				  <div class="css_td">通過矯正</div>
+				  <td>通過矯正</td>
 				  <?php } ?>
-				  <div class="css_td"><a  href="#" id="Score_submit" onclick="javascript:js_track_click('<?=$row->judgment_id?>','<?=$row->check?>');">確定</a></p></div>
-			  </div>
-		  <?php  endforeach;?>
-		</div>
+				  <td>
+				  <a  href="#" id="Score_submit" onclick="javascript:js_track_click('<?=$row->judgment_id?>','<?=$row->check?>');">確定</a>
+				  </td>
+				</tr>
+				
+				 <?php  endforeach;?>
+			  </tbody>
+		</table>	

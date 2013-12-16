@@ -26,39 +26,10 @@
 						<div class="container-fluid">
 							<div class="row-fluid">
 									<div class="well">
-										<table class="table sortable">
-											<thead>
-												<tr>
-													<th><a href="#">#</a></th>
-													<th><a href="#">專案名稱</a></th>
-													<th><a href="#">縣市</a></th>
-													<th><a href="#">地區</a></th>
-													<th><a href="#">專案管理員</a></th>
-													<th><a href="#">專案起始日期</a></th>
-													<th class="sorttable_nosort">檢視</th>
-												</tr>
-											</thead>
-											<tbody>
-											<?php 
-											$length = count($this->data);
-											for($o = 0;$o < $length;$o++)
-											{
-											?>
-												<tr>
-													<td><?php echo $o+1;?></td>
-													<td><?php echo $this->data[$o]->name;?></td>
-													<td><?php echo $this->data[$o]->county;?></td>
-													<td><?php echo $this->data[$o]->area;?></td>
-													<td><?php echo $this->data[$o]->manger[0]->name;?></td>
-													<td><?php echo $this->data[$o]->start_date;?></td>
-													<td>
-														<a href="<?=base_url("/projectview_student/project_board")?>?name=幼音評測"><i class="icon-eye-open"></i></a>
-													</td>
-												</tr>
-											<?php }?>
+										<table id="projectview" class="table sortable">
+											<!-- ajax -->
 										</table>
 									</div>
-								</form>
 								
 								<div class="pagination">
 									<ul>
@@ -95,6 +66,37 @@
 				</div>
 			</div>
 			<script type="text/javascript">
+				$().ready(function(){
+				//初始化載入
+						project_views_ajax();
+				});
+
+			function project_views_ajax(){ // ajax 傳值
+
+					$.ajax({
+						  url: '<?php echo base_url();?>projectview_student/project_home_ajax',
+						  type: 'POST',
+						   dataType:'html', 
+						  error: function(xhr, ajaxOptions, thrownError) {
+							alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+							//$('#ReturnViews').html(xhr.responseText);
+						  },
+						  success: function(response) {
+						  
+							  sorttables();
+							  $('#projectview').html(response);
+							
+						  }
+					});
+				
+ 
+				 
+				 
+				 
+			}
+			
+			
+			
 				$("[rel=tooltip]").tooltip();
 				$(function() {
 					$('.demo-cancel-click').click(function(){return false;});

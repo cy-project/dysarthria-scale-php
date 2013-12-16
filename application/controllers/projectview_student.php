@@ -5,25 +5,40 @@ class projectview_student extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();	
-		$this->load->model('Project_model');
 		session_start();
 	}
 	public function projectview(){
-		setcookie("member_id",$_SESSION['id'],time()+3600);
-		$project_list =  new Project_model();
-		$member_id = $_SESSION['id'];
+		$this->load->view("project_home_student");
+	}
+	
+	public function project_home_ajax(){
+	
+		$this->load->model('project_mysql_data');
+		$project = new project_mysql_data();
+		$data['project']=$project->select_project_all();
+		$this->load->view("project_home_ajax",$data);
 		
-		$this->data = $project_list->getProject_List($member_id);
-		//print_r($this->data);
-		$this->load->view("project_home_student",$this->data);
 	}
+	
 	public function project_board(){
-		$name=$_GET['name'];
-		$this->data['name']=$name;
-		$this->load->view("project_board_student",$this->data);
+
+		$data = $this->uri->uri_to_assoc(3);
+		$this->load->view("project_board_student",$data);
+		
 	}
+	
+	public function project_board_ajax(){
+		
+		$data = $this->uri->uri_to_assoc(3);
+		$this->load->model('project_mysql_data');
+		$project = new project_mysql_data();
+		$data['surveying']=$project->select_project_surveying($data['project_id']);
+		$this->load->view("project_board_ajax",$data);
+		
+	}
+	
 	public function subjects_view_group_student(){
-		$category=$_GET['category'];
+		/*$category=$_GET['category'];
 		if($category=='檢視'){
 			$this->data['category']=$_GET['category']."類別";
 			$this->data['name']="(".$_GET['name'].")";
@@ -31,14 +46,23 @@ class projectview_student extends CI_Controller {
 		elseif($category=="評測"){
 			$this->data['category']=$_GET['category']."類別";
 			$this->data['name']="(案例".$_GET['name'].")";
-		}
-		$this->load->view("subjects-view-group-student",$this->data);
+		}*/
+		$data = $this->uri->uri_to_assoc(3);
+		//print_r($data);
+		$this->load->view("subjects-view-group-student",$data);
 	}
+	
 	public function subjects_view_glossary_student(){
-		$name=$_GET['name'];
-		$this->data['name']=$name;
-		$this->load->view("subjects-view-glossary-student",$this->data);
+	
+		
+		
+		$data = $this->uri->uri_to_assoc(3);
+		$data['name']=$_GET['name'];
+		//print_r($data);
+		$this->load->view("subjects-view-glossary-student",$data);
+		
 	}
+	
 	public function testview(){
 		$name=$_GET['name'];
 		$this->data['name']=$name;

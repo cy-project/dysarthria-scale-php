@@ -3,23 +3,32 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Welcome to CodeIgniter</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 
-<!--alertify 美化 alert -->
-<link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.core.css" rel="stylesheet">
-<link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.default.css" rel="stylesheet">
-<script src="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.min.js"></script>
-
-<!-- Add fancyBox main JS and CSS files -->
-<script type="text/javascript" src="<?php echo base_url();?>js/jquery.fancybox.js?v=2.1.0"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>stylesheets/jquery.fancybox.css?v=2.1.0" media="screen" />
-
+<?php include "head.php"; ?>
+	
 <script type="text/javascript">
 $().ready(function(){
 //初始化載入
 
 		js_Score_click();
+		mp3s();
+		sorttables();
 });
+
+function mp3s(){
+
+$('a[@href$="mp3"]').flash(
+        { src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
+        { version: 7 },
+        function(htmlOptions) {
+            $this = $(this);
+            htmlOptions.flashvars.file = $this.attr('href');
+            $this.before($.fn.flash.transform(htmlOptions));						
+        }
+    );
+
+}
+
 
 function js_Score_ajax(){ // ajax 傳值
 
@@ -95,140 +104,66 @@ $("#Score_submit").click(function() {
 
 </script>
 
-<style type="text/css">
 
-	::selection{ background-color: #E13300; color: white; }
-	::moz-selection{ background-color: #E13300; color: white; }
-	::webkit-selection{ background-color: #E13300; color: white; }
-
-	body {
-		background-color: #fff;
-		margin: 40px;
-		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
-	}
-
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-	}
-
-	h1 {
-		color: #444;
-		background-color: transparent;
-		border-bottom: 1px solid #D0D0D0;
-		font-size: 19px;
-		font-weight: normal;
-		margin: 0 0 14px 0;
-		padding: 14px 15px 10px 15px;
-	}
-
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 12px;
-		background-color: #f9f9f9;
-		border: 1px solid #D0D0D0;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
-
-	#body{
-		margin: 0 15px 0 15px;
-	}
-	
-	p.footer{
-		text-align: right;
-		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
-		line-height: 32px;
-		padding: 0 10px 0 10px;
-		margin: 20px 0 0 0;
-	}
-	
-	#container{
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		-webkit-box-shadow: 0 0 8px #D0D0D0;
-	}
-	
-	#Score_value{
-	width:50px;
-	
-	}
-
-	#css_table {
-			display:table;
-	}
-	.css_tr {
-		   display: table-row;
-	
-	  }
-	.css_td {
-		   display: table-cell;
-		   text-align:center;
-		  padding: 0 0.5px 0 10px;
-	  }
-	</style>
 </head>
 <body>
 
-<div id="container">
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="well" >
 <?php foreach($topic->result() as $row):?>
-	<h1> <?=$row->title?>檢測</h1>
+	<h5 class="page-title"><?=$row->title?>檢測</h5>
 <? endforeach;?>
-	<div id="body">
-	
-	
-	<div id="css_table">
-      <div class="css_tr">
-	  <?php 
-		$script="";
-		foreach($topic->result() as $row): 
-		 
-         $script=$row->script;
-		 
-        endforeach;
-			
-		preg_match_all('/./u', $script, $matches);
+		<embed width="100" height="20" type="application/x-shockwave-flash" src="<?=base_url("/js/singlemp3player.swf")?>" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="file=<?=base_url()?><?=$row->voice_file?>"/>
+		
+			<table class="sortable table"><!--施測名單-->
+				<thead>
+					<tr>
+						<th><a href="#">題目</a></th>
+						<th><a href="#">評分</a></th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					
+						<?php 
+							$script="";
+							foreach($topic->result() as $row): 
+							 
+							 $script=$row->script;
+							 
+							endforeach;
+								
+							preg_match_all('/./u', $script, $matches);
 
-		$matches=$matches[0];
-		for($i=0;$i<sizeof($matches);$i++){?>
+							$matches=$matches[0];
+							
+							for($i=0;$i<sizeof($matches);$i++){?>
 		
-			<div class="css_td">
-			<?php echo $matches[$i];?>&nbsp;&nbsp;
-			</div>
-			
-		<?php } ?> 
-      </div>
-	  
-	  
-      <div class="css_tr">
-	  		
-		<?php for($i=0;$i<sizeof($matches);$i++){?>	
-		<div class="css_td">	
-			<select id="Score_value" name="Score_value[]" >
-			 <option value="1">正確</option>
-			 <option value="0">不清楚</option>
-			 <option value="-1">不正確</option>
-			</select>
-		</div>
-		<?php }?>
-		
-		<input type="hidden" id="Topic_id" name="Topic_id[]"  value="<?=$row->id?>"/>
-				
-      </div>
+							<tr>
+								<td>
+									<?php echo $matches[$i];?>
+								</td>
+								<td>
+									<select id="Score_value" name="Score_value[]" >
+									 <option value="1">正確</option>
+									 <option value="0">不清楚</option>
+									 <option value="-1">不正確</option>
+									</select>
+								</td>
+							</tr>
+					<?php }?>
+					
+					
+					
+</tbody>
+</table>
+<input type="hidden" id="Topic_id" name="Topic_id[]"  value="<?=$row->id?>"/>
+<button class="btn btn-primary"  id="Score_submit" style="display: inline-block;">確定</button>	
+</div>
+</div>
 </div>
 	
-		<a  href="#" id="Score_submit">確定</a>
-		
-	</div>
-
-	 
-	<p class="footer"><div id="ReturnViews"></div></p>
-</div>
 
 </body>
 </html>
