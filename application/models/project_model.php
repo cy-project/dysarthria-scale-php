@@ -54,7 +54,12 @@ class Project_model extends CI_Model
 						{
 							
 							$children[$idx]->$k = $v;
-							$children[$idx]->rater = $row->rater;
+							
+							$rater = $this->getMemberName($row->rater);
+							
+							
+							
+							$children[$idx]->rater = $rater[0]->name;
 							$children[$idx]->check = $row->check;
 						
 						}
@@ -124,6 +129,67 @@ class Project_model extends CI_Model
 		{
 			return 0;
 		}
+	}
+	
+	
+	private function getMemberName($rater){
+		$this->db->select('`name`');
+		$this->db->where('member.id',$rater);
+		$this->db->from('member');
+		
+		$result =  $this->db->get();
+		return $result->result();
+	}
+	
+	public function getProject_List($member_id){
+		$this->db->select('`project_id`');
+		$this->db->where('member_id',$member_id);
+		$this->db->from('people_list');
+		
+		$result = $this->db->get();
+		if ($result->num_rows > 0)
+		{
+			$idx = 0;
+			foreach ($result->result() as $row)
+			{
+				$data = $this->getProjectData($row->project_id);
+				if ($data->num_rows > 0)
+				{
+					$r = $data->result();
+					$length = count($r);
+					for($o = 0;$o<$length;$o++){
+						$params = (array)$r[$length-1];
+					
+						$children[$idx] = new Datamodel();
+						foreach ($params as $k => $v)
+						{
+							$children[$idx]->$k = $v;
+							$children[$idx]->manger= $this->getMemberName($children[$idx]->manager);
+						}
+						
+					}
+						$idx++;
+						
+				}
+			
+			}
+			return $children;
+		}
+		else
+			return 0;
+		
+		
+		
+	}
+	
+	public function getProjectData($project_id){
+		$this->db->select('`name`,`start_date`,`create_date`,`area`,`county`,`status`,`manager`');
+		$this->db->where('id',$project_id);
+		$this->db->from('project');
+		
+		$result = $this->db->get();
+		
+		return $result;
 	}
 
 }

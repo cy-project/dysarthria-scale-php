@@ -4,18 +4,15 @@
     include "head.php";
   ?> 
   <body> 
-  <!--<![endif]-->
     <?php
 	  include "navbar.php";
-	  //include "sidebar-nav.php";
 	?>
-	
 	
     <div id="sidebar-nav"></div>
 	
     <div class="content">
 		<ul class="breadcrumb">
-			<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a>
+			<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a></li>
         </ul>
 		<div class="container-fluid">
 		<?php 
@@ -95,7 +92,7 @@
 				</div>
 				
 				<div class="block span6">
-					<p class="block-heading">最新消息 <a href="<?=base_url("/dysarthria/news")?>" class="disnon"><span class="label label-important">發布消息</span></a></p>
+					<p class="block-heading">最新消息<?php if($_SESSION["status"] == 3) { ?> <a href="<?=base_url("/dysarthria/news")?>" class="disnon"><span class="label label-important">發布消息</span><?php } ?></a></p>
 					<div id="tablewidget" class="block-body collapse in">
 						<table class="table">
 						  <thead>
