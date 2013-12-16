@@ -18,17 +18,22 @@ class Sheep extends CI_Controller
 	{
 		//system('cd java', $return_var);
 
-		$last_line = system('java Deczip D:\\test2.zip D:\\', $return_var);
+		//$last_line = exec('java Deczip D:\\test2.zip D:\\', $file_list, $return_var);
+		
+		//print_r($file_list);
+		if (file_exists(base_url()."/schedule_20131124.json"))
+		{
+			unlink(base_url()."/schedule_20131124.json");
+		}
+		
+		
+		
+		/*
 
- 
 		
-	/*	$test = new Java("Deczip");
-		
-		$test->decompressFile("D:\\test2.zip", "D:\\");
-		
-	/*	 $dm = new Dispatch_json;
+		 $dm = new Dispatch_json;
 
-		 $dm->dispatch(3,2);
+		 $dm->dispatch(1,1);
 	
 		//echo 'test';
 		
