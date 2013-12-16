@@ -219,26 +219,54 @@ result.id =  '$result_id'";
 		$query =$this->db->query($select_sql); //select
 		
 		$title="";
-		
+		$testing_id="";
 		foreach ($query->result_array() as $row)
 		{
 		  $title= $row['title'];
+		  $testing_id= $row['testing_id'];
 		}
 	
 		$select_sql2="SELECT
-				topic.title,
-				topic.id,
-				topic.script,
-				topic.audio,
-				topic.photo
+				topic.id
 				FROM
 				topic
 				WHERE
 				topic.title =  '$title'";
 				
 		$query2 =$this->db->query($select_sql2); //select
+		
+		$strings="";
+		foreach ($query2->result_array() as $row)
+		{
+		  $strings[] = $row['id'];
+		}
+		
+		$str="";
+		$length = count($strings);//¨úÁ`¼Æ
+		for ( $i=0 ; $i<$length ; $i++ ) {
+		if($i==($length-1)){
+		  $str.="result.topic_id ="."'".$strings[$i]."'";
+		  }else{
+		  $str.="result.topic_id ="."'".$strings[$i]."' OR ";
+		  }
+		}
+		
+		
+		$select_sql3="SELECT
+result.testing_id ,
+result.topic_id as topic_id,
+result.voice_file,
+topic.title,
+topic.script
+FROM
+result
+Inner Join topic ON result.topic_id = topic.id
+WHERE
+result.testing_id =  '$testing_id' and(".$str.")";
+		
+		$query3 =$this->db->query($select_sql3); //select
 	
-		return $query2;
+		return $query3;
 	}
 	
 	public function Select_score_words($result_id){
@@ -246,9 +274,8 @@ result.id =  '$result_id'";
 	$select_sql2="SELECT
 			topic.title,
 			topic.script,
-			topic.audio,
-			topic.photo,
-			topic.id
+			topic.id,
+			result.voice_file
 			FROM
 			result
 			Inner Join topic ON result.topic_id = topic.id
@@ -259,6 +286,7 @@ result.id =  '$result_id'";
 	
 		return $query2;
 	}
+	
 	public function  judgment_up($judgment_id){
 	
 	$Today=date("Y-m-d H:i:s");

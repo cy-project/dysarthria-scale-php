@@ -13,53 +13,23 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title"><?php echo $category;echo $name;?></h1>
+					<h1 class="page-title">評測類別</h1>
 				</div>
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
 						<li><a href="<?=site_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/</span></li>
-						<li><a href="<?=base_url("/projectview_student/project_board")?>?name=幼音評測">幼音評測</a> <span class="divider">/</span></li>
-						<li class="active"><?php echo $category.$name;?></li>
+						<li><a href="<?=base_url("/projectview_student/project_board")?>/project_id/<?=$project_id?>">幼音評測</a> <span class="divider">/</span></li>
+						<li class="active">評測類別</li>
 					</ul>
 
 				<div class="container-fluid">
 					<div class="row-fluid">
+					<h5 class="page-title">類別</h5>
 						<div class="well" style="border: 0px;">
-										<table class="sortable table">
-											<thead>
-												<tr>
-													<th><a href="#">類別</a></th>
-												</tr>
-											</thead>
-											<tbody> 
-												<tr>
-													<td>
-														<a href="<?=base_url("/projectview_student/subjects_view_glossary_student")?>?name=<?php echo $name?>">字彙<img src="Storytelling.jpg" width="300" height="200"></a>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<a href="http://localhost/dysarthria-scale-php(2)/subjects_view_group.php">字句<img src="digital.jpg" width="300" height="200"></a>
-													</td>
-												<tr>
-													<td>
-														<a href="http://localhost/dysarthria-scale-php(2)/subjects_view_group.php">數數字<img src="Sentence.jpg" width="300" height="200"></a>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<a href="http://localhost/dysarthria-scale-php(2)/subjects_view_group.php">輪替<img src="Glossary.jpg" width="300" height="200"></a>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<a href="http://localhost/dysarthria-scale-php(2)/subjects_view_group.php">說故事<img src="Glossary.jpg" width="300" height="200"></a>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
+						<!-- ajax -->	
+						</div>
+						
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -84,44 +54,36 @@
 				</div>
 			</div>
 			<script type="text/javascript">
-				var count=1;
-				function OneClick() {
-					document.getElementById('test').disabled = true;
-					document.getElementById('new_people').disabled = false;
-				}
-				function OneClick1() {
-					document.getElementById('test').disabled = false;
-					document.getElementById('new_people').disabled = false;
-				}
-				function OneClick2() {
-					document.getElementById('test').disabled = true;
-					document.getElementById('new_people').disabled = true;
-				}
-				function checkall() {
-					checkboxes = document.getElementsByName('selected');
-					for(var i=0, n=checkboxes.length;i<=n;i++) 
-					{
-						if(i==n){
-							count=count+1;
-						}
-						if((count%2)==0)
-						{
-							checkboxes[i].checked = false;
-						}
-						elseSubjects
-						{
-							checkboxes[i].checked = true;
-						}
-						
-					}
-				}
-			</script>
-			<script src="lib/bootstrap/js/bootstrap.js"></script>
-			<script type="text/javascript">
-				$("[rel=tooltip]").tooltip();
-				$(function() {
-					$('.demo-cancel-click').click(function(){return false;});
-				});
+			$().ready(function(){//初始化載入
+					
+					js_subjects_ajax();
+			});
+			
+			function js_subjects_ajax(){ // ajax 傳值
+
+
+		$.ajax({
+			  url: '<?php echo base_url("/score/score_views_part")?>/testing_list_id/<?=$testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>',
+			  type: 'POST', 
+			  error: function(xhr, ajaxOptions, thrownError) {
+				alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+			
+			  },
+			  success: function(response) {
+				sorttables();
+				$('.well').html(response);
+			   
+				
+			  }
+		});
+	
+}
+			
+			
+			$("[rel=tooltip]").tooltip();
+			$(function() {
+				$('.demo-cancel-click').click(function(){return false;});
+			});
 			</script>
 		</body>
 	</html>

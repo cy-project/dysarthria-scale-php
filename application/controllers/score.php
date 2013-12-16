@@ -64,19 +64,12 @@ class score extends CI_Controller {
 	{
 		$this->load->helper('url');
 		$this->load->library('score_lib');
-		$score= new score_lib();
-		
-		//project表單 id
-		//$project_id =$this->input->post('project_id');
-		
-		//member表單 id
-		//$member_id = $this->input->post('member_id');
-		
-		$project_id=1;
-		$data['member_id']=3;
-		
-		$data['children']=$score->score_children($project_id);
-		
+		$score= new score_lib();	
+
+		$data = $this->uri->uri_to_assoc(3);
+
+		$data['children']=$score->score_children($data['project_id']);
+	
 		$this->load->view('score_views_children',$data);
 	
 	}

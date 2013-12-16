@@ -25,50 +25,14 @@
 				
 					<div class="container-fluid">
 						<div class="row-fluid">
-								<div class="btn-toolbar">
+								<!--<div class="btn-toolbar">
 									<a href="#"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
-								</div>
+								</div>-->
 							<form action="#" method="post">
 								<div class="well">
-									<table class="table sortable">
-										<thead>
-											<tr>
-												<th><a href="#">#</a></th>
-												<th><a href="#">專案名稱</a></th>
-												<th><a href="#">人數</a></th>
-												<th><a href="#">地區</a></th>
-												<th><a href="#">專案管理員</a></th>
-												<th><a href="#">專案起始日期</a></th>
-												<th class="sorttable_nosort">檢視</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td>幼音評測</td>
-												<td>25</td>
-												<td>高雄左營</td>
-												<td>Mark</td>
-												<td>2013/10/19</td>
-												<td>
-													<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
-												</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>構音調查</td>
-												<td>40</td>
-												<td>屏東</td>
-												<td>Jacky</td>
-												<td>2013/10/20</td>
-												<td>
-													<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+									
 								</div>
-							</form>
+							
 							
 							<div class="pagination">
 								<ul>
@@ -105,7 +69,75 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-			$("[rel=tooltip]").tooltip();
+			
+			$().ready(function(){
+			//初始化載入
+
+					
+					rules_views_ajax();
+			});
+
+			function rules_views_ajax(){ // ajax 傳值
+
+					$.ajax({
+						  url: '<?php echo base_url();?>rules/rules_views_ajax',
+						  type: 'POST',
+						   dataType:'html', 
+						  error: function(xhr, ajaxOptions, thrownError) {
+							alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+							//$('#ReturnViews').html(xhr.responseText);
+						  },
+						  success: function(response) {
+								 sorttables();
+							  $('.well').html(response);
+						  }
+					});
+				
+				
+			}
+
+			function result_up_ajax(i){
+
+			$.ajax({
+						  url: '<?php echo base_url();?>rules/rules_views_up',
+						  type: 'POST',
+							data: {
+							rules_id:i,
+							weight:$('#weight_'+i).val()
+						  },
+						  error: function(xhr, ajaxOptions, thrownError) {
+							alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+							
+						  },
+						  success: function(response) {
+
+							if(response=="yes"){
+				
+
+									rules_views_ajax();
+									
+							  }
+						   
+						  }
+					});
+
+			}
+
+			function result_up(i){ //按鈕驅動
+
+
+				alertify.confirm('您確定評分已完成?(如按下請"確定"，則後續無法變更)', function (e) {
+				  if (e) {
+				    alertify.log('確定，資料已送出！！');
+					result_up_ajax(i);
+				  } else {
+				    alertify.error('取消');
+				  }
+				});
+
+
+			}
+			
 			$(function() {
 				$('.demo-cancel-click').click(function(){return false;});
 			});

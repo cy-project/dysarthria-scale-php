@@ -1,19 +1,21 @@
-<div id="css_table">
-
-      <div class="css_tr">
-         
-          <div class="css_td">詳細說明</div>
-		  <div class="css_td">值</div>
-		  <div class="css_td">輸入</div>
-		  <div class="css_td">更新</div>
-		  
-      </div>
-	  <?php foreach($rules->result() as $row): ?>
-		  <div class="css_td"><?=$row->guide?></div>
-		  <div class="css_td"><?=$row->weight?></div>
-		 
-		  <div class="css_td">
-		  <input type="text" id="weight_<?=$row->id?>"/></div>
-		  <div class="css_td"><a href="#"  onclick="result_up('<?=$row->id?>');">確定</a></div>
-		<?php  endforeach;?> 
-</div>	
+<table class="table sortable">
+				<thead>
+					<tr>
+						<th><a href="#">詳細說明</a></th>
+						<th><a href="#">值</a></th>
+						<th><a href="#">輸入</a></th>
+						<th><a href="#">更新</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					<?php foreach($rules->result() as $row): ?>
+					  <td><?=$row->guide?></td>
+					  <td><?=$row->weight?></td>
+					 
+					  <td><input type="text" id="weight_<?=$row->id?>"/></td>
+					  <td><a href="#"  onclick="result_up('<?=$row->id?>');">確定</a></td>
+					<?php  endforeach;?> 
+					</tr>
+				</tbody>
+</table>

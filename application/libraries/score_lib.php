@@ -8,12 +8,13 @@ class score_lib
 
 		$CI = & get_instance();
 		$CI->load->model('score_model');
+		$CI->load->model('rules_model');
 		$this->data = new score_model(); // 宣告 model
 	}
 	/* 檢測者計算公式 */
 	public function score_calculate($score_value,$topic_id,$result_id,$member_id)
 	{
-		$CI->load->model('rules_model');
+		
 		$rules_model = new rules_model(); // 宣告 model
 		$weight=$rules_model->select_rules_value(1);
 		
