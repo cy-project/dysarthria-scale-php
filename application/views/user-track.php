@@ -23,107 +23,14 @@
         <div class="container-fluid">
             <div class="row-fluid">
 				<div class="btn-toolbar">
-					<button class="btn btn-primary"><i class="icon-plus"></i> 匯出</button>
-					<button class="btn">搜尋</button>
+					
 				  <div class="btn-group">
 				  </div>
 				</div>
 				<div class="well">
-					<table class="table">
-					  <thead>
-						<tr>
-						  <th>#</th>
-						  <th>選擇</th>
-						  <th>案例編號</th>
-						  <th>學生姓名</th>
-						  <th>評分狀況</th>
-						  <th>學校</th>
-						  <th>追蹤</th>
-						  <th style="width: 45px;"></th>
-						</tr>
-					  </thead>
-					  <tbody>
-						<tr>
-						  <td>1</td>
-						  <td><input type="checkbox"></input></td>
-						  <td>010</td>
-						  <td>王小明</td>
-						  <td>60%</td>
-						  <td>OO幼兒園</td>
-						  <td><a href="#">追蹤狀況</a></td>
-						  <td>
-							  <a href="#"><i class="icon-pencil"></i></a>
-							  <a href="#"><i class="icon-arrow-right"></i></a>
-						  </td>
-						</tr>
-						<tr>
-						  <td>2</td>
-						  <td><input type="checkbox"></td>
-						  <td>011</td>
-						  <td>Ashley</td>
-						  <td>65%</td>
-						  <td>OO幼兒園</td>
-						  <td><a href="#">追蹤狀況</a></td>
-						  <td>
-							  <a href="#"><i class="icon-pencil"></i></a>
-							  <a href="#"><i class="icon-arrow-right"></i></a>
-						  </td>
-						</tr>
-						<tr>
-						  <td>3</td>
-						  <td><input type="checkbox"></td>
-						  <td>012</td>
-						  <td>Audrey</td>
-						  <td>55%</td>
-						  <td>XX幼兒園</td>
-						  <td><a href="#">追蹤狀況</a></td>
-						  <td>
-							  <a href="#"><i class="icon-pencil"></i></a>
-							  <a href="#"><i class="icon-arrow-right"></i></a>
-						  </td>
-						</tr>
-						<tr>
-						  <td>4</td>
-						  <td><input type="checkbox"></td>
-						  <td>015</td>
-						  <td>John</td>
-						  <td>40%</td>
-						  <td>XX幼兒園</td>
-						  <td><a href="#">追蹤狀況</a></td>
-						  <td>
-							  <a href="#"><i class="icon-pencil"></i></a>
-							  <a href="#"><i class="icon-arrow-right"></i></a>
-						  </td>
-						</tr>
-						<tr>
-						  <td>5</td>
-						  <td><input type="checkbox"></td>
-						  <td>018</td>
-						  <td>Aaron</td>
-						  <td>50%</td>
-						  <td>OO幼兒園</td>
-						  <td><a href="#">追蹤狀況</a></td>
-						  <td>
-							  <a href="#"><i class="icon-pencil"></i></a>
-							  <a href="#"><i class="icon-arrow-right"></i></a>
-						  </td>
-						</tr>
-						<tr>
-						  <td>6</td>
-						  <td><input type="checkbox"></td>
-						  <td>035</td>
-						  <td>Chris</td>
-						  <td>60%</td>
-						  <td>XX幼兒園</td>
-						  <td><a href="#">追蹤狀況</a></td>
-						  <td>
-							  <a href="#"><i class="icon-pencil"></i></a>
-							  <a href="#"><i class="icon-arrow-right"></i></a>
-						  </td>
-						</tr>
-					  </tbody>
-					</table>
+					<!-- ajax -->
 				</div>
+				<!--
 				<div class="pagination">
 					<ul>
 						<li><a href="#">Prev</a></li>
@@ -134,7 +41,7 @@
 						<li><a href="#">Next</a></li>
 					</ul>
 				</div>
-
+				-->
 				<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -159,12 +66,55 @@
             </div>
         </div>
     </div>
-    
-
-
-    <script src="lib/bootstrap/js/bootstrap.js"></script>
+   
     <script type="text/javascript">
-        $("[rel=tooltip]").tooltip();
+        
+		$().ready(function(){ //初始化載入
+
+		sorttables();
+		js_track_index_ajax();
+		fancybox_start();
+		});
+
+
+		function fancybox_start(){
+
+		$(".various").fancybox({
+			maxWidth	: 820,
+			maxHeight	: 700,
+			fitToView	: false,
+			width		: '70%',
+			height		: '100%',
+			autoSize	: false,
+			closeClick	: false,
+			openEffect	: 'none',
+			closeEffect	: 'none'
+			});
+
+
+		}
+
+
+
+		function js_track_index_ajax(){ 
+
+			$.ajax({
+					  url: '<?php echo base_url();?>track/track_views_ajax',
+					   type:"POST",
+					   dataType:'html',
+					  error: function(xhr, ajaxOptions, thrownError) {
+						$('.well').html('Ajax request 發生錯誤'+xhr.responseText);
+						//$('#ReturnViews').html(xhr.responseText);
+					  },
+					  success: function(response) {
+						sorttables();
+						$('.well').html(response);
+			
+					  }
+				});
+
+		}
+		
         $(function() {
             $('.demo-cancel-click').click(function(){return false;});
         });

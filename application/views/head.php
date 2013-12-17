@@ -11,14 +11,23 @@
     <link rel="stylesheet" href="<?=base_url("/lib/font-awesome/css/font-awesome.css")?>">
     <script src="<?=base_url("/lib/jquery-1.7.2.min.js")?>" type="text/javascript"></script>
 	<script src="<?=base_url("lib/bootstrap/js/bootstrap.js")?>" type="text/javascript"></script>
-   	
+    <script src="<?=base_url("/js/sorttable.js")?>" type="text/javascript"></script>	
     <script src="<?=base_url("/js/jquery.cookie.js")?>" type="text/javascript"></script>
+    <!-- Add MP3 files -->
+	<script src="<?=base_url("/js/jquery.jmp3.js")?>" type="text/javascript"></script>
+	<!--alertify 美化 alert -->
+	<link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.core.css" rel="stylesheet">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.default.css" rel="stylesheet">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.min.js"></script>
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="<?php echo base_url();?>js/jquery.fancybox.js?v=2.1.0"></script>
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>stylesheets/jquery.fancybox.css?v=2.1.0" media="screen" />
 	<script language="JavaScript">
 
 	$().ready(function() {
 		
 		sidebar_nav();
-		OneClick(1);
+	
 	});
 
 	function sidebar_nav(){
