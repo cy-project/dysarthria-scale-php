@@ -38,7 +38,7 @@
 						
 						</td>
 						<td style="width: 200px;">
-							<form method="post" enctype="multipart/form-data" action="<?=base_url("")?>">	
+							<form method="post" enctype="multipart/form-data" action="<?=base_url("/projectview_student/project_uploading")?>">	
 								 <input type="file" name="uploadingFile" style="width: 150px" />
 								 <input type="submit"> 
 							</form>
