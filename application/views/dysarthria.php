@@ -60,39 +60,14 @@
 				<div class="block span6">
 					<p class="block-heading">專案管理</p>
 					<div class="block-body">
-						<table class="table">
-						  <thead>
-							<tr>
-							  <th style="width: 26px;">#</th>
-							  <th>年份</th>
-							  <th>學校名稱</th>
-							  <th>人數</th>
-							  <th>地區</th>
-							  <th>專案管理員</th>
-							  <th>派遣</th>
-							  <th style="width: 26px;"></th>
-							</tr>
-						  </thead>
-						  <tbody>
-							<tr>
-							  <td>1</td>
-							  <td>2013</td>
-							  <td>OO幼稚園</td>
-							  <td>25</td>
-							  <td>高雄左營</td>
-							  <td>大學生A</td>
-							  <td><a href="project-dispatch.html">派遣</a></td>
-							  <td>
-								  <a href="project-data.html"><i class="icon-arrow-right"></i></a>
-							  </td>
-							</tr>
-						  </tbody>
+						<table id="projectview" class="table">
+							<!-- ajax -->
 						</table>
 					</div>
 				</div>
 				
 				<div class="block span6">
-					<p class="block-heading">最新消息<?php if($_SESSION["status"] == 3) { ?> <a href="<?=base_url("/dysarthria/news")?>" class="disnon"><span class="label label-important">發布消息</span><?php } ?></a></p>
+					<p class="block-heading">最新消息(測試中)<?php if($_SESSION["status"] == 3) { ?> <a href="<?=base_url("/dysarthria/news")?>" class="disnon"><span class="label label-important">發布消息</span><?php } ?></a></p>
 					<div id="tablewidget" class="block-body collapse in">
 						<table class="table">
 						  <thead>
@@ -246,6 +221,45 @@
 			</footer>
 		</div>
 	</div>
+	
+	
+	<script type="text/javascript">
+		$().ready(function(){
+		//初始化載入
+				project_views_ajax();
+		});
+
+	function project_views_ajax(){ // ajax 傳值
+
+			$.ajax({
+				  url: '<?php echo base_url();?>projectview_student/project_home_ajax',
+				  type: 'POST',
+				   dataType:'html', 
+				  error: function(xhr, ajaxOptions, thrownError) {
+					alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+					//$('#ReturnViews').html(xhr.responseText);
+				  },
+				  success: function(response) {
+				  
+					  sorttables();
+					  $('#projectview').html(response);
+					
+				  }
+			});
+		
+
+		 
+		 
+		 
+	}
+	
+	
+	
+		$("[rel=tooltip]").tooltip();
+		$(function() {
+			$('.demo-cancel-click').click(function(){return false;});
+		});
+	</script>
     
 
 

@@ -26,9 +26,9 @@
 						<div class="container-fluid">
 							<div class="row-fluid">
 									<div class="well">
-									<table class="table sortable">
-										<!-- ajax -->
-									</table>
+										<table id="projectview" class="table sortable">
+											<!-- ajax -->
+										</table>
 									</div>
 								
 								<div class="pagination">
@@ -84,7 +84,7 @@
 						  success: function(response) {
 						  
 							  sorttables();
-							  $('table').html(response);
+							  $('#projectview').html(response);
 							
 						  }
 					});

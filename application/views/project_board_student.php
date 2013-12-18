@@ -12,21 +12,18 @@
 		<div class="content">
 		<!-------------------------------------------------------------------------------路徑------------------------------------------------------------------------->
 			<div class="header">
-				<h1 class="page-title">幼音評測</h1>
+				<h1 class="page-title">五甲社區自治幼兒園</h1>
 			</div>
 			<ul class="breadcrumb">
 				<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-				<li><a href="<?=base_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/幼音評測</span></li>
+				<li><a href="<?=base_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/ 五甲社區自治幼兒園</span></li>
 				<li class="active"></li>
 			</ul>
 			<!-------------------------------------------------------------------------------底線------------------------------------------------------------------------->
 			<div class="container-fluid">
 			<!-------------------------------------------------------------------------------內容------------------------------------------------------------------------->
 				<div class="row-fluid">
-					<form >
-					<div class="btn-toolbar">
-						<a><button class="btn btn-primary" id="transfer_files"><i class="icon-plus"></i>上傳音檔</button></a>
-					</div>
+					<form>
 					<div class="well" >
 						<ul class="nav nav-tabs" style="margin-bottom: 0px;">
 							<li class="active" name="board"><a id="surveying" href="#surveying_list" data-toggle="tab" onclick="OneClick(1)">施測名單</a></li>
@@ -87,7 +84,7 @@
 
 			function project_board_ajax(f){ // ajax 傳值
 
-			if(f==1){
+					if(f==1){
 			
 					var divurl="<?php echo base_url();?>projectview_student/project_board_ajax/project_id/<?=$project_id?>";
 					var divval='#surveying_list';

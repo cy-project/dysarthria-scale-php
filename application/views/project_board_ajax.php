@@ -11,6 +11,7 @@
 						<th><a href="#">生日</a></th>
 						<th><a href="#">主要語言</a></th>
 						<th><a href="#">狀態</a></th>
+						<th><a href="#">上傳音檔</a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,6 +36,9 @@
 						<td>
 						<?php if($row->check==0){ echo "未施測"; }elseif($row->check){ echo "以施測";}?>
 						
+						</td>
+						<td style="width: 10px;">
+							<input type="file" name="file" />
 						</td>
 					</tr>
 			    <?php  endforeach;?> 
