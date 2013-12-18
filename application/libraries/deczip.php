@@ -11,7 +11,7 @@ class Deczip
 	public function dec($filepath)
 	{
 		exec('java Deczip '.$filepath.' D:\\', $file_list, $return_var);
-		
+
 		return $file_list;
 	}
 	
