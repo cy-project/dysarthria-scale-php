@@ -37,8 +37,13 @@
 						<?php if($row->check==0){ echo "未施測"; }elseif($row->check){ echo "以施測";}?>
 						
 						</td>
-						<td style="width: 10px;">
-							<input type="file" name="file" />
+
+						<td style="width: 200px;">
+							<form method="post" enctype="multipart/form-data" action="<?=base_url("/projectview_student/project_uploading")?>">	
+								 <input type="file" name="uploadingFile" style="width: 150px" />
+								 <input type="submit"> 
+							</form>
+
 						</td>
 					</tr>
 			    <?php  endforeach;?> 
