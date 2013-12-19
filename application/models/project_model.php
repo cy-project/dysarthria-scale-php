@@ -191,6 +191,32 @@ class Project_model extends CI_Model
 		
 		return $result;
 	}
+	
+	public function addSubjects($child)
+	{
+		$this->db->set('project_id',$child->pid);
+		$this->db->set('children_id',$child->id);
+		$this->db->set('rater',0);
+		$this->db->set('check',0);
+		$this->db->insert('testing_list');
+
+	}
+	
+	public function addRater($data)
+	{
+		$this->db->set('rater',$data->rater);
+		$this->db->where('project_id',$data->pid);
+		$this->db->update('testing_list');
+	}
+	
+	public function addPeople($member)
+	{
+		$this->db->set('member_id',$member->id);
+		$this->db->set('project_id',$member->pid);
+		$this->db->set('position',0);
+		$this->db->insert('people_list');
+	}
+	
 
 }
 
