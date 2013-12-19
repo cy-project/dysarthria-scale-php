@@ -12,15 +12,46 @@ class Sheep extends CI_Controller
 		$this->load->library('Datamodel');
 		$this->load->model('Project_model');
 		
+		
 	}
 	
 	public function index()
 	{
+
+		$test = new Member_model();
+		$data = new Datamodel();
 		
+		/*
+		$data->name = "毛姸淇";
+		$data->sex = "";
+		$data->bir = "2009/07/01";
+		$data->age = 0;
+		$data->grade = "中班";
+		$data->rank = "綿羊";
+		$data->county = "高雄市";
+		$data->language = "";
+		
+		$test->insertfile($data);
+		*/
+		
+		
+		for($temp = 56; $temp <= 60; $temp++){
+			for($idx = 1;$idx <= 90; $idx++)
+			{
+			
+			$data->testing_id = $temp;
+			$data->topic_id = $idx;
+			$data->voice_file = 0;
+			
+			
+			
+			$test->insertfile($data);
+			}
+		}
 		/*
 		 $dm = new Dispatch_json;
 
-		 $dm->dispatch(1,1);
+		 $dm->dispatch(4,1);
 	
 		//echo 'test';
 		
