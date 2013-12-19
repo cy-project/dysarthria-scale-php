@@ -6,6 +6,7 @@ class projectview_student extends CI_Controller {
 	{
 		parent::__construct();	
 		session_start();
+		$this->load->helper(array('form','url'));
 	}
 	public function projectview(){
 		$this->load->view("project_home_student");
@@ -36,6 +37,60 @@ class projectview_student extends CI_Controller {
 		$this->load->view("project_board_ajax",$data);
 		
 	}
+	
+	public function project_upload(){
+		$this->load->model('project_mysql_data');
+		$project = new project_mysql_data();
+		$data['project']=$project->select_project_all();
+		$this->load->view("project_upload",$data);
+	}
+	
+	function do_upload()
+	{
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '100000';
+		$config['max_width']  = '5000';
+		$config['max_height']  = '5000';
+
+		$this->load->library('upload',$config);
+
+		if (!$this->upload->do_upload())
+		{
+			$error = array('error' => $this->upload->display_errors());
+
+			$this->load->view('project_upload',$error);
+		}
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+
+			$this->load->view('project_upload',$data);
+		}
+	}
+	
+	/*public function project_uploading(){
+		$config['upload_path'] = './upload/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '100000';
+		$config['max_width']  = '5000';
+		$config['max_height']  = '5000';
+
+		$this->load->library('upload',$config);
+
+		if (!$this->upload->do_upload())
+		{
+			$error = array('error' => $this->upload->display_errors());
+
+			$this->load->view('project_upload',$error);
+		}
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+
+			$this->load->view('project_upload',$data);
+		}
+	}*/
 	
 	public function subjects_view_group_student(){
 		/*$category=$_GET['category'];

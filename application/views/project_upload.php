@@ -1,3 +1,4 @@
+	
 <!DOCTYPE html>
 <html lang="en">
 	<?php
@@ -17,57 +18,74 @@
 			
 				<ul class="breadcrumb">
 					<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-					<li class="active">專案管理</li>
+					<li><a href="<?=base_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/</span> 專案管理 <span class="divider">/</span></li>
+					<li class="active">上傳</li>
 				</ul>
+
 			<div class="container-fluid">
 				<div class="row-fluid">
 				
 					<div class="container-fluid">
+						<?php
+						if(isset($error)){
+							echo $error;
+						} ?>
+						<?php 
+						if(isset($upload_data)){ 
+							?>
+							<?php echo $upload_data['full_path'];?>
+						<?php 
+						} else { ?>
+							<?php echo form_open_multipart('projectview_student/do_upload');?>
+
+							<input type="file" name="userfile" style="width: 150px" />
+							<input type="submit" value="上傳" />
+							
+							</form>
+						<?php } ?>
 						<div class="row-fluid">
-								<div class="btn-toolbar">
-									<a href="<?=base_url("/projectadmin/project_new_admin")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
-								</div>
-							<form action="<?=base_url("/projectview_admin/project_board")?>" method="post">
 								<div class="well">
-									<table class="table sortable">
+									<table id="projectview" class="table sortable">
 										<thead>
 											<tr>
 												<th><a href="#">#</a></th>
-												<th><a href="#">專案名稱</a></th>
-												<th><a href="#">人數</a></th>
-												<th><a href="#">地區</a></th>
-												<th><a href="#">專案管理員</a></th>
-												<th><a href="#">專案起始日期</a></th>
-												<th class="sorttable_nosort">檢視</th>
+												<th><a href="#">檔案名稱</a></th>
+												<th><a href="#">等等</a></th>
+												<th><a href="#">等等</a></th>
+												<th><a href="#">等等</a></th>
+												<th><a href="#">等等</a></th>
+												<!--<th><a href="#">專案執行狀態</a></th>-->
+												<th class="sorttable_nosort">勾選</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1</td>
-												<td>幼音評測</td>
-												<td>25</td>
-												<td>高雄左營</td>
-												<td>Mark</td>
-												<td>2013/10/19</td>
+										<?php foreach($project->result() as $row): ?>
+										<tr>
+												<td><?=$row->id?></td>
+												<td><?=$row->project_name?></td>
+												<td><?=$row->Counts?></td>
+												<td><?=$row->county?><?=$row->area?></td>
+												<td><?=$row->member_name?></td>
+												<td><?=$row->start_date?></td>
+												<!--<td>
+												<?php if($row->status==0){
+													echo "執行中";
+												}else{
+													echo "結束";
+												}
+												?>
+												
+												</td>-->
+												
 												<td>
-													<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
+													
 												</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>構音調查</td>
-												<td>40</td>
-												<td>屏東</td>
-												<td>Jacky</td>
-												<td>2013/10/20</td>
-												<td>
-													<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
-												</td>
-											</tr>
+										</tr>
+										<?php  endforeach;?> 
+											
 										</tbody>
 									</table>
 								</div>
-							</form>
 							
 							<div class="pagination">
 								<ul>
@@ -103,18 +121,6 @@
 				</div>
 			</div>
 		</div>
-		<script>
-			public function onclik(i){
-				$.cookie('project_id', i);
-				$(this).closest('form').submit();
-			}
-		</script>
-		<script type="text/javascript">
-			$("[rel=tooltip]").tooltip();
-			$(function() {
-				$('.demo-cancel-click').click(function(){return false;});
-			});
-		</script>
 	</body>
 </html>
 
