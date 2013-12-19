@@ -42,9 +42,14 @@
 											</tr>
 										</thead>
 										<tbody>
+										<?php 
+										$lunght = count($this->data);
+										echo $lunght;
+										print_r($this->data);
+										for($i = 0;$i<$lunght;$i++){?>
 											<tr>
-												<td>1</td>
-												<td>幼音評測</td>
+												<td><?=$i+1?></td>
+												<td><?=$this->data->name?></td>
 												<td>25</td>
 												<td>高雄左營</td>
 												<td>Mark</td>
@@ -53,6 +58,7 @@
 													<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
 												</td>
 											</tr>
+											<?php }?>
 											<tr>
 												<td>2</td>
 												<td>構音調查</td>

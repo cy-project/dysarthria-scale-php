@@ -142,16 +142,9 @@ class Project_model extends CI_Model
 	}
 	
 	public function getProject_List($member_id){
-		if($member_id != 1){
-			$this->db->select('`project_id`');
-			$this->db->where('member_id',$member_id);
-			$this->db->from('people_list');
-		}
-		else{
-			$this->db->select('');
-			$this->db->where('member_id',$member_id);
-			$this->db->from('people_list');
-		}
+		$this->db->select('`project_id`,`position`');
+		$this->db->where('member_id',$member_id);
+		$this->db->from('people_list');
 		$result = $this->db->get();
 		if ($result->num_rows > 0)
 		{
@@ -179,6 +172,7 @@ class Project_model extends CI_Model
 				}
 			
 			}
+			print_r($children);
 			return $children;
 		}
 		else
