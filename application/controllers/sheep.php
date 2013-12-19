@@ -11,8 +11,7 @@ class Sheep extends CI_Controller
 		$this->load->library('Dispatch_json');
 		$this->load->library('Datamodel');
 		$this->load->model('Project_model');
-		$this->load->library('Upload');
-		$this->load->library('Deczip');l
+		
 	}
 	
 	public function index()
