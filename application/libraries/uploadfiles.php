@@ -1,6 +1,6 @@
 <?php
 
-class Upload
+class Uploadfiles
 {
 	function __construct()
 	{
