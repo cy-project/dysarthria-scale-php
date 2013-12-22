@@ -42,7 +42,11 @@
 										</thead>
 										<tbody>
 										<?php $lunght = count($this->data);
-										for($i = 0;$i<$lunght;$i++){?>
+										print_r($lunght);
+										if($lunght > 0){
+											for($i = 0;$i<$lunght;$i++){
+										
+										?>
 											<tr>
 												<td><?php echo $i+1;?></td>
 												<td><?php echo $this->data[$i]->name;?></td>
@@ -53,7 +57,7 @@
 													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?php echo $this->data[$i]->id;?>" ><i class="icon-eye-open"></i></a>
 												</td>
 											</tr>
-											<?php }?>
+											<?php }}?>
 										</tbody>
 									</table>
 								</div>

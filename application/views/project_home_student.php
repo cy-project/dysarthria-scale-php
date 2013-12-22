@@ -20,31 +20,51 @@
 					<li class="active">專案管理</li>
 				</ul>
 
-			<div class="container-fluid">
-				<div class="row-fluid">
-				
-					<div class="container-fluid">
-						<div class="row-fluid">
-								<div class="well">
-									<table id="projectview" class="table sortable">
-										<!-- ajax -->
+				<div class="container-fluid">
+					<div class="row-fluid">
+					
+						<div class="container-fluid">
+							<div class="row-fluid">
+									<div class="well">
+										<table class="table sortable">
+										<thead>
+											<tr>
+												<th><a href="#">#</a></th>
+												<th><a href="#">專案名稱</a></th>
+												<th><a href="#">地區</a></th>
+												<th><a href="#">專案管理員</a></th>
+												<th><a href="#">專案起始日期</a></th>
+												<th class="sorttable_nosort">檢視</th>
+											</tr>
+										</thead>
+										<tbody>
+										<?php $length = count($this->data);
+										if($this->data != 0){
+										for($i = 0;$i<$length;$i++){?>
+											<tr>
+												<td><?php echo $i+1;?></td>
+												<td><?php echo $this->data[$i]->name;?></td>
+												<td><?php echo $this->data[$i]->area;?></td>
+												<td><?php echo $this->data[$i]->manager;?></td>
+												<td><?php echo $this->data[$i]->start_date;?></td>
+												<td>
+													<a href="<?=base_url("/projectview_student/project_board")?>/project_id/<?php echo $this->data[$i]->id;?>" ><i class="icon-eye-open"></i></a>
+												</td>
+											</tr>
+											<?php }}?>
+										</tbody>
 									</table>
-								</div>
-							
-							<div class="pagination">
-								<ul>
-									<li><a href="#">Prev</a></li>
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">Next</a></li>
-								</ul>
-							</div>
-							<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-									<h3 id="myModalLabel">Delete Confirmation</h3>
+									</div>
+								
+								<div class="pagination">
+									<ul>
+										<li><a href="#">Prev</a></li>
+										<li><a href="#">1</a></li>
+										<li><a href="#">2</a></li>
+										<li><a href="#">3</a></li>
+										<li><a href="#">4</a></li>
+										<li><a href="#">Next</a></li>
+									</ul>
 								</div>
 								<div class="modal-body">
 									<p class="error-text"><i class="icon-warning-sign modal-icon"></i>Are you sure you want to delete the user?</p>
@@ -64,35 +84,35 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<script type="text/javascript">
-			$().ready(function(){
-			//初始化載入
-					project_views_ajax();
-			});
+			<script type="text/javascript">
+				/*$().ready(function(){
+				//初始化載入
+						project_views_ajax();
+				});
 
 		function project_views_ajax(){ // ajax 傳值
 
-				$.ajax({
-					  url: '<?php echo base_url();?>projectview_student/project_home_ajax',
-					  type: 'POST',
-					   dataType:'html', 
-					  error: function(xhr, ajaxOptions, thrownError) {
-						alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
-						//$('#ReturnViews').html(xhr.responseText);
-					  },
-					  success: function(response) {
-					  
-						  sorttables();
-						  $('#projectview').html(response);
-						
-					  }
-				});
-			
-
-			 
-			 
-			 
+					$.ajax({
+						  url: '<?php echo base_url();?>projectview_student/project_home_ajax',
+						  type: 'POST',
+						   dataType:'html', 
+						  error: function(xhr, ajaxOptions, thrownError) {
+							alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+							//$('#ReturnViews').html(xhr.responseText);
+						  },
+						  success: function(response) {
+						  
+							  sorttables();
+							  $('#projectview').html(response);
+							
+						  }
+					});
+				
+ 
+				 
+				 
+				 
+			}*/
 		}
 		
 		
