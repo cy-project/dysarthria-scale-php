@@ -5,8 +5,11 @@ class Upload_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->db->database();
-
+		
+		$this->load->database();
+		$this->load->library('Personal_data');
+		$this->load->library('Datamodel');
+	
 	}
 	
 	public function insertFile($data)
