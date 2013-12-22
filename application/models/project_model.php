@@ -142,10 +142,9 @@ class Project_model extends CI_Model
 	}
 	
 	public function getProject_List($member_id){
-		$this->db->select('`project_id`');
+		$this->db->select('`project_id`,`position`');
 		$this->db->where('member_id',$member_id);
 		$this->db->from('people_list');
-		
 		$result = $this->db->get();
 		if ($result->num_rows > 0)
 		{
@@ -183,7 +182,7 @@ class Project_model extends CI_Model
 	}
 	
 	public function getProjectData($project_id){
-		$this->db->select('`name`,`start_date`,`create_date`,`area`,`county`,`status`,`manager`');
+		$this->db->select('`id`,`name`,`start_date`,`create_date`,`area`,`county`,`status`,`manager`');
 		$this->db->where('id',$project_id);
 		$this->db->from('project');
 		
@@ -191,10 +190,33 @@ class Project_model extends CI_Model
 		
 		return $result;
 	}
-	
-	public function addSubjects($child)
+	public function addChild($child)
 	{
-		$this->db->set('project_id',$child->pid);
+		$this->db->set('name',$child->name);
+		$this->db->set('sex',$child->sex);
+		$this->db->set('age',$child->age);
+		$this->db->set('grade',$child->grade);
+		$this->db->set('rank',$child->rank);
+		$this->db->set('language',$child->language);
+		$this->db->set('county',$child->county);
+		$this->db->set('school_id',$child->school);
+		
+		$this->db->insert('children');
+		
+	   $this->addSubjects($child);
+		
+	
+	}
+	private function addSubjects($child)
+	{
+		$this->db->select('`id`');
+		$this->db->where('name',$child->name);//可能會有同名問題
+		$this->db->from('children');
+		$result = $this->db->get()->result();
+		
+		$child->id = $result[0]->id;
+		
+		$this->db->set('project_id',$child->project_id);
 		$this->db->set('children_id',$child->id);
 		$this->db->set('rater',0);
 		$this->db->set('check',0);

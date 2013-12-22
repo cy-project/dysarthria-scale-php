@@ -6,12 +6,11 @@ class projectview_admin extends CI_Controller {
 	{
 		parent::__construct();	
 		$this->load->library('Personal_data');
-		$this->load->model('Member_model');
-		$this->load->library('Dispatch_json');
 		$this->load->library('Datamodel');
 		$this->load->model('Project_model');
 		session_start();
 	}
+	
 	public function new_picking(){
 		$number_page = $this->input->post('number_page');
 		$number_button = $this->input->post('number_button');
@@ -46,13 +45,16 @@ class projectview_admin extends CI_Controller {
 	}
 	public function project_board()
 	{//檢視專案
-		setcookie("member_id",$_SESSION['id'],time()+3600);
+		$this->data = $this->uri->uri_to_assoc(3);
+		$dota = new Datamodel();
+		$dota->member_id = $_SESSION['id'];
+		echo $this->data['project_id'];
+		$dota->project_id = $this->data['project_id'];
 		$cont = array();
 		$member_id=$_SESSION["id"];
 		$this->load->model('test_models');
 		$project_List = new test_models;
 		$cont = $project_List->lond_List($_SESSION["id"]);
-		$this->data['member_id'] = $member_id;
 		$this->load->view('project_board',$this->data);
 	}	
 	public function subjects_list()
@@ -84,6 +86,15 @@ class projectview_admin extends CI_Controller {
 	}
 	public function subjects_data()
 	{//新增受測者資料
+		$child = new Datamodel();
+		$basic_data = new Datamodel();
+		$project = new Project_model();
+		
+		$this->data = $this->uri->uri_to_assoc(3);
+		/*
+		view未做判斷
+		還未作年齡計算
+		*/
 		setcookie("member_id",$_SESSION['id'],time()+3600);
 		$subjects_name=$this->input->post('subjects_name');
 		$subjects_sex=$this->input->post('subjects_sex');
@@ -94,7 +105,23 @@ class projectview_admin extends CI_Controller {
 		$subjects_class=$this->input->post('subjects_class');
 		$subjects_language=$this->input->post('subjects_language');
 		$date=  date("Y/m/d");
-		$this->load->view('project_board');
+		
+		$child->name = $subjects_name;
+		$child->sex = $subjects_sex;
+		$child->age = 0;
+		$child->grade = $subjects_grade;
+		$child->rank = $subjects_class;
+		$child->language = $subjects_language;
+		$child->county = $subjects_counties;
+		$child->school = $subjects_school;
+		$child->project_id =  $this->data['project_id'];
+		print_r($this->data);
+		$project->addChild($child);
+		
+		$basic_data->member_id = $_SESSION['id'];
+		$basic_data->project_id =  $this->data['project_id'];
+		
+		$this->load->view('project_board',$basic_data);
 	}
 	public function subjects_new_data()
 	{//修改資料(受測者)
@@ -102,7 +129,9 @@ class projectview_admin extends CI_Controller {
 		$this->load->view('subjects-new-data',$this->data);
 	}
 	public function subjects_data_new()
-	{
+	{//新增受測者畫面
+		$this->data = $this->uri->uri_to_assoc(3);
+		setcookie("project_id",$this->data['project_id'],time()+3600);
 		$this->load->view('subjects-data');
 	}
 	public function practitioner_alter(){//修改人員(施測者)

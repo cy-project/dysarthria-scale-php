@@ -34,7 +34,6 @@
 											<tr>
 												<th><a href="#">#</a></th>
 												<th><a href="#">專案名稱</a></th>
-												<th><a href="#">人數</a></th>
 												<th><a href="#">地區</a></th>
 												<th><a href="#">專案管理員</a></th>
 												<th><a href="#">專案起始日期</a></th>
@@ -42,28 +41,19 @@
 											</tr>
 										</thead>
 										<tbody>
+										<?php $lunght = count($this->data);
+										for($i = 0;$i<$lunght;$i++){?>
 											<tr>
-												<td>1</td>
-												<td>幼音評測</td>
-												<td>25</td>
-												<td>高雄左營</td>
-												<td>Mark</td>
-												<td>2013/10/19</td>
+												<td><?php echo $i+1;?></td>
+												<td><?php echo $this->data[$i]->name;?></td>
+												<td><?php echo $this->data[$i]->area;?></td>
+												<td><?php echo $this->data[$i]->manager;?></td>
+												<td><?php echo $this->data[$i]->start_date;?></td>
 												<td>
-													<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
+													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?php echo $this->data[$i]->id;?>" ><i class="icon-eye-open"></i></a>
 												</td>
 											</tr>
-											<tr>
-												<td>2</td>
-												<td>構音調查</td>
-												<td>40</td>
-												<td>屏東</td>
-												<td>Jacky</td>
-												<td>2013/10/20</td>
-												<td>
-													<a href="#" onclick="$(this).closest('form').submit()"><i class="icon-eye-open"></i></a>
-												</td>
-											</tr>
+											<?php }?>
 										</tbody>
 									</table>
 								</div>
@@ -117,5 +107,8 @@
 		</script>
 	</body>
 </html>
+
+
+
 
 

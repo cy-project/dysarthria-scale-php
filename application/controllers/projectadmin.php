@@ -15,7 +15,6 @@ class Projectadmin extends CI_Controller {
 		setcookie("member_id",$_SESSION['id'],time()+3600);
 		$project_list =  new Project_model();
 		$member_id = $_SESSION['id'];
-		
 		$this->data = $project_list->getProject_List($member_id);
 		$this->load->view('project_home',$this->data);
 	}
