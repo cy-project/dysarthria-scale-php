@@ -108,7 +108,7 @@
 					type:"POST",
 					dataType:'text',
 					success: function(msg){
-						document.location.href='<?=base_url("/projectview_admin/")?>'+msg;
+						document.location.href='<?=base_url("/projectview_admin/")?>'+msg+'/project_id/<?php echo $project_id;?>';
 					},
 					error:function(xhr, ajaxOptions, thrownError){
 						alert(xhr.status);

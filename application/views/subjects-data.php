@@ -25,10 +25,10 @@
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" action="<?=site_url("/projectview_admin/subjects_data")?>" method="post">
+						<form id="tab" action="<?=site_url("/projectview_admin/subjects_data")?>/project_id/<?php echo $_COOKIE['project_id']?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-save"></i>新增</button>
-								<a href=""<?=site_url("/projectview_admin/project_board")?>""><button class="btn btn-primary">取消</button></a>
+								<a href="<?=site_url("/projectview_admin/project_board")?>"><button class="btn btn-primary">取消</button></a>
 							</div>
 							<div class="well">
 								<label>姓名</label>
