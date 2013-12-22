@@ -45,10 +45,10 @@ class projectview_student extends CI_Controller {
 		$this->load->view("project_upload",$data);
 	}
 	
-	function do_upload()
+	public function upload()
 	{
 		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'gif|jpg|png';
+		$config['allowed_types']="gif|jpg|png";
 		$config['max_size']	= '100000';
 		$config['max_width']  = '5000';
 		$config['max_height']  = '5000';
@@ -57,9 +57,9 @@ class projectview_student extends CI_Controller {
 
 		if (!$this->upload->do_upload())
 		{
-			$error = array('error' => $this->upload->display_errors());
+		//	$error = array('error' => $this->Projectview_student->display_errors());
 
-			$this->load->view('project_upload',$error);
+		//	$this->load->view('project_upload',$error);
 		}
 		else
 		{

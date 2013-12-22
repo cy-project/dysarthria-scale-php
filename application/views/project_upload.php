@@ -35,7 +35,7 @@
 							<?php echo $upload_data['full_path'];?>
 						<?php 
 						} else { ?>
-							<?php echo form_open_multipart('projectview_student/do_upload');?>
+							<?php echo form_open_multipart('projectview_student/upload');?>
 
 							<input type="file" name="userfile" style="width: 150px" />
 							<input type="submit" value="上傳" />
