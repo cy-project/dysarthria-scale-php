@@ -48,7 +48,6 @@ class projectview_admin extends CI_Controller {
 		$this->data = $this->uri->uri_to_assoc(3);
 		$dota = new Datamodel();
 		$dota->member_id = $_SESSION['id'];
-		echo $this->data['project_id'];
 		$dota->project_id = $this->data['project_id'];
 		$cont = array();
 		$member_id=$_SESSION["id"];
@@ -89,14 +88,13 @@ class projectview_admin extends CI_Controller {
 		$child = new Datamodel();
 		$basic_data = new Datamodel();
 		$project = new Project_model();
-		
 		$this->data = $this->uri->uri_to_assoc(3);
 		/*
 		view未做判斷
 		還未作年齡計算
 		*/
 		setcookie("member_id",$_SESSION['id'],time()+3600);
-		$subjects_name=$this->input->post('subjects_name');
+		$subjects_name=$this->input->post('subjects_name');//*
 		$subjects_sex=$this->input->post('subjects_sex');
 		$subjects_birth=$this->input->post('subjects_birth');
 		$subjects_counties=$this->input->post('subjects_counties');
@@ -116,12 +114,20 @@ class projectview_admin extends CI_Controller {
 		$child->school = $subjects_school;
 		$child->project_id =  $this->data['project_id'];
 		print_r($this->data);
-		$project->addChild($child);
+		if($subjects_name != null){
+			$project->addChild($child);
+			$basic_data->member_id = $_SESSION['id'];
+			$basic_data->project_id =  $this->data['project_id'];
 		
-		$basic_data->member_id = $_SESSION['id'];
-		$basic_data->project_id =  $this->data['project_id'];
+			$this->load->view('project_board',$basic_data);
+		}
+		else
+		{
+			setcookie("project_id",$this->data['project_id'],time()+3600);
+			$this->load->view('subjects_data_new',$basic_data);
+		}
 		
-		$this->load->view('project_board',$basic_data);
+		
 	}
 	public function subjects_new_data()
 	{//修改資料(受測者)
