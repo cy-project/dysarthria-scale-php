@@ -12,10 +12,9 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach($project->result() as $row): 
-		echo $row;?>
+		<?php foreach($project->result() as $row): ?>
 		<tr>
-				<td><?php echo $row->id;?></td>
+				<td><?=$row->id;?></td>
 				<td><?=$row->project_name?></td>
 				<td><?=$row->Counts?></td>
 				<td><?=$row->county?><?=$row->area?></td>

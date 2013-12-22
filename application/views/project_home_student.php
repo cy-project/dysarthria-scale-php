@@ -26,9 +26,34 @@
 						<div class="container-fluid">
 							<div class="row-fluid">
 									<div class="well">
-										<table id="projectview" class="table sortable">
-											<!-- ajax -->
-										</table>
+										<table class="table sortable">
+										<thead>
+											<tr>
+												<th><a href="#">#</a></th>
+												<th><a href="#">專案名稱</a></th>
+												<th><a href="#">地區</a></th>
+												<th><a href="#">專案管理員</a></th>
+												<th><a href="#">專案起始日期</a></th>
+												<th class="sorttable_nosort">檢視</th>
+											</tr>
+										</thead>
+										<tbody>
+										<?php $length = count($this->data);
+										if($this->data != 0){
+										for($i = 0;$i<$length;$i++){?>
+											<tr>
+												<td><?php echo $i+1;?></td>
+												<td><?php echo $this->data[$i]->name;?></td>
+												<td><?php echo $this->data[$i]->area;?></td>
+												<td><?php echo $this->data[$i]->manager;?></td>
+												<td><?php echo $this->data[$i]->start_date;?></td>
+												<td>
+													<a href="<?=base_url("/projectview_student/project_board")?>/project_id/<?php echo $this->data[$i]->id;?>" ><i class="icon-eye-open"></i></a>
+												</td>
+											</tr>
+											<?php }}?>
+										</tbody>
+									</table>
 									</div>
 								
 								<div class="pagination">
@@ -66,7 +91,7 @@
 				</div>
 			</div>
 			<script type="text/javascript">
-				$().ready(function(){
+				/*$().ready(function(){
 				//初始化載入
 						project_views_ajax();
 				});
@@ -93,7 +118,7 @@
 				 
 				 
 				 
-			}
+			}*/
 			
 			
 			
