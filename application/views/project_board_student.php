@@ -85,7 +85,7 @@
 
 					if(f==1){
 			
-					var divurl="<?php echo base_url();?>projectview_student/project_board_ajax/project_id/<?=$project_id?>";
+					var divurl="<?php echo base_url();?>projectview_student/project_board_ajax/project_id/<?=$project_id?>/member_id/<?=$_SESSION["id"]?>";
 					var divval='#surveying_list';
 			
 				}else if(f==2){
