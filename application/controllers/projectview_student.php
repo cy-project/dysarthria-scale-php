@@ -8,6 +8,7 @@ class projectview_student extends CI_Controller {
 		$this->load->model('Project_model');
 		session_start();
 		$this->load->helper(array('form','url'));
+		$this->load->library('Deczip');
 	}
 	public function projectview(){
 		setcookie("member_id",$_SESSION['id'],time()+3600);
@@ -51,25 +52,34 @@ class projectview_student extends CI_Controller {
 	}
 	
 	public function upload()
-	{
+	{	
+		$deczip = new Deczip;
+		
 		$config['upload_path'] = './uploads/';
-		$config['allowed_types']="gif|jpg|png";
+		$config['allowed_types']='zip|jpg';
 		$config['max_size']	= '100000';
 		$config['max_width']  = '5000';
 		$config['max_height']  = '5000';
-
+		
 		$this->load->library('upload',$config);
 
 		if (!$this->upload->do_upload())
 		{
-		//	$error = array('error' => $this->Projectview_student->display_errors());
+			$error = array('error' => $this->upload->display_errors());
 
-		//	$this->load->view('project_upload',$error);
+			$this->load->view('project_upload',$error);
 		}
 		else
 		{
+			/*system/library/Upload.php line202 暴力破解法!!!*/
 			$data = array('upload_data' => $this->upload->data());
-
+			
+			$path = $data['upload_data']['full_path'];//;"C:\\xampp\htdocs\dysarthria-scale-php\uploads\test.zip"
+			
+			$zipresult = $deczip->dec($path);
+			
+			print_r($zipresult) ;
+			
 			$this->load->view('project_upload',$data);
 		}
 	}

@@ -51,7 +51,7 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'tgz'	=>	array('application/x-tar', 'application/x-gzip-compressed'),
 				'xhtml'	=>	'application/xhtml+xml',
 				'xht'	=>	'application/xhtml+xml',
-				'zip'	=>  array('application/x-zip', 'application/zip', 'application/x-zip-compressed'),
+				'zip'	=>  array('application/x-zip', 'application/zip', 'application/x-zip-compressed','application/octet-stream'),
 				'mid'	=>	'audio/midi',
 				'midi'	=>	'audio/midi',
 				'mpga'	=>	'audio/mpeg',
@@ -98,7 +98,8 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'word'	=>	array('application/msword', 'application/octet-stream'),
 				'xl'	=>	'application/excel',
 				'eml'	=>	'message/rfc822',
-				'json' => array('application/json', 'text/json')
+				'json' => array('application/json', 'text/json'),
+				'rar' => array('application/octet-stream')
 			);
 
 

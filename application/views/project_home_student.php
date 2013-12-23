@@ -66,13 +66,13 @@
 										<li><a href="#">Next</a></li>
 									</ul>
 								</div>
-								<div class="modal-body">
+								<!--div class="modal-body">
 									<p class="error-text"><i class="icon-warning-sign modal-icon"></i>Are you sure you want to delete the user?</p>
 								</div>
 								<div class="modal-footer">
 									<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 									<button class="btn btn-danger" data-dismiss="modal">Delete</button>
-								</div>
+								</div-->
 							</div>
 							<footer>
 								<hr>
@@ -112,7 +112,7 @@
 				 
 				 
 				 
-			}*/
+			}
 		}
 		
 		
@@ -120,7 +120,7 @@
 			$("[rel=tooltip]").tooltip();
 			$(function() {
 				$('.demo-cancel-click').click(function(){return false;});
-			});
+			});*/
 		</script>
 	</body>
 </html>
