@@ -49,10 +49,8 @@ class projectview_student extends CI_Controller {
 	}
 	
 	public function project_upload(){
-		$this->load->model('project_mysql_data');
-		$project = new project_mysql_data();
-		$data['project']=$project->select_project_all();
-		$this->load->view("project_upload",$data);
+		
+		$this->load->view("project_upload");
 	}
 	
 	public function upload()
@@ -83,6 +81,8 @@ class projectview_student extends CI_Controller {
 			$zipresult = $deczip->dec($path);
 			
 			print_r($zipresult) ;
+			
+			
 			
 			$this->load->view('project_upload',$data);
 		}

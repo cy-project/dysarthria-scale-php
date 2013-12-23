@@ -25,36 +25,25 @@
 				<div class="row-fluid">
 				
 					<div class="container-fluid">
-						<?php
-						if(isset($error)){
-							echo $error;
-						} ?>
-						<?php 
-						if(isset($upload_data)){ 
-							?>
-							<?php echo $upload_data['full_path'];?>
-						<?php 
-						} else { ?>
-							<?php echo form_open_multipart('projectview_student/upload');?>
-
-							<input type="file" name="userfile" style="width: 150px" />
-							<input type="submit" value="上傳" />
-							
-							</form>
-						<?php } ?>
 						<div class="row-fluid">
+							<?php
+							if(isset($error)){
+								echo $error;
+							} ?>
+							<?php 
+							if(isset($upload_data)){ 
+								?>
+								<?php echo $upload_data['full_path'];?>
 								<div class="well">
+									
 									<table id="projectview" class="table sortable">
 										<thead>
 											<tr>
 												<th><a href="#">#</a></th>
+												<th><a href="#">題目</a></th>
 												<th><a href="#">檔案名稱</a></th>
-												<th><a href="#">等等</a></th>
-												<th><a href="#">等等</a></th>
-												<th><a href="#">等等</a></th>
-												<th><a href="#">等等</a></th>
-												<!--<th><a href="#">專案執行狀態</a></th>-->
-												<th class="sorttable_nosort">勾選</th>
+												<th><a href="#">是否清晰</a></th>
+												<th><a href="#">撥放</a></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -63,39 +52,32 @@
 												<td><?=$row->id?></td>
 												<td><?=$row->project_name?></td>
 												<td><?=$row->Counts?></td>
-												<td><?=$row->county?><?=$row->area?></td>
-												<td><?=$row->member_name?></td>
-												<td><?=$row->start_date?></td>
-												<!--<td>
-												<?php if($row->status==0){
-													echo "執行中";
-												}else{
-													echo "結束";
-												}
-												?>
-												
-												</td>-->
-												
 												<td>
-													
+													<select id="Score_value" name="Score_value[]">
+													 <option value="1">正確</option>
+													 <option value="0">不清楚</option>
+													 <option value="-1">不正確</option>
+													</select>
 												</td>
+												<td><embed width="100" height="20" type="application/x-shockwave-flash" src="<?=base_url("/js/singlemp3player.swf")?>" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="file=<?=base_url()?><?=$row->voice_file?>"/></td>
 										</tr>
 										<?php  endforeach;?> 
 											
 										</tbody>
 									</table>
+									
+									
 								</div>
+							<?php 
+							} else { ?>
+								<?php echo form_open_multipart('projectview_student/upload');?>
+
+								<input type="file" name="userfile" style="width: 150px" />
+								<input type="submit" value="上傳" />
+								
+								</form>
+							<?php } ?>
 							
-							<div class="pagination">
-								<ul>
-									<li><a href="#">Prev</a></li>
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">Next</a></li>
-								</ul>
-							</div>
 							<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -120,6 +102,30 @@
 				</div>
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+			
+			
+			$().ready(function(){
+			sorttables();
+			mp3s();
+			});
+			
+			function mp3s(){
+
+$('a[@href$="mp3"]').flash(
+        { src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
+        { version: 7 },
+        function(htmlOptions) {
+            $this = $(this);
+            htmlOptions.flashvars.file = $this.attr('href');
+            $this.before($.fn.flash.transform(htmlOptions));						
+        }
+    );
+
+}
+
+			
 	</body>
 </html>
 
