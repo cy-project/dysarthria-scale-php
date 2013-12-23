@@ -102,7 +102,7 @@
 						alert('null');
 						document.getElementById('subjects_name').focus();
 					}else if(document.getElementById('subjects_name').value!=''){
-						$(this).closest('form').submit();
+						$('#tab').closest('form').submit();
 					}
 				} 
 				function OneClick() {

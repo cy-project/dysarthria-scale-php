@@ -43,7 +43,7 @@ class projectview_student extends CI_Controller {
 		$data = $this->uri->uri_to_assoc(3);
 		$this->load->model('project_mysql_data');
 		$project = new project_mysql_data();
-		$data['surveying']=$project->select_project_surveying($data['project_id']);
+		$data['surveying']=$project->select_project_surveying($data['project_id'],$_SESSION['id']);
 		$this->load->view("project_board_ajax",$data);
 		
 	}

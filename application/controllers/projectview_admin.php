@@ -68,6 +68,7 @@ class projectview_admin extends CI_Controller {
 		elseif($number_page == 2){
 			$pm = new Project_model;
 			$this->data = $pm->getTestingList($project_id);
+			print_r($this->data);
 			$this->load->view('subjects_list_admin',$this->data);
 		}
 		elseif($number_page == 3){
@@ -117,10 +118,12 @@ class projectview_admin extends CI_Controller {
 		print_r($this->data);
 		if($subjects_name != null){
 			$project->addChild($child);
-			$basic_data->member_id = $_SESSION['id'];
-			$basic_data->project_id =  $this->data['project_id'];
-		
-			$this->load->view('project_board',$basic_data);
+			$this->data['member_id'] = $_SESSION['id'];
+			
+			$this->load->model('test_models');
+			$project_List = new test_models;
+			$cont = $project_List->lond_List($_SESSION["id"]);
+			$this->load->view('project_board',$this->data);
 		}
 		else
 		{
