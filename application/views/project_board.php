@@ -90,6 +90,9 @@
 		</div>
 		<script type="text/javascript">
 			var count=1;
+			$().ready(function() {
+				OneClick(1);
+			});
 			function ButtonClick(i){
 				var con=$.cookie("name");
 				
@@ -190,7 +193,6 @@
 					$( "#new_people:last-child" ).hide();
 				});
 		</script>
-		<script src="lib/bootstrap/js/bootstrap.js"></script>
 		<script type="text/javascript">
 			$("[rel=tooltip]").tooltip();
 			$(function() {
