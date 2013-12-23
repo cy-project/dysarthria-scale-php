@@ -46,7 +46,7 @@
 										</thead>
 										<tbody>
 										<?php 
-										$i=0;
+										$i = 0;
 										foreach($testfile->result() as $row): ?>
 										<tr>
 												<td><?=$row->script?></td>
@@ -112,20 +112,20 @@
 			});
 			
 			function mp3s(){
-
-$('a[@href$="mp3"]').flash(
-        { src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
-        { version: 7 },
-        function(htmlOptions) {
-            $this = $(this);
-            htmlOptions.flashvars.file = $this.attr('href');
-            $this.before($.fn.flash.transform(htmlOptions));						
-        }
-    );
-
-}
-
+				$('a[@href$="mp3"]').flash(
+				{ src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
+				{ version: 7 },
 			
+				function(htmlOptions) {
+					$this = $(this);
+					htmlOptions.flashvars.file = $this.attr('href');
+					$this.before($.fn.flash.transform(htmlOptions));						
+					}
+				);
+
+			}
+
+		</script>
 	</body>
 </html>
 
