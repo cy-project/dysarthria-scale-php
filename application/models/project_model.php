@@ -57,7 +57,6 @@ class Project_model extends CI_Model
 							
 							$rater = $this->getMemberName($row->rater);
 							
-							print_r($rater);
 							
 							$children[$idx]->rater = $rater[0]->name;
 							$children[$idx]->check = $row->check;

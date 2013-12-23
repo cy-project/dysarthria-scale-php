@@ -12,6 +12,7 @@
 			</tr>
 		</thead>
 		<tbody>
+		
 		<?php foreach($project->result() as $row): ?>
 		<tr>
 				<td><?=$row->id;?></td>

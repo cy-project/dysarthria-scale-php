@@ -61,12 +61,13 @@ class projectview_admin extends CI_Controller {
 		setcookie("member_id",$_SESSION['id'],time()+3600);
 		$member_id = $this->input->post('member_id');
 		$number_page = $this->input->post('number_page');
+		$project_id = $this->input->post('project_id');
 		if($number_page == 1){
 			$this->load->view('surveying_list_admin');
 		}
 		elseif($number_page == 2){
 			$pm = new Project_model;
-			$this->data = $pm->getTestingList($member_id);
+			$this->data = $pm->getTestingList($project_id);
 			$this->load->view('subjects_list_admin',$this->data);
 		}
 		elseif($number_page == 3){

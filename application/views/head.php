@@ -26,7 +26,7 @@
 
 	$().ready(function() {
 		
-		sidebar_nav();
+		//sidebar_nav();
 		OneClick(1);
 	
 	});

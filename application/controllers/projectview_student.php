@@ -17,10 +17,14 @@ class projectview_student extends CI_Controller {
 	}
 	
 	public function project_home_ajax(){
+		
+		$member_id = $_SESSION['id'];
 	
 		$this->load->model('project_mysql_data');
 		$project = new project_mysql_data();
-		$data['project']=$project->select_project_all();
+		
+		$data['project']=$project->select_project_all($member_id);
+		
 		$this->load->view("project_home_ajax",$data);
 		
 	}
