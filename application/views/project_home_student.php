@@ -67,7 +67,7 @@
 			</div>
 			<script type="text/javascript">
 				$().ready(function(){
-				//初始化載入
+				//初始化載入 
 						project_views_ajax();
 				});
 
@@ -84,23 +84,16 @@
 						  success: function(response) {
 						  
 							  sorttables();
+							 
 							  $('#projectview').html(response);
 							
 						  }
 					});
-				
- 
-				 
-				 
+			
 				 
 			}
 			
 			
-			
-				$("[rel=tooltip]").tooltip();
-				$(function() {
-					$('.demo-cancel-click').click(function(){return false;});
-				});
 			</script>
 		</body>
 	</html>

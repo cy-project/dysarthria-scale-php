@@ -5,17 +5,26 @@ class projectview_student extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();	
+		$this->load->model('Project_model');
 		session_start();
 	}
 	public function projectview(){
-		$this->load->view("project_home_student");
+		setcookie("member_id",$_SESSION['id'],time()+3600);
+		$project_list =  new Project_model();
+		$member_id = $_SESSION['id'];
+		$this->data = $project_list->getProject_List($member_id);
+		$this->load->view("project_home_student",$this->data);
 	}
 	
 	public function project_home_ajax(){
+		
+		$member_id = $_SESSION['id'];
 	
 		$this->load->model('project_mysql_data');
 		$project = new project_mysql_data();
-		$data['project']=$project->select_project_all();
+		
+		$data['project']=$project->select_project_all($member_id);
+		
 		$this->load->view("project_home_ajax",$data);
 		
 	}

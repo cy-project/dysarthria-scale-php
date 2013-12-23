@@ -119,9 +119,10 @@
 			function OneClick(i) {
 				$.cookie('name', i);
 				var URLs='<?=base_url("/projectview_admin/subjects_list")?>';
+				var Project_id='<? echo $project_id;?>';
 					$.ajax({
 					url: URLs,
-					data: {'member_id':$.cookie('member_id'),'number_page':i},
+					data: {'member_id':$.cookie('member_id'),'number_page':i,'project_id':Project_id},
 					type:"POST",
 					dataType:'html',
 					success: function(msg){

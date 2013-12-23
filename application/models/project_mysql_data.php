@@ -12,7 +12,7 @@ class project_mysql_data extends CI_Model
 	
 	}
 	
-	public function select_project_all() 
+	public function select_project_all($member_id) 
 	{
 		
 		$sel_sql="SELECT
@@ -24,7 +24,13 @@ project.area,
 project.`status`,
 member.name AS member_name,
 project.county
-FROM testing_lists Inner Join project ON testing_lists.project_id = project.id Inner Join member ON project.manager = member.id
+FROM
+testing_lists
+Inner Join project ON testing_lists.project_id = project.id
+Inner Join member ON project.manager = member.id
+Inner Join people_list ON people_list.project_id = project.id
+WHERE
+people_list.member_id =  '$member_id'
 GROUP BY project.id
 ORDER BY project.start_date DESC";
 		

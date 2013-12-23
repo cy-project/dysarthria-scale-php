@@ -27,12 +27,12 @@
 					<div class="row-fluid">
 						<form id="tab" action="<?=site_url("/projectview_admin/subjects_data")?>/project_id/<?php echo $_COOKIE['project_id']?>" method="post">
 							<div class="btn-toolbar">
-								<button class="btn btn-primary" type="submit"><i class="icon-save"></i>新增</button>
+								<button class="btn btn-primary" type="button" onclick="testnull()"><i class="icon-save"></i>新增</button>
 								<a href="<?=site_url("/projectview_admin/project_board")?>"><button class="btn btn-primary">取消</button></a>
 							</div>
 							<div class="well">
 								<label>姓名</label>
-								<input type="text" name="subjects_name" class="input-xlarge">
+								<input type="text" name="subjects_name" id="subjects_name" class="input-xlarge">
 								<label>性別</label>
 								<select name="subjects_sex" id="DropDownTimezone" class="input-xlarge">
 									<option selected="selected" value="2">請選擇</option>
@@ -95,6 +95,16 @@
 			</div>
 			<script type="text/javascript">
 				var count=1;
+				function testnull()
+				{
+					if (document.getElementById('subjects_name').value=='')
+					{
+						alert('null');
+						document.getElementById('subjects_name').focus();
+					}else if(document.getElementById('subjects_name').value!=''){
+						$(this).closest('form').submit();
+					}
+				} 
 				function OneClick() {
 					document.getElementById('test').disabled = true;
 					document.getElementById('new_people').disabled = false;

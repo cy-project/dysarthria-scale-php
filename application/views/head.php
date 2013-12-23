@@ -27,7 +27,7 @@
 	$().ready(function() {
 		
 		sidebar_nav();
-		OneClick(1);
+		//OneClick(1);
 	
 	});
 
