@@ -8,7 +8,7 @@ class score_model extends CI_Model
 		$this->load->database();
 	}
 	
-	public function Add_judgment($result_id,$Strings_Scores,$Scores_sum,$Standard,$member_id,$topic_id) //¬ö¿ı¬I´úªÌµû¤Àµ²ªG (¼g¤Jjudgment ªí³æ¸ê®Æ)
+	public function Add_judgment($result_id,$Strings_Scores,$Scores_sum,$Standard,$member_id,$topic_id) //ç´€éŒ„æ–½æ¸¬è€…è©•åˆ†çµæœ (å¯«å…¥judgment è¡¨å–®è³‡æ–™)
 	{
 		$Today=date("Y-m-d H:i:s");
 		
@@ -46,7 +46,7 @@ class score_model extends CI_Model
 		  $testing_id= $row['testing_id'];
 		}
 		
-		if(is_array($topic_id)){ //§PÂ_$topic_id¬O§_¬°°}¦C
+		if(is_array($topic_id)){ //åˆ¤æ–·$topic_idæ˜¯å¦ç‚ºé™£åˆ—
 		
 		
 		for($j=0;$j<sizeof($topic_id);$j++){
@@ -242,7 +242,7 @@ result.id =  '$result_id'";
 		}
 		
 		$str="";
-		$length = count($strings);//¨úÁ`¼Æ
+		$length = count($strings);//å–ç¸½æ•¸
 		for ( $i=0 ; $i<$length ; $i++ ) {
 		if($i==($length-1)){
 		  $str.="result.topic_id ="."'".$strings[$i]."'";
@@ -302,14 +302,14 @@ result.testing_id =  '$testing_id' and(".$str.")";
 			
 	}
 	
-	if($istrace==0){ //³Q°lÂÜ
+	if($istrace==0){ //è¢«è¿½è¹¤
 		$istrace=1;
 		
 		$del_sql="DELETE FROM `trace_list` WHERE (`judgment_id`='$judgment_id')";
 		
 		$this->db->query($del_sql);
 		
-	}elseif($istrace==1){ //©|¥¼³Q°lÂÜ
+	}elseif($istrace==1){ //å°šæœªè¢«è¿½è¹¤
 		$istrace=0;
 		
 		$in_sql="INSERT INTO `trace_list` (`judgment_id`,`date`) VALUES ('$judgment_id','$Today')";

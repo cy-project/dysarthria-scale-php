@@ -65,5 +65,41 @@
 				return $boolen;
 			}
 			
+			public function upload_test_file($zipresult)
+			{
+					
+				$str="";
+				for($i=0;$i<count($zipresult);$i+=2){
+				
+					$file_arr = explode(".",$zipresult[$i+1]);
+					$file_name = $file_arr[count($file_arr)-2];//撈檔名
+
+					$file_arr2 = explode("_",$file_name);
+					$file_name2 = $file_arr2[count($file_arr)-1];//撈題號
+					
+					
+					
+					if($i==(count($zipresult)-2)){
+					  $str.="topic.id ="."'".$file_name2."'";
+					  }else{
+					  $str.="topic.id ="."'".$file_name2."' OR ";
+					  }
+					
+				}
+				
+				
+				$sql="SELECT
+					script
+					FROM
+					topic WHERE
+					(".$str.")";
 			
+				$query=$this->db->query($sql);
+				
+				
+				
+				return $query;
+				
+					
+			}
 		}

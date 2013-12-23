@@ -33,13 +33,11 @@
 							<?php 
 							if(isset($upload_data)){ 
 								?>
-								<?php echo $upload_data['full_path'];?>
 								<div class="well">
 									
 									<table id="projectview" class="table sortable">
 										<thead>
 											<tr>
-												<th><a href="#">#</a></th>
 												<th><a href="#">題目</a></th>
 												<th><a href="#">檔案名稱</a></th>
 												<th><a href="#">是否清晰</a></th>
@@ -47,21 +45,23 @@
 											</tr>
 										</thead>
 										<tbody>
-										<?php foreach($project->result() as $row): ?>
+										<?php 
+										$i=0;
+										foreach($testfile->result() as $row): ?>
 										<tr>
-												<td><?=$row->id?></td>
-												<td><?=$row->project_name?></td>
-												<td><?=$row->Counts?></td>
+												<td><?=$row->script?></td>
+												<td><?=$file_name[$i]?></td>
 												<td>
 													<select id="Score_value" name="Score_value[]">
-													 <option value="1">正確</option>
-													 <option value="0">不清楚</option>
-													 <option value="-1">不正確</option>
+													 <option value="1">不清晰</option>
+													 <option value="0">清晰</option>
 													</select>
 												</td>
 												<td><embed width="100" height="20" type="application/x-shockwave-flash" src="<?=base_url("/js/singlemp3player.swf")?>" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="file=<?=base_url()?><?=$row->voice_file?>"/></td>
 										</tr>
-										<?php  endforeach;?> 
+										<?php  
+										$i++;
+										endforeach;?> 
 											
 										</tbody>
 									</table>
