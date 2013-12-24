@@ -46,22 +46,22 @@
 										</thead>
 										<tbody>
 										<?php 
-										$i = 0;
-										foreach($testfile->result() as $row): ?>
+										$i=0;
+										/*foreach($testfile->result() as $row): ?>
 										<tr>
 												<td><?=$row->script?></td>
 												<td><?=$file_name[$i]?></td>
 												<td>
 													<select id="Score_value" name="Score_value[]">
-													 <option value="1">不清晰</option>
-													 <option value="0">清晰</option>
+													 <option value="0">不清晰</option>
+													 <option value="1">清晰</option>
 													</select>
 												</td>
 												<td><embed width="100" height="20" type="application/x-shockwave-flash" src="<?=base_url("/js/singlemp3player.swf")?>" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="file=<?=base_url()?><?=$row->voice_file?>"/></td>
 										</tr>
 										<?php  
 										$i++;
-										endforeach;?> 
+										endforeach;*/?> 
 											
 										</tbody>
 									</table>
@@ -112,20 +112,20 @@
 			});
 			
 			function mp3s(){
-				$('a[@href$="mp3"]').flash(
-				{ src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
-				{ version: 7 },
-			
-				function(htmlOptions) {
-					$this = $(this);
-					htmlOptions.flashvars.file = $this.attr('href');
-					$this.before($.fn.flash.transform(htmlOptions));						
-					}
-				);
 
+			$('a[@href$="mp3"]').flash(
+			{ src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
+			{ version: 7 },
+			function(htmlOptions) {
+				$this = $(this);
+				htmlOptions.flashvars.file = $this.attr('href');
+				$this.before($.fn.flash.transform(htmlOptions));						
 			}
+		);
 
-		</script>
+}
+
+			
 	</body>
 </html>
 
