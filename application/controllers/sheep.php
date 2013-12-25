@@ -9,7 +9,7 @@ class Sheep extends CI_Controller
 		$this->load->library('Personal_data');
 		$this->load->model('Member_model');
 		$this->load->library('Dispatch_json');
-		$this->load->library('Datamodel');
+		$this->load->library('Deczip');
 		$this->load->model('Project_model');
 		$this->load->library('Transform');
 		
@@ -17,6 +17,10 @@ class Sheep extends CI_Controller
 	
 	public function index()
 	{
+	
+		$zip =  new Deczip;
+		
+		$zip->dec("D:\\test2.zip");
 
 		/*$test = new Member_model();
 		$data = new Datamodel();
@@ -55,7 +59,7 @@ class Sheep extends CI_Controller
 		/*
 		 $dm = new Dispatch_json;
 
-		 $dm->dispatch(6,1);
+		 $dm->dispatch(1,1);
 	
 		//echo 'test';
 		
