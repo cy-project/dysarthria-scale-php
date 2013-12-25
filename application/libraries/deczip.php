@@ -12,19 +12,31 @@ class Deczip
 	{
 		$filepath=mb_convert_encoding($filepath,"big5","utf8");
 		
-		//echo $filepath;
-		
 		exec('java Deczip '.$filepath.' C:\\xampp\htdocs\dysarthria-scale-php\uploads\\', $file_list, $return_var);
+		$sort_file_list = $this->sortTopic($file_list);
 		
-		//echo $return_var;
-		
-		//$file_list=mb_convert_encoding($file_list,"utf8","big5");
-			
-		//$file_list=count($file_list);
-		
-		return $file_list;
+		return $sort_file_list;
 	}
 	
-	
+	private function sortTopic($Topicpath)
+	{
+		$length = count($Topicpath);
+		
+		for ( $idx = 0; $idx < $length; $idx+=2)
+		{
+			if ( $idx+1 < $length )
+			{
+				$file_arr = explode("_",$Topicpath[$idx+1]);
+
+				if (count($file_arr) >= 2)
+					
+					$array[$file_arr[1]][] = $Topicpath[$idx];
+			}
+
+		}
+			
+		return $array;
+
+	}
 
 }

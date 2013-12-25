@@ -68,22 +68,33 @@
 			public function upload_test_file($zipresult)
 			{
 				$str="";
-				for($i=0;$i < count($zipresult);$i+=2)
+				for($i=0;$i < count($zipresult);$i++)
 				{
-					$file_arr = explode(".",$zipresult[$i+1]);
-					$file_name = $file_arr[count($file_arr)-2];//撈檔名
-					$file_arr2 = explode("_",$file_name);
-					$file_name2 = $file_arr2[count($file_arr)-1];//撈題號
+					for($j=0;$j < count($zipresult[$i+1]);$j++)
+					{
 					
-					if($i==(count($zipresult)-2)){
-						$str.="topic.id ="."'".$file_name2."'";
-					}else{
-						$str.="topic.id ="."'".$file_name2."' OR ";
+						$file_arr = explode(".",$zipresult[$i+1][$j]);
+						
+						print_r( $file_arr);
+						$file_name = $file_arr[count($file_arr)-2];//撈檔名
+						
+						//echo $file_name;
+						
+						$file_arr2 = explode("_",$file_name);
+						$file_name2 = $file_arr2[count($file_arr)-1];//撈題號
+						
+						if($i==(count($zipresult)-2)){
+							$str.="topic.id ="."'".$file_name2."'";
+						}else{
+							$str.="topic.id ="."'".$file_name2."' OR ";
+						}
+						
+						//echo $str;
 					}
 				}
 				
 				
-				$sql="SELECT
+				/*$sql="SELECT
 					script
 					FROM
 					topic WHERE
@@ -93,6 +104,6 @@
 				
 				
 				
-				return $query;
+				return $query;*/
 			}
 		}

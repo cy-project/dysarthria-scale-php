@@ -39,7 +39,7 @@
 						
 						</td>
 						<td>
-							<a href="<?=base_url("/projectview_student/project_upload")?>/testing_id/<?=$row->id?>">上傳</a>
+							<a href="<?=base_url("/projectview_student/project_upload")?>?testing_id=<?=$row->id?>">上傳</a>
 						</td>
 					</tr>
 			    <?php  endforeach;?> 

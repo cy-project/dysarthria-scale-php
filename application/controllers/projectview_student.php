@@ -97,6 +97,10 @@ class projectview_student extends CI_Controller {
 			
 			$zipresult = $deczip->dec($path);
 			
+			//print_r($zipresult);
+			//echo count($zipresult);
+			//echo count($zipresult[3]);
+			
 			$this->load->model('test_models');
 			$test_models = new test_models();
 			
@@ -104,14 +108,14 @@ class projectview_student extends CI_Controller {
 			$data['testfile']=$test_models->upload_test_file($zipresult);
 			
 			
-			for($i=0;$i<count($zipresult);$i+=2)
+			/*for($i=0;$i<count($zipresult);$i+=2)
 			{
 				$file_arr = explode(".",$zipresult[$i+1]);
 				 
 				$file_name[]=$file_arr[count($file_arr)-2];//撈檔名;
 			}
 			
-			$data['file_name']=$file_name;
+			$data['file_name']=$file_name;*/
 			
 			$this->load->view('project_upload',$data);
 		}

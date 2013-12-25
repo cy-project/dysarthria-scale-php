@@ -9,6 +9,8 @@ class Project_model extends CI_Model
 		$this->load->database();
 	}
 	
+
+	
 	public function createProject($data)
 	{
 		$this->db->set('name',$data->name);
