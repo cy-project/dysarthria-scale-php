@@ -11,16 +11,20 @@ class Sheep extends CI_Controller
 		$this->load->library('Dispatch_json');
 		$this->load->library('Datamodel');
 		$this->load->model('Project_model');
-		
+		$this->load->library('Transform');
 		
 	}
 	
 	public function index()
 	{
 
-		$test = new Member_model();
+		/*$test = new Member_model();
 		$data = new Datamodel();
 		
+		$trans = new Transform();
+		
+		$trans->trans("D:\\test","D:\\test.mp3");
+		*/
 		/*
 		$data->name = "毛姸淇";
 		$data->sex = "";
@@ -33,7 +37,7 @@ class Sheep extends CI_Controller
 		
 		$test->insertfile($data);
 		*/
-		
+		/*
 		
 		for($temp = 56; $temp <= 60; $temp++){
 			for($idx = 1;$idx <= 90; $idx++)
@@ -47,11 +51,11 @@ class Sheep extends CI_Controller
 			
 			$test->insertfile($data);
 			}
-		}
+		}*/
 		/*
 		 $dm = new Dispatch_json;
 
-		 $dm->dispatch(4,1);
+		 $dm->dispatch(6,1);
 	
 		//echo 'test';
 		
