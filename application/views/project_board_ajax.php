@@ -15,7 +15,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php foreach($surveying->result() as $row): ?>
+				<?php  foreach($surveying->result() as $row): ?>
 					<tr>
 						<td><?=$row->id?></td>
 						<td><?=$row->school_name?></td>

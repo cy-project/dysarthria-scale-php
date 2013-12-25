@@ -42,7 +42,7 @@ ORDER BY project.start_date DESC";
 		
 	}
 	
-	public function select_project_surveying($project_id){
+	public function select_project_surveying($project_id,$member_id){
 	
 	$sel_sql="SELECT
 children.language,
@@ -59,7 +59,8 @@ testing_list
 Inner Join children ON testing_list.children_id = children.id
 Inner Join school ON children.school_id = school.id
 WHERE
-testing_list.project_id =  '$project_id'";
+testing_list.project_id =  '$project_id'AND
+testing_list.rater = '$member_id'";
 		
 		
 		

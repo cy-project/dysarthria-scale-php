@@ -58,7 +58,7 @@ class Project_model extends CI_Model
 							$rater = $this->getMemberName($row->rater);
 							
 							
-							$children[$idx]->rater = $rater[0]->name;
+							//$children[$idx]->rater = $rater[0]->name;
 							$children[$idx]->check = $row->check;
 						
 						}
@@ -131,7 +131,7 @@ class Project_model extends CI_Model
 	}
 	
 	
-	private function getMemberName($rater){
+	public function getMemberName($rater){
 		$this->db->select('`name`');
 		$this->db->where('member.id',$rater);
 		$this->db->from('member');
