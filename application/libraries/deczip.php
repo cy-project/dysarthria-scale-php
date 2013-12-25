@@ -29,8 +29,11 @@ class Deczip
 				$file_arr = explode("_",$Topicpath[$idx+1]);
 
 				if (count($file_arr) >= 2)
-					
+				{
 					$array[$file_arr[1]][] = $Topicpath[$idx];
+					
+					$array[$file_arr[1]][] = $Topicpath[$idx+1];
+				}
 			}
 
 		}
