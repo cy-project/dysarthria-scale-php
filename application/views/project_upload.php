@@ -3,6 +3,11 @@
 	<?php
 		include "head.php";
 	?> 
+	<script>
+	$().ready(function() {
+	  wav();
+	});
+	</script>
 	<body> 
 		<?php
 			include "navbar.php";
@@ -47,7 +52,7 @@
 										<tbody>
 										<?php 
 										$i=0;
-										/*foreach($testfile->result() as $row): ?>
+										foreach($testfile->result() as $row): ?>
 										<tr>
 												<td><?=$row->script?></td>
 												<td><?=$file_name[$i]?></td>
@@ -57,20 +62,24 @@
 													 <option value="1">清晰</option>
 													</select>
 												</td>
-												<td><embed width="100" height="20" type="application/x-shockwave-flash" src="<?=base_url("/js/singlemp3player.swf")?>" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="file=<?=base_url()?><?=$row->voice_file?>"/></td>
+												<!--td><embed width="100" height="20" type="application/x-shockwave-flash" src="<?//=base_url("/js/singlemp3player.swf")?>" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="file=<?//=base_url("/uplaod/".$file_name[$i]."wav")?><?//=$row->voice_file?>"/></td-->
+												<td style="width: 280px;">
+													<div class="wavclass" id="wavshow-<?php echo $i+1;?>"></div>
+													<input type="hidden" id="wavget-<?php echo $i+1;?>" value="<?=base_url("/uploads/".$file_name[$i].".wav")?>" />
+													</p>
+												</td>
 										</tr>
 										<?php  
 										$i++;
-										endforeach;*/?> 
+										endforeach;?> 
 											
 										</tbody>
 									</table>
-									
-									
 								</div>
 							<?php 
 							} else { ?>
 								<?php echo form_open_multipart('projectview_student/upload');?>
+								
 
 								<input type="file" name="userfile" style="width: 150px" />
 								<input type="submit" value="上傳" />
@@ -108,10 +117,10 @@
 			
 			$().ready(function(){
 			sorttables();
-			mp3s();
+			//mp3s();
 			});
 			
-			function mp3s(){
+			/*function mp3s(){
 
 			$('a[@href$="mp3"]').flash(
 			{ src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
@@ -120,7 +129,7 @@
 				$this = $(this);
 				htmlOptions.flashvars.file = $this.attr('href');
 				$this.before($.fn.flash.transform(htmlOptions));						
-			}
+			}*/
 		);
 
 }

@@ -50,12 +50,23 @@ class projectview_student extends CI_Controller {
 	
 	public function project_upload(){
 		
-		$this->load->view("project_upload");
+		$data['testing_id'] = $_GET['testing_id'];
+		$this->load->view("project_upload",$data);
+		
 	}
 	
 	public function upload()
 	{	
 		$deczip = new Deczip;
+		
+		$uploadfile_name = $_FILES["userfile"]["name"];
+		
+		$upfile_arr = explode("_",$uploadfile_name);
+		$upfile_name = $upfile_arr[count($upfile_arr)-1];
+		
+		$upfile_arr = explode(".",$upfile_name);
+		$upfile_name = $upfile_arr[count($upfile_arr)-2];
+		//echo $upfile_name . "<br />" . $_GET['testing_id'];
 		
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types']='zip|jpg';
@@ -71,6 +82,12 @@ class projectview_student extends CI_Controller {
 
 			$this->load->view('project_upload',$error);
 		}
+		/*else if($_GET['testing_id'] != $upfile_name)
+		{
+			$error = $_GET['testing_id'] . "此檔案不屬於這個小孩，請上傳正確的壓縮檔";
+
+			$this->load->view('project_upload',$error);
+		}*/
 		else
 		{
 			/*system/library/Upload.php line202 暴力破解法!!!*/
@@ -80,8 +97,6 @@ class projectview_student extends CI_Controller {
 			
 			$zipresult = $deczip->dec($path);
 			
-			print_r($zipresult);
-			
 			$this->load->model('test_models');
 			$test_models = new test_models();
 			
@@ -89,17 +104,14 @@ class projectview_student extends CI_Controller {
 			$data['testfile']=$test_models->upload_test_file($zipresult);
 			
 			
-			/*for($i=0;$i<count($zipresult);$i+=2){
-				
-					$file_arr = explode(".",$zipresult[$i+1]);
-					 
-					$file_name[]=$file_arr[count($file_arr)-2];//撈檔名;
-					
+			for($i=0;$i<count($zipresult);$i+=2)
+			{
+				$file_arr = explode(".",$zipresult[$i+1]);
+				 
+				$file_name[]=$file_arr[count($file_arr)-2];//撈檔名;
 			}
-			$data['file_name']=$file_name;*/
-		
 			
-			//print_r($data);
+			$data['file_name']=$file_name;
 			
 			$this->load->view('project_upload',$data);
 		}
