@@ -11,10 +11,33 @@ class Deczip
 	public function dec($filepath)
 	{
 		exec('java Deczip '.$filepath.' D:\\', $file_list, $return_var);
-
-		return $file_list;
+		$sort_file_list = $this->sortTopic($file_list);
+		
+		return $sort_file_list;
 	}
 	
-	
+	private function sortTopic($Topicpath)
+	{
+		$length = count($Topicpath);
+		
+		for ( $idx = 0; $idx < $length; $idx+=2)
+		{
+			if ( $idx+1 < $length )
+			{
+				$file_arr = explode("_",$Topicpath[$idx+1]);
+
+				if (count($file_arr) >= 2)
+				{
+					$array[$file_arr[1]][] = $Topicpath[$idx];
+					
+					$array[$file_arr[1]][] = $Topicpath[$idx+1];
+				}
+			}
+
+		}
+			
+		return $array;
+
+	}
 
 }
