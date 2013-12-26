@@ -4,9 +4,10 @@
 											<tr>
 												<th><a href="#">#</a></th>
 												<th><a href="#">姓名</a></th>
-												<th><a href="#">身份</a></th>
 												<th><a href="#">帳號</a></th>
-												<th class="sorttable_nosort">備註</th>
+												<th><a href="#">身份</a></th>
+												<th class="sorttable_nosort">權限</th>
+												<th class="sorttable_nosort">修改</th>
 											</tr>
 										</thead>
 										<tbody>

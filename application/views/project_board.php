@@ -12,12 +12,12 @@
 		<div class="content">
 		<!-------------------------------------------------------------------------------路徑------------------------------------------------------------------------->
 			<div class="header">
-				<h1 class="page-title">幼音評測</h1>
+				<h1 class="page-title"><?php echo $name;?></h1>
 			</div>
 			<ul class="breadcrumb">
 				<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
 				<li><a href="<?=base_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
-				<li class="active">幼音評測</li>
+				<li class="active"><?php echo $name;?></li>
 			</ul>
 			<!-------------------------------------------------------------------------------底線------------------------------------------------------------------------->
 			<div class="container-fluid">
@@ -33,25 +33,19 @@
 					</div>
 					<div class="well" >
 						<ul class="nav nav-tabs" style="margin-bottom: 0px;">
-							<li class="active" name="board"><a id="practitioner" href="#university_student" data-toggle="tab" onclick="OneClick(1)">施測者</a></li>
+							<li class="active" name="board"><a id="practitioner" href="#project_members" data-toggle="tab" onclick="OneClick(1)">專案成員</a></li>
 							<li name="board" ><a id="subjects" href="#chit" data-toggle="tab" onclick="OneClick(2)">受測者</a></li>
-							<li name="board"><a id="evaluators" href="#medical" data-toggle="tab" onclick="OneClick(3)">評測者</a></li>
-							<li name="board"><a id="project" href="#project_manager" data-toggle="tab" onclick="OneClick(4)">專案管理員</a></li>
-							<li name="board"><a id="project_people" href="#project_members" data-toggle="tab" onclick="OneClick(5)">專案成員</a></li>
-							<li name="board"><a id="applicants" href="#application" data-toggle="tab" onclick="OneClick(6)">申請者</a></li>
+							<li name="board"><a id="applicants" href="#application" data-toggle="tab" onclick="OneClick(3)">申請者</a></li>
+							<li name="board"><a id="track_list_menu" href="#track_list" data-toggle="tab" onclick="OneClick(4)">追蹤名單</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 								<div class="tab-pane fade" id="chit" ><!--受測者-->
 								</div>
-							<div class="tab-pane active in" id="university_student"><!--施測者-->
-							</div>
-							<div class="tab-pane fade" id="medical"><!--評測者-->
-							</div>
-							<div class="tab-pane fade" id="project_manager"><!--專案管理員-->
-							</div>
-							<div class="tab-pane fade" id="project_members"><!--專案成員-->
+							<div class="tab-pane active in" id="project_members"><!--專案成員-->
 							</div>
 							<div class="tab-pane fade" id="application"><!--申請者-->
+							</div>
+							<div class="tab-pane fade" id="track_list"><!--追蹤名單-->
 							</div>
 						</div>
 						<div class="pagination">
@@ -122,7 +116,7 @@
 			function OneClick(i) {
 				$.cookie('name', i);
 				var URLs='<?=base_url("/projectview_admin/subjects_list")?>';
-				var Project_id='<? echo $project_id;?>';
+				var Project_id=<?php echo $project_id;?>;
 					$.ajax({
 					url: URLs,
 					data: {'member_id':$.cookie('member_id'),'number_page':i,'project_id':Project_id},
@@ -130,17 +124,13 @@
 					dataType:'html',
 					success: function(msg){
 						if(i==1)
-							$('#university_student').html(msg);
+							$('#project_members').html(msg);
 						else if(i == 2)
 							$('#chit').html(msg);
 						else if(i == 3)
-							$('#medical').html(msg);
-						else if(i == 4)
-							$('#project_manager').html(msg);
-						else if(i == 5)
-							$('#project_members').html(msg);
-						else if(i == 6)
 							$('#application').html(msg);
+						else if(i == 4)
+							$('#track_list').html(msg);
 					},
 					error:function(xhr, ajaxOptions, thrownError){
 						alert(xhr.status);
@@ -176,20 +166,12 @@
 					$( "#new_people" ).show();
 					$( "#dispatch" ).show();
 				});
-				$( "#evaluators" ).click(function() {
-					$( "#dispatch:last-child" ).hide();
-					$( "#new_people" ).show();
-				});
-				$( "#project" ).click(function() {
-					$( "#dispatch:last-child" ).hide();
-					$( "#new_people" ).show();
-				});
-				$( "#project_people" ).click(function() {
-					$( "#dispatch:last-child" ).hide();
-					$( "#new_people" ).show();
-				});
 				$( "#applicants" ).click(function() {
 					$( "#dispatch:last-child" ).hide();
+					$( "#new_people:last-child" ).hide();
+				});
+				$( "#track_list_menu" ).click(function() {
+					$( "#dispatch" ).show();
 					$( "#new_people:last-child" ).hide();
 				});
 		</script>

@@ -13,6 +13,7 @@ class Project_model extends CI_Model
 	{
 		$this->db->set('name',$data->name);
 		$this->db->set('create_date',$data->cr_date);
+		$this->db->set('start_date',$data->cr_date);
 		$this->db->set('area',$data->area);
 		$this->db->set('county',$data->county);
 		$this->db->set('status',$data->status);
@@ -39,7 +40,6 @@ class Project_model extends CI_Model
 			{
 				
 				$data = $this->getChildData($row->children_id);
-				
 				if ($data->num_rows > 0)
 				{
 
@@ -57,15 +57,15 @@ class Project_model extends CI_Model
 							
 							$rater = $this->getMemberName($row->rater);
 							
+							$children[$idx]->rater = $rater[0]->name;
 							
-							//$children[$idx]->rater = $rater[0]->name;
 							$children[$idx]->check = $row->check;
-						
 						}
 						
 				}
 				$idx++;
 			}
+			
 			return $children;
 		}
 		else
@@ -78,7 +78,7 @@ class Project_model extends CI_Model
 	private function getChildData($childid)
 	{		
 		
-		$this->db->select('`name`,`sex`,`bir`,`age`,`grade`,`rank`,`language`');
+		$this->db->select('`id`,`name`,`sex`,`bir`,`age`,`grade`,`rank`,`language`');
 		
 		$this->db->where('id',$childid);
 		
@@ -133,7 +133,7 @@ class Project_model extends CI_Model
 	
 	public function getMemberName($rater){
 		$this->db->select('`name`');
-		$this->db->where('member.id',$rater);
+		$this->db->where('id',$rater);
 		$this->db->from('member');
 		
 		$result =  $this->db->get();
@@ -141,40 +141,70 @@ class Project_model extends CI_Model
 	}
 	
 	public function getProject_List($member_id){
-		$this->db->select('`project_id`,`position`');
-		$this->db->where('member_id',$member_id);
-		$this->db->from('people_list');
-		$result = $this->db->get();
-		if ($result->num_rows > 0)
-		{
-			$idx = 0;
-			foreach ($result->result() as $row)
+		if($member_id > 1){
+			$this->db->select('`project_id`,`position`');
+			$this->db->where('member_id',$member_id);
+			$this->db->from('people_list');
+			$result = $this->db->get();
+			if ($result->num_rows > 0)
 			{
-				$data = $this->getProjectData($row->project_id);
-				if ($data->num_rows > 0)
+				$idx = 0;
+				foreach ($result->result() as $row)
 				{
-					$r = $data->result();
-					$length = count($r);
-					for($o = 0;$o<$length;$o++){
-						$params = (array)$r[$length-1];
-					
-						$children[$idx] = new Datamodel();
-						foreach ($params as $k => $v)
-						{
-							$children[$idx]->$k = $v;
-							$children[$idx]->manger= $this->getMemberName($children[$idx]->manager);
+					$data = $this->getProjectData($row->project_id);
+					if ($data->num_rows > 0)
+					{
+						$r = $data->result();
+						$length = count($r);
+						for($o = 0;$o<$length;$o++){
+							$params = (array)$r[$length-1];
+						
+							$project_data_member[$idx] = new Datamodel();
+							foreach ($params as $k => $v)
+							{
+								$project_data_member[$idx]->$k = $v;
+								$project_data_member[$idx]->manger= $this->getMemberName($project_data_member[$idx]->manager);
+							}
+							
 						}
-						
+							$idx++;
+							
 					}
-						$idx++;
-						
+				
 				}
-			
+				return $project_data_member;
 			}
-			return $children;
+			else
+				return 0;
 		}
-		else
-			return 0;
+		else{
+			$this->db->select('*');
+			$this->db->from('project');
+			
+			$result = $this->db->get();
+		/*	if ($result->num_rows > 0)
+			{
+				$idx = 0;
+				foreach ($result->result() as $row)
+				{
+							$children[$idx] = new Datamodel();
+							$r = $result->result();
+							$params = (array)$r[0];//(array)$r[$length-1];
+							foreach ($params as $k => $v)
+							{
+								
+								$children[$idx]->$k = $v;
+								$children[$idx]->manger= $this->getMemberName($children[$idx]->manger);
+								
+							}
+					$idx++;
+				}
+			print_r($children);
+			//	return $children;
+			}*/
+			return $result;
+		}
+		
 		
 		
 		
@@ -236,6 +266,72 @@ class Project_model extends CI_Model
 		$this->db->set('project_id',$member->pid);
 		$this->db->set('position',0);
 		$this->db->insert('people_list');
+	}
+	
+	public function getPeopleList($pid)
+	{
+		$this->db->select('`member_id`,`position`,`id`,`project_id`');
+		$this->db->where('project_id',$pid);
+		$this->db->from('people_list');
+		
+		
+		
+		$result =  $this->db->get();
+		
+		if ($result->num_rows > 0)
+		{
+			$idx = 0;
+			foreach ($result->result() as $row)
+			{
+
+						$r = $result->result();
+						
+						$params = (array)$r[0];
+						
+						
+						$people_data[$idx] = new Datamodel();
+						foreach ($params as $k => $v)
+						{
+							
+							$people_data[$idx]->$k = $v;
+							$rater = $this->getMemberName($row->member_id);
+							
+							
+							$people_data[$idx]->name = $rater[0]->name;
+							if($people_data[$idx]->position == 1)
+								$people_data[$idx]->position = "專案管理員";
+							else if ($people_data[$idx]->position == 2)
+								$people_data[$idx]->position = "施測者";
+							else
+								$people_data[$idx]->position = "受測者";
+						}
+				$idx++;
+			}
+			print_r($people_data);
+			return $people_data;
+		}
+		else
+		{
+			return 0;
+		}
+
+	}
+	
+	private function getPermissionData($rater){
+		$this->db->select('`group_id`');
+		$this->db->where('people_list_id',$rater);
+		$this->db->from('permission_list');
+		
+		$result =  $this->db->get();
+		return $result;
+	}
+	
+	private function getGroup($id){
+		$this->db->select('`name`');
+		$this->db->where('id',$id);
+		$this->db->from('group');
+		$result = $this->db->get();
+		return $result->result();
 	}
 	
 

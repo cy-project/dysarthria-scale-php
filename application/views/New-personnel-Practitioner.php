@@ -27,16 +27,12 @@
 					<div class="row-fluid">
 							
 						<div class="btn-toolbar">
-							<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
+						<samp>年/西元</samp>
+						<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
 								<option selected="selected">請選擇</option>
-								<option>構音評量</option>
-								<option>幼音評量</option>
-							</select>
-							<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-								<option selected="selected">請選擇</option>
-								<option>施測者</option>
-								<option>評測者</option>
-								<option>專案管理員</option>
+								<option name="2008">2008</option>
+								<option name="2009">2009</option>
+								<option name="2010">2010</option>
 							</select>
 							<a href="project.html"><button class="btn btn-primary"><i class="icon-save"></i>確認</button></a>
 							<a href="#myModal" data-toggle="modal"><button class="btn btn-primary">取消</button></a>
@@ -51,7 +47,7 @@
 											<th><a href="#">帳號</a></th>
 											<th><a href="#">職業</a></th>
 											<th class="sorttable_nosort">已有權限</th>
-											<th class="sorttable_nosort" onclick="checkall()"><a href="#">全選</a></th>
+											<th class="sorttable_nosort"><a href="#">選擇</a></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -61,12 +57,7 @@
 											<td>the_mark1</td>
 											<td>學生</td>
 											<td>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-													<option selected="selected">請選擇</option>
-													<option>施測者</option>
-													<option>評測者</option>
-													<option>專案管理員</option>
-												</select>
+												施測者/評測者
 											</td>
 											<td>
 												<input type="checkbox" name="selected" value="1">
@@ -78,12 +69,7 @@
 											<td>the_mark2</td>
 											<td>教師</td>
 											<td>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-													<option selected="selected">請選擇</option>
-													<option>施測者</option>
-													<option>評測者</option>
-													<option>專案管理員</option>
-												</select>
+												施測者/評測者
 											</td>
 											<td>
 												<input type="checkbox" name="selected" value="2">
@@ -95,12 +81,7 @@
 											<td>the_mark3</td>
 											<td>語言治療師</td>
 											<td>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-													<option selected="selected">請選擇</option>
-													<option>施測者</option>
-													<option>評測者</option>
-													<option>專案管理員</option>
-												</select>
+												施測者/評測者
 											</td>
 											<td>
 												<input type="checkbox" name="selected" value="3">
@@ -112,12 +93,7 @@
 											<td>the_mark4</td>
 											<td>學生</td>
 											<td>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-													<option selected="selected">請選擇</option>
-													<option>施測者</option>
-													<option>評測者</option>
-													<option>專案管理員</option>
-												</select>
+												施測者/評測者
 											</td>
 											<td>
 												<input type="checkbox" name="selected" value="4">
@@ -129,12 +105,7 @@
 											<td>the_mark5</td>
 											<td>學生</td>
 											<td>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-													<option selected="selected">請選擇</option>
-													<option>施測者</option>
-													<option>評測者</option>
-													<option>專案管理員</option>
-												</select>
+												施測者/評測者
 											</td>
 											<td>
 												<input type="checkbox" name="selected" value="5">
@@ -146,12 +117,7 @@
 											<td>the_mark6</td>
 											<td>教師</td>
 											<td>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-													<option selected="selected">請選擇</option>
-													<option>施測者</option>
-													<option>評測者</option>
-													<option>專案管理員</option>
-												</select>
+												施測者/評測者
 											</td>
 											<td>
 												<input type="checkbox" name="selected" value="6">
@@ -163,12 +129,7 @@
 											<td>the_mark7</td>
 											<td>學生</td>
 											<td>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-													<option selected="selected">請選擇</option>
-													<option>施測者</option>
-													<option>評測者</option>
-													<option>專案管理員</option>
-												</select>
+												施測者/評測者
 											</td>
 											<td>
 												<input type="checkbox" name="selected" value="7">
@@ -180,12 +141,7 @@
 											<td>the_mark8</td>
 											<td>語言治療師</td>
 											<td>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-													<option selected="selected">請選擇</option>
-													<option>施測者</option>
-													<option>評測者</option>
-													<option>專案管理員</option>
-												</select>
+												施測者/評測者
 											</td>
 											<td>
 												<input type="checkbox" name="selected" value="8">
@@ -197,12 +153,7 @@
 											<td>the_mark9</td>
 											<td>學生</td>
 											<td>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-													<option selected="selected">請選擇</option>
-													<option>施測者</option>
-													<option>評測者</option>
-													<option>專案管理員</option>
-												</select>
+												施測者/評測者
 											</td>
 											<td>
 												<input type="checkbox" name="selected" value="9">
@@ -214,12 +165,7 @@
 											<td>the_mark10</td>
 											<td>學生</td>
 											<td>
-												<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-													<option selected="selected">請選擇</option>
-													<option>施測者</option>
-													<option>評測者</option>
-													<option>專案管理員</option>
-												</select>
+												施測者/評測者
 											</td>
 											<td>
 												<input type="checkbox" name="selected" value="10">
