@@ -31,8 +31,11 @@
 					<td><?php 
 						if($row->sex==1){ 
 								echo "男";
-						}elseif($row->sex==0){
+						}elseif($row->sex==2){
 								echo "女";
+						}
+						else{
+								echo "";
 						}?>
 					</td>
 					<td><?=$row->bir?></td>

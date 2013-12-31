@@ -10,7 +10,9 @@ class Deczip
 	
 	public function dec($filepath)
 	{
-		exec('java Deczip '.$filepath.' D:\\', $file_list, $return_var);
+		$filepath=mb_convert_encoding($filepath,"big5","utf8");
+		
+		exec('java Deczip '.$filepath.' C:\\xampp\htdocs\dysarthria-scale-php\uploads\\', $file_list, $return_var);
 		$sort_file_list = $this->sortTopic($file_list);
 		
 		return $sort_file_list;

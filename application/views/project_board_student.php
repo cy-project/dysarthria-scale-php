@@ -12,18 +12,17 @@
 		<div class="content">
 		<!-------------------------------------------------------------------------------路徑------------------------------------------------------------------------->
 			<div class="header">
-				<h1 class="page-title">五甲社區自治幼兒園</h1>
+				<h1 class="page-title">專案管理</h1>
 			</div>
 			<ul class="breadcrumb">
 				<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-				<li><a href="<?=base_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/ 五甲社區自治幼兒園</span></li>
+				<li><a href="<?=base_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/ 專案管理</span></li>
 				<li class="active"></li>
 			</ul>
 			<!-------------------------------------------------------------------------------底線------------------------------------------------------------------------->
 			<div class="container-fluid">
 			<!-------------------------------------------------------------------------------內容------------------------------------------------------------------------->
 				<div class="row-fluid">
-					<form>
 					<div class="well" >
 						<ul class="nav nav-tabs" style="margin-bottom: 0px;">
 							<li class="active" name="board"><a id="surveying" href="#surveying_list" data-toggle="tab" onclick="OneClick(1)">施測名單</a></li>

@@ -27,7 +27,7 @@
 								<div class="btn-toolbar">
 									<a href="<?=base_url("/projectadmin/project_new_admin")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
 								</div>
-							<form action="<?=base_url("projectview_admin/project_board")?>" method="post">
+							<form action="<?=base_url("/projectview_admin/project_board")?>" method="post">
 								<div class="well">
 									<table class="table sortable">
 										<thead>

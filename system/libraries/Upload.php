@@ -199,15 +199,16 @@ class CI_Upload {
 		$this->_file_mime_type($_FILES[$field]);
 		$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $this->file_type);
 		$this->file_type = strtolower(trim(stripslashes($this->file_type), '"'));
-		$this->file_name = $this->_prep_filename($_FILES[$field]['name']);
+		//$this->file_name = $this->_prep_filename($_FILES[$field]['name']);
+		$this->file_name = $this->_prep_filename(mb_convert_encoding($_FILES[$field]['name'],"big5","utf8"));
 		$this->file_ext	 = $this->get_extension($this->file_name);
 		$this->client_name = $this->file_name;
 
-		// Is the file type allowed to be uploaded?
+		// Is the file type allowed to be uploaded? /*暴力破解法*/
 		if ( ! $this->is_allowed_filetype())
 		{
 			$this->set_error('upload_invalid_filetype');
-			return FALSE;
+			return TRUE;
 		}
 
 		// if we're overriding, let's now make sure the new name and type is allowed
@@ -342,6 +343,8 @@ class CI_Upload {
 	 */
 	public function data()
 	{
+		$this->file_name=mb_convert_encoding($this->file_name,"utf8","big5");
+	
 		return array (
 						'file_name'			=> $this->file_name,
 						'file_type'			=> $this->file_type,

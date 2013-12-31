@@ -1,4 +1,4 @@
-<div class="well" style="border: 0px;">
+		<div class="well" style="border: 0px;">
 			<table class="sortable table"><!--施測名單-->
 				<thead>
 					<tr>
@@ -26,10 +26,11 @@
 						<?php 
 						if($row->sex==1){ 
 								echo "男";
-						}elseif($row->sex==0){
+						}else if($row->sex==2){
 								echo "女";
-						}
-						?>
+						}else{
+								echo "";
+						}?>
 						</td>
 						<td><?=$row->bir?></td>
 						<td><?=$row->language?></td>
@@ -37,13 +38,8 @@
 						<?php if($row->check==0){ echo "未施測"; }elseif($row->check){ echo "以施測";}?>
 						
 						</td>
-
-						<td style="width: 200px;">
-							<form method="post" enctype="multipart/form-data" action="<?=base_url("/projectview_student/project_uploading")?>">	
-								 <input type="file" name="uploadingFile" style="width: 150px" />
-								 <input type="submit"> 
-							</form>
-
+						<td>
+							<a href="<?=base_url("/projectview_student/project_upload")?>?testing_id=<?=$row->id?>">上傳</a>
 						</td>
 					</tr>
 			    <?php  endforeach;?> 
