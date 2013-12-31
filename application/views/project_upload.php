@@ -34,12 +34,13 @@
 							<?php
 							if(isset($error)){
 								echo $error;
-							} ?>
+							}
+							?>
 							<?php 
-							if(isset($upload_data)){ 
+							if(isset($upload_data)){
 								?>
 								<div class="well">
-									
+								  <form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/uploading?testing_id=".$testing_id)?>">
 									<table id="projectview" class="table sortable">
 										<thead>
 											<tr>
@@ -52,35 +53,69 @@
 										<tbody>
 										<?php 
 										$i=0;
-										foreach($testfile->result() as $row): ?>
+										$temp = 1;
+										foreach($testfile as $row): ?>
 										<tr>
-												<td><?=$row->script?></td>
-												<td><?=$file_name[$i]?></td>
-												<td>
-													<select id="Score_value" name="Score_value[]">
-													 <option value="0">不清晰</option>
-													 <option value="1">清晰</option>
-													</select>
-												</td>
-												<!--td><embed width="100" height="20" type="application/x-shockwave-flash" src="<?//=base_url("/js/singlemp3player.swf")?>" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="file=<?//=base_url("/uplaod/".$file_name[$i]."wav")?><?//=$row->voice_file?>"/></td-->
-												<td style="width: 280px;">
-													<div class="wavclass" id="wavshow-<?php echo $i+1;?>"></div>
-													<input type="hidden" id="wavget-<?php echo $i+1;?>" value="<?=base_url("/uploads/".$file_name[$i].".wav")?>" />
+											<td><?=$row->script?></td>
+											<td>
+												<?php 
+												for($j=0; $j < count($file_name[$i]);$j++)
+												{
+													echo $file_name[$i][$j] . "<br />";
+												}
+												?>
+											</td>
+											<td>
+												<?php 
+												for($j=0; $j < count($file_name[$i]);$j++)
+												{
+													if(count($file_name[$i]) == 1)
+													{
+												?>
+														<select id="Score_value" name="Score_value[]">
+															<option value="1=./uploads/<?php echo $wav_name[$i][$j];?>" selected="selected">清晰</option>
+															<option value="0=./uploads/<?php echo $wav_name[$i][$j];?>">不清晰</option>
+														</select>
+												<?
+													}
+													else
+													{
+												?>
+														<select id="Score_value" name="Score_value[]">
+															<option value="0=./uploads/<?php echo $wav_name[$i][$j];?>" selected="selected">不清晰</option>
+															<option value="1=./uploads/<?php echo $wav_name[$i][$j];?>">清晰</option>
+														</select>
+												<?
+													}
+												}
+												?>
+											</td>
+											<td style="width: 300px;">
+												<?php 
+												for($j=0; $j < count($file_name[$i]);$j++)
+												{
+													
+												?>
+													<div class="wavclass" id="wavshow-<?php echo $temp;?>"></div>
+													<input type="hidden" id="wavget-<?php echo $temp;?>" value="<?=base_url("/uploads/".$wav_name[$i][$j])?>" />
 													</p>
-												</td>
+												<?
+													$temp++;
+												}
+												?>
+											</td>
 										</tr>
 										<?php  
 										$i++;
 										endforeach;?> 
-											
 										</tbody>
 									</table>
+									<input type="submit" value="確認音檔" />
+								  </form>
 								</div>
 							<?php 
 							} else { ?>
-								<?php echo form_open_multipart('projectview_student/upload');?>
-								
-
+								<form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/upload?testing_id=".$testing_id)?>">
 								<input type="file" name="userfile" style="width: 150px" />
 								<input type="submit" value="上傳" />
 								

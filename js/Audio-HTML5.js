@@ -15,7 +15,7 @@ var loopsong	= "no"			// LOOP MUSIC | yes | no |
 var autostarts	= "no"			// AUTO START MUSIC | yes | no |
 
 
-var audiowidth	= "250"			// WIDTH OF PLAYER
+var audiowidth	= "280"			// WIDTH OF PLAYER
 var borderw	= "0"			// BORDER WIDTH AROUND PLAYER
 var bordcolor	= "0066FF"		// BORDER COLOR
 var centerp	= "no"			// CENTER PLAYER | yes | no |

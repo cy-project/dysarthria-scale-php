@@ -9,6 +9,9 @@ class projectview_student extends CI_Controller {
 		session_start();
 		$this->load->helper(array('form','url'));
 		$this->load->library('Deczip');
+		$this->load->library('Datamodel');
+		$this->load->library('Uploadfiles');
+		$this->load->model('test_models');
 	}
 	public function projectview(){
 		setcookie("member_id",$_SESSION['id'],time()+3600);
@@ -51,98 +54,166 @@ class projectview_student extends CI_Controller {
 	public function project_upload(){
 		
 		$data['testing_id'] = $_GET['testing_id'];
+		
 		$this->load->view("project_upload",$data);
 		
 	}
 	
 	public function upload()
 	{	
-		$deczip = new Deczip;
+		$test_models = new test_models();
+		
+		$testing_id = $_GET['testing_id'];
 		
 		$uploadfile_name = $_FILES["userfile"]["name"];
 		
-		$upfile_arr = explode("_",$uploadfile_name);
-		$upfile_name = $upfile_arr[count($upfile_arr)-1];
-		
-		$upfile_arr = explode(".",$upfile_name);
+		$upfile_arr = explode(".",$uploadfile_name );
 		$upfile_name = $upfile_arr[count($upfile_arr)-2];
-		//echo $upfile_name . "<br />" . $_GET['testing_id'];
 		
-		$config['upload_path'] = './uploads/';
-		$config['allowed_types']='zip|jpg';
-		$config['max_size']	= '100000';
-		$config['max_width']  = '5000';
-		$config['max_height']  = '5000';
+		$upfile_arr2 = explode("_",$upfile_name );
+		$upfile_name2 = $upfile_arr2[count($upfile_arr2)-1];
 		
-		$this->load->library('upload',$config);
-
-		if (!$this->upload->do_upload())
+		$result = $test_models->upload_file_identification($testing_id);
+		
+		$children_id = $result[0]->children_id;
+		
+		//echo $children_id;
+		
+		/*if ($children_id != $upfile_name2)
 		{
-			$error = array('error' => $this->upload->display_errors());
-
-			$this->load->view('project_upload',$error);
+			$data['testing_id'] = $testing_id;
+			$data['error'] = "此檔案不屬於這個小孩，請上傳正確的壓縮檔";
+			$this->load->view("project_upload",$data);
 		}
-		/*else if($_GET['testing_id'] != $upfile_name)
-		{
-			$error = $_GET['testing_id'] . "此檔案不屬於這個小孩，請上傳正確的壓縮檔";
-
-			$this->load->view('project_upload',$error);
-		}*/
 		else
-		{
-			/*system/library/Upload.php line202 暴力破解法!!!*/
-			$data = array('upload_data' => $this->upload->data());
+		{*/
+			$deczip = new Deczip;
 			
-			$path = $data['upload_data']['full_path'];//;"C:\\xampp\htdocs\dysarthria-scale-php\uploads\test.zip"
+			$config['upload_path'] = './uploads/';
+			$config['allowed_types']='zip|jpg';
+			$config['max_size']	= '100000';
+			$config['max_width']  = '5000';
+			$config['max_height']  = '5000';
 			
-			$zipresult = $deczip->dec($path);
+			$this->load->library('upload',$config);
 			
-			//print_r($zipresult);
-			//echo count($zipresult);
-			//echo count($zipresult[3]);
-			
-			$this->load->model('test_models');
-			$test_models = new test_models();
-			
-			
-			$data['testfile']=$test_models->upload_test_file($zipresult);
-			
-			
-			/*for($i=0;$i<count($zipresult);$i+=2)
+			if (!$this->upload->do_upload())
 			{
-				$file_arr = explode(".",$zipresult[$i+1]);
-				 
-				$file_name[]=$file_arr[count($file_arr)-2];//撈檔名;
+				$error = array('error' => $this->upload->display_errors());
+
+				$this->load->view('project_upload',$error);
 			}
-			
-			$data['file_name']=$file_name;*/
-			
-			$this->load->view('project_upload',$data);
-		}
+			else
+			{
+				/*system/library/Upload.php line202 暴力破解法!!!*/
+				$data = array('upload_data' => $this->upload->data());
+				
+				$path = $data['upload_data']['full_path'];
+				
+				$zipresult = $deczip->dec($path);//解壓縮zip 回傳編碼是UTF-8
+				
+				for($x=0;$x < count($zipresult);$x++)
+				{
+					for($y=0;$y < count($zipresult[$x+1]);$y+=2)
+					{
+						$wav_arr = explode("\\",$zipresult[$x+1][$y]);
+						//將檔名用"\"切割 存在wav_arr陣列裡
+						$wav_name[$x][] = mb_convert_encoding($wav_arr[count($wav_arr)-1],"utf8","big5");
+						//撈zipresult音檔資料夾+檔名 wav_arr陣列最後一筆 把UTF-8轉成big5
+					}
+				}
+				
+				
+				
+				/*for($a=0;$a < count($wav_name);$a++)
+				{
+					for($b=0;$b < count($wav_name[$a]);$b++)
+					{
+						$wav_arr = explode("\\",$wav_name[$a+1][$b]);
+						//將檔名用"\"切割 存在wav_arr陣列裡
+						$wav_name[$x][] = $wav_arr[count($wav_arr)-1];
+						//撈zipresult音檔資料夾+檔名 wav_arr陣列最後一筆 把UTF-8轉成big5
+					}
+				}*/
+				
+				
+				
+				$data['wav_name'] =$wav_name;//把音檔路徑存在$data['wav_name']
+				
+				$data['testfile']=$test_models->upload_test_file($zipresult);
+				
+				for($i=0;$i < count($zipresult);$i++)
+				{
+					for($j=0;$j < count($zipresult[$i+1]);$j+=2)
+					{
+						$file_arr = explode(".",$zipresult[$i+1][$j+1]);
+						$file_name[$i][] = $file_arr[count($file_arr)-2];//撈zipresult檔名
+					}
+				}
+				
+				$data['file_name']=$file_name;//把檔名存在$data['file_name']
+				
+				$data['testing_id'] = $testing_id;
+				
+				$this->load->view('project_upload',$data);
+			}
+		//}
 	}
 	
-	/*public function project_uploading(){
-		$config['upload_path'] = './upload/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '100000';
-		$config['max_width']  = '5000';
-		$config['max_height']  = '5000';
-
-		$this->load->library('upload',$config);
-
-		if (!$this->upload->do_upload())
+	public function uploading()
+	{
+		//$data = new Datamodel();
+		$array = array();
+		$data[] = new stdClass();
+		$uploadfile = new Uploadfiles();
+		
+		$testing_id = $_GET['testing_id'];
+		
+		$rmwavpath = array();
+		$svwavpath = array();
+		$wav_name2[0] = 0;
+		
+		$selectwav = $this->input->post();
+		
+		for($i=0;$i < count($selectwav['Score_value']);$i++)
 		{
-			$error = array('error' => $this->upload->display_errors());
-
-			$this->load->view('project_upload',$error);
+			for($j=0;$j < count($selectwav['Score_value'][$i]);$j++)
+			{
+				$wav_arr = explode("=",$selectwav['Score_value'][$i]);
+				$wav_name = $wav_arr[count($wav_arr)-2];//撈selectwav沒選的檔案
+				
+				$wav_arr2 = explode("_",$wav_arr[count($wav_arr)-1]);//分割題號出來
+				$wav_name2[$i+1] = $wav_arr2[count($wav_arr2)-2];//撈題號
+				
+				//echo $wav_name2[$i];
+				
+				if ($wav_name2[$i+1] == $wav_name2[$i])
+				{
+					//echo $wav_name2[$i+1];
+				}
+				
+				
+				
+				if ($wav_name == 0)
+				{
+					$rmwavpath[] = $wav_arr[count($wav_arr)-1];//存要移除的檔案路徑
+				}
+				else
+				{
+					$svwavpath[] = $wav_arr[count($wav_arr)-1];//存要寫進資料庫的檔案路徑
+				}
+				
+			}
+			$data[$i]->testing_id = $testing_id;
+			$data[$i]->topic = $wav_name2[$i+1];
+			$data[$i]->path = $wav_arr[count($wav_arr)-1];
+			
+			$array[$i] = $data[$i];
+			
 		}
-		else
-		{
-			$data = array('upload_data' => $this->upload->data());
-
-			$this->load->view('project_upload',$data);
-		}
-	}*/
+		print_r($svwavpath);
+		$uploadfile->rmFiles($svwavpath);
+	}
 	
 	public function subjects_view_group_student(){
 		/*$category=$_GET['category'];

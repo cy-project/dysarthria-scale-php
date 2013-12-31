@@ -68,42 +68,38 @@
 			public function upload_test_file($zipresult)
 			{
 				$str="";
+				
 				for($i=0;$i < count($zipresult);$i++)
 				{
-					for($j=0;$j < count($zipresult[$i+1]);$j++)
+					for($j=0;$j < count($zipresult[$i+1]);$j+=2)
 					{
-					
-						$file_arr = explode(".",$zipresult[$i+1][$j]);
-						
-						print_r( $file_arr);
+						$file_arr = explode(".",$zipresult[$i+1][$j+1]);
 						$file_name = $file_arr[count($file_arr)-2];//撈檔名
-						
-						//echo $file_name;
 						
 						$file_arr2 = explode("_",$file_name);
 						$file_name2 = $file_arr2[count($file_arr)-1];//撈題號
 						
-						if($i==(count($zipresult)-2)){
-							$str.="topic.id ="."'".$file_name2."'";
-						}else{
-							$str.="topic.id ="."'".$file_name2."' OR ";
-						}
-						
-						//echo $str;
+						$topics_id[] = $file_name2;
 					}
 				}
 				
+				$this->db->select("`script`");
+				$this->db->where_in('id',$topics_id);
+				$this->db->from('topic');
+				$query = $this->db->get()->result();
 				
-				/*$sql="SELECT
-					script
-					FROM
-					topic WHERE
-					(".$str.")";
+				return $query;
+			}
 			
-				$query=$this->db->query($sql);
+			public function upload_file_identification($testing_id)
+			{
+				$this->db->select("`children_id`");
+				$this->db->from('testing_list');
+				$this->db->where('id',$testing_id);
 				
+				$data = $this->db->get()->result();
 				
+				return $data;
 				
-				return $query;*/
 			}
 		}

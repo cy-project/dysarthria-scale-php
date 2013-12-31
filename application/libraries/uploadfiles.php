@@ -54,10 +54,12 @@ class Uploadfiles
 		
 		foreach ($array_path as $path)
 		{
+		
+			$filepath=mb_convert_encoding($path,"big5","utf8");
 			
-			if (file_exists($path))
+			if (file_exists($filepath))
 			{
-				unlink($path);
+				unlink($filepath);
 			}
 			
 		}
