@@ -4,7 +4,7 @@
 												<tr>
 												<th><a href="#">#</a></th>
 												<th><a href="#">姓名</a></th>
-												<th><a href="#">專案權限</a></th>
+												<th><a href="#">帳號權限</a></th>
 												<th><a href="#">施測期限</a></th>
 												<th class="sorttable_nosort" onclick="checkall()"><a href="#">派遣(全選)</a></th>
 												<th class="sorttable_nosort">編輯</th>

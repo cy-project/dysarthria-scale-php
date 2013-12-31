@@ -41,23 +41,20 @@
 											</tr>
 										</thead>
 										<tbody>
-										<?php $lunght = count($this->data);
-										print_r($lunght);
-										if($lunght > 0){
-											for($i = 0;$i<$lunght;$i++){
-										
+										<?php
+											foreach($this->data->result() as $row):
 										?>
 											<tr>
-												<td><?php echo $i+1;?></td>
-												<td><?php echo $this->data[$i]->name;?></td>
-												<td><?php echo $this->data[$i]->area;?></td>
-												<td><?php echo $this->data[$i]->manager;?></td>
-												<td><?php echo $this->data[$i]->start_date;?></td>
+												<td><?=$row->id;?></td>
+												<td><?=$row->name;?></td>
+												<td><?=$row->area;?></td>
+												<td><?=$row->manager;?></td>
+												<td><?=$row->start_date;?></td>
 												<td>
-													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?php echo $this->data[$i]->id;?>" ><i class="icon-eye-open"></i></a>
+													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-eye-open"></i></a>
 												</td>
 											</tr>
-											<?php }}?>
+											<?php endforeach;?>
 										</tbody>
 									</table>
 								</div>

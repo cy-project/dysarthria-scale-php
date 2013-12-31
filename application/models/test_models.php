@@ -65,6 +65,15 @@
 				return $boolen;
 			}
 			
+			public function Project_name($pid){
+				$this->db->select('`name`');
+				$this->db->where('id',$pid);
+				$this->db->from('project');
+				$data = $this->db->get();
+				$name = $data->result();
+				$project_name = $name[0]->name;
+				return $project_name;
+			}
 			public function upload_test_file($zipresult)
 			{
 				$str="";
