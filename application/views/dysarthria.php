@@ -6,9 +6,8 @@
   <body> 
     <?php
 	  include "navbar.php";
+	  include "sidebar-nav.php";
 	?>
-	
-    <div id="sidebar-nav"></div>
 	
     <div class="content">
 		<ul class="breadcrumb">
