@@ -18,17 +18,17 @@
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
+						<li><a href="<?=base_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
 						<li><a href="<?=base_url("/projectview_admin/project_board")?>">幼音評測</a> <span class="divider">/</span></li>
 						<li class="active">新增受測者</li>
 					</ul>
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" action="<?=site_url("/projectview_admin/subjects_data")?>/project_id/<?php echo $_COOKIE['project_id']?>" method="post">
+						<form id="tab" action="<?=base_url("/projectview_admin/subjects_data")?>/project_id/<?php echo $_COOKIE['project_id']?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="button" onclick="testnull()"><i class="icon-save"></i>新增</button>
-								<a href="<?=site_url("/projectview_admin/project_board")?>"><button class="btn btn-primary">取消</button></a>
+								<a href="<?=base_url("/projectview_admin/project_board")?>"><button class="btn btn-primary">取消</button></a>
 							</div>
 							<div class="well">
 								<label>姓名</label>
