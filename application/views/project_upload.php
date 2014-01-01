@@ -85,7 +85,7 @@
 															<option value="0=./uploads/<?php echo $wav_name[$i][$j];?>" selected="selected">不清晰</option>
 															<option value="1=./uploads/<?php echo $wav_name[$i][$j];?>">清晰</option>
 														</select>
-												<?
+												<?php
 													}
 												}
 												?>
@@ -99,7 +99,7 @@
 													<div class="wavclass" id="wavshow-<?php echo $temp;?>"></div>
 													<input type="hidden" id="wavget-<?php echo $temp;?>" value="<?=base_url("/uploads/".$wav_name[$i][$j])?>" />
 													</p>
-												<?
+												<?php
 													$temp++;
 												}
 												?>

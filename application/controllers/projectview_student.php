@@ -53,11 +53,9 @@ class projectview_student extends CI_Controller {
 	
 	public function project_upload(){
 		
-		/*$data['testing_id'] = $_GET['testing_id'];
+		$data['testing_id'] = $_GET['testing_id'];
 		
-		$this->load->view("project_upload",$data);*/
-		$this->load->view("project_upload");
-		
+		$this->load->view("project_upload",$data);
 	}
 	
 	public function upload()
