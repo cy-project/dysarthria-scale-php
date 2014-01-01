@@ -14,13 +14,11 @@
     <script src="<?=base_url("/js/sorttable.js")?>" type="text/javascript"></script>	
     <script src="<?=base_url("/js/jquery.cookie.js")?>" type="text/javascript"></script>
     <!-- Add MP3 files -->
-	<!--script src="<?//=base_url("/js/jquery.jmp3.js")?>" type="text/javascript"></script-->
-	<!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script--> 
 	<script type="text/javascript" src="<?=base_url("/js/Audio-HTML5.js")?>"></script>
 	<!--alertify 美化 alert -->
-	<link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.core.css" rel="stylesheet">
-	<link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.default.css" rel="stylesheet">
-	<script src="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.min.js"></script>
+	<link href="<?=base_url("/stylesheets/alertify.core.css")?>" rel="stylesheet">
+	<link href="<?=base_url("/stylesheets/alertify.default.css")?>" rel="stylesheet">
+	<script src="<?=base_url("/js/alertify.min.js")?>"></script>
 	<!-- Add fancyBox main JS and CSS files -->
 	<script type="text/javascript" src="<?php echo base_url();?>js/jquery.fancybox.js?v=2.1.0"></script>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>stylesheets/jquery.fancybox.css?v=2.1.0" media="screen" />
@@ -28,12 +26,12 @@
 
 	$().ready(function() {
 		
-		sidebar_nav();
+		//sidebar_nav();
 		//OneClick(1);
 	
 	});
 
-	function sidebar_nav(){
+	/*function sidebar_nav(){
 	
 	$.ajax({
 		type: 'POST',
@@ -48,7 +46,7 @@
 		},
 	});
 	
-	}
+	}*/
 	
 	</script>
 

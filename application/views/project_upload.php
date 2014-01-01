@@ -76,7 +76,7 @@
 															<option value="1=./uploads/<?php echo $wav_name[$i][$j];?>" selected="selected">清晰</option>
 															<option value="0=./uploads/<?php echo $wav_name[$i][$j];?>">不清晰</option>
 														</select>
-												<?
+												<?php
 													}
 													else
 													{
