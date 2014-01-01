@@ -19,7 +19,7 @@
 						<?php } ?>
 						</td>
 						<td>
-						<?PHP if($part_id==1){?>
+						<?php if($part_id==1){?>
 						<a class="various" data-fancybox-type="iframe" href="<?php echo base_url();?>score/score_views_symbol/member_id/<?=$member_id?>/result_id/<?=$row->result_id?>/testing_list_id/<?=$testing_list_id?>" >檢測評分</a>
 				  <?php }elseif($part_id==2){?>
 						<a class="various" data-fancybox-type="iframe" href="<?php echo base_url();?>score/score_views_words/member_id/<?=$member_id?>/result_id/<?=$row->result_id?>/testing_list_id/<?=$testing_list_id?>" >檢測評分</a>

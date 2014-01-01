@@ -18,17 +18,17 @@
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
+						<li><a href="<?=base_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
 						<li><a href="<?=base_url("/projectview_admin/project_board")?>">幼音評測</a> <span class="divider">/</span></li>
 						<li class="active">修改人員(受測者)</li>
 					</ul>
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" action="<?=site_url("/projectview_admin/project_board")?>" method="post">
+						<form id="tab" action="<?=base_url("/projectview_admin/project_board")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-save"></i>修改</button>
-								<a href=""<?=site_url("/projectview_admin/project_board")?>""><button class="btn btn-primary">取消</button></a>
+								<a href=""<?=base_url("/projectview_admin/project_board")?>""><button class="btn btn-primary">取消</button></a>
 							</div>
 							<div class="well">
 								<label>姓名</label>

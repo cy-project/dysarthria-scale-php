@@ -113,7 +113,7 @@ $("#Score_submit").click(function() {
 <div class="well" >
 <?php foreach($topic->result() as $row):?>
 	<h5 class="page-title"><?=$row->title?>檢測</h5>
-<? endforeach;?>
+<?php endforeach;?>
 		<embed width="100" height="20" type="application/x-shockwave-flash" src="<?=base_url("/js/singlemp3player.swf")?>" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="file=<?=base_url()?><?=$row->voice_file?>"/>
 		
 			<table class="sortable table"><!--施測名單-->

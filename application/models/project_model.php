@@ -285,8 +285,9 @@ class Project_model extends CI_Model
 			$idx = 0;
 			foreach ($result->result() as $row)
 			{
-
-						$r = $result->result();
+				$member_data = $this->getMemberData($row->member_id);
+				if($member_data->num_rows > 0){
+					$r = $member_data->result();
 						
 						$params = (array)$r[0];
 						
@@ -299,15 +300,11 @@ class Project_model extends CI_Model
 							$rater = $this->getMemberName($row->member_id);
 							
 							
-							$people_data[$idx]->name = $rater[0]->name;
-							if($people_data[$idx]->position == 1)
-								$people_data[$idx]->position = "專案管理員";
-							else if ($people_data[$idx]->position == 2)
-								$people_data[$idx]->position = "施測者";
-							else
-								$people_data[$idx]->position = "受測者";
+							
 						}
-				$idx++;
+					$idx++;
+				}
+						
 			}
 			print_r($people_data);
 			return $people_data;
@@ -328,12 +325,12 @@ class Project_model extends CI_Model
 		return $result;
 	}
 	
-	private function getGroup($id){
-		$this->db->select('`name`');
+	private function getMemberData($id){
+		$this->db->select('`account`,`identity`,`name`');
 		$this->db->where('id',$id);
-		$this->db->from('group');
+		$this->db->from('member');
 		$result = $this->db->get();
-		return $result->result();
+		return $result;
 	}
 	
 
