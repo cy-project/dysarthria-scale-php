@@ -117,25 +117,11 @@ class projectview_student extends CI_Controller {
 					{
 						$wav_arr = explode("\\",$zipresult[$x+1][$y]);
 						//將檔名用"\"切割 存在wav_arr陣列裡
-						$wav_name[$x][] = mb_convert_encoding($wav_arr[count($wav_arr)-1],"utf8","big5");
+						$wav_name[$x][] = $wav_arr[count($wav_arr)-1];
+						//$wav_name[$x][] = mb_convert_encoding($wav_arr[count($wav_arr)-1],"utf8","big5");
 						//撈zipresult音檔資料夾+檔名 wav_arr陣列最後一筆 把UTF-8轉成big5
 					}
 				}
-				
-				
-				
-				/*for($a=0;$a < count($wav_name);$a++)
-				{
-					for($b=0;$b < count($wav_name[$a]);$b++)
-					{
-						$wav_arr = explode("\\",$wav_name[$a+1][$b]);
-						//將檔名用"\"切割 存在wav_arr陣列裡
-						$wav_name[$x][] = $wav_arr[count($wav_arr)-1];
-						//撈zipresult音檔資料夾+檔名 wav_arr陣列最後一筆 把UTF-8轉成big5
-					}
-				}*/
-				
-				
 				
 				$data['wav_name'] =$wav_name;//把音檔路徑存在$data['wav_name']
 				
