@@ -40,7 +40,7 @@
 							if(isset($upload_data)){
 								?>
 								<div class="well">
-								  <form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/uploading?testing_id=".$testing_id)?>">
+								  <form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/uploading/project_id/".$project_id."/testing_id/".$testing_id)?>">
 									<table id="projectview" class="table sortable">
 										<thead>
 											<tr>
@@ -115,7 +115,7 @@
 								</div>
 							<?php 
 							} else { ?>
-								<form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/upload?testing_id=".$testing_id)?>">
+								<form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/upload/project_id/".$project_id."/testing_id/".$testing_id)?>">
 								<input type="file" name="userfile" style="width: 150px" />
 								<input type="submit" value="上傳" />
 								
