@@ -298,6 +298,7 @@ class Project_model extends CI_Model
 							
 							$people_data[$idx]->$k = $v;
 							$rater = $this->getMemberName($row->member_id);
+							$people_data[$idx]->position = $row->position;
 							
 							
 							
