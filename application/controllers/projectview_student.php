@@ -117,8 +117,7 @@ class projectview_student extends CI_Controller {
 					{
 						$wav_arr = explode("\\",$zipresult[$x+1][$y]);
 						//將檔名用"\"切割 存在wav_arr陣列裡
-						$wav_name[$x][] = $wav_arr[count($wav_arr)-1];
-						//$wav_name[$x][] = mb_convert_encoding($wav_arr[count($wav_arr)-1],"utf8","big5");
+						$wav_name[$x][] = mb_convert_encoding($wav_arr[count($wav_arr)-1],"utf8","big5");
 						//撈zipresult音檔資料夾+檔名 wav_arr陣列最後一筆 把UTF-8轉成big5
 					}
 				}
