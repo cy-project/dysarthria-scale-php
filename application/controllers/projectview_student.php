@@ -207,6 +207,8 @@ class projectview_student extends CI_Controller {
 			$array[$i] = $data[$i];
 		}
 		
+		$uploadfile->uploadFiles($svwavpath);
+		
 		$uploadfile->rmFiles($svwavpath);
 		
 		$p_id['project_id'] = $project_id;
