@@ -73,8 +73,8 @@
 													{
 												?>
 														<select id="Score_value" name="Score_value[]">
-															<option value="1=./uploads/<?php echo $wav_name[$i][$j];?>" selected="selected">清晰</option>
-															<option value="0=./uploads/<?php echo $wav_name[$i][$j];?>">不清晰</option>
+															<option value="1=<?=base_url("/uploads/".$wav_name[$i][$j])?>" selected="selected">清晰</option>
+															<option value="0=<?=base_url("/uploads/".$wav_name[$i][$j])?>">不清晰</option>
 														</select>
 												<?php
 													}
@@ -82,8 +82,8 @@
 													{
 												?>
 														<select id="Score_value" name="Score_value[]">
-															<option value="0=./uploads/<?php echo $wav_name[$i][$j];?>" selected="selected">不清晰</option>
-															<option value="1=./uploads/<?php echo $wav_name[$i][$j];?>">清晰</option>
+															<option value="0=<?=base_url("/uploads/".$wav_name[$i][$j])?>" selected="selected">不清晰</option>
+															<option value="1=<?=base_url("/uploads/".$wav_name[$i][$j])?>">清晰</option>
 														</select>
 												<?php
 													}
