@@ -12,14 +12,18 @@ class Uploadfiles
 	public function uploadFiles($files)//上傳檔案到NAS
 	{
 	
-		$ftp_server = "192.168.0.1";
-		$ftp_user_name = "admin";
-		$ftp_user_pass = "admin";
+		$ftp_server = "192.168.137.79";
+		$ftp_port = 21;
+		$ftp_user = "admin";
+		$ftp_pass = "admin";
+		$ftp_path = "/children";
+		$ftp_mode = FTP_BINARY;
 		
-		
-		$conn_id = ftp_connect($ftp_server);
+		@$ftp_connect = ftp_connect ($ftp_server, $ftp_port);
+		@ftp_login ($ftp_connect, $ftp_user, $ftp_pass);
+		@ftp_chdir ($ftp_connect, $ftp_path);
+		@ftp_mkdir($ftp_connect,'test');
 
-		$login_resul = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 		
 		
 		foreach ($files as $data)
@@ -30,22 +34,22 @@ class Uploadfiles
 		
 			$rm_file_name = $file_arr[count($file_arr)-1];
 		
-			$remote_file = '/Public/'.$rm_file_name;
+			$remote_file = '/children/test/'.$rm_file_name;
 			
-			if(ftp_put($conn_id, $remote_file, $path, FTP_ASCII))
+			if(ftp_put($ftp_connect, $remote_file, $data->filepath, FTP_ASCII))
 			{
-				echo "successfully $file\n";
+				echo "successfully".$data->filepath." \n";
 				
-				$um->insertFile($data);
+				//$um->insertFile($data);
 			}
 			else
 			{
-				echo "not upload $file \n";
+				echo "not upload ".$data->filepath." \n";
 			}
 		}
 
 
-		ftp_close($conn_id);
+		@ftp_close ($ftp_connect);
 
 	}
 	
