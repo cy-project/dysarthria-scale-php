@@ -53,9 +53,61 @@ class projectview_student extends CI_Controller {
 	
 	public function project_upload(){
 		
-		$data = $this->uri->uri_to_assoc(3);
+		$test_models = new test_models();
+		$deczip = new Deczip();
 		
-		$this->load->view("project_upload",$data);
+		$get_id = $this->uri->uri_to_assoc(3);
+		
+		$project_id = $get_id['project_id'];
+		$testing_id = $get_id['testing_id'];
+		
+		if ($test_models->upload_tempcheck($testing_id))//如果這個zip檔案已經上傳過了 去撈資料表的內容
+		{
+			$data = array('upload_data' => true);
+			
+			$zippath = $test_models->upload_tempcheck($testing_id);
+			$path = $zippath[0]->zippath;
+			
+			$zipresult = $deczip->dec($path);//解壓縮zip 回傳編碼是UTF-8
+				
+			/*$patharr[] = $path;//移除zip的
+			$uploadfile->rmFiles($patharr);*/
+			
+			for($x=0;$x < count($zipresult);$x++)
+			{
+				for($y=0;$y < count($zipresult[$x+1]);$y+=2)
+				{
+					$wav_arr = explode("\\",$zipresult[$x+1][$y]);
+					//將檔名用"\"切割 存在wav_arr陣列裡
+					$wav_name[$x][] = mb_convert_encoding($wav_arr[count($wav_arr)-1],"utf8","big5");
+					//撈zipresult音檔資料夾+檔名 wav_arr陣列最後一筆 把UTF-8轉成big5
+				}
+			}
+			
+			$data['wav_name'] =$wav_name;//把音檔路徑存在$data['wav_name']
+			
+			$data['testfile']=$test_models->upload_test_file($zipresult);
+			
+			for($i=0;$i < count($zipresult);$i++)
+			{
+				for($j=0;$j < count($zipresult[$i+1]);$j+=2)
+				{
+					$file_arr = explode(".",$zipresult[$i+1][$j+1]);
+					$file_name[$i][] = $file_arr[count($file_arr)-2];//撈zipresult檔名
+				}
+			}
+			
+			$data['file_name'] = $file_name;//把檔名存在$data['file_name']
+			
+			$data['project_id'] = $project_id;
+			$data['testing_id'] = $testing_id;
+			
+			$this->load->view('project_upload',$data);
+		}
+		else
+		{
+			$this->load->view("project_upload",$get_id);
+		}
 	}
 	
 	public function upload()
@@ -102,24 +154,33 @@ class projectview_student extends CI_Controller {
 			
 			$children_id = $result[0]->children_id;
 			
-			/*if ($children_id != $upfile_name2)
+			if ($children_id != $upfile_name2)
 			{
+				$data['project_id'] = $project_id;
 				$data['testing_id'] = $testing_id;
 				$data['error'] = "此檔案不屬於這個小孩，請上傳正確的壓縮檔";
 				$this->load->view("project_upload",$data);
 			}
 			else
-			{*/
+			{
 			
 				/*system/library/Upload.php line202 暴力破解法!!!*/
 				$data = array('upload_data' => $this->upload->data());
 				
 				$path = $data['upload_data']['full_path'];
 				
+				$tempfile->testing_id = $testing_id;
+				$tempfile->zippath = $path;
+				
+				//print_r($tempfile);
+				
+				$test_models->upload_tempfile($tempfile);
+				
+				
 				$zipresult = $deczip->dec($path);//解壓縮zip 回傳編碼是UTF-8
 				
-				$patharr[] = $path;
-				$uploadfile->rmFiles($patharr);
+				/*$patharr[] = $path; //移除zip的
+				$uploadfile->rmFiles($patharr);*/
 				
 				for($x=0;$x < count($zipresult);$x++)
 				{
@@ -145,13 +206,13 @@ class projectview_student extends CI_Controller {
 					}
 				}
 				
-				$data['file_name']=$file_name;//把檔名存在$data['file_name']
+				$data['file_name'] = $file_name;//把檔名存在$data['file_name']
 				
 				$data['project_id'] = $project_id;
 				$data['testing_id'] = $testing_id;
 				
 				$this->load->view('project_upload',$data);
-			//}
+			}
 		}
 	}
 	
@@ -169,7 +230,7 @@ class projectview_student extends CI_Controller {
 		
 		$rmwavpath = array();
 		$svwavpath = array();
-		$wav_name2[0] = 0;
+		$svwav_id[0] = 0;
 		
 		$selectwav = $this->input->post();
 		
@@ -178,38 +239,33 @@ class projectview_student extends CI_Controller {
 			for($j=0;$j < count($selectwav['Score_value'][$i]);$j++)
 			{
 				$wav_arr = explode("=",$selectwav['Score_value'][$i]);
-				$wav_name = $wav_arr[count($wav_arr)-2];//撈selectwav沒選的檔案
-				
-				$wav_arr2 = explode("_",$wav_arr[count($wav_arr)-1]);//分割題號出來
-				$wav_name2[$i+1] = $wav_arr2[count($wav_arr2)-2];//撈題號
-				
-				if ($wav_name2[$i+1] == $wav_name2[$i])
-				{
-					//echo $wav_name2[$i+1];
-				}
-				
-				
+				$wav_name = $wav_arr[count($wav_arr)-3];//切割selectwav不要的選項 1要 0不要
+				$svwav_name = $wav_arr[count($wav_arr)-1];//撈wav_arr陣列1 base_url路徑
+				$rmwav_name = $wav_arr[count($wav_arr)-2];//撈wav_arr陣列2 ./upload/路徑
 				
 				if ($wav_name == 0)
 				{
-					$rmwavpath[] = $wav_arr[count($wav_arr)-1];//存要移除的檔案路徑
+					$rmwavpath[] = $wav_arr[count($wav_arr)-2];//存要移除的檔案路徑
 				}
 				else
 				{
-					$svwavpath[] = $wav_arr[count($wav_arr)-1];//存要寫進資料庫的檔案路徑
+					$svwavpath[] = $wav_arr[count($wav_arr)-2];//存要寫進資料庫的檔案路徑
 				}
 				
+				$svwav_arr = explode("_",$svwavpath[$i]);//
+				$svwav_id[$i+1] = $wav_arr2[count($wav_arr2)-2];//撈要的題號存在wav_name2[$i+1]
 			}
-			$data[$i]->testing_id = $testing_id;
-			$data[$i]->topic = $wav_name2[$i+1];
-			$data[$i]->path = $wav_arr[count($wav_arr)-1];
+			/*$data[$i]->testing_id = $testing_id; //在data物件陣列存testing_id topic filepath
+			$data[$i]->topic = $svwav_id[$i+1];
+			$data[$i]->filepath = $wav_arr[count($wav_arr)-1];
 			
-			$array[$i] = $data[$i];
+			$array[$i] = $data[$i];*/
 		}
+		print_r($svwavpath);
+		//$uploadfile->uploadFiles($array);
 		
-		$uploadfile->uploadFiles($svwavpath);
-		
-		$uploadfile->rmFiles($svwavpath);
+		/*$uploadfile->rmFiles($svwavpath);
+		$uploadfile->rmFiles($rmwavpath);*/
 		
 		$p_id['project_id'] = $project_id;
 		
