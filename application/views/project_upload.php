@@ -6,7 +6,125 @@
 	<script>
 	$().ready(function() {
 	  wav();
+	  sorttables();
+	  Audiofiles_click();
 	});
+	
+	function Audiofiles_click(){
+			
+				$( "#Audiofiles" ).click(function() {
+					Audiofiles_ajax();
+				});
+			
+	}
+	
+	function Audiofiles_ajax(){
+		var tjisval='';
+		var yes_Score_value = $("select[id='Score_value']").map(
+		function(){
+			tjisval=$(this).val();
+			
+			tjisval=tjisval.split("=");
+			if(tjisval[1]==1){
+				return $(this).val();
+				}
+		}).get(); //取name[]的value型態array
+		
+		
+		var no_Score_value = $("select[id='Score_value']").map(
+		function(){
+			tjisval=$(this).val();
+			
+			tjisval=tjisval.split("=");
+			if(tjisval[1]==0){
+				return $(this).val();
+				}
+		}).get(); //取name[]的value型態array
+		
+		
+		
+		var yes_c=Comparisons(yes_Score_value,'請最多選擇一筆清楚的檔案');
+		
+		var no_c=Comparisons(no_Score_value,'請選擇一筆清楚的檔案');
+		
+		if((yes_c==true)&&(no_c==true)){
+			
+			
+			ajax_to();
+		}
+		
+	}
+	
+	function Comparisons(Score_value,str){
+	
+		var	Score_array="";
+		var Score_split="";
+		var Comparison=new Array();
+		var c=0;
+		var f=true;
+		for(i=0;i<Score_value.length;i++){
+		
+			Score_split=Score_value[i].split("=");
+			Score_array=Score_split[0];
+			
+			if(i==0){
+				Comparison[c]=Score_array;
+				c++;
+			}else{
+			
+			var d=0;
+				for(j=0;j<=Comparison.length;j++){
+					
+						if(Score_array==Comparison[j]){
+							
+							d=1;
+						}
+						
+				}
+				
+				if(d==0){
+					Comparison[c]=Score_array;
+					c++;
+				}else{
+					alertify.alert('第'+Score_array+'題-'+str);
+					f=false;
+				}
+				
+			}
+			
+		}
+	
+		return f;
+	
+	}
+	
+	function ajax_to(){
+	
+	var Score_values = $("select[id='Score_value']").map(function(){return $(this).val();}).get(); //取name[]的value型態array
+	//alert(Score_values);
+	$.ajax({
+			  url: '<?=base_url("/projectview_student/uploading/project_id/".$project_id."/testing_id/".$testing_id)?>',
+			  type: 'POST',
+				data: {
+				score_values:Score_values
+			  }, 
+			  error: function(xhr, ajaxOptions, thrownError) {
+				alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+				//$('#ReturnViews').html(xhr.responseText);
+			  },
+			  success: function(response) {
+			
+				//alert(response);
+				window.location.href= '<?=base_url("/projectview_student/project_board/project_id/".$project_id)?>';
+			  
+			  }
+		});
+		
+	
+	
+	}
+	
+	
 	</script>
 	<body> 
 		<?php
@@ -40,7 +158,7 @@
 							if(isset($upload_data)){
 								?>
 								<div class="well">
-								  <form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/uploading/project_id/".$project_id."/testing_id/".$testing_id)?>">
+								  <!--<form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/uploading/project_id/".$project_id."/testing_id/".$testing_id)?>">-->
 									<table id="projectview" class="table sortable">
 										<thead>
 											<tr>
@@ -73,8 +191,8 @@
 													{
 												?>
 														<select id="Score_value" name="Score_value[]">
-															<option value="1=./uploads/<?php echo $wav_name[$i][$j];?>" selected="selected">清晰</option>
-															<option value="0=./uploads/<?php echo $wav_name[$i][$j];?>">不清晰</option>
+															<option value="<?=$topic_id[$i]?>=1=./uploads/<?php echo $wav_name[$i][$j];?>=<?=base_url("/uploads/".$wav_name[$i][$j])?>" selected="selected">清晰</option>
+															<option value="<?=$topic_id[$i]?>=0=./uploads/<?php echo $wav_name[$i][$j];?>=<?=base_url("/uploads/".$wav_name[$i][$j])?>">不清晰</option>
 														</select>
 												<?php
 													}
@@ -82,8 +200,8 @@
 													{
 												?>
 														<select id="Score_value" name="Score_value[]">
-															<option value="0=./uploads/<?php echo $wav_name[$i][$j];?>" selected="selected">不清晰</option>
-															<option value="1=./uploads/<?php echo $wav_name[$i][$j];?>">清晰</option>
+															<option value="<?=$topic_id[$i]?>=0=./uploads/<?php echo $wav_name[$i][$j];?>=<?=base_url("/uploads/".$wav_name[$i][$j])?>" selected="selected">不清晰</option>
+															<option value="<?=$topic_id[$i]?>=1=./uploads/<?php echo $wav_name[$i][$j];?>=<?=base_url("/uploads/".$wav_name[$i][$j])?>">清晰</option>
 														</select>
 												<?php
 													}
@@ -110,8 +228,8 @@
 										endforeach;?> 
 										</tbody>
 									</table>
-									<input type="submit" value="確認音檔" />
-								  </form>
+									<input id='Audiofiles' type="submit" value="確認音檔" />
+								  <!--</form>-->
 								</div>
 							<?php 
 							} else { ?>
@@ -147,28 +265,7 @@
 			</div>
 		</div>
 		
-		<script type="text/javascript">
-			
-			
-			$().ready(function(){
-			sorttables();
-			//mp3s();
-			});
-			
-			/*function mp3s(){
-
-			$('a[@href$="mp3"]').flash(
-			{ src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
-			{ version: 7 },
-			function(htmlOptions) {
-				$this = $(this);
-				htmlOptions.flashvars.file = $this.attr('href');
-				$this.before($.fn.flash.transform(htmlOptions));						
-			}*/
-		);
-
-}
-
+		
 			
 	</body>
 </html>

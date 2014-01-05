@@ -12,7 +12,7 @@ class score_lib
 		$this->data = new score_model(); // 宣告 model
 	}
 	/* 檢測者計算公式 */
-	public function score_calculate($score_value,$topic_id,$result_id,$member_id)
+	public function score_calculate($score_value,$note_value,$topic_id,$result_id,$member_id)
 	{
 		
 		$rules_model = new rules_model(); // 宣告 model
@@ -36,6 +36,14 @@ class score_lib
 
 		}
 		
+		$Strings_note=""; //存1,1,-1,1, 型態
+		
+		for($j=0;$j<sizeof($note_value);$j++){
+	
+			$Strings_note .=$note_value[$j].",";
+
+		}
+		
 		$AverageValue=sizeof($score_value)/2; //總數平均值
 		
 		$Standard=0; //未通過0 false，通過1 ture
@@ -56,7 +64,7 @@ class score_lib
 					
 		}
 		
-		$judgment_id=$this->data->Add_judgment($result_id,$Strings_Scores,$Scores_sum,$Standard,$member_id,$topic_id); //紀錄施測者評分結果 (寫入judgment 表單資料)
+		$judgment_id=$this->data->Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id); //紀錄施測者評分結果 (寫入judgment 表單資料)
 		
 		if($Standard==0){
 		

@@ -8,15 +8,15 @@ class score_model extends CI_Model
 		$this->load->database();
 	}
 	
-	public function Add_judgment($result_id,$Strings_Scores,$Scores_sum,$Standard,$member_id,$topic_id) //紀錄施測者評分結果 (寫入judgment 表單資料)
+	public function Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id) //紀錄施測者評分結果 (寫入judgment 表單資料)
 	{
 		$Today=date("Y-m-d H:i:s");
 		
-		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard')";
+		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`,`note`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard','$Strings_note')";
 			
 		$this->db->query($sql); //add
 		
-		$select_sql="select `id` from `judgment` where `detect`='$member_id' and `date`='$Today' and `result`= '$Scores_sum'  and `wrongcode`='$Strings_Scores' and `istrace`='$Standard'";
+		$select_sql="select `id` from `judgment` where `detect`='$member_id' and `date`='$Today' and `result`= '$Scores_sum'  and `wrongcode`='$Strings_Scores' and `istrace`='$Standard' and `note`='$Strings_note'";
 		
 		
 		$query =$this->db->query($select_sql); //select
@@ -160,6 +160,8 @@ class score_model extends CI_Model
 	
 	public function select_topic_list_no($testing_list_id,$part_id){
 		
+		
+		
 			$sql="SELECT 
 				topic.title,
 				topic.script,
@@ -169,9 +171,11 @@ class score_model extends CI_Model
 				Inner Join topic ON topic.id = result_del_judg.topic_id
 				WHERE
 				result_del_judg.testing_id =  '$testing_list_id' AND
-				topic.part =  '$part_id'
-				GROUP BY
-				topic.title";
+				topic.part =  '$part_id'";
+				
+			if($part_id==1){
+			$sql=$sql." GROUP BY topic.title";
+			}
 			
 		$query=$this->db->query($sql);
 		
@@ -194,9 +198,11 @@ Inner Join topic ON topic.id = result.topic_id
 Inner Join judgment ON judg_list.judgment_id = judgment.id
 WHERE result.testing_id =  '$testing_list_id'
 AND
-topic.part =  '$part_id'
-GROUP BY
-topic.title";
+topic.part =  '$part_id'";
+
+		if($part_id==1){
+			$sql=$sql." GROUP BY topic.title";
+		}	
 			
 		$query=$this->db->query($sql);
 		
@@ -275,6 +281,7 @@ result.testing_id =  '$testing_id' and(".$str.")";
 			topic.title,
 			topic.script,
 			topic.id,
+			topic.part,
 			result.voice_file
 			FROM
 			result

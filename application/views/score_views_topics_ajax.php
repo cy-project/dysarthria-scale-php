@@ -9,7 +9,9 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php foreach($topic_on->result() as $row): ?>
+				<?php 
+				//print_r($topic_on->result());
+				foreach($topic_on->result() as $row): ?>
 					<tr>
 						<td>
 						<?php if($part_id==1){?>
