@@ -97,7 +97,12 @@ class projectview_student extends CI_Controller {
 				}
 			}
 			
+			for($d=0;$d < count($zipresult);$d++)
+			{
+				$topic_id[$d] = $d+1;
+			}
 			$data['file_name'] = $file_name;//把檔名存在$data['file_name']
+			$data['topic_id'] = $topic_id;//把題號存在$data['topic_id']
 			
 			$data['project_id'] = $project_id;
 			$data['testing_id'] = $testing_id;
@@ -154,7 +159,7 @@ class projectview_student extends CI_Controller {
 			
 			$children_id = $result[0]->children_id;
 			
-			if ($children_id != $upfile_name2)
+			/*if ($children_id != $upfile_name2)
 			{
 				$data['project_id'] = $project_id;
 				$data['testing_id'] = $testing_id;
@@ -162,7 +167,7 @@ class projectview_student extends CI_Controller {
 				$this->load->view("project_upload",$data);
 			}
 			else
-			{
+			{*/
 			
 				/*system/library/Upload.php line202 暴力破解法!!!*/
 				$data = array('upload_data' => $this->upload->data());
@@ -179,8 +184,7 @@ class projectview_student extends CI_Controller {
 				
 				$zipresult = $deczip->dec($path);//解壓縮zip 回傳編碼是UTF-8
 				
-				/*$patharr[] = $path; //移除zip的
-				$uploadfile->rmFiles($patharr);*/
+				
 				
 				for($x=0;$x < count($zipresult);$x++)
 				{
@@ -205,20 +209,26 @@ class projectview_student extends CI_Controller {
 						$file_name[$i][] = $file_arr[count($file_arr)-2];//撈zipresult檔名
 					}
 				}
+				for($d=0;$d < count($zipresult);$d++)
+				{
+					$topic_id[$d] = $d+1;
+				}
 				
 				$data['file_name'] = $file_name;//把檔名存在$data['file_name']
+				$data['topic_id'] = $topic_id;//把題號存在$data['topic_id']
 				
 				$data['project_id'] = $project_id;
 				$data['testing_id'] = $testing_id;
 				
 				$this->load->view('project_upload',$data);
-			}
+			//}
 		}
 	}
 	
 	public function uploading()
 	{
 		//$data = new Datamodel();
+		$test_models = new test_models();
 		$array = array();
 		$data[] = new stdClass();
 		$uploadfile = new Uploadfiles();
@@ -232,13 +242,13 @@ class projectview_student extends CI_Controller {
 		$svwavpath = array();
 		$svwav_id[0] = 0;
 		
-		$selectwav = $this->input->post();
+		$selectwav = $this->input->post('score_values');
 		
-		for($i=0;$i < count($selectwav['Score_value']);$i++)
+		for($i=0;$i < count($selectwav);$i++)
 		{
-			for($j=0;$j < count($selectwav['Score_value'][$i]);$j++)
+			for($j=0;$j < count($selectwav[$i]);$j++)
 			{
-				$wav_arr = explode("=",$selectwav['Score_value'][$i]);
+				$wav_arr = explode("=",$selectwav[$i]);
 				$wav_name = $wav_arr[count($wav_arr)-3];//切割selectwav不要的選項 1要 0不要
 				$svwav_name = $wav_arr[count($wav_arr)-1];//撈wav_arr陣列1 base_url路徑
 				$rmwav_name = $wav_arr[count($wav_arr)-2];//撈wav_arr陣列2 ./upload/路徑
@@ -250,26 +260,30 @@ class projectview_student extends CI_Controller {
 				else
 				{
 					$svwavpath[] = $wav_arr[count($wav_arr)-2];//存要寫進資料庫的檔案路徑
+					$svbasewavpath[] = $wav_arr[count($wav_arr)-1];
+					$svwav_arr[] = $wav_arr[count($wav_arr)-4];
 				}
-				
-				$svwav_arr = explode("_",$svwavpath[$i]);//
-				$svwav_id[$i+1] = $wav_arr2[count($wav_arr2)-2];//撈要的題號存在wav_name2[$i+1]
 			}
-			/*$data[$i]->testing_id = $testing_id; //在data物件陣列存testing_id topic filepath
-			$data[$i]->topic = $svwav_id[$i+1];
-			$data[$i]->filepath = $wav_arr[count($wav_arr)-1];
 			
-			$array[$i] = $data[$i];*/
 		}
-		print_r($svwavpath);
+		for ($k=0;$k < count($svwav_arr);$k++)
+		{
+			$data[$k]->testing_id = $testing_id; //在data物件陣列存testing_id topic filepath
+			$data[$k]->topic = $svwav_arr[$k];
+			$data[$k]->filepath = $svbasewavpath[$k];
+			
+			$array[$k] = $data[$k];
+		}
 		//$uploadfile->uploadFiles($array);
 		
-		/*$uploadfile->rmFiles($svwavpath);
-		$uploadfile->rmFiles($rmwavpath);*/
+		$zippath = $test_models->upload_tempcheck($testing_id);
+		$path = $zippath[0]->zippath;
 		
-		$p_id['project_id'] = $project_id;
+		$patharr[] = $path; //移除zip的
+		$uploadfile->rmFiles($patharr);
 		
-		$this->load->view("project_board_student",$p_id);
+		$uploadfile->rmFiles($svwavpath);
+		$uploadfile->rmFiles($rmwavpath);
 	}
 	
 	public function subjects_view_group_student(){
