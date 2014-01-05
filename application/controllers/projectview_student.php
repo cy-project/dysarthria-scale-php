@@ -159,7 +159,7 @@ class projectview_student extends CI_Controller {
 			
 			$children_id = $result[0]->children_id;
 			
-			/*if ($children_id != $upfile_name2)
+			if ($children_id != $upfile_name2)
 			{
 				$data['project_id'] = $project_id;
 				$data['testing_id'] = $testing_id;
@@ -167,7 +167,7 @@ class projectview_student extends CI_Controller {
 				$this->load->view("project_upload",$data);
 			}
 			else
-			{*/
+			{
 			
 				/*system/library/Upload.php line202 暴力破解法!!!*/
 				$data = array('upload_data' => $this->upload->data());
@@ -221,7 +221,7 @@ class projectview_student extends CI_Controller {
 				$data['testing_id'] = $testing_id;
 				
 				$this->load->view('project_upload',$data);
-			//}
+			}
 		}
 	}
 	
@@ -269,20 +269,22 @@ class projectview_student extends CI_Controller {
 		for ($k=0;$k < count($svwav_arr);$k++)
 		{
 			$data[$k]->testing_id = $testing_id; //在data物件陣列存testing_id topic filepath
-			$data[$k]->topic = $svwav_arr[$k];
+			$data[$k]->topic_id = $svwav_arr[$k];
 			$data[$k]->filepath = $svbasewavpath[$k];
 			
 			$array[$k] = $data[$k];
 		}
-		//$uploadfile->uploadFiles($array);
+		$uploadfile->uploadFiles($array);
 		
 		$zippath = $test_models->upload_tempcheck($testing_id);
 		$path = $zippath[0]->zippath;
 		
 		$patharr[] = $path; //移除zip的
-		$uploadfile->rmFiles($patharr);
+		$uploadfile->rmFiles($patharr);//移除zip的
 		
-		$uploadfile->rmFiles($svwavpath);
+
+		
+		$uploadfile->rmFiles($svwavpath);//移除音檔的
 		$uploadfile->rmFiles($rmwavpath);
 	}
 	

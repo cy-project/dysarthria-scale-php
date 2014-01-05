@@ -160,6 +160,8 @@ class score_model extends CI_Model
 	
 	public function select_topic_list_no($testing_list_id,$part_id){
 		
+		
+		
 			$sql="SELECT 
 				topic.title,
 				topic.script,
@@ -169,9 +171,11 @@ class score_model extends CI_Model
 				Inner Join topic ON topic.id = result_del_judg.topic_id
 				WHERE
 				result_del_judg.testing_id =  '$testing_list_id' AND
-				topic.part =  '$part_id'
-				GROUP BY
-				topic.title";
+				topic.part =  '$part_id'";
+				
+			if($part_id==1){
+			$sql=$sql." GROUP BY topic.title";
+			}
 			
 		$query=$this->db->query($sql);
 		
@@ -194,9 +198,11 @@ Inner Join topic ON topic.id = result.topic_id
 Inner Join judgment ON judg_list.judgment_id = judgment.id
 WHERE result.testing_id =  '$testing_list_id'
 AND
-topic.part =  '$part_id'
-GROUP BY
-topic.title";
+topic.part =  '$part_id'";
+
+		if($part_id==1){
+			$sql=$sql." GROUP BY topic.title";
+		}	
 			
 		$query=$this->db->query($sql);
 		

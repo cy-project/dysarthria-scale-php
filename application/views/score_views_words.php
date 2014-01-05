@@ -11,11 +11,11 @@ $().ready(function(){
 //初始化載入
 
 		js_Score_click();
-		mp3s();
+		wav();
 		sorttables();
 });
 
-function mp3s(){
+/*function mp3s(){
 
 $('a[@href$="mp3"]').flash(
         { src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
@@ -27,7 +27,7 @@ $('a[@href$="mp3"]').flash(
         }
     );
 
-}
+}*/
 
 
 function js_Score_ajax(){ // ajax 傳值
@@ -121,9 +121,12 @@ $("#Score_submit").click(function() {
 <div class="well" >
 <?php foreach($topic->result() as $row):?>
 	<h5 class="page-title"><?=$row->title?>檢測</h5>
-<?php endforeach;?>
-		<embed width="100" height="20" type="application/x-shockwave-flash" src="<?=base_url("/js/singlemp3player.swf")?>" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="file=<?=base_url()?><?=$row->voice_file?>"/>
-		
+<?php endforeach;
+?>
+		<?php $temp=1;?>
+		<div class="wavclass" id="wavshow-<?php echo $temp;?>"></div>
+		<input type="hidden" id="wavget-<?php echo $temp;?>" value="<?=$row->voice_file?>" />
+		</p>
 			<table class="sortable table"><!--施測名單-->
 				<thead>
 					<tr>

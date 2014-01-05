@@ -115,6 +115,7 @@ class score extends CI_Controller {
 		$data = $this->uri->uri_to_assoc(3);
 		$this->load->library('score_lib');
 		$score= new score_lib();
+		
 		$data['topic_on']=$score->score_topic_on($data['testing_list_id'],$data['part_id']);
 		$data['topic_yes']=$score->score_topic_yes($data['testing_list_id'],$data['part_id']);
 	

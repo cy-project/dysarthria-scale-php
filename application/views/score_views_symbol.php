@@ -10,11 +10,12 @@
 $().ready(function(){
 //初始化載入
 		js_Score_click();
-		mp3s();
+		wav();
+		//mp3s();
 		sorttables();
 });
 
-function mp3s(){
+/*function mp3s(){
 
 $('a[@href$="mp3"]').flash(
         { src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
@@ -26,7 +27,7 @@ $('a[@href$="mp3"]').flash(
         }
     );
 
-}
+}*/
 
 
 function js_Score_ajax(){ // ajax 傳值
@@ -133,7 +134,9 @@ $("#Score_submit").click(function() {
 					</tr>
 				</thead>
 				<tbody>
-				<?php foreach($topic->result() as $row): ?>
+				<?php 
+				$temp = 1;
+				foreach($topic->result() as $row): ?>
 					<tr>
 						<input type="hidden" id="Topic_id" name="Topic_id[]"  value="<?=$row->topic_id?>"/>
 						<td> <?=$row->script?></td>
@@ -143,7 +146,11 @@ $("#Score_submit").click(function() {
 						 <option value="-1">不正確</option>
 						</select>
 						</td>
-						<td><embed width="100" height="20" type="application/x-shockwave-flash" src="<?=base_url("/js/singlemp3player.swf")?>" pluginspage="http://www.adobe.com/go/getflashplayer" flashvars="file=<?=base_url()?><?=$row->voice_file?>"/></td>
+						<td style="width: 100px;">
+						  <div class="wavclass" id="wavshow-<?php echo $temp;?>"></div>
+						  <input type="hidden" id="wavget-<?php echo $temp;?>" value="<?=$row->voice_file?>" />
+						  </p>
+						</td>
 						<td><select id="note_value" name="note_value[]">
 						 <option value="無">無</option>
 						 <option value="省略">省略</option>
@@ -152,7 +159,9 @@ $("#Score_submit").click(function() {
 						 <option value="最佳">最佳</option>
 						</select></td>
 					</tr>
-					<?php  endforeach;?> 
+					<?php 
+					$temp++;
+					endforeach;?> 
 				</tbody>
 </table>
 <button class="btn btn-primary"  id="Score_submit" style="display: inline-block;">確定</button>		
