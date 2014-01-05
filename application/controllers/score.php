@@ -49,13 +49,14 @@ class score extends CI_Controller {
 		$this->load->library('score_lib');
 		$score= new score_lib();
 		$score_value = $this->input->post('score_value');//評分值
+		$note_value = $this->input->post('note_value');
 		$result_id = $this->input->post('result_id'); //result表單 id
 		$member_id = $this->input->post('member_id'); //施測者
 		
 		$topic_id = $this->input->post('topic_id');
 		
 		
-		echo $score->score_calculate($score_value,$topic_id,$result_id,$member_id); //印出給ajax接收 (未通過0 false，通過1 ture)
+		echo $score->score_calculate($score_value,$note_value,$topic_id,$result_id,$member_id); //印出給ajax接收 (未通過0 false，通過1 ture)
 	}
 	
 	

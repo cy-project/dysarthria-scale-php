@@ -8,15 +8,15 @@ class score_model extends CI_Model
 		$this->load->database();
 	}
 	
-	public function Add_judgment($result_id,$Strings_Scores,$Scores_sum,$Standard,$member_id,$topic_id) //紀錄施測者評分結果 (寫入judgment 表單資料)
+	public function Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id) //紀錄施測者評分結果 (寫入judgment 表單資料)
 	{
 		$Today=date("Y-m-d H:i:s");
 		
-		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard')";
+		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`,`note`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard','$Strings_note')";
 			
 		$this->db->query($sql); //add
 		
-		$select_sql="select `id` from `judgment` where `detect`='$member_id' and `date`='$Today' and `result`= '$Scores_sum'  and `wrongcode`='$Strings_Scores' and `istrace`='$Standard'";
+		$select_sql="select `id` from `judgment` where `detect`='$member_id' and `date`='$Today' and `result`= '$Scores_sum'  and `wrongcode`='$Strings_Scores' and `istrace`='$Standard' and `note`='$Strings_note'";
 		
 		
 		$query =$this->db->query($select_sql); //select
@@ -275,6 +275,7 @@ result.testing_id =  '$testing_id' and(".$str.")";
 			topic.title,
 			topic.script,
 			topic.id,
+			topic.part,
 			result.voice_file
 			FROM
 			result
