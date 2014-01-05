@@ -24,8 +24,8 @@ class Sheep extends CI_Controller
 		$up = new Uploadfiles();
 		
 		
-		$data[0]->filepath = ".//test.zip";
-		//$data[0]->filepath = base_url("test.zip");
+		//$data[0]->filepath = ".//test.zip";
+		$data[0]->filepath = base_url("test.zip");
 		//echo $data[0]->filepath;
 		
 		$up->uploadFiles($data);
