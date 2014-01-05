@@ -37,6 +37,9 @@ var booleans=false; //判斷array內是否有空值
 var Score_value = $("select[id='Score_value']").map(function(){
 return $(this).val();}).get(); //取name[]的value型態array
 
+var Note_value = $("select[id='note_value']").map(function(){
+return $(this).val();}).get(); //取name[]的value型態array
+
 var Topic_id = $("input[id='Topic_id']").val();
 
 for ( var i = 0; i < Score_value.length; i++) {
@@ -45,7 +48,11 @@ for ( var i = 0; i < Score_value.length; i++) {
           }
 }
 
-
+for ( var i = 0; i < Note_value.length; i++) {
+          if (Note_value[i] == "") {
+				booleans=true;
+          }
+}
 
 if(booleans==false){
 		$.ajax({
@@ -54,6 +61,7 @@ if(booleans==false){
 				data: {
 				topic_id:Topic_id,
 				score_value:Score_value,
+				note_value:Note_value,
 				result_id:'<?=$result_id?>',
 				member_id:'<?=$member_id?>'
 			  }, 
@@ -121,22 +129,39 @@ $("#Score_submit").click(function() {
 					<tr>
 						<th><a href="#">題目</a></th>
 						<th><a href="#">評分</a></th>
-						
+						<th><a href="#">備註</a></th>
 					</tr>
 				</thead>
 				<tbody>
 					
 						<?php 
 							$script="";
+							
 							foreach($topic->result() as $row): 
 							 
 							 $script=$row->script;
-							 
+							 $part=$row->part;
 							endforeach;
 								
 							preg_match_all('/./u', $script, $matches);
-
+							if($part==4){
+							
 							$matches=$matches[0];
+							
+							for($i=0;$i<sizeof($matches);$i+=2){
+							
+							$j=$i;
+							$matches2[]=$matches[$i]."".$matches[$j+1];
+							}
+							
+							
+							$matches=$matches2;
+							}else{
+							
+							$matches=$matches[0];
+							
+							}
+							
 							
 							for($i=0;$i<sizeof($matches);$i++){?>
 		
@@ -149,6 +174,15 @@ $("#Score_submit").click(function() {
 									 <option value="1">正確</option>
 									 <option value="0">不清楚</option>
 									 <option value="-1">不正確</option>
+									</select>
+								</td>
+								<td>
+									<select id="note_value" name="note_value[]">
+									 <option value="無">無</option>
+									 <option value="省略">省略</option>
+									 <option value="替代">替代</option>
+									 <option value="扭曲">扭曲</option>
+									 <option value="最佳">最佳</option>
 									</select>
 								</td>
 							</tr>
