@@ -22,7 +22,7 @@ class Uploadfiles
 		@$ftp_connect = ftp_connect ($ftp_server, $ftp_port);
 		@ftp_login ($ftp_connect, $ftp_user, $ftp_pass);
 		@ftp_chdir ($ftp_connect, $ftp_path);
-		@ftp_mkdir($ftp_connect,'test');
+		
 
 		
 		
@@ -33,14 +33,18 @@ class Uploadfiles
 			$file_arr = explode("/",$data->filepath ); 
 		
 			$rm_file_name = $file_arr[count($file_arr)-1];
-		
-			$remote_file = '/children/test/'.$rm_file_name;
+			
+			@ftp_mkdir($ftp_connect, $data->testing_id);
+			
+			$remote_file = '/children/'.$data->testing_id.'/'.$rm_file_name;
+			
+			$data->voice_file = 'ftp://admin:admin@'.$ftp_server.'/children/'.$data->testing_id.'/'.$rm_file_name;
 			
 			if(ftp_put($ftp_connect, $remote_file, $data->filepath, FTP_ASCII))
 			{
 				echo "successfully".$data->filepath." \n";
 				
-				//$um->insertFile($data);
+				$um->insertFile($data);
 			}
 			else
 			{

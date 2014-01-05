@@ -6,7 +6,7 @@ class Sheep extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->helper('file');
-		$this->load->library('Personal_data');
+		$this->load->library('Ftpdownload');
 		$this->load->model('Member_model');
 		$this->load->library('Dispatch_json');
 		$this->load->library('Deczip');
@@ -19,13 +19,16 @@ class Sheep extends CI_Controller
 	public function index()
 	{
 		
+		/*$ftp = new Ftpdownload();
+		$ftp->downloadfile();*/
+		
 		$data[] = new Datamodel();
 		
 		$up = new Uploadfiles();
 		
 		
-		$data[0]->filepath = ".//test.zip";
-		//$data[0]->filepath = base_url("test.zip");
+	//	$data[0]->filepath = ".//test.zip";
+		$data[0]->filepath = base_url("Deczip.class");
 		//echo $data[0]->filepath;
 		
 		$up->uploadFiles($data);
