@@ -36,7 +36,7 @@ class Userapplication extends CI_Controller {
 	}
 	public function newgroup()
 	{
-		echo '/new_group';
+		echo 'new_group';
 	}
 	public function new_group()
 	{
