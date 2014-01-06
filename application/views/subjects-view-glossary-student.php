@@ -68,7 +68,7 @@
 				function fancybox_start(){
 
 					$(".various").fancybox({
-						maxWidth	: 537,
+						maxWidth	: 700,
 						maxHeight	: 354,
 						fitToView	: false,
 						width		: '70%',

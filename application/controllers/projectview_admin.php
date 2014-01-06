@@ -66,7 +66,7 @@ class projectview_admin extends CI_Controller {
 		if($number_page == 1){//專案成員*
 			$pm = new Project_model;
 			$this->data = $pm->getPeopleList($project_id);
-			$this->load->view('project_members');
+			$this->load->view('project_members',$this->data);
 		}
 		elseif($number_page == 2){//受測者*
 			$pm = new Project_model;

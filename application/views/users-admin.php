@@ -25,7 +25,7 @@
             <div class="row-fluid">
                     
 <div class="btn-toolbar">
-    <button class="btn btn-primary"><i class="icon-plus"></i> 新增身分</button>
+   <a id="1"><button class="btn btn-primary" id="new_people" onclick="New_Button()"><i class="icon-plus"></i>新增群組</button></a>
     <button class="btn">搜尋</button>
   <div class="btn-group">
   </div>
@@ -35,7 +35,7 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>身分名稱</th>
+          <th>群組名稱</th>
           <th>人數</th>
           <th>權限</th>
           <th style="width: 60px;">編輯權限</th>
@@ -46,7 +46,7 @@
           <td>1</td>
           <td><a href="#">教師</a></td>
           <td>18</td>
-          <td>施測</td>
+          <td>施測/上傳音檔/檢測(結果)</td>
           <td>
               <a href="user-teacher.html"><i class="icon-pencil"></i></a>
           </td>
@@ -55,7 +55,7 @@
           <td>2</td>
           <td><a href="#">語言治療師</a></td>
           <td>3</td>
-          <td>檢測</td>
+          <td>施測/上傳音檔/檢測(結果)/檢測/追蹤(推薦)/追蹤(取消)</td>
           <td>
 			  <a href="user-teacher.html"><i class="icon-pencil"></i></a>
           </td>
@@ -116,6 +116,27 @@
 
     <script src="lib/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript">
+		
+		function New_Button(){
+				var con=$.cookie("name");
+				
+				var URLs='<?=base_url("/userapplication/new_group")?>';
+				
+				$.ajax({
+					url: URLs,
+					data: {'number_button':0},
+					type:"POST",
+					dataType:'text',
+					success: function(msg){
+						document.location.href='<?=base_url("/userapplication/")?>'+msg;
+					},
+					error:function(xhr, ajaxOptions, thrownError){
+						alert(xhr.status);
+						alert(thrownError);
+					}
+				});
+			}
+		
         $("[rel=tooltip]").tooltip();
         $(function() {
             $('.demo-cancel-click').click(function(){return false;});
