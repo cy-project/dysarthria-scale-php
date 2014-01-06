@@ -12,7 +12,7 @@
 		<div class="content">
 		<!-------------------------------------------------------------------------------路徑------------------------------------------------------------------------->
 			<div class="header">
-				<h1 class="page-title">專案管理</h1>
+				<h1 class="page-title">專案管理(<?php echo $name[0]->name;?>)</h1>
 			</div>
 			<ul class="breadcrumb">
 				<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>

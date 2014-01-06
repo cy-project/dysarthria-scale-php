@@ -19,6 +19,7 @@
 	}
 	
 	function Audiofiles_ajax(){
+	
 		var tjisval='';
 		var yes_Score_value = $("select[id='Score_value']").map(
 		function(){
@@ -42,34 +43,38 @@
 		}).get(); //取name[]的value型態array
 		
 		
+	
+		yes_c=Comparisons_yes(yes_Score_value,'只能選一筆清楚的檔案');
 		
-		var yes_c=Comparisons(yes_Score_value,'請最多選擇一筆清楚的檔案');
-		
-		//var no_c=Comparisons(no_Score_value,'請選擇一筆清楚的檔案');
 		
 		if(yes_c==true){
 			
-			
 			ajax_to();
+			
 		}
 		
 	}
 	
-	function Comparisons(Score_value,str){
-	
+	function Comparisons_yes(Score_value,str){
+		var topicsnumber="<?=$topics_num?>";
 		var	Score_array="";
 		var Score_split="";
-		var Comparison=new Array();
+		var Comparison =new Array();
 		var c=0;
 		var f=true;
+		var v=false;
+		
+		
 		for(i=0;i<Score_value.length;i++){
 		
 			Score_split=Score_value[i].split("=");
 			Score_array=Score_split[0];
 			
 			if(i==0){
+			
 				Comparison[c]=Score_array;
 				c++;
+				
 			}else{
 			
 			var d=0;
@@ -86,22 +91,46 @@
 					Comparison[c]=Score_array;
 					c++;
 				}else{
+					
+					
 					alertify.alert('第'+Score_array+'題-'+str);
 					f=false;
+					break;
 				}
 				
 			}
 			
 		}
-	
-		return f;
+		
+		
+		
+		if(Comparison.length==topicsnumber){
+			
+			V=true;
+			
+		}else if(Comparison.length>topicsnumber){
+		
+		alertify.alert('您目前選擇的清楚音檔，只有'+Comparison.length+'個音檔(未滿90個清楚音檔)<p><span style="color:red">因此請您再檢查一次!!</span>');
+		
+		
+		}
+		
+		
+		if((V==true)&&(f==true)){
+			return true;
+				}else{
+			return false;
+		}
+		
+		
 	
 	}
+	
 	
 	function ajax_to(){
 	
 	var Score_values = $("select[id='Score_value']").map(function(){return $(this).val();}).get(); //取name[]的value型態array
-	//alert(Score_values);
+	
 	$.ajax({
 			  url: '<?=base_url("/projectview_student/uploading/project_id/".$project_id."/testing_id/".$testing_id)?>',
 			  type: 'POST',
@@ -117,7 +146,12 @@
 				//alert(response);
 				window.location.href= '<?=base_url("/projectview_student/project_board/project_id/".$project_id)?>';
 			  
-			  }
+			  },beforeSend:function(){
+					$('#Audiofiles').hide();
+                    $('#loadingIMG').show();
+              },complete:function(){
+                    $('#loadingIMG').hide();
+                },
 		});
 		
 	
@@ -162,6 +196,7 @@
 									<table id="projectview" class="table sortable">
 										<thead>
 											<tr>
+												<th><a href="#">題號</a></th>
 												<th><a href="#">題目</a></th>
 												<th><a href="#">檔案名稱</a></th>
 												<th><a href="#">是否清晰</a></th>
@@ -172,8 +207,10 @@
 										<?php 
 										$i=0;
 										$temp = 1;
+										$number=1;
 										foreach($testfile as $row): ?>
 										<tr>
+											<td><?php echo $number;?></td>
 											<td><?=$row->script?></td>
 											<td>
 												<?php 
@@ -225,10 +262,12 @@
 										</tr>
 										<?php  
 										$i++;
+										$number++;
 										endforeach;?> 
 										</tbody>
 									</table>
 									<input id='Audiofiles' type="submit" value="確認音檔" />
+									<div id="loadingIMG" style="display:none"><img src="<?=base_url("/images/loading.gif")?>" height='14'/>資料處理中，請稍後。</div>
 								  <!--</form>-->
 								</div>
 							<?php 

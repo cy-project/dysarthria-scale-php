@@ -222,6 +222,7 @@ class projectview_student extends CI_Controller {
 				
 				$data['project_id'] = $project_id;
 				$data['testing_id'] = $testing_id;
+				$data['topics_num'] = $test_models->count_topics();
 				
 				$this->load->view('project_upload',$data);
 			}
