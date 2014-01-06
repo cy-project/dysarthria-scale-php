@@ -45,9 +45,9 @@
 		
 		var yes_c=Comparisons(yes_Score_value,'請最多選擇一筆清楚的檔案');
 		
-		var no_c=Comparisons(no_Score_value,'請選擇一筆清楚的檔案');
+		//var no_c=Comparisons(no_Score_value,'請選擇一筆清楚的檔案');
 		
-		if((yes_c==true)&&(no_c==true)){
+		if(yes_c==true){
 			
 			
 			ajax_to();
