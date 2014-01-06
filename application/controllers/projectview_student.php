@@ -46,12 +46,29 @@ class projectview_student extends CI_Controller {
 	
 	public function project_board_ajax(){
 		
+		$test_models = new test_models();
+		
 		$data = $this->uri->uri_to_assoc(3);
 		$this->load->model('project_mysql_data');
 		$project = new project_mysql_data();
 		$data['surveying']=$project->select_project_surveying($data['project_id'],$_SESSION['id']);
-		$this->load->view("project_board_ajax",$data);
+		$array = $data['surveying']->result();
 		
+		$idx = 0;
+		foreach($array as $row)
+		{
+			if($test_models->upload_tempcheck($row->id))
+			{
+				$data['uploadshow'][$idx] = "確認音檔";
+			}
+			else
+			{
+				$data['uploadshow'][$idx] = "上傳";
+			}
+			$idx++;
+		}
+		
+		$this->load->view("project_board_ajax",$data);
 	}
 	
 	public function project_upload(){

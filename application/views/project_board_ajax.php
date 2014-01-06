@@ -15,7 +15,9 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php  foreach($surveying->result() as $row):?>
+				<?php  
+				$i=0;
+				foreach($surveying->result() as $row):?>
 					<tr>
 						<td><?=$row->id?> <?=$row->check?></td>
 						<td><?=$row->school_name?></td>
@@ -40,14 +42,16 @@
 						</td>
 						<td>
 							<?php if($row->check == 0){?> 
-								<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>">上傳</a>
+								<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>"><?=$uploadshow[$i]?></a>
 							<?php }elseif($row->check == 1){
 								echo "   ";
 							}?>
 							
 						</td>
 					</tr>
-			    <?php  endforeach;?> 
+			    <?php  
+				$i++;
+				endforeach;?> 
 				</tbody>
 			</table>
 		</div>
