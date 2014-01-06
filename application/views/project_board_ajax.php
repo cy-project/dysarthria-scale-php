@@ -15,7 +15,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php  foreach($surveying->result() as $row): ?>
+				<?php  foreach($surveying->result() as $row):?>
 					<tr>
 						<td><?=$row->id?></td>
 						<td><?=$row->school_name?></td>
@@ -35,11 +35,16 @@
 						<td><?=$row->bir?></td>
 						<td><?=$row->language?></td>
 						<td>
-						<?php if($row->check==0){ echo "未施測"; }elseif($row->check){ echo "以施測";}?>
+						<?php if($row->check==0){ echo "未施測"; }elseif($row->check == 1){ echo "已施測";}?>
 						
 						</td>
 						<td>
-							<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>">上傳</a>
+							<?php if($row->check == 0){?> 
+								<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>">上傳</a>
+							<?php }elseif($row->check == 1){
+								echo "   ";
+							}?>
+							
 						</td>
 					</tr>
 			    <?php  endforeach;?> 

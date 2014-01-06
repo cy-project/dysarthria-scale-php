@@ -334,6 +334,13 @@ class Project_model extends CI_Model
 		return $result;
 	}
 	
+	public function getProjectName($project_id){
+		$this->db->select('`name`');
+		$this->db->where('id',$project_id);
+		$this->db->from('project');
+		$result = $this->db->get();
+		return $result->result();
+	}
 
 }
 
