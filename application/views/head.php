@@ -22,33 +22,6 @@
 	<!-- Add fancyBox main JS and CSS files -->
 	<script type="text/javascript" src="<?php echo base_url();?>js/jquery.fancybox.js?v=2.1.0"></script>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>stylesheets/jquery.fancybox.css?v=2.1.0" media="screen" />
-	<script language="JavaScript">
-
-	$().ready(function() {
-		
-		//sidebar_nav();
-		//OneClick(1);
-	
-	});
-
-	/*function sidebar_nav(){
-	
-	$.ajax({
-		type: 'POST',
-		data:{asd:'333',zxc:'222'}, /*呈現資料塞這裡*/
-		url: '<?=base_url("/Dysarthria/sidebar_nav")?>',
-		dataType: 'html',
-		success: function(response) {
-		$('#sidebar-nav').html(response);
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-		alert(jqXHR.responseText);
-		},
-	});
-	
-	}*/
-	
-	</script>
 
     <!-- Demo page code -->
 

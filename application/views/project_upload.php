@@ -267,7 +267,7 @@
 										</tbody>
 									</table>
 									<input id='Audiofiles' type="submit" value="確認音檔" />
-									<div id="loadingIMG" style="display:none"><img src="<?=base_url("/images/loading.gif")?>" height='14'/>資料處理中，請稍後。</div>
+									<div id="loadingIMG" style="display:none"><img src="<?=base_url("/images/ajax-loader.gif")?>" height='14'/>資料處理中，請稍後。</div>
 								  <!--</form>-->
 								</div>
 							<?php 
