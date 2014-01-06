@@ -16,7 +16,7 @@
 			</div>
 			<ul class="breadcrumb">
 				<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-				<li><a href="<?=base_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/ 專案管理</span></li>
+				<li><a href="<?=base_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/<?php echo $name[0]->name;?></span></li>
 				<li class="active"></li>
 			</ul>
 			<!-------------------------------------------------------------------------------底線------------------------------------------------------------------------->

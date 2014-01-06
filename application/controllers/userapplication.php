@@ -34,6 +34,14 @@ class Userapplication extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('users-admin');
 	}
+	public function newgroup()
+	{
+		echo 'new_group';
+	}
+	public function new_group()
+	{
+		$this->load->view('new-Group');
+	}
 }
 
 /* End of file welcome.php */

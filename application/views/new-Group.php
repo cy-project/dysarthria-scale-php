@@ -25,7 +25,7 @@
             <div class="row-fluid">
                     
 <div class="btn-toolbar">
-   <a id="1"><button class="btn btn-primary" id="new_people" onclick="New_Button()"><i class="icon-plus"></i>新增群組</button></a>
+    <a id="1"><button class="btn btn-primary" id="new_people" onclick="ButtonClick(1)"><i class="icon-plus"></i>新增權限</button></a>
     <button class="btn">搜尋</button>
   <div class="btn-group">
   </div>
@@ -116,27 +116,6 @@
 
     <script src="lib/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript">
-		
-		function New_Button(){
-				var con=$.cookie("name");
-				
-				var URLs='<?=base_url("/userapplication/new_group")?>';
-				
-				$.ajax({
-					url: URLs,
-					data: {'number_button':0},
-					type:"POST",
-					dataType:'text',
-					success: function(msg){
-						document.location.href='<?=base_url("/userapplication/")?>'+msg;
-					},
-					error:function(xhr, ajaxOptions, thrownError){
-						alert(xhr.status);
-						alert(thrownError);
-					}
-				});
-			}
-		
         $("[rel=tooltip]").tooltip();
         $(function() {
             $('.demo-cancel-click').click(function(){return false;});

@@ -12,6 +12,7 @@ class projectview_student extends CI_Controller {
 		$this->load->library('Datamodel');
 		$this->load->library('Uploadfiles');
 		$this->load->model('test_models');
+		$this->load->model('Project_model');
 	}
 	public function projectview(){
 		setcookie("member_id",$_SESSION['id'],time()+3600);
@@ -35,8 +36,10 @@ class projectview_student extends CI_Controller {
 	}
 	
 	public function project_board(){
-
+		
+		$name = new Project_model();
 		$data = $this->uri->uri_to_assoc(3);
+		$data['name'] = $name->getProjectName($data['project_id']);
 		$this->load->view("project_board_student",$data);
 		
 	}
