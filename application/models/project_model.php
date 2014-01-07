@@ -341,6 +341,14 @@ class Project_model extends CI_Model
 		$result = $this->db->get();
 		return $result->result();
 	}
+	
+	public function getChildrcnName($childrcn_id){
+		$this->db->select('`name`');
+		$this->db->where('id',$childrcn_id);
+		$this->db->from('children');
+		$result = $this->db->get();
+		return $result->result();
+	}
 
 }
 

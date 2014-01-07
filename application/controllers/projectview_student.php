@@ -57,12 +57,18 @@ class projectview_student extends CI_Controller {
 	public function project_upload(){
 		
 		$test_models = new test_models();
+		
+		$name = new Project_model();
+		
 		$deczip = new Deczip();
 		
 		$get_id = $this->uri->uri_to_assoc(3);
 		
 		$project_id = $get_id['project_id'];
 		$testing_id = $get_id['testing_id'];
+		
+		$get_id['project_name'] = $name->getProjectName($get_id['project_id']);
+		$get_id['childrcn_name'] = $name->getChildrcnName($get_id['childrcn_id']);
 		
 		if ($test_models->upload_tempcheck($testing_id))//如果這個zip檔案已經上傳過了 去撈資料表的內容
 		{
@@ -114,6 +120,7 @@ class projectview_student extends CI_Controller {
 		}
 		else
 		{
+			print_r($get_id);
 			$this->load->view("project_upload",$get_id);
 		}
 	}

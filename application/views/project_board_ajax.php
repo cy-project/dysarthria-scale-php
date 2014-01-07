@@ -26,7 +26,7 @@
 						<?php 
 						if($row->sex==1){ 
 								echo "男";
-						}else if($row->sex==2){
+						}else if($row->sex==0){
 								echo "女";
 						}else{
 								echo "";
@@ -40,7 +40,7 @@
 						</td>
 						<td>
 							<?php if($row->check == 0){?> 
-								<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>">上傳</a>
+								<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>/childrcn_id/<?=$row->id?>">上傳</a>
 							<?php }elseif($row->check == 1){
 								echo "   ";
 							}?>
