@@ -20,7 +20,14 @@ class Upload_model extends CI_Model
 		$this->db->set('topic_id',$data->topic_id);
 		$this->db->set('voice_file',$data->voice_file);
 		$this->db->insert('result');
-	
+		
+		
+		$input = array('check'=>1);
+		
+		$this->db->where('id',$data->testing_id);
+		
+		$this->db->update('testing_list', $input);
+		
 
 	}
 

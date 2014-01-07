@@ -133,4 +133,13 @@ class test_models extends CI_model
 		return $data;
 		
 	}
+	
+	public function count_topics()
+	{
+		$count = $this->db->count_all_results('topic');
+		
+		return $count;
+	}
+	
+	
 }
