@@ -82,8 +82,9 @@ class projectview_student extends CI_Controller {
 		$project_id = $get_id['project_id'];
 		$testing_id = $get_id['testing_id'];
 		
-		$data['project_name'] = $name->getProjectName($get_id['project_id']);
-		$data['children_name'] = $name->getChildrenName($get_id['children_id']);
+		$get_id['project_name'] = $name->getProjectName($get_id['project_id']);
+		$get_id['children_name'] = $name->getChildrenName($get_id['children_id']);
+		
 		
 		if ($test_models->upload_tempcheck($testing_id))//如果這個zip檔案已經上傳過了 去撈資料表的內容
 		{
@@ -139,7 +140,7 @@ class projectview_student extends CI_Controller {
 		}
 		else
 		{
-			$this->load->view("project_upload",$data);
+			$this->load->view("project_upload",$get_id);
 		}
 	}
 	
@@ -195,7 +196,7 @@ class projectview_student extends CI_Controller {
 			$result = $test_models->upload_file_identification($testing_id);
 			$children_id = $result[0]->children_id;
 			
-			/*if ($children_id != $upfile_name2)//如果檔名的id跟這位小孩不合
+			if ($children_id != $upfile_name2)//如果檔名的id跟這位小孩不合
 			{
 				$temp = array('upload_data' => $this->upload->data());
 				$path = $temp['upload_data']['full_path'];
@@ -213,11 +214,11 @@ class projectview_student extends CI_Controller {
 				$this->load->view("project_upload",$data);
 			}
 			else
-			{*/
+			{
 				/*system/library/Upload.php line202 暴力破解法!!!*/
-				$temp = array('upload_data' => $this->upload->data());
+				$data = array('upload_data' => $this->upload->data());
 				
-				$path = $temp['upload_data']['full_path'];
+				$path = $data['upload_data']['full_path'];
 				
 				$tempfile->testing_id = $testing_id;
 				$tempfile->zippath = $path;
@@ -257,6 +258,7 @@ class projectview_student extends CI_Controller {
 				}
 				$data['project_name'] = $name->getProjectName($get_id['project_id']);
 				$data['children_name'] = $name->getChildrenName($get_id['children_id']);
+				$data['children_id'] = $children_id;
 				
 				$data['file_name'] = $file_name;//把檔名存在$data['file_name']
 				$data['topic_id'] = $topic_id;//把題號存在$data['topic_id']
@@ -266,7 +268,7 @@ class projectview_student extends CI_Controller {
 				$data['topics_num'] = $test_models->count_topics();
 				
 				$this->load->view('project_upload',$data);
-			//}
+			}
 		}
 	}
 	
