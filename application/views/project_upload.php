@@ -170,12 +170,13 @@
 			
 			<div class="header">
 				
-				<h1 class="page-title">專案管理</h1>
+				<h1 class="page-title">上傳(<?php echo $children_name[0]->name;?>)</h1>
 			</div>
 			
 				<ul class="breadcrumb">
 					<li><a href="<?=base_url("/Dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-					<li><a href="<?=base_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/</span> 專案管理 <span class="divider">/</span></li>
+					<li><a href="<?=base_url("/projectview_student/projectview")?>">專案管理</a> <span class="divider">/</span></li>
+					<li><a href="<?=base_url("/projectview_student/project_board")?>/project_id/<?php echo $project_id;?>"><?php echo $project_name[0]->name;?></a> <span class="divider">/</span></li>
 					<li class="active">上傳</li>
 				</ul>
 
@@ -273,7 +274,7 @@
 								</div>
 							<?php 
 							} else { ?>
-								<form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/upload/project_id/".$project_id."/testing_id/".$testing_id)?>">
+								<form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/upload/project_id/".$project_id."/testing_id/".$testing_id."/children_id/".$children_id)?>">
 								<input type="file" name="userfile" style="width: 150px" />
 								<input type="submit" value="上傳" />
 								

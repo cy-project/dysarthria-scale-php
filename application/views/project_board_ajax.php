@@ -15,7 +15,9 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php  foreach($surveying->result() as $row):?>
+				<?php  
+				$i=0;
+				foreach($surveying->result() as $row):?>
 					<tr>
 						<td><?=$row->id?> </td>
 						<td><?=$row->school_name?></td>
@@ -26,7 +28,7 @@
 						<?php 
 						if($row->sex==1){ 
 								echo "男";
-						}else if($row->sex==2){
+						}else if($row->sex==0){
 								echo "女";
 						}else{
 								echo "";
@@ -39,15 +41,19 @@
 						
 						</td>
 						<td>
+
 							<?php if($row->isupload == 0){?> 
 								<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>">上傳</a>
 							<?php }elseif($row->isupload == 1){
+
 								echo "   ";
 							}?>
 							
 						</td>
 					</tr>
-			    <?php  endforeach;?> 
+			    <?php  
+				$i++;
+				endforeach;?> 
 				</tbody>
 			</table>
 		</div>

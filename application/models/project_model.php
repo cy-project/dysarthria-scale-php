@@ -307,7 +307,7 @@ class Project_model extends CI_Model
 				}
 						
 			}
-			print_r($people_data);
+			//print_r($people_data);
 			return $people_data;
 		}
 		else
@@ -338,6 +338,14 @@ class Project_model extends CI_Model
 		$this->db->select('`name`');
 		$this->db->where('id',$project_id);
 		$this->db->from('project');
+		$result = $this->db->get();
+		return $result->result();
+	}
+	
+	public function getChildrenName($children_id){
+		$this->db->select('`name`');
+		$this->db->where('id',$children_id);
+		$this->db->from('children');
 		$result = $this->db->get();
 		return $result->result();
 	}
