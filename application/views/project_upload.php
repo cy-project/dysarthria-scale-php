@@ -169,7 +169,7 @@
 			
 			<div class="header">
 				
-				<h1 class="page-title">上傳(<?php echo $childrcn_name[0]->name;?>)</h1>
+				<h1 class="page-title">上傳(<?php echo $children_name[0]->name;?>)</h1>
 			</div>
 			
 				<ul class="breadcrumb">
@@ -273,7 +273,7 @@
 								</div>
 							<?php 
 							} else { ?>
-								<form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/upload/project_id/".$project_id."/testing_id/".$testing_id)?>">
+								<form enctype="multipart/form-data" method="post" action="<?=base_url("/projectview_student/upload/project_id/".$project_id."/testing_id/".$testing_id."/children_id/".$children_id)?>">
 								<input type="file" name="userfile" style="width: 150px" />
 								<input type="submit" value="上傳" />
 								

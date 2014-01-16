@@ -74,9 +74,7 @@ class projectview_student extends CI_Controller {
 	public function project_upload(){
 		
 		$test_models = new test_models();
-		
 		$name = new Project_model();
-		
 		$deczip = new Deczip();
 		
 		$get_id = $this->uri->uri_to_assoc(3);
@@ -85,7 +83,8 @@ class projectview_student extends CI_Controller {
 		$testing_id = $get_id['testing_id'];
 		
 		$get_id['project_name'] = $name->getProjectName($get_id['project_id']);
-		$get_id['childrcn_name'] = $name->getChildrcnName($get_id['childrcn_id']);
+		$get_id['children_name'] = $name->getChildrenName($get_id['children_id']);
+		
 		
 		if ($test_models->upload_tempcheck($testing_id))//如果這個zip檔案已經上傳過了 去撈資料表的內容
 		{
@@ -127,6 +126,9 @@ class projectview_student extends CI_Controller {
 			{
 				$topic_id[$d] = $d+1;
 			}
+			$data['project_name'] = $name->getProjectName($get_id['project_id']);
+			$data['children_name'] = $name->getChildrenName($get_id['children_id']);
+			
 			$data['file_name'] = $file_name;//把檔名存在$data['file_name']
 			$data['topic_id'] = $topic_id;//把題號存在$data['topic_id']
 			
@@ -145,14 +147,17 @@ class projectview_student extends CI_Controller {
 	public function upload()
 	{	
 		$test_models = new test_models();
+		$name = new Project_model();
+		$deczip = new Deczip();
+		$uploadfile = new Uploadfiles();
 		
 		$get_id = $this->uri->uri_to_assoc(3);
 		
 		$project_id = $get_id['project_id'];
 		$testing_id = $get_id['testing_id'];
 		
-		$deczip = new Deczip;
-		$uploadfile = new Uploadfiles();
+		$data['project_name'] = $name->getProjectName($get_id['project_id']);
+		$data['children_name'] = $name->getChildrenName($get_id['children_id']);
 		
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types']='zip|jpg';
@@ -164,38 +169,52 @@ class projectview_student extends CI_Controller {
 		
 		if (!$this->upload->do_upload())
 		{
+			$result = $test_models->upload_file_identification($testing_id);
+			$children_id = $result[0]->children_id;
+			
 			$error = array(
 			'error' => $this->upload->display_errors(),
+			'project_name' => $data['project_name'],
+			'children_name' => $data['children_name'],
 			'project_id' => $project_id,
-			'testing_id' => $testing_id
+			'testing_id' => $testing_id,
+			'children_id' => $children_id
 			);
 
 			$this->load->view('project_upload',$error);
 		}
 		else
 		{
-			$uploadfile_name = $_FILES["userfile"]["name"];
+			$uploadfile_name = $_FILES["userfile"]["name"];//切割檔名的children_id出來
 			
-			$upfile_arr = explode(".",$uploadfile_name );
+			$upfile_arr = explode(".",$uploadfile_name);
 			$upfile_name = $upfile_arr[count($upfile_arr)-2];
 			
-			$upfile_arr2 = explode("_",$upfile_name );
+			$upfile_arr2 = explode("_",$upfile_name);
 			$upfile_name2 = $upfile_arr2[count($upfile_arr2)-1];
 			
 			$result = $test_models->upload_file_identification($testing_id);
-			
 			$children_id = $result[0]->children_id;
 			
-			if ($children_id != $upfile_name2)
+			if ($children_id != $upfile_name2)//如果檔名的id跟這位小孩不合
 			{
+				$temp = array('upload_data' => $this->upload->data());
+				$path = $temp['upload_data']['full_path'];
+				
+				$tempfile->testing_id = $testing_id;
+				$tempfile->zippath = $path;
+				
+				$patharr[] = $tempfile->zippath; //移除zip的
+				$uploadfile->rmFiles($patharr);//移除zip的
+				
 				$data['project_id'] = $project_id;
 				$data['testing_id'] = $testing_id;
+				$data['children_id'] = $children_id;
 				$data['error'] = "此檔案不屬於這個小孩，請上傳正確的壓縮檔";
 				$this->load->view("project_upload",$data);
 			}
 			else
 			{
-			
 				/*system/library/Upload.php line202 暴力破解法!!!*/
 				$data = array('upload_data' => $this->upload->data());
 				
@@ -208,10 +227,7 @@ class projectview_student extends CI_Controller {
 				
 				$test_models->upload_tempfile($tempfile);
 				
-				
 				$zipresult = $deczip->dec($path);//解壓縮zip 回傳編碼是UTF-8
-				
-				
 				
 				for($x=0;$x < count($zipresult);$x++)
 				{
@@ -240,6 +256,9 @@ class projectview_student extends CI_Controller {
 				{
 					$topic_id[$d] = $d+1;
 				}
+				$data['project_name'] = $name->getProjectName($get_id['project_id']);
+				$data['children_name'] = $name->getChildrenName($get_id['children_id']);
+				$data['children_id'] = $children_id;
 				
 				$data['file_name'] = $file_name;//把檔名存在$data['file_name']
 				$data['topic_id'] = $topic_id;//把題號存在$data['topic_id']

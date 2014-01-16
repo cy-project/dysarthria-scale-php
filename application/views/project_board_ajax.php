@@ -42,7 +42,7 @@
 						</td>
 						<td>
 							<?php if($row->check == 0){?> 
-								<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>/childrcn_id/<?=$row->id?>"><?=$uploadshow[$i]?></a>
+								<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>/children_id/<?=$row->id?>"><?=$uploadshow[$i]?></a>
 
 							<?php }elseif($row->check == 1){
 								echo "   ";
