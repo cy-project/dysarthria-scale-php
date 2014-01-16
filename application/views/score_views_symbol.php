@@ -11,23 +11,11 @@ $().ready(function(){
 //初始化載入
 		js_Score_click();
 		wav();
-		//mp3s();
+		
 		sorttables();
 });
 
-/*function mp3s(){
 
-$('a[@href$="mp3"]').flash(
-        { src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
-        { version: 7 },
-        function(htmlOptions) {
-            $this = $(this);
-            htmlOptions.flashvars.file = $this.attr('href');
-            $this.before($.fn.flash.transform(htmlOptions));						
-        }
-    );
-
-}*/
 
 
 function js_Score_ajax(){ // ajax 傳值
@@ -88,7 +76,13 @@ if(booleans==false){
 				  
 				  }
 				
-			  }
+			  },beforeSend:function(){
+                   $('#Score_submit').hide();
+                    $('#loadingIMG').show();
+                },
+                complete:function(){
+                    $('#loadingIMG').hide();
+                }
 		});
 		
 		
@@ -135,6 +129,7 @@ $("#Score_submit").click(function() {
 				</thead>
 				<tbody>
 				<?php 
+				//echo "dsds";
 				$temp = 1;
 				foreach($topic->result() as $row): ?>
 					<tr>
@@ -156,7 +151,7 @@ $("#Score_submit").click(function() {
 						 <option value="省略">省略</option>
 						 <option value="替代">替代</option>
 						 <option value="扭曲">扭曲</option>
-						 <option value="最佳">最佳</option>
+						 <option value="贅加">贅加</option>
 						</select></td>
 					</tr>
 					<?php 
@@ -165,6 +160,7 @@ $("#Score_submit").click(function() {
 				</tbody>
 </table>
 <button class="btn btn-primary"  id="Score_submit" style="display: inline-block;">確定</button>		
+<div id="loadingIMG" style="display:none"><img src="<?=base_url("/images/ajax-loader.gif")?>" height='14'/>資料處理中，請稍後。</div>
 <div id='ReturnViews'></div>						
 </div>
 </div>

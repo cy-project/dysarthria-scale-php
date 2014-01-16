@@ -51,7 +51,7 @@ children.grade,
 school.name AS school_name,
 children.name AS children_name,
 children.sex,
-testing_list.`check`,
+testing_list.`isupload`,
 testing_list.id,
 children.bir
 FROM

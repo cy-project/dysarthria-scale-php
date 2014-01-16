@@ -7,12 +7,12 @@ class score extends CI_Controller {
 		$this->load->helper('url');
 	}
 	
-	public function score_views_symbol() //ㄅㄆㄇㄈ符號
-	{
+	public function score_views_symbol(){//ㄅㄆㄇㄈ符號，說故事　（這）
 		$this->load->helper('url');
 		$data = $this->uri->uri_to_assoc(3);
-		//Array ( [member_id] => 3 [result_id] => 12 [testing_list_id] => 1 )
+		
 		$this->load->library('score_lib');
+		
 		$score= new score_lib();
 		
 		$data['topic']=$score->score_symbol($data['result_id']);
@@ -20,15 +20,13 @@ class score extends CI_Controller {
 		$this->load->view('score_views_symbol',$data);
 	}
 	
-	public function score_views_words()  //字句
-	{
+	public function score_views_words(){//句子，數數字，輪替　（這）
 		$this->load->helper('url');
 		
 		$data = $this->uri->uri_to_assoc(3);
-		//Array ( [member_id] => 3 [result_id] => 12 [testing_list_id] => 1 )
 		
-	
 		$this->load->library('score_lib');
+		
 		$score= new score_lib();
 		
 		$data['topic']=$score->score_words($data['result_id']);
@@ -61,8 +59,7 @@ class score extends CI_Controller {
 	
 	
 	
-	public function score_views_children()  //針對專案找出幼兒的相關資料
-	{
+	public function score_views_children(){//針對專案找出幼兒的相關資料
 		$this->load->helper('url');
 		$this->load->library('score_lib');
 		
