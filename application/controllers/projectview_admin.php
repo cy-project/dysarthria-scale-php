@@ -137,9 +137,10 @@ class projectview_admin extends CI_Controller {
 	}
 	public function subjects_data_new()
 	{//新增受測者畫面
+		$pn = new Project_model;
 		$this->data = $this->uri->uri_to_assoc(3);
-		setcookie("project_id",$this->data['project_id'],time()+3600);
-		$this->load->view('subjects-data');
+		$this->data['project_name'] = $pn->getProjectName($this->data['project_id']);
+		$this->load->view('subjects-data',$this->data);
 	}
 	public function practitioner_alter(){//修改人員(施測者)
 		//$this->name=$_GET['name'];

@@ -19,10 +19,10 @@
 				$i=0;
 				foreach($surveying->result() as $row):?>
 					<tr>
-						<td><?=$row->id?> <?=$row->check?></td>
+						<td><?=$row->id?></td>
 						<td><?=$row->school_name?></td>
-						<td><?=$row->rank?></td>
 						<td><?=$row->grade?></td>
+						<td><?=$row->rank?></td>
 						<td><?=$row->children_name?></td>
 						<td>
 						<?php 
