@@ -12,7 +12,6 @@
 										</thead>
 										<tbody>
 											<?php 
-												print_r($this->data[0]->name);
 												$length = count($this->data);
 												for($fix = 0;$fix < $length; $fix++)
 												{
