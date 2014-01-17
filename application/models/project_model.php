@@ -79,7 +79,7 @@ class Project_model extends CI_Model
 
 	}
 
-	public function getChildData($childid)
+	private function getChildData($childid)
 	{		
 		
 		$this->db->select('`id`,`name`,`sex`,`bir`,`age`,`grade`,`rank`,`language`,`county`');
@@ -134,6 +134,53 @@ class Project_model extends CI_Model
 		}
 	}
 	
+	public function getModificationChildrenData($childrenid)
+	{
+		
+		
+		$this->db->select('`id`,`name`,`sex`,`bir`,`age`,`grade`,`rank`,`language`,`county`,`school_id`');
+		
+		$this->db->where('id',$childrenid);
+		
+		$this->db->from('children');
+		
+		$data = $this->db->get();
+		
+		if ($data->num_rows > 0)
+		{
+			for ($i = 0; $i < $data->num_rows ; $i++)
+			{
+				$r = $data->result();
+				
+				$params = (array)$r[$i];
+				
+				
+				$children[$i] = new Datamodel();
+				
+				foreach ($params as $k => $v)
+				{
+					
+					$children[$i]->$k = $v;
+					$children[$i]->school= $this->getSchoolName($children[$i]->school_id);
+				
+				}
+			}
+			return $children;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	
+	public function getSchoolName($school_id){
+		$this->db->select('`name`');
+		$this->db->where('id',$school_id);
+		$this->db->from('school');
+		
+		$result =  $this->db->get();
+		return $result->result();
+	}
 	
 	public function getMemberName($rater){
 		$this->db->select('`name`');
@@ -186,26 +233,7 @@ class Project_model extends CI_Model
 			$this->db->from('project');
 			
 			$result = $this->db->get();
-		/*	if ($result->num_rows > 0)
-			{
-				$idx = 0;
-				foreach ($result->result() as $row)
-				{
-							$children[$idx] = new Datamodel();
-							$r = $result->result();
-							$params = (array)$r[0];//(array)$r[$length-1];
-							foreach ($params as $k => $v)
-							{
-								
-								$children[$idx]->$k = $v;
-								$children[$idx]->manger= $this->getMemberName($children[$idx]->manger);
-								
-							}
-					$idx++;
-				}
-			print_r($children);
-			//	return $children;
-			}*/
+		
 			return $result;
 		}
 		
