@@ -28,7 +28,7 @@
 						<form id="tab" action="" method="post" name="dbform">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="button" onclick="testnull(1)"><i class="icon-save"></i>新增</button>
-								<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?php echo $project_id;?>"><button class="btn btn-primary" onclick="testnull(2)">取消</button></a>
+								<button class="btn btn-primary" onclick="testnull(2)">取消</button>
 							</div>
 							<div class="well">
 								<label>姓名</label>

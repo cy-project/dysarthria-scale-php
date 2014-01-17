@@ -13,55 +13,74 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">修改人員(受測者)</h1>
+					<h1 class="page-title">修改人員</h1>
 				</div>
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
 						<li><a href="<?=base_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
-						<li><a href="<?=base_url("/projectview_admin/project_board")?>">幼音評測</a> <span class="divider">/</span></li>
-						<li class="active">修改人員(受測者)</li>
+						<li><a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?php echo $this->dato['project_id'];?>"><?php echo $project_name[0]->name;?></a> <span class="divider">/</span></li>
+						<li class="active">修改人員</li>
 					</ul>
-
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" action="<?=base_url("/projectview_admin/project_board")?>" method="post">
+						<form id="tab" action="" method="post" name="dbform">
 							<div class="btn-toolbar">
-								<button class="btn btn-primary" type="submit"><i class="icon-save"></i>修改</button>
-								<a href=""<?=base_url("/projectview_admin/project_board")?>""><button class="btn btn-primary">取消</button></a>
+								<button class="btn btn-primary" type="button" onclick="testnull(1)"><i class="icon-save"></i>修改</button>
+								<button class="btn btn-primary" onclick="testnull(2)">取消</button>
 							</div>
 							<div class="well">
+							<?php 
+							foreach($this->data->result() as $row):?>
 								<label>姓名</label>
-								<input type="text" value=<?echo $stu_name;?> class="input-xlarge">
+								<input type="text" name="subjects_name" id="subjects_name" value=<?=$row->name;?> class="input-xlarge">
 								<label>性別</label>
-								<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selected" value="-12.0">男</option>
-									<option value="-11.0">女</option>
+								<select name="subjects_sex" name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
+									<option selected="selected" value="2">請選擇</option>
+									<option value="0">女</option>
+									<option value="1">男</option>
 								</select>
 								<label>出生年月日(西元yyyy/mm/dd)</label>
-								<input type="text" value="2006/11/21" class="input-xlarge">
+								<?php
+									if($row->bir == null){?>
+									<input type="text" name="subjects_birth" value=" "class="input-xlarge">
+									<?php }else{?>
+									<input type="text" name="subjects_birth" value=<?=$row->bir;?> class="input-xlarge">
+									<?php }?>
+								
 								<label>所在縣市</label>
-								<input type="text" value="高雄市" class="input-xlarge">
+								<?php
+									if($row->county == null){?>
+									<input type="text" name="subjects_counties" value=" "class="input-xlarge">
+									<?php }else{?>
+									<input type="text" name="subjects_counties" value=<?=$row->county;?> class="input-xlarge">
+									<?php }?>
 								<label>學校</label>
-								<input type="text" value="OO幼稚園" class="input-xlarge">
+								<input type="text" name="subjects_school" value=" " class="input-xlarge">
 								<label>年級</label>
-								<input type="text" value="大班" class="input-xlarge">
+								<?php
+									if($row->grade == null){?>
+									<input type="text" name="subjects_grade" value=" "class="input-xlarge">
+									<?php }else{?>
+									<input type="text" name="subjects_grade" value=" <?=$row->grade;?>" class="input-xlarge">
+									<?php }?>
 								<label>班級</label>
-								<input type="text" value="向日葵班" class="input-xlarge">
-								<!--<label>家中排行</label>
-								<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selected" value="-11.0">長子</option>
-									<option value="-12.0">長女</option>
-									<option value="-13.0">次子</option>
-									<option value="-13.0">次女</option>
-								</select>-->
+								<?php
+									if($row->rank == null){?>
+									<input type="text" name="subjects_class" value=" "class="input-xlarge">
+									<?php }else{?>
+									<input type="text" name="subjects_class" value=<?=$row->rank;?> class="input-xlarge">
+									<?php }?>
 								<label>常用語言</label>
-								<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selecte" value="-12.0">國語</option>
-									<option value="-11.0">台語</option>
-									<option value="-13.0">英語</option>
+								<select name="subjects_language" id="DropDownTimezone" class="input-xlarge">
+									<option selected="selecte" value="0">請選擇</option>
+									<option value="國語">國語</option>
+									<option value="台語">台語</option>
+									<option value="英語">英語</option>
 								</select>
 							</div>
+							 <?php  
+								endforeach;?> 
 						</form>
 
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -91,37 +110,22 @@
 				</div>
 			</div>
 			<script type="text/javascript">
-				var count=1;
-				function OneClick() {
-					document.getElementById('test').disabled = true;
-					document.getElementById('new_people').disabled = false;
-				}
-				function OneClick1() {
-					document.getElementById('test').disabled = false;
-					document.getElementById('new_people').disabled = false;
-				}
-				function OneClick2() {
-					document.getElementById('test').disabled = true;
-					document.getElementById('new_people').disabled = true;
-				}
-				function checkall() {
-					checkboxes = document.getElementsByName('selected');
-					for(var i=0, n=checkboxes.length;i<=n;i++) 
-					{
-						if(i==n){
-							count=count+1;
-						}
-						if((count%2)==0)
+				function testnull(v)
+				{
+					if(v==2)
+					document.dbform.action="<?=base_url("/projectview_admin/project_board")?>/project_id/<?php echo $this->dato['project_id'];?>"; 
+					else if (v==1){
+						if (document.getElementById('subjects_name').value=='')
 						{
-							checkboxes[i].checked = false;
+							alert('null');
+							document.getElementById('subjects_name').focus();
+						}else if(document.getElementById('subjects_name').value!=''){
+							document.dbform.action="<?=base_url("/projectview_admin/modification_data_child")?>/project_id/<?php echo $this->dato['project_id'];?>/child_id/<?php echo $this->dato['child_id']?>"; 
+							$('#tab').closest('form').submit();
 						}
-						elseSubjects
-						{
-							checkboxes[i].checked = true;
-						}
-						
 					}
-				}
+					
+				} 
 			</script>
 			<script src="lib/bootstrap/js/bootstrap.js"></script>
 			<script type="text/javascript">
