@@ -26,10 +26,8 @@
                     
 <div class="btn-toolbar">
     <a id="1"><button class="btn btn-primary" id="new_people" onclick="ButtonClick(1)"><i class="icon-plus"></i>新增權限</button></a>
-    <button class="btn">搜尋</button>
-  <div class="btn-group">
-  </div>
 </div>
+<p><input type="text" name="account" placeholder="名稱"></p>
 <div class="well">
     <table class="table">
       <thead>

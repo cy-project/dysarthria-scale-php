@@ -77,10 +77,10 @@ class Project_model extends CI_Model
 
 	}
 
-	private function getChildData($childid)
+	public function getChildData($childid)
 	{		
 		
-		$this->db->select('`id`,`name`,`sex`,`bir`,`age`,`grade`,`rank`,`language`');
+		$this->db->select('`id`,`name`,`sex`,`bir`,`age`,`grade`,`rank`,`language`,`county`');
 		
 		$this->db->where('id',$childid);
 		
@@ -348,6 +348,13 @@ class Project_model extends CI_Model
 		$this->db->from('children');
 		$result = $this->db->get();
 		return $result->result();
+	}
+	
+	public function updateChild($uid,$array)
+	{
+		$this->db->where('id',$uid);
+		
+		$this->db->update('children',$array);
 	}
 
 }

@@ -21,8 +21,8 @@
 					<tr>
 						<td><?=$row->id?> </td>
 						<td><?=$row->school_name?></td>
-						<td><?=$row->rank?></td>
 						<td><?=$row->grade?></td>
+						<td><?=$row->rank?></td>
 						<td><?=$row->children_name?></td>
 						<td>
 						<?php 

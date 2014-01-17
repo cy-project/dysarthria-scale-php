@@ -19,16 +19,16 @@
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
 						<li><a href="<?=base_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
-						<li><a href="<?=base_url("/projectview_admin/project_board")?>">幼音評測</a> <span class="divider">/</span></li>
+						<li><a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?php echo $project_id;?>"><?php echo $project_name[0]->name;?></a> <span class="divider">/</span></li>
 						<li class="active">新增受測者</li>
 					</ul>
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" action="<?=base_url("/projectview_admin/subjects_data")?>/project_id/<?php echo $_COOKIE['project_id']?>" method="post">
+						<form id="tab" action="" method="post" name="dbform">
 							<div class="btn-toolbar">
-								<button class="btn btn-primary" type="button" onclick="testnull()"><i class="icon-save"></i>新增</button>
-								<a href="<?=base_url("/projectview_admin/project_board")?>"><button class="btn btn-primary">取消</button></a>
+								<button class="btn btn-primary" type="button" onclick="testnull(1)"><i class="icon-save"></i>新增</button>
+								<button class="btn btn-primary" onclick="testnull(2)">取消</button>
 							</div>
 							<div class="well">
 								<label>姓名</label>
@@ -95,15 +95,21 @@
 			</div>
 			<script type="text/javascript">
 				var count=1;
-				function testnull()
+				function testnull(v)
 				{
-					if (document.getElementById('subjects_name').value=='')
-					{
-						alert('null');
-						document.getElementById('subjects_name').focus();
-					}else if(document.getElementById('subjects_name').value!=''){
-						$('#tab').closest('form').submit();
+					if(v==2)
+					document.dbform.action="<?=base_url("/projectview_admin/project_board")?>/project_id/<?php echo $project_id;?>"; 
+					else if (v==1){
+						if (document.getElementById('subjects_name').value=='')
+						{
+							alert('null');
+							document.getElementById('subjects_name').focus();
+						}else if(document.getElementById('subjects_name').value!=''){
+							$('#tab').closest('form').submit();
+						}
+						document.dbform.action="<?=base_url("/projectview_admin/subjects_data")?>/project_id/<?php echo $project_id;?>"; 
 					}
+					
 				} 
 				function OneClick() {
 					document.getElementById('test').disabled = true;

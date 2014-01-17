@@ -36,10 +36,6 @@ class Userapplication extends CI_Controller {
 	}
 	public function newgroup()
 	{
-		echo 'new_group';
-	}
-	public function new_group()
-	{
 		$this->load->view('new-Group');
 	}
 }
