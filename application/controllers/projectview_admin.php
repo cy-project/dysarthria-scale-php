@@ -155,8 +155,7 @@ class projectview_admin extends CI_Controller {
 			'grade' => $subjects_grade,
 			'rank' => $subjects_class,
 			'language' => $subjects_language,
-			'county' => $subjects_counties,
-			'school_id' => $subjects_school
+			'county' => $subjects_counties
 		);
 		/*$child->name = $subjects_name;
 		$child->sex = $subjects_sex;
@@ -189,10 +188,10 @@ class projectview_admin extends CI_Controller {
 	{//修改資料(受測者)]
 		$child_data =  new Project_model();
 		$this->data = $this->uri->uri_to_assoc(3);
-		$this->data = $child_data->getChildData($this->data['child_id']);
+		$this->data = $child_data->getModificationChildrenData($this->data['child_id']);
 		$this->dato = $this->uri->uri_to_assoc(3);
 		$this->dato['project_name'] = $child_data->getProjectName($this->dato['project_id']);
-		$this->load->view('subjects-new-data',$this->dato,$this->data->result());
+		$this->load->view('subjects-new-data',$this->dato,$this->data);
 	}
 	public function subjects_data_new()
 	{//新增受測者畫面

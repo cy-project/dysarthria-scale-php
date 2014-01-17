@@ -31,7 +31,7 @@
 							</div>
 							<div class="well">
 							<?php 
-							foreach($this->data->result() as $row):?>
+							foreach($this->data as $row):?>
 								<label>姓名</label>
 								<input type="text" name="subjects_name" id="subjects_name" value=<?=$row->name;?> class="input-xlarge">
 								<label>性別</label>
@@ -56,7 +56,7 @@
 									<input type="text" name="subjects_counties" value=<?=$row->county;?> class="input-xlarge">
 									<?php }?>
 								<label>學校</label>
-								<input type="text" name="subjects_school" value=" " class="input-xlarge">
+								<input type="text" name="subjects_school" value=<?=$row->school[0]->name;?> class="input-xlarge">
 								<label>年級</label>
 								<?php
 									if($row->grade == null){?>
