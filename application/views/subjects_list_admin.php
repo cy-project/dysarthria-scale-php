@@ -22,6 +22,7 @@
 			$length = count($this->data);
 			for($fix = 0;$fix < $length; $fix++)
 			{
+			if($fix != $length-1){
 		?>
 				<tr>
 					<td id="number_sybjects_<?php echo $fix+1;?>" > <?php echo $this->data[$fix]->id;?> </td>
@@ -30,9 +31,9 @@
 					<td id="class_sybjects_<?php echo $fix+1;?>"><?php echo $this->data[$fix]->grade;?></td>
 					<td id="classname_sybjects_<?php echo $fix+1;?>"><?php echo $this->data[$fix]->rank;?></td>
 					<td id="fraction_dybjects_<?php echo $fix+1;?>"><?php
-						if($this->data[$fix]->rank == 0)
+						if($this->data[$fix]->isupload == 0)
 							echo "未施測";
-							elseif($this->data[$fix]->rank == 1)
+							elseif($this->data[$fix]->isupload == 1)
 							echo "已施測";?>
 					</td>
 					<td id="rater_dybjects_<?php echo $fix+1;?>"><?php echo $this->data[$fix]->rater;?></td>
@@ -43,28 +44,8 @@
 					<a href="<?=base_url("/projectview_admin/subjects_view_group")?>/project_id/<?php echo $project_id;?>/child_id/<?php echo $this->data[$fix]->id;?>"><i class="icon-eye-open"></i></a>
 				</td>
 			</tr>
-		<?php	}?>
+		<?php	}}?>
 												
 		</tbody>
 	</table>
 </div>
-<script>
-	function checkall() {
-				checkboxes = document.getElementsByName('selected');
-				for(var i=0, n=checkboxes.length;i<=n;i++) 
-				{
-					if(i==n){
-						count=count+1;
-					}
-					if((count%2)==0)
-					{
-						checkboxes[i].checked = false;
-					}
-					else
-					{
-						checkboxes[i].checked = true;
-					}
-					
-				}
-			}
-</script>

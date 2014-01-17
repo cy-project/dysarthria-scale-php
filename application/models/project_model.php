@@ -26,7 +26,7 @@ class Project_model extends CI_Model
 	
 	public function getTestingList($pid)
 	{
-		$this->db->select('`children_id`,`rater`,`check`');
+		$this->db->select('`children_id`,`rater`,`check`,`isupload`');
 		$this->db->where('project_id',$pid);
 		$this->db->from('testing_list');
 		
@@ -60,6 +60,8 @@ class Project_model extends CI_Model
 							$rater = $this->getMemberName($row->rater);
 							
 							$children[$idx]->rater = $rater[0]->name;
+							
+							$children[$idx]->isupload = $row->isupload;
 							
 							$children[$idx]->check = $row->check;
 						}
