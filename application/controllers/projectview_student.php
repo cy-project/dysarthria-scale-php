@@ -196,7 +196,7 @@ class projectview_student extends CI_Controller {
 			$result = $test_models->upload_file_identification($testing_id);
 			$children_id = $result[0]->children_id;
 			
-			/*if ($children_id != $upfile_name2)//如果檔名的id跟這位小孩不合
+			if ($children_id != $upfile_name2)//如果檔名的id跟這位小孩不合
 			{
 				$temp = array('upload_data' => $this->upload->data());
 				$path = $temp['upload_data']['full_path'];
@@ -214,7 +214,7 @@ class projectview_student extends CI_Controller {
 				$this->load->view("project_upload",$data);
 			}
 			else
-			{*/
+			{
 				/*system/library/Upload.php line202 暴力破解法!!!*/
 				$data = array('upload_data' => $this->upload->data());
 				
@@ -268,7 +268,7 @@ class projectview_student extends CI_Controller {
 				$data['topics_num'] = $test_models->count_topics();
 				
 				$this->load->view('project_upload',$data);
-			//}
+			}
 		}
 	}
 	
