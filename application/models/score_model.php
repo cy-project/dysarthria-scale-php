@@ -103,6 +103,43 @@ class score_model extends CI_Model
 		
 		}
 		
+		
+		$sqlinto="select count(`topic`.`id`) as number from topic where (`topic`.`id` in( SELECT topic.id FROM testing_list Inner Join project ON testing_list.project_id = project.id Inner Join result ON testing_list.id = result.testing_id Inner Join judg_list ON result.id = judg_list.result_id Inner Join topic ON result.topic_id = topic.id WHERE testing_list.id = '$testing_id' ))";
+			
+		$query4 =$this->db->query($sqlinto); //select
+		
+		$number_testing="";
+		
+		foreach ($query4->result_array() as $row){
+			
+			$number_testing= $row['number'];
+			
+		}
+		
+		$sqlinto2="SELECT
+				count(topic.id) AS number
+				FROM
+				topic";
+				
+		$query5 =$this->db->query($sqlinto2); //select
+		
+		$number_topic="";
+		
+		foreach ($query5->result_array() as $row){
+			
+			$number_topic= $row['number'];
+			
+		}
+		
+		if($number_testing==$number_topic){  //如果評測題已全部評測完畢後，將testing_list的check改為1（這）
+		
+		$upsql="UPDATE `testing_list` SET `check`='1' WHERE (`id`='$testing_id')";
+		$this->db->query($upsql); //select
+		}
+		
+		
+		
+		
 		return $judgment_id;
 		//return $select_sql;
 	}
@@ -209,7 +246,7 @@ topic.part =  '$part_id'";
 	  return $query;
 	}
 	
-	public function Select_score_symbol($result_id){
+	public function Select_score_symbol($result_id){ //ㄅㄆㄇㄈ符號，說故事　（這）
 	
 		$select_sql="SELECT
 result.topic_id,
@@ -270,12 +307,12 @@ Inner Join topic ON result.topic_id = topic.id
 WHERE
 result.testing_id =  '$testing_id' and(".$str.")";
 		
-		$query3 =$this->db->query($select_sql3); //select
+		$query3 =$this->db->query($select_sql3); //（這）select　出　voice_file
 	
 		return $query3;
 	}
 	
-	public function Select_score_words($result_id){
+	public function Select_score_words($result_id){ //句子，數數字，輪替　（這）
 	
 	$select_sql2="SELECT
 			topic.title,
@@ -289,7 +326,7 @@ result.testing_id =  '$testing_id' and(".$str.")";
 			WHERE
 			result.id =  '$result_id'";
 	
-	$query2 =$this->db->query($select_sql2); //select
+	$query2 =$this->db->query($select_sql2);  //（這）select　出　voice_file
 	
 		return $query2;
 	}

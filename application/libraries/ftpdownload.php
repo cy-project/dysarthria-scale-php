@@ -8,7 +8,7 @@ class Ftpdownload
 
 	}
 	
-	public function downloadfile()
+	public function downloadfile($path)
 	{
 		$ftp_server = "192.168.137.79";
 		$ftp_port = 21;
@@ -17,13 +17,19 @@ class Ftpdownload
 		$ftp_path = "/children/";
 		$ftp_mode = FTP_BINARY;
 		
+		$array = explode("/",$path);
+		
 		@$ftp_connect = ftp_connect ($ftp_server, $ftp_port);
 		@ftp_login ($ftp_connect, $ftp_user, $ftp_pass);
 		@ftp_chdir ($ftp_connect, $ftp_path);
 		
-		@ftp_get ($ftp_connect,'D:\\test.zip','test/test.zip',$ftp_mode);
+		$temp_path = 'C:\\xampp/htdocs/dysarthria-scale-php/temp/'.$array[5];
+		
+		@ftp_get ($ftp_connect,$temp_path,$array[4].'/'.$array[5],$ftp_mode);
 		
 		@ftp_close ($ftp_connect);
+		
+		return $temp_path;
 	
 	}
 

@@ -48,9 +48,7 @@
 		
 		
 		if(yes_c==true){
-			
-			ajax_to();
-			
+				ajax_to();	
 		}
 		
 	}
@@ -81,7 +79,6 @@
 				for(j=0;j<=Comparison.length;j++){
 					
 						if(Score_array==Comparison[j]){
-							
 							d=1;
 						}
 						
@@ -110,8 +107,12 @@
 			
 		}else if(Comparison.length>topicsnumber){
 		
-		alertify.alert('您目前選擇的清楚音檔，只有'+Comparison.length+'個音檔(未滿90個清楚音檔)<p><span style="color:red">因此請您再檢查一次!!</span>');
+		alertify.alert('您目前選擇的清楚音檔，只有'+Comparison.length+'個音檔(已超過90個清楚音檔)<p><span style="color:red">因此請您再檢查一次!!</span>');
 		
+		
+		}else if(Comparison.length<topicsnumber){
+
+		alertify.alert('您目前選擇的清楚音檔，只有'+Comparison.length+'個音檔(未滿90個清楚音檔)<p><span style="color:red">因此請您再檢查一次!!</span>');
 		
 		}
 		
@@ -151,7 +152,7 @@
                     $('#loadingIMG').show();
               },complete:function(){
                     $('#loadingIMG').hide();
-                },
+                }
 		});
 		
 	
@@ -221,7 +222,7 @@
 												}
 												?>
 											</td>
-											<td>
+											<td style="width: 400px;">
 												<?php 
 												for($j=0; $j < count($file_name[$i]);$j++)
 												{

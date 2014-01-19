@@ -38,9 +38,9 @@ class score_lib
 		
 		$Strings_note=""; //存1,1,-1,1, 型態
 		
-		for($j=0;$j<sizeof($note_value);$j++){
+		for($w=0;$w<sizeof($note_value);$w++){
 	
-			$Strings_note .=$note_value[$j].",";
+			$Strings_note .=$note_value[$w].",";
 
 		}
 		
@@ -71,6 +71,8 @@ class score_lib
 		$this->data->Add_trace_list($judgment_id,$Standard);
 		//被施測者(小孩)未通過測驗，將資料寫入追蹤名單中(trace_list)
 		}
+		
+		//return $Strings_note."-".$Strings_Scores."-".$Scores_sum;
 		return $Standard;
 	}
 	
@@ -107,6 +109,3 @@ class score_lib
 	}
 	
 }
-
-
-

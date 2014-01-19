@@ -15,19 +15,7 @@ $().ready(function(){
 		sorttables();
 });
 
-/*function mp3s(){
 
-$('a[@href$="mp3"]').flash(
-        { src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
-        { version: 7 },
-        function(htmlOptions) {
-            $this = $(this);
-            htmlOptions.flashvars.file = $this.attr('href');
-            $this.before($.fn.flash.transform(htmlOptions));						
-        }
-    );
-
-}*/
 
 
 function js_Score_ajax(){ // ajax 傳值
@@ -70,11 +58,13 @@ if(booleans==false){
 				//$('#ReturnViews').html(xhr.responseText);
 			  },
 			  success: function(response) {
+			  //alert(response);
 			  //$('#ReturnViews').html(response);
-			  
+			 
 				  if(response==1){
 						
-						alertify.alert('合格，請按下 ok!');parent.topics_ajax(); 
+						alertify.alert('合格，請按下 ok!');
+						parent.topics_ajax(); 
 						parent.jQuery.fancybox.close();  
 				  }else{
 						alertify.alert('不合格，請按下 ok!');
@@ -83,7 +73,12 @@ if(booleans==false){
 				  }
 			   
 				
-			  }
+			  },beforeSend:function(){
+					$('#Score_submit').hide();
+                    $('#loadingIMG').show();
+              },complete:function(){
+                    $('#loadingIMG').hide();
+                }
 		});
 		
 		
@@ -146,11 +141,11 @@ $("#Score_submit").click(function() {
 							 $part=$row->part;
 							endforeach;
 								
-							preg_match_all('/./u', $script, $matches);
 							if($part==4){
 							
-							$matches=$matches[0];
+							preg_match_all('/./u', $script, $matches); //注音切割
 							
+							$matches=$matches[0];
 							for($i=0;$i<sizeof($matches);$i+=2){
 							
 							$j=$i;
@@ -160,8 +155,8 @@ $("#Score_submit").click(function() {
 							
 							$matches=$matches2;
 							}else{
-							
-							$matches=$matches[0];
+				
+							$matches=explode(" ",$script); //數字切割
 							
 							}
 							
@@ -185,7 +180,7 @@ $("#Score_submit").click(function() {
 									 <option value="省略">省略</option>
 									 <option value="替代">替代</option>
 									 <option value="扭曲">扭曲</option>
-									 <option value="最佳">最佳</option>
+									 <option value="贅加">贅加</option>
 									</select>
 								</td>
 							</tr>
@@ -197,6 +192,9 @@ $("#Score_submit").click(function() {
 </table>
 <input type="hidden" id="Topic_id" name="Topic_id[]"  value="<?=$row->id?>"/>
 <button class="btn btn-primary"  id="Score_submit" style="display: inline-block;">確定</button>	
+<div id="loadingIMG" style="display:none"><img src="<?=base_url("/images/ajax-loader.gif")?>" height='14'/>資料處理中，請稍後。</div>
+
+<div id='ReturnViews'></div>
 </div>
 </div>
 </div>
