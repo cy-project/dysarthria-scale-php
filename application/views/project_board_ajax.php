@@ -43,7 +43,7 @@
 						<td>
 
 							<?php if($row->isupload == 0){?> 
-								<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>">上傳</a>
+								<a href="<?=base_url("/projectview_student/project_upload")?>/project_id/<?=$project_id?>/testing_id/<?=$row->id?>/children_id/<?=$row->id?>"><?=$uploadshow[$i]?></a>
 							<?php }elseif($row->isupload == 1){
 
 								echo "   ";

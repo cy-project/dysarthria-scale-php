@@ -27,7 +27,7 @@ class Project_model extends CI_Model
 	public function getTestingList($pid)
 	{
 		$this->db->select('`children_id`,`rater`,`check`,`isupload`');
-		$this->db->where('project_id',$pid);
+		$this->db->where('project_id',$pid);	
 		$this->db->from('testing_list');
 		
 		
@@ -57,7 +57,15 @@ class Project_model extends CI_Model
 							
 							$children[$idx]->$k = $v;
 							
-							$rater = $this->getMemberName($row->rater);
+							if ($row->rater != 0)
+							{							
+								$rater = $this->getMemberName($row->rater);
+								
+							}
+							else 
+							{
+								$rater[0]->name = "尚未配置";
+							}
 							
 							$children[$idx]->rater = $rater[0]->name;
 							
@@ -69,7 +77,6 @@ class Project_model extends CI_Model
 				}
 				$idx++;
 			}
-			
 			return $children;
 		}
 		else

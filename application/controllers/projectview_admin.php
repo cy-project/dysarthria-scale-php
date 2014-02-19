@@ -152,6 +152,7 @@ class projectview_admin extends CI_Controller {
 		$child = array(
 			'name' => $subjects_name,
 			'sex' => $subjects_sex,
+			'bir' => $subjects_birth,
 			'grade' => $subjects_grade,
 			'rank' => $subjects_class,
 			'language' => $subjects_language,
@@ -159,6 +160,7 @@ class projectview_admin extends CI_Controller {
 		);
 		/*$child->name = $subjects_name;
 		$child->sex = $subjects_sex;
+		$child->birth = $subjects_birth;
 		$child->age = 0;
 		$child->grade = $subjects_grade;
 		$child->rank = $subjects_class;
