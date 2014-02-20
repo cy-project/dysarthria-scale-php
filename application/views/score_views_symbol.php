@@ -134,8 +134,8 @@ $("#Score_submit").click(function() {
 				foreach($topic->result() as $row): ?>
 					<tr>
 						<input type="hidden" id="Topic_id" name="Topic_id[]"  value="<?=$row->topic_id?>"/>
-						<td> <?=$row->script?></td>
-						<td> <select id="Score_value" name="Score_value[]">
+						<td><?=$row->script?></td>
+						<td><select id="Score_value" name="Score_value[]" style="width: 120px;" />
 						 <option value="1">正確</option>
 						 <option value="0">不清楚</option>
 						 <option value="-1">不正確</option>
@@ -146,7 +146,7 @@ $("#Score_submit").click(function() {
 						  <input type="hidden" id="wavget-<?php echo $temp;?>" value="<?=$row->voice_file?>" />
 						  </p>
 						</td>
-						<td><select id="note_value" name="note_value[]">
+						<td><select id="note_value" name="note_value[]" style="width: 120px;" />
 						 <option value="無">無</option>
 						 <option value="省略">省略</option>
 						 <option value="替代">替代</option>

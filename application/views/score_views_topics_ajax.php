@@ -64,7 +64,7 @@
 						<?php if($row->istrace=="0"){?>
 							已被追蹤
 						<?php }else{ ?>
-							檢測通過，但尚未被追蹤
+							檢測通過
 						<?php }?>
 						</td>
 						<td>

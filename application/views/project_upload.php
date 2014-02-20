@@ -222,7 +222,7 @@
 												}
 												?>
 											</td>
-											<td>
+											<td style="width: 400px;">
 												<?php 
 												for($j=0; $j < count($file_name[$i]);$j++)
 												{
