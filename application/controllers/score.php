@@ -62,12 +62,17 @@ class score extends CI_Controller {
 	public function score_views_children(){//針對專案找出幼兒的相關資料
 		$this->load->helper('url');
 		$this->load->library('score_lib');
-		
+		$this->load->library('permission');
 		$score= new score_lib();	
-			
+		$permission= new permission();
 
+		
 		$data = $this->uri->uri_to_assoc(3);
 
+
+		$data['permission_check']=$permission->select_people_Permission($data['member_id'],$data['project_id']);
+		
+		//print_r($data);
 		$data['children']=$score->score_children($data['project_id']);
 		
 		$this->load->view('score_views_children',$data);
