@@ -46,15 +46,15 @@
 					<td><?php if($row->check==1){echo "檢測完畢";}else{"尚未檢測";}?></td>
 					<td>
 							
-					<?php if($row->check==0){ echo $permission_check;?>
+					<?php if($row->check==0){ ?>
 					
 					<?php if($permission_check==1){ ?>
 						<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>/testing_list_id/<?=$row->testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>" title="(實習)語言自療師"><i class="icon-pencil"></i></a>
 						<?php }elseif($permission_check==2){?>
 						<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>/testing_list_id/<?=$row->testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>" title="語言自療師" ><i class="icon-user" ></i></a>
 						<?php }?>
-						
-						<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>/testing_list_id/<?=$row->testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>" title="觀察檢測結果" ><i class="icon-list"></i></a>
+						<!--
+						<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>/testing_list_id/<?=$row->testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>" title="觀察檢測結果" ><i class="icon-list"></i></a>-->
 						
 					<?php }else{ echo"評測結束";}?>
 					</td>
