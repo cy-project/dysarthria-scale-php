@@ -6,14 +6,49 @@ class score_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->library('permission');
 	}
 	
 	public function Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id) //紀錄施測者評分結果 (寫入judgment 表單資料)
 	{
+	
+		$sql_project_id="SELECT
+testing_list.project_id as `project_id`
+FROM
+result
+INNER JOIN testing_list ON result.testing_id = testing_list.id
+WHERE
+result.id = '".$result_id."' 
+ AND
+result.topic_id = '".$topic_id."'
+GROUP BY
+testing_list.project_id";
+		
+		$project_id="";
+		
+		$query_project_id =$this->db->query($sql_project_id); //select
+		
+		foreach ($query_project_id->result_array() as $row)
+		{
+		  $project_id= $row['project_id'];
+		}
+		
+		
+		$permission = new permission();
+		
+		$permission_check=$permission->select_people_Permission($member_id,$project_id);
+		
 		$Today=date("Y-m-d H:i:s");
 		
-		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`,`note`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard','$Strings_note')";
-			
+		if($permission_check==2){
+		
+		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`,`note`,`available`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard','$Strings_note','1')";
+		
+		}else{
+		
+		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`,`note`,`available`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard','$Strings_note','0')";
+		
+		}	
 		$this->db->query($sql); //add
 		
 		$select_sql="select `id` from `judgment` where `detect`='$member_id' and `date`='$Today' and `result`= '$Scores_sum'  and `wrongcode`='$Strings_Scores' and `istrace`='$Standard' and `note`='$Strings_note'";
@@ -140,7 +175,7 @@ class score_model extends CI_Model
 		
 		
 		
-		return $judgment_id;
+		return $judgment_id."-".$permission_check;
 		//return $select_sql;
 	}
 	

@@ -9,6 +9,7 @@ class score_lib
 		$CI = & get_instance();
 		$CI->load->model('score_model');
 		$CI->load->model('rules_model');
+		
 		$this->data = new score_model(); // 宣告 model
 	}
 	/* 檢測者計算公式 */
@@ -64,9 +65,15 @@ class score_lib
 					
 		}
 		
-		$judgment_id=$this->data->Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id); //紀錄施測者評分結果 (寫入judgment 表單資料)
+		$return_check=$this->data->Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id); //紀錄施測者評分結果 (寫入judgment 表單資料)
 		
-		if($Standard==0){
+		$arrays=explode("-",$return_check);
+		
+		$judgment_id=$arrays[0];
+		
+		$permission_check=$arrays[1];
+		
+		if(($Standard==0)&&($permission_check==2)){
 		
 		$this->data->Add_trace_list($judgment_id,$Standard);
 		//被施測者(小孩)未通過測驗，將資料寫入追蹤名單中(trace_list)
