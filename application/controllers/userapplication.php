@@ -1,42 +1,27 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Userapplication extends CI_Controller {
-
+	var $data = array();
 	function __construct()
 	{
 		parent::__construct();
 		session_start();
-	
+		$this->load->model('Project_model');
 	}
 
 	public function users()
 	{
-		$this->load->helper('url');
 		$this->load->view('users');
-	}
-	public function head()
-	{
-		$this->load->helper('url');
-		$this->load->view('head');
-	}
-	public function navbar()
-	{
-		$this->load->helper('url');
-		$this->load->view('navbar');
-	}
-	public function sidebar()
-	{
-		$this->load->helper('url');
-		$this->load->view('sidebar-nav');
 	}
 	public function usersadmin()
 	{
-		$this->load->helper('url');
 		$this->load->view('users-admin');
 	}
 	public function newgroup()
 	{
-		$this->load->view('new-Group');
+		$GroupDetails = new Project_model();
+		$this->data = $GroupDetails->getGroupDetails();
+		$this->load->view('new-Group',$this->data);
 	}
 }
 
