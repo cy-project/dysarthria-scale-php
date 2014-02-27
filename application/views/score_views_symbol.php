@@ -11,23 +11,11 @@ $().ready(function(){
 //初始化載入
 		js_Score_click();
 		wav();
-		//mp3s();
+		
 		sorttables();
 });
 
-/*function mp3s(){
 
-$('a[@href$="mp3"]').flash(
-        { src: '<?=base_url("/js/singlemp3player.swf")?>', height: 50, width: 100 },
-        { version: 7 },
-        function(htmlOptions) {
-            $this = $(this);
-            htmlOptions.flashvars.file = $this.attr('href');
-            $this.before($.fn.flash.transform(htmlOptions));						
-        }
-    );
-
-}*/
 
 
 function js_Score_ajax(){ // ajax 傳值
@@ -88,7 +76,13 @@ if(booleans==false){
 				  
 				  }
 				
-			  }
+			  },beforeSend:function(){
+                   $('#Score_submit').hide();
+                    $('#loadingIMG').show();
+                },
+                complete:function(){
+                    $('#loadingIMG').hide();
+                }
 		});
 		
 		
@@ -135,12 +129,13 @@ $("#Score_submit").click(function() {
 				</thead>
 				<tbody>
 				<?php 
+				//echo "dsds";
 				$temp = 1;
 				foreach($topic->result() as $row): ?>
 					<tr>
 						<input type="hidden" id="Topic_id" name="Topic_id[]"  value="<?=$row->topic_id?>"/>
-						<td> <?=$row->script?></td>
-						<td> <select id="Score_value" name="Score_value[]">
+						<td><?=$row->script?></td>
+						<td><select id="Score_value" name="Score_value[]" style="width: 120px;" />
 						 <option value="1">正確</option>
 						 <option value="0">不清楚</option>
 						 <option value="-1">不正確</option>
@@ -151,12 +146,12 @@ $("#Score_submit").click(function() {
 						  <input type="hidden" id="wavget-<?php echo $temp;?>" value="<?=$row->voice_file?>" />
 						  </p>
 						</td>
-						<td><select id="note_value" name="note_value[]">
+						<td><select id="note_value" name="note_value[]" style="width: 120px;" />
 						 <option value="無">無</option>
 						 <option value="省略">省略</option>
 						 <option value="替代">替代</option>
 						 <option value="扭曲">扭曲</option>
-						 <option value="最佳">最佳</option>
+						 <option value="贅加">贅加</option>
 						</select></td>
 					</tr>
 					<?php 
@@ -165,6 +160,7 @@ $("#Score_submit").click(function() {
 				</tbody>
 </table>
 <button class="btn btn-primary"  id="Score_submit" style="display: inline-block;">確定</button>		
+<div id="loadingIMG" style="display:none"><img src="<?=base_url("/images/ajax-loader.gif")?>" height='14'/>資料處理中，請稍後。</div>
 <div id='ReturnViews'></div>						
 </div>
 </div>

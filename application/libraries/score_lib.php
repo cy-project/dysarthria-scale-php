@@ -9,6 +9,7 @@ class score_lib
 		$CI = & get_instance();
 		$CI->load->model('score_model');
 		$CI->load->model('rules_model');
+		
 		$this->data = new score_model(); // 宣告 model
 	}
 	/* 檢測者計算公式 */
@@ -38,9 +39,9 @@ class score_lib
 		
 		$Strings_note=""; //存1,1,-1,1, 型態
 		
-		for($j=0;$j<sizeof($note_value);$j++){
+		for($w=0;$w<sizeof($note_value);$w++){
 	
-			$Strings_note .=$note_value[$j].",";
+			$Strings_note .=$note_value[$w].",";
 
 		}
 		
@@ -64,20 +65,28 @@ class score_lib
 					
 		}
 		
-		$judgment_id=$this->data->Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id); //紀錄施測者評分結果 (寫入judgment 表單資料)
+		$return_check=$this->data->Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id); //紀錄施測者評分結果 (寫入judgment 表單資料)
 		
-		if($Standard==0){
+		$arrays=explode("-",$return_check);
+		
+		$judgment_id=$arrays[0];
+		
+		$permission_check=$arrays[1];
+		
+		if(($Standard==0)&&($permission_check==2)){
 		
 		$this->data->Add_trace_list($judgment_id,$Standard);
 		//被施測者(小孩)未通過測驗，將資料寫入追蹤名單中(trace_list)
 		}
+		
+		//return $Strings_note."-".$Strings_Scores."-".$Scores_sum;
 		return $Standard;
 	}
 	
 	
 	/* 取出專案裡面全部小孩子的資料 */
-	public function score_children($project_id){
-		$children_data=$this->data->select_children_list($project_id);
+	public function score_children($project_id,$member_id,$permission_check){
+		$children_data=$this->data->select_children_list($project_id,$member_id,$permission_check);
 		return $children_data;
 	}
 	/*  取出專案找出幼兒的檢測主題 */
@@ -107,6 +116,3 @@ class score_lib
 	}
 	
 }
-
-
-

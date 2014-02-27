@@ -6,14 +6,49 @@ class score_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->library('permission');
 	}
 	
 	public function Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id) //紀錄施測者評分結果 (寫入judgment 表單資料)
 	{
+	
+		$sql_project_id="SELECT
+testing_list.project_id as `project_id`
+FROM
+result
+INNER JOIN testing_list ON result.testing_id = testing_list.id
+WHERE
+result.id = '".$result_id."' 
+ AND
+result.topic_id = '".$topic_id."'
+GROUP BY
+testing_list.project_id";
+		
+		$project_id="";
+		
+		$query_project_id =$this->db->query($sql_project_id); //select
+		
+		foreach ($query_project_id->result_array() as $row)
+		{
+		  $project_id= $row['project_id'];
+		}
+		
+		
+		$permission = new permission();
+		
+		$permission_check=$permission->select_people_Permission($member_id,$project_id);
+		
 		$Today=date("Y-m-d H:i:s");
 		
-		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`,`note`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard','$Strings_note')";
-			
+		if($permission_check==2){
+		
+		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`,`note`,`available`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard','$Strings_note','1')";
+		
+		}else{
+		
+		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`,`note`,`available`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard','$Strings_note','0')";
+		
+		}	
 		$this->db->query($sql); //add
 		
 		$select_sql="select `id` from `judgment` where `detect`='$member_id' and `date`='$Today' and `result`= '$Scores_sum'  and `wrongcode`='$Strings_Scores' and `istrace`='$Standard' and `note`='$Strings_note'";
@@ -103,7 +138,57 @@ class score_model extends CI_Model
 		
 		}
 		
-		return $judgment_id;
+		
+		$sqlinto="select count(`topic`.`id`) as number from topic where (`topic`.`id` in( SELECT topic.id FROM testing_list Inner Join project ON testing_list.project_id = project.id Inner Join result ON testing_list.id = result.testing_id Inner Join judg_list ON result.id = judg_list.result_id Inner Join topic ON result.topic_id = topic.id WHERE testing_list.id = '$testing_id' ))";
+			
+		$query4 =$this->db->query($sqlinto); //select
+		
+		$number_testing="";
+		
+		foreach ($query4->result_array() as $row){
+			
+			$number_testing= $row['number'];
+			
+		}
+		
+		$sqlinto2="SELECT
+				count(topic.id) AS number
+				FROM
+				topic";
+				
+		$query5 =$this->db->query($sqlinto2); //select
+		
+		$number_topic="";
+		
+		foreach ($query5->result_array() as $row){
+			
+			$number_topic= $row['number'];
+			
+		}
+		
+		if($permission_check==2){
+		
+			if($number_testing==$number_topic){  //如果評測題已全部評測完畢後，將testing_list的check改為1（這）
+			
+				$upsql="UPDATE `testing_list` SET `detect_check`='1' WHERE (`id`='$testing_id')";
+				
+				$this->db->query($upsql); //select
+			
+			}
+		
+		}else{
+		
+			if($number_testing==$number_topic){  //如果評測題已全部評測完畢後，將testing_list的check改為1（這）
+			
+				$upsql="UPDATE `testing_list` SET `check`='1' WHERE (`id`='$testing_id')";
+				
+				$this->db->query($upsql); //select
+			
+			}
+		}
+		
+		
+		return $judgment_id."-".$permission_check;
 		//return $select_sql;
 	}
 	
@@ -118,32 +203,54 @@ class score_model extends CI_Model
 	
 	}
 	
-	public function select_children_list($project_id){
+	public function select_children_list($project_id,$member_id,$permission_check){
 	
-		$sql="SELECT
+	
+	$sql="SELECT
 					testing_list.id AS testing_list_id,
-					testing_list.project_id,
-					testing_list.children_id,
-					testing_list.rater,
-					testing_list.`check`,
-					children.name as children_name,
-					children.sex,
-					children.bir,
-					school.name as school_nam,
-					children.grade,
-					children.rank,
-					children.language,
-					member.name as member_namee 
-					FROM
+testing_list.project_id,
+testing_list.children_id,
+testing_list.rater,
+testing_list.`check`,
+children.name AS children_name,
+children.sex,
+children.bir,
+school.name AS school_nam,
+children.grade,
+children.rank,
+children.language,
+member.name AS member_namee,
+testing_list.detect_check
+FROM
 					testing_list
 					Inner Join children ON testing_list.children_id = children.id
 					Inner Join member ON testing_list.rater = member.id
 					Inner Join school ON children.school_id = school.id
-					WHERE
-					testing_list.project_id =  '$project_id'";
+WHERE
+testing_list.project_id =  '".$project_id."'";
+	
+	
+	
+	
+	
+	//$permission_check : 1.實習語言治療師 2.語言治療師 3.沒有權限
+	
+		if($permission_check ==1){
+		
+			$sql.=" AND testing_list.rater =  '".$member_id."'";
+			
+			}elseif($permission_check ==2){
+		
+			$sql.=" AND testing_list.detect =  '".$member_id."'";
+		}
+	
+		
 			
 		$query=$this->db->query($sql);
+		
+		
 		return $query;
+		
 	}
 	
 		public function select_part_list(){
@@ -209,7 +316,7 @@ topic.part =  '$part_id'";
 	  return $query;
 	}
 	
-	public function Select_score_symbol($result_id){
+	public function Select_score_symbol($result_id){ //ㄅㄆㄇㄈ符號，說故事　（這）
 	
 		$select_sql="SELECT
 result.topic_id,
@@ -270,12 +377,12 @@ Inner Join topic ON result.topic_id = topic.id
 WHERE
 result.testing_id =  '$testing_id' and(".$str.")";
 		
-		$query3 =$this->db->query($select_sql3); //select
+		$query3 =$this->db->query($select_sql3); //（這）select　出　voice_file
 	
 		return $query3;
 	}
 	
-	public function Select_score_words($result_id){
+	public function Select_score_words($result_id){ //句子，數數字，輪替　（這）
 	
 	$select_sql2="SELECT
 			topic.title,
@@ -289,7 +396,7 @@ result.testing_id =  '$testing_id' and(".$str.")";
 			WHERE
 			result.id =  '$result_id'";
 	
-	$query2 =$this->db->query($select_sql2); //select
+	$query2 =$this->db->query($select_sql2);  //（這）select　出　voice_file
 	
 		return $query2;
 	}

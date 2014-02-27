@@ -39,8 +39,8 @@
 							<li name="board"><a id="track_list_menu" href="#track_list" data-toggle="tab" onclick="OneClick(4)">追蹤名單</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-								<div class="tab-pane fade" id="chit" ><!--受測者-->
-								</div>
+							<div class="tab-pane fade" id="chit" ><!--受測者-->
+							</div>
 							<div class="tab-pane active in" id="project_members"><!--專案成員-->
 							</div>
 							<div class="tab-pane fade" id="application"><!--申請者-->

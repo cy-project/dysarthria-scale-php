@@ -1,2 +1,5 @@
 # database config
 application/config/database.php
+temp/
+uploads/
+SCHEDULE/

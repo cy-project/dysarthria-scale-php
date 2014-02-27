@@ -33,50 +33,82 @@
 							<?php 
 							foreach($this->data as $row):?>
 								<label>姓名</label>
-								<input type="text" name="subjects_name" id="subjects_name" value=<?=$row->name;?> class="input-xlarge">
+								<input type="text" name="subjects_name" id="subjects_name" value="<?=$row->name;?>" class="input-xlarge">
 								<label>性別</label>
 								<select name="subjects_sex" name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selected" value="2">請選擇</option>
-									<option value="0">女</option>
+								<?php if ($row->sex == 0) {?>
+									<option selected="selected" value="0">請選擇</option>
+									<option value="2">女</option>
 									<option value="1">男</option>
+								<?php }
+									  elseif ($row->sex == 1) { ?>
+									<option value="0">請選擇</option>
+									<option value="2">女</option>
+									<option selected="selected" value="1">男</option>
+								<?php }
+									  else {?>
+									<option value="0">請選擇</option>
+									<option selected="selected" value="2">女</option>
+									<option value="1">男</option>
+								<?php } ?>
 								</select>
-								<label>出生年月日(西元yyyy/mm/dd)</label>
+								<label>出生年月日(西元yyyy-mm-dd)</label>
 								<?php
 									if($row->bir == null){?>
-									<input type="text" name="subjects_birth" value=" "class="input-xlarge">
+									<input type="text" name="subjects_birth" value="" class="input-xlarge">
 									<?php }else{?>
-									<input type="text" name="subjects_birth" value=<?=$row->bir;?> class="input-xlarge">
+									<input type="text" name="subjects_birth" value="<?=$row->bir;?>" class="input-xlarge">
 									<?php }?>
 								
 								<label>所在縣市</label>
 								<?php
 									if($row->county == null){?>
-									<input type="text" name="subjects_counties" value=" "class="input-xlarge">
+									<input type="text" name="subjects_counties" value="" class="input-xlarge">
 									<?php }else{?>
-									<input type="text" name="subjects_counties" value=<?=$row->county;?> class="input-xlarge">
+									<input type="text" name="subjects_counties" value="<?=$row->county;?>" class="input-xlarge">
 									<?php }?>
 								<label>學校</label>
-								<input type="text" name="subjects_school" value=<?=$row->school[0]->name;?> class="input-xlarge">
+								<input type="text" name="subjects_school" value="<?=$row->school[0]->name;?>" class="input-xlarge">
 								<label>年級</label>
 								<?php
 									if($row->grade == null){?>
-									<input type="text" name="subjects_grade" value=" "class="input-xlarge">
+									<input type="text" name="subjects_grade" value="" class="input-xlarge">
 									<?php }else{?>
-									<input type="text" name="subjects_grade" value=" <?=$row->grade;?>" class="input-xlarge">
+									<input type="text" name="subjects_grade" value="<?=$row->grade;?>" class="input-xlarge">
 									<?php }?>
 								<label>班級</label>
 								<?php
 									if($row->rank == null){?>
-									<input type="text" name="subjects_class" value=" "class="input-xlarge">
+									<input type="text" name="subjects_class" value="" class="input-xlarge">
 									<?php }else{?>
-									<input type="text" name="subjects_class" value=<?=$row->rank;?> class="input-xlarge">
+									<input type="text" name="subjects_class" value="<?=$row->rank;?>" class="input-xlarge">
 									<?php }?>
 								<label>常用語言</label>
 								<select name="subjects_language" id="DropDownTimezone" class="input-xlarge">
-									<option selected="selecte" value="0">請選擇</option>
+								<?php if ($row->language == "0") { ?>
+									<option selected="selected" value="0">請選擇</option>
 									<option value="國語">國語</option>
 									<option value="台語">台語</option>
 									<option value="英語">英語</option>
+								<?php } 
+									  else if ($row->language == "國語") { ?>
+									<option value="0">請選擇</option>
+									<option selected="selected" value="國語">國語</option>
+									<option value="台語">台語</option>
+									<option value="英語">英語</option>
+								<?php }
+									  else if ($row->language == "台語") { ?>
+									<option value="0">請選擇</option>
+									<option value="國語">國語</option>
+									<option selected="selected" value="台語">台語</option>
+									<option value="英語">英語</option>
+								<?php }
+									  else { ?>
+									<option value="0">請選擇</option>
+									<option value="國語">國語</option>
+									<option value="台語">台語</option>
+									<option selected="selected" value="英語">英語</option>
+								<?php } ?>
 								</select>
 							</div>
 							 <?php  

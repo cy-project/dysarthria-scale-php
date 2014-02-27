@@ -20,7 +20,7 @@
 			<tbody>
 			<?php 
 			 foreach($children->result() as $row): 
-			 if($row->member_namee == $_SESSION["username"]){
+			 //if($row->member_namee == $_SESSION["username"]){
 			 ?>
 				<tr>
 					<td><?=$row->testing_list_id?></td>
@@ -43,15 +43,33 @@
 					
 					<td><?=$row->member_namee?></td>
 					
-					<td><?php if($row->check==1){echo "檢測完畢";}else{"尚未檢測";}?></td>
+					<td><?php if(($row->check==1)&&($row->detect_check==1)){echo "檢測完畢";}else{ echo"尚未檢測完畢";}?></td>
 					<td>
 							
-					<?php if($row->check==0){?>
-						<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>/testing_list_id/<?=$row->testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>"><i class="icon-pencil"></i></a>
-					<?php }else{ echo"評測結束";}?>
+					
+					
+					<?php if($permission_check==1){ ?>
+					
+						<?php if($row->check==0){ ?>
+						<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>/testing_list_id/<?=$row->testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>" title="(實習)語言自療師"><i class="icon-pencil"></i></a>
+						
+						<?php }else{ echo"評測結束";}?>
+						
+						<?php }elseif($permission_check==2){?>
+						
+						<?php if($row->detect_check==0){ ?>
+						<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>/testing_list_id/<?=$row->testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>" title="語言自療師" ><i class="icon-user" ></i></a>
+						
+						<?php }else{ echo"評測結束";}?>
+						
+						<?php }?>
+						<!--
+						<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>/testing_list_id/<?=$row->testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>" title="觀察檢測結果" ><i class="icon-list"></i></a>-->
+						
+					
 					</td>
 					<?php  
-					}
+					//}
 					endforeach;?> 	
 				</tr>
 			</tbody>

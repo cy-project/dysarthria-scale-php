@@ -19,16 +19,19 @@ class Sheep extends CI_Controller
 	public function index()
 	{
 		
+
 		/*$ftp = new Ftpdownload();
 		$ftp->downloadfile();*/
 		
-		$data[] = new Datamodel();
+		$data = new Datamodel();
 		
 		$up = new Uploadfiles();
 		
 		
+
 	//	$data[0]->filepath = ".//test.zip";
-		$data[0]->filepath = base_url("Deczip.class");
+		$data->filepath = base_url("Deczip.class");
+
 		//echo $data[0]->filepath;
 		
 		$up->uploadFiles($data);
@@ -74,7 +77,7 @@ class Sheep extends CI_Controller
 		/*
 		 $dm = new Dispatch_json;
 
-		 $dm->dispatch(1,1);
+		 $dm->dispatch(10,2);
 	
 		//echo 'test';
 		

@@ -22,7 +22,7 @@ class Upload_model extends CI_Model
 		$this->db->insert('result');
 		
 		
-		$input = array('check'=>1);
+		$input = array('isupload'=>1);
 		
 		$this->db->where('id',$data->testing_id);
 		
