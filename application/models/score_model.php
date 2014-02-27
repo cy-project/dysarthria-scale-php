@@ -166,13 +166,26 @@ testing_list.project_id";
 			
 		}
 		
-		if($number_testing==$number_topic){  //如果評測題已全部評測完畢後，將testing_list的check改為1（這）
+		if($permission_check==2){
 		
-		$upsql="UPDATE `testing_list` SET `check`='1' WHERE (`id`='$testing_id')";
-		$this->db->query($upsql); //select
+			if($number_testing==$number_topic){  //如果評測題已全部評測完畢後，將testing_list的check改為1（這）
+			
+				$upsql="UPDATE `testing_list` SET `detect_check`='1' WHERE (`id`='$testing_id')";
+				
+				$this->db->query($upsql); //select
+			
+			}
+		
+		}else{
+		
+			if($number_testing==$number_topic){  //如果評測題已全部評測完畢後，將testing_list的check改為1（這）
+			
+				$upsql="UPDATE `testing_list` SET `check`='1' WHERE (`id`='$testing_id')";
+				
+				$this->db->query($upsql); //select
+			
+			}
 		}
-		
-		
 		
 		
 		return $judgment_id."-".$permission_check;
@@ -190,32 +203,54 @@ testing_list.project_id";
 	
 	}
 	
-	public function select_children_list($project_id){
+	public function select_children_list($project_id,$member_id,$permission_check){
 	
-		$sql="SELECT
+	
+	$sql="SELECT
 					testing_list.id AS testing_list_id,
-					testing_list.project_id,
-					testing_list.children_id,
-					testing_list.rater,
-					testing_list.`check`,
-					children.name as children_name,
-					children.sex,
-					children.bir,
-					school.name as school_nam,
-					children.grade,
-					children.rank,
-					children.language,
-					member.name as member_namee 
-					FROM
+testing_list.project_id,
+testing_list.children_id,
+testing_list.rater,
+testing_list.`check`,
+children.name AS children_name,
+children.sex,
+children.bir,
+school.name AS school_nam,
+children.grade,
+children.rank,
+children.language,
+member.name AS member_namee,
+testing_list.detect_check
+FROM
 					testing_list
 					Inner Join children ON testing_list.children_id = children.id
 					Inner Join member ON testing_list.rater = member.id
 					Inner Join school ON children.school_id = school.id
-					WHERE
-					testing_list.project_id =  '$project_id'";
+WHERE
+testing_list.project_id =  '".$project_id."'";
+	
+	
+	
+	
+	
+	//$permission_check : 1.實習語言治療師 2.語言治療師 3.沒有權限
+	
+		if($permission_check ==1){
+		
+			$sql.=" AND testing_list.rater =  '".$member_id."'";
+			
+			}elseif($permission_check ==2){
+		
+			$sql.=" AND testing_list.detect =  '".$member_id."'";
+		}
+	
+		
 			
 		$query=$this->db->query($sql);
+		
+		
 		return $query;
+		
 	}
 	
 		public function select_part_list(){

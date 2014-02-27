@@ -85,8 +85,8 @@ class score_lib
 	
 	
 	/* 取出專案裡面全部小孩子的資料 */
-	public function score_children($project_id){
-		$children_data=$this->data->select_children_list($project_id);
+	public function score_children($project_id,$member_id,$permission_check){
+		$children_data=$this->data->select_children_list($project_id,$member_id,$permission_check);
 		return $children_data;
 	}
 	/*  取出專案找出幼兒的檢測主題 */

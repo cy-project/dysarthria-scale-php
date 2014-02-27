@@ -68,12 +68,14 @@ class score extends CI_Controller {
 
 		
 		$data = $this->uri->uri_to_assoc(3);
-
+		
+		
 
 		$data['permission_check']=$permission->select_people_Permission($data['member_id'],$data['project_id']);
 		
-		//print_r($data);
-		$data['children']=$score->score_children($data['project_id']);
+		$data['children'] = $score->score_children($data['project_id'],$data['member_id'],$data['permission_check']);
+		
+		
 		
 		$this->load->view('score_views_children',$data);
 	

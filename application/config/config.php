@@ -17,7 +17,7 @@
 
 
 
-$config['base_url']	= 'http://192.168.137.64/dysarthria-scale-php/';
+$config['base_url']	= 'http://120.119.77.32/dysarthria-scale-php/';
 
 
 
