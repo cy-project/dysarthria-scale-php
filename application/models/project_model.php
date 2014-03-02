@@ -6,7 +6,6 @@ class Project_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->library('Datamodel');
-		$this->load->library('Reorder');
 		$this->load->database();
 	}
 	
@@ -395,15 +394,7 @@ class Project_model extends CI_Model
 		$this->db->update('children',$array);
 	}
 	
-	public function getGroupDetails(){
-		$this->db->select('`name`,`type`');
-		$this->db->from('permission');
-		$result = $this->db->get();
-		$sortfunction = new Reorder();
-		$sortdata = $sortfunction->GroupSort($result->result());
-		$againsortdata = $sortfunction->AgainSort($sortdata);
-		return $againsortdata;
-	}
+	
 
 }
 

@@ -177,6 +177,57 @@ permission.id = '15'"; //檢測可信度
 		
 	
 	}
+	
+	public function getGroupDetails(){
+		$this->load->library('Reorder');
+		$this->db->select('`name`,`type`');
+		$this->db->from('permission');
+		$result = $this->db->get();
+		$sortfunction = new Reorder();
+		$sortdata = $sortfunction->GroupSort($result->result());
+		$againsortdata = $sortfunction->AgainSort($sortdata);
+		return $againsortdata;
+	}
+	
+	public function getGroupDetails1(){
+		$this->load->library('Reorder');
+		$this->db->select('`name`,`type`,`id`');
+		$this->db->from('permission');
+		$result = $this->db->get();
+		$sortfunction = new Reorder();
+		$sortdata = $sortfunction->GroupSort1($result->result());
+		$againsortdata = $sortfunction->AgainSort($sortdata);
+		return $againsortdata;
+	}
+	
+	public function getPermisstionListData(){
+		$this->db->select('`id`,`name`');
+		$this->db->from('group');
+		$groupdata = $this->db->get();
+		
+		
+		
+		if ($groupdata->num_rows > 0)
+			{
+				$length = count($groupdata->result());
+				print_r($length);
+			}
+		else
+		{
+			return 0;
+		}
+		
+		//return $groupdata->result();
+	}
+	
+	public function getGroupCountData($id){
+		$this->db->select('`people_list_id`');
+		$this->db->from('permission_list');
+		$this->db->where('group_id',$id);
+		$GroupPelpleListData = $this->db->get();
+		$count = count($GroupPelpleListData->result());
+		return $count;
+	}
 
 }
 

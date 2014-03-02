@@ -24,11 +24,10 @@
 
 			<div class="container-fluid">
 				<div class="row-fluid">
-                    
 					<div class="btn-toolbar">
-						<a id="1"><button class="btn btn-primary" id="new_people" onclick="ButtonClick(1)"><i class="icon-plus"></i>新增權限</button></a>
+						<button class="btn btn-primary" id="new_group" onclick="NewGroup()"><i class="icon-plus"></i>新增權限</button>
 					</div>
-					<p><input type="text" name="appellation" placeholder="名稱"></p>
+					<p><input type="text" name="appellation" id="inputname" placeholder="名稱"></p>
 					<div class="row-fluid">
 						<div class="block">
 							<?php 
@@ -48,7 +47,7 @@
 									$length3 = count($this->data[$count1][$count2]);
 									echo "<div class='pull-left span4 unstyled'>";
 									for($count3 = 0;$count3<$length3;$count3++){
-										echo "<p><samp>".$this->data[$count1][$count2][$count3]."</samp><input type='checkbox'></p>";
+										echo "<p><samp>".$this->data[$count1][$count2][$count3]."</samp><input type='checkbox' value='".$this->datoem[$count1][$count2][$count3]."' name='Permissions_option[]'></p>";
 									}
 									echo "</div>";
 								}
@@ -101,11 +100,39 @@
 
 		<script src="lib/bootstrap/js/bootstrap.js"></script>
 		<script type="text/javascript">
+			function NewGroup()
+				{
+					var URLs='<?=base_url("/userapplication/insertGroup")?>';
+					var count = $("#inputname").val();
+					var groupname = $("#inputname").val();
+					var PermissionsOption = $('input:checkbox:checked[name="Permissions_option[]"]').map(function() { return $(this).val(); }).get();
+					if(count == ""|| PermissionsOption == ""){
+						count = 2;
+						alert("內容有缺");
+					}
+					else
+						count = 1;
+					$.ajax({
+						url: URLs,
+						data: {'number': count,'permissions_option':PermissionsOption,'groupname':groupname},
+						type:"POST",
+						dataType:'text',
+						success: function(msg){
+							document.location.href='<?=base_url("/userapplication/")?>'+msg;
+						},
+						error:function(xhr, ajaxOptions, thrownError){
+							alert(xhr.status);
+							alert(thrownError);
+						}
+					});
+					
+				}
 			$("[rel=tooltip]").tooltip();
 			$(function() {
 				$('.demo-cancel-click').click(function(){return false;});
 			});
 		</script>
+		
     
 	</body>
 </html>
