@@ -52,9 +52,10 @@ class score extends CI_Controller {
 		$member_id = $this->input->post('member_id'); //施測者
 		
 		$topic_id = $this->input->post('topic_id');
+		$project_id = $this->input->post('project_id');
 		
 		
-		echo $score->score_calculate($score_value,$note_value,$topic_id,$result_id,$member_id); //印出給ajax接收 (未通過0 false，通過1 ture)
+		echo $score->score_calculate($score_value,$note_value,$topic_id,$result_id,$member_id,$project_id); //印出給ajax接收 (未通過0 false，通過1 ture)
 	}
 	
 	
@@ -96,7 +97,7 @@ class score extends CI_Controller {
 	
 	}
 	
-	public function score_views_topics(){ //針對專案的檢測主題找出幼兒的檢測題目
+	/*public function score_views_topics(){ 
 		
 		$this->load->helper('url');
 		$data = $this->uri->uri_to_assoc(3);
@@ -111,18 +112,22 @@ class score extends CI_Controller {
 		$this->load->view('score_views_topics',$data);
 
 	
-	}
+	}*/
 	
 	public function score_views_topics_ajax(){ 
-	
+	//針對專案的檢測主題找出幼兒的檢測題目
 		$this->load->helper('url');
 		$data = $this->uri->uri_to_assoc(3);
 		$this->load->library('score_lib');
 		$score= new score_lib();
+		$this->load->library('permission');
+		$permission= new permission();
+		$data['permission_check']=$permission->select_people_Permission($data['member_id'],$data['project_id']);
 		
-		$data['topic_on']=$score->score_topic_on($data['testing_list_id'],$data['part_id']);
-		$data['topic_yes']=$score->score_topic_yes($data['testing_list_id'],$data['part_id']);
-	
+		$data['topic_on']=$score->score_topic_on($data['testing_list_id'],$data['part_id'],$data['permission_check']);
+		
+		$data['topic_yes']=$score->score_topic_yes($data['testing_list_id'],$data['part_id'],$data['permission_check']);
+		
 		echo $this->load->view('score_views_topics_ajax',$data);
 	}
 	

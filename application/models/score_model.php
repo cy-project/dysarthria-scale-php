@@ -9,30 +9,9 @@ class score_model extends CI_Model
 		$this->load->library('permission');
 	}
 	
-	public function Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id) //紀錄施測者評分結果 (寫入judgment 表單資料)
+	public function Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id,$project_id) //紀錄施測者評分結果 (寫入judgment 表單資料)
 	{
 	
-		$sql_project_id="SELECT
-testing_list.project_id as `project_id`
-FROM
-result
-INNER JOIN testing_list ON result.testing_id = testing_list.id
-WHERE
-result.id = '".$result_id."' 
- AND
-result.topic_id = '".$topic_id."'
-GROUP BY
-testing_list.project_id";
-		
-		$project_id="";
-		
-		$query_project_id =$this->db->query($sql_project_id); //select
-		
-		foreach ($query_project_id->result_array() as $row)
-		{
-		  $project_id= $row['project_id'];
-		}
-		
 		
 		$permission = new permission();
 		
@@ -40,18 +19,25 @@ testing_list.project_id";
 		
 		$Today=date("Y-m-d H:i:s");
 		
+		$sql="";
+		$select_sql="";
 		if($permission_check==2){
 		
 		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`,`note`,`available`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard','$Strings_note','1')";
+		
+		
+		$select_sql="select `id` from `judgment` where `detect`='$member_id' and `date`='$Today' and `result`= '$Scores_sum'  and `wrongcode`='$Strings_Scores' and `istrace`='$Standard' and `note`='$Strings_note'and `available`= '1'";
 		
 		}else{
 		
 		$sql="INSERT INTO `judgment` (`detect`,`date`,`result`,`wrongcode`,`istrace`,`note`,`available`) VALUES ('$member_id','$Today','$Scores_sum','$Strings_Scores','$Standard','$Strings_note','0')";
 		
+		$select_sql="select `id` from `judgment` where `detect`='$member_id' and `date`='$Today' and `result`= '$Scores_sum'  and `wrongcode`='$Strings_Scores' and `istrace`='$Standard' and `note`='$Strings_note'and `available`='0'";
+		
 		}	
 		$this->db->query($sql); //add
 		
-		$select_sql="select `id` from `judgment` where `detect`='$member_id' and `date`='$Today' and `result`= '$Scores_sum'  and `wrongcode`='$Strings_Scores' and `istrace`='$Standard' and `note`='$Strings_note'";
+		
 		
 		
 		$query =$this->db->query($select_sql); //select
@@ -139,7 +125,21 @@ testing_list.project_id";
 		}
 		
 		
-		$sqlinto="select count(`topic`.`id`) as number from topic where (`topic`.`id` in( SELECT topic.id FROM testing_list Inner Join project ON testing_list.project_id = project.id Inner Join result ON testing_list.id = result.testing_id Inner Join judg_list ON result.id = judg_list.result_id Inner Join topic ON result.topic_id = topic.id WHERE testing_list.id = '$testing_id' ))";
+		
+		
+		if($permission_check==2){
+		
+		$sqlinto="select count(`topic`.`id`) as number from topic where (`topic`.`id` in( SELECT topic.id
+FROM
+testing_list
+Inner Join project ON testing_list.project_id = project.id
+Inner Join result ON testing_list.id = result.testing_id
+Inner Join judg_list ON result.id = judg_list.result_id
+Inner Join topic ON result.topic_id = topic.id
+Inner Join judgment ON judgment.id = judg_list.judgment_id
+WHERE
+testing_list.id =  '$testing_id' AND
+judgment.available =  '1' ))";
 			
 		$query4 =$this->db->query($sqlinto); //select
 		
@@ -166,7 +166,9 @@ testing_list.project_id";
 			
 		}
 		
-		if($permission_check==2){
+		
+		
+		
 		
 			if($number_testing==$number_topic){  //如果評測題已全部評測完畢後，將testing_list的check改為1（這）
 			
@@ -177,6 +179,44 @@ testing_list.project_id";
 			}
 		
 		}else{
+			
+			$sqlinto="select count(`topic`.`id`) as number from topic where (`topic`.`id` in( SELECT topic.id
+FROM
+testing_list
+Inner Join project ON testing_list.project_id = project.id
+Inner Join result ON testing_list.id = result.testing_id
+Inner Join judg_list ON result.id = judg_list.result_id
+Inner Join topic ON result.topic_id = topic.id
+Inner Join judgment ON judgment.id = judg_list.judgment_id
+WHERE
+testing_list.id =  '$testing_id' AND
+judgment.available =  '0' ))";
+			
+		$query4 =$this->db->query($sqlinto); //select
+		
+		$number_testing="";
+		
+		foreach ($query4->result_array() as $row){
+			
+			$number_testing= $row['number'];
+			
+		}
+		
+		$sqlinto2="SELECT
+				count(topic.id) AS number
+				FROM
+				topic";
+				
+		$query5 =$this->db->query($sqlinto2); //select
+		
+		$number_topic="";
+		
+		foreach ($query5->result_array() as $row){
+			
+			$number_topic= $row['number'];
+			
+		}
+		
 		
 			if($number_testing==$number_topic){  //如果評測題已全部評測完畢後，將testing_list的check改為1（這）
 			
@@ -265,10 +305,24 @@ testing_list.project_id =  '".$project_id."'";
 		return $query;
 	}
 	
-	public function select_topic_list_no($testing_list_id,$part_id){
+	public function select_topic_list_no($testing_list_id,$part_id,$permission_check){
 		
+		$sql="";
+		if($permission_check==2){
 		
-		
+			$sql="SELECT 
+				topic.title,
+				topic.script,
+				result_del_judg2.result_id
+				FROM
+				result_del_judg2
+				Inner Join topic ON topic.id = result_del_judg2.topic_id
+				WHERE
+				result_del_judg2.testing_id =  '$testing_list_id' AND
+				topic.part =  '$part_id'";
+				
+			}elseif($permission_check==1){
+			
 			$sql="SELECT 
 				topic.title,
 				topic.script,
@@ -279,7 +333,9 @@ testing_list.project_id =  '".$project_id."'";
 				WHERE
 				result_del_judg.testing_id =  '$testing_list_id' AND
 				topic.part =  '$part_id'";
-				
+			
+			}	
+			
 			if($part_id==1){
 			$sql=$sql." GROUP BY topic.title";
 			}
@@ -290,7 +346,9 @@ testing_list.project_id =  '".$project_id."'";
 
 	}
 	
-	public function select_topic_list_yes($testing_list_id,$part_id){
+	public function select_topic_list_yes($testing_list_id,$part_id,$permission_check){
+	
+		if($permission_check==2){
 		
 			$sql="SELECT
 result.id AS result_id,
@@ -305,8 +363,29 @@ Inner Join topic ON topic.id = result.topic_id
 Inner Join judgment ON judg_list.judgment_id = judgment.id
 WHERE result.testing_id =  '$testing_list_id'
 AND
-topic.part =  '$part_id'";
+topic.part =  '$part_id' AND
+judgment.available =  '1'";
 
+}elseif($permission_check==1){
+
+		$sql="SELECT
+result.id AS result_id,
+topic.title,
+topic.script,
+judgment.istrace,
+judgment.id as judgment_ids
+FROM
+judg_list
+Inner Join result ON judg_list.result_id = result.id
+Inner Join topic ON topic.id = result.topic_id
+Inner Join judgment ON judg_list.judgment_id = judgment.id
+WHERE result.testing_id =  '$testing_list_id'
+AND
+topic.part =  '$part_id' AND
+judgment.available =  '0'";
+
+
+}
 		if($part_id==1){
 			$sql=$sql." GROUP BY topic.title";
 		}	
