@@ -55,7 +55,8 @@ if(booleans==false){
 				score_value:Score_value,
 				note_value:Note_value,
 				result_id:'<?=$result_id?>',
-				member_id:'<?=$member_id?>'
+				member_id:'<?=$member_id?>',
+				project_id:'<?=$project_id?>'
 			  }, 
 			  error: function(xhr, ajaxOptions, thrownError) {
 				//alertify.alert('Ajax request 發生錯誤'+xhr.responseText);

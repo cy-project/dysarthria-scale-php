@@ -393,6 +393,8 @@ class Project_model extends CI_Model
 		
 		$this->db->update('children',$array);
 	}
+	
+	
 
 }
 
