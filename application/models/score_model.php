@@ -518,4 +518,96 @@ result.testing_id =  '$testing_id' and(".$str.")";
 	}
 	
 	
+	public function  score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id){
+	
+	$select_sql="";
+	
+	if($office_id==0){ //實習生
+	
+	$select_sql="SELECT
+project.`name` as pname,
+children.`name`as cname,
+topic.title,
+group_concat(topic.script) AS script,
+group_concat(result.voice_file) AS voice_file,
+group_concat(judgment.wrongcode) as wrongcode,
+topic.part,
+group_concat(judgment.note) as note
+FROM
+project
+INNER JOIN testing_list AS testings ON testings.project_id = project.id
+INNER JOIN result ON result.testing_id = testings.id
+INNER JOIN topic ON result.topic_id = topic.id
+INNER JOIN judg_list ON judg_list.result_id = result.id
+INNER JOIN judgment ON judg_list.judgment_id = judgment.id
+INNER JOIN children ON testings.children_id = children.id
+WHERE
+testings.id = '".$testing_list_id."' AND
+project.id = '".$project_id."' AND
+judgment.available = '".$office_id."'
+GROUP BY
+topic.title
+";
+	
+	}elseif($office_id==1){ //語言治療師
+	
+	$select_sql="SELECT
+project.`name` as pname,
+children.`name`as cname,
+topic.title,
+group_concat(topic.script) AS script,
+group_concat(result.voice_file) AS voice_file,
+group_concat(judgment.wrongcode) as wrongcode,
+topic.part,
+group_concat(judgment.note) as note
+FROM
+project
+INNER JOIN testing_list AS testings ON testings.project_id = project.id
+INNER JOIN result ON result.testing_id = testings.id
+INNER JOIN topic ON result.topic_id = topic.id
+INNER JOIN judg_list ON judg_list.result_id = result.id
+INNER JOIN judgment ON judg_list.judgment_id = judgment.id
+INNER JOIN children ON testings.children_id = children.id
+WHERE
+testings.id = '".$testing_list_id."' AND
+project.id = '".$project_id."' AND
+judgment.available = '".$office_id."'
+GROUP BY
+topic.title
+";
+	
+	}
+
+	
+	$query =$this->db->query($select_sql); //select
+	
+	return $query;
+	
+	
+	}
+	
+	public function score_intern_speech_name($testing_list_id,$member_id,$project_id,$office_id){
+	
+	$select_sql="SELECT
+project.`name` AS pname,
+children.`name` AS cname
+FROM
+project
+INNER JOIN testing_list AS testings ON testings.project_id = project.id
+INNER JOIN children ON testings.children_id = children.id
+WHERE
+testings.id = '".$testing_list_id."' AND
+project.id = '".$project_id."'
+";
+	
+	
+
+	
+	$query =$this->db->query($select_sql); //select
+	
+	return $query;
+	
+	
+	}
+	
 }

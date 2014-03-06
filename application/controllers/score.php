@@ -141,6 +141,42 @@ class score extends CI_Controller {
 		echo $model->judgment_up($judgment_id);
 	}
 	
+	public function score_intern_ajax(){
 	
+	$this->load->helper('url');
+	$this->load->model('score_model');
+	$model = new score_model();
+	
+	$testing_list_id = $this->input->post('testing_list_id');
+	$member_id = $this->input->post('member_id');
+	$project_id = $this->input->post('project_id');
+	$office_id = $this->input->post('office_id');
+	
+	$data['intern'] = $model->score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id);
+	
+	$data['intern_name'] = $model->score_intern_speech_name($testing_list_id,$member_id,$project_id,$office_id);
+	//print_r($data);
+	$this->load->view('score_intern_evaluation_ajax',$data);
+	
+	}
+	
+	public function score_speech_ajax(){
+	
+	$this->load->helper('url');
+	$this->load->model('score_model');
+	$model = new score_model();
+	
+	$testing_list_id = $this->input->post('testing_list_id');
+	$member_id = $this->input->post('member_id');
+	$project_id = $this->input->post('project_id');
+	$office_id = $this->input->post('office_id');
+	
+	$data['speech'] = $model->score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id);
+	
+	$data['speech_name'] = $model->score_intern_speech_name($testing_list_id,$member_id,$project_id,$office_id);
+	
+	$this->load->view('score_speech_evaluation_ajax',$data);
+	
+	}
 	
 }
