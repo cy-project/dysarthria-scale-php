@@ -9,10 +9,11 @@ class score_lib
 		$CI = & get_instance();
 		$CI->load->model('score_model');
 		$CI->load->model('rules_model');
+		
 		$this->data = new score_model(); // 宣告 model
 	}
 	/* 檢測者計算公式 */
-	public function score_calculate($score_value,$note_value,$topic_id,$result_id,$member_id)
+	public function score_calculate($score_value,$note_value,$topic_id,$result_id,$member_id,$project_id)
 	{
 		
 		$rules_model = new rules_model(); // 宣告 model
@@ -64,9 +65,15 @@ class score_lib
 					
 		}
 		
-		$judgment_id=$this->data->Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id); //紀錄施測者評分結果 (寫入judgment 表單資料)
+		$return_check=$this->data->Add_judgment($result_id,$Strings_Scores,$Strings_note,$Scores_sum,$Standard,$member_id,$topic_id,$project_id); //紀錄施測者評分結果 (寫入judgment 表單資料)
 		
-		if($Standard==0){
+		$arrays=explode("-",$return_check);
+		
+		$judgment_id=$arrays[0];
+		
+		$permission_check=$arrays[1];
+		
+		if(($Standard==0)&&($permission_check==2)){
 		
 		$this->data->Add_trace_list($judgment_id,$Standard);
 		//被施測者(小孩)未通過測驗，將資料寫入追蹤名單中(trace_list)
@@ -78,8 +85,8 @@ class score_lib
 	
 	
 	/* 取出專案裡面全部小孩子的資料 */
-	public function score_children($project_id){
-		$children_data=$this->data->select_children_list($project_id);
+	public function score_children($project_id,$member_id,$permission_check){
+		$children_data=$this->data->select_children_list($project_id,$member_id,$permission_check);
 		return $children_data;
 	}
 	/*  取出專案找出幼兒的檢測主題 */
@@ -88,13 +95,13 @@ class score_lib
 		return $part_data;
 	}
 	/* 取出幼兒的未檢測題目 */
-	public function score_topic_on($testing_list_id,$part_id){
-		$topic_data=$this->data->select_topic_list_no($testing_list_id,$part_id);
+	public function score_topic_on($testing_list_id,$part_id,$permission_check){
+		$topic_data=$this->data->select_topic_list_no($testing_list_id,$part_id,$permission_check);
 		return $topic_data;
 	}
 	/* 取出幼兒的已檢測題目 */
-	public function score_topic_yes($testing_list_id,$part_id){
-		$topic_data=$this->data->select_topic_list_yes($testing_list_id,$part_id);
+	public function score_topic_yes($testing_list_id,$part_id,$permission_check){
+		$topic_data=$this->data->select_topic_list_yes($testing_list_id,$part_id,$permission_check);
 		return $topic_data;
 	}
 	

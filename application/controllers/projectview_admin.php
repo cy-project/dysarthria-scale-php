@@ -104,7 +104,9 @@ class projectview_admin extends CI_Controller {
 		$subjects_grade=$this->input->post('subjects_grade');
 		$subjects_class=$this->input->post('subjects_class');
 		$subjects_language=$this->input->post('subjects_language');
-		$date=  date("Y/m/d");
+		$date=  date("Y");
+		print_r($date);
+		
 		
 		$child->name = $subjects_name;
 		$child->sex = $subjects_sex;
@@ -133,7 +135,7 @@ class projectview_admin extends CI_Controller {
 		
 		
 	}
-	public function modification_data_child(){
+	public function modification_data_child(){//修改受測者
 		$count = 0;
 		
 		$project = new Project_model();

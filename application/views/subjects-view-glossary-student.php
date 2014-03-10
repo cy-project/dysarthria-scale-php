@@ -85,7 +85,7 @@
 				function topics_ajax(){
 					
 					$.ajax({
-							  url: '<?php echo base_url();?>score/score_views_topics_ajax/testing_list_id/<?=$testing_list_id?>/part_id/<?=$part_id?>/member_id/<?=$member_id?>',
+							  url: '<?php echo base_url();?>score/score_views_topics_ajax/testing_list_id/<?=$testing_list_id?>/part_id/<?=$part_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>',
 							  type: 'POST',
 							  beforeSend:function(){
 									$('#loadingIMG').show();

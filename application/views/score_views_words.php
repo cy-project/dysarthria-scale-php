@@ -51,7 +51,8 @@ if(booleans==false){
 				score_value:Score_value,
 				note_value:Note_value,
 				result_id:'<?=$result_id?>',
-				member_id:'<?=$member_id?>'
+				member_id:'<?=$member_id?>',
+				project_id:'<?=$project_id?>'
 			  }, 
 			  error: function(xhr, ajaxOptions, thrownError) {
 				alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
@@ -146,14 +147,23 @@ $("#Score_submit").click(function() {
 							preg_match_all('/./u', $script, $matches); //注音切割
 							
 							$matches=$matches[0];
-							for($i=0;$i<sizeof($matches);$i+=2){
+						
+							$string_matches="";
 							
-							$j=$i;
-							$matches2[]=$matches[$i]."".$matches[$j+1];
+							for($i=0;$i<count($matches);$i+=2){
+							
+					
+								if($i==count($matches)-1){
+									$string_matches.=$matches[$i];
+									}else{
+									$string_matches.=$matches[$i].",";
+								}	
 							}
+						
+							$matches=explode(",",$string_matches);
 							
 							
-							$matches=$matches2;
+							
 							}else{
 				
 							$matches=explode(" ",$script); //數字切割

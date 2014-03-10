@@ -367,6 +367,18 @@ class projectview_student extends CI_Controller {
 		$this->load->view("testview",$this->data);
 	}
 	
+	public function project_board_student_check(){
+		$name = new Project_model();
+		$data = $this->uri->uri_to_assoc(3);
+
+		$data['name'] = $name->getProjectName($data['project_id']);
+		
+		// [testing_list_id] => 480 [member_id] => 43 [project_id] => 10
+		$this->load->view("project_board_student_check",$data);
+	}
+	
+	
+	
 }
 
 /* End of file welcome.php */
