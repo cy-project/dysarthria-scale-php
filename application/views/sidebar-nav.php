@@ -35,7 +35,7 @@
         <a href="#" class="nav-header" data-toggle="collapse"><i class="icon-th-list"></i>圖表</a>
         <ul id="legal-menu" class="nav nav-list collapse in">
             <li ><a href="#">評測結果</a></li>
-            <li ><a href="#">匯出檔案</a></li>
+            <li ><a href="<?=base_url("/projectadmin/excel")?>">匯出檔案</a></li>
         </ul>
 		<?php
 			}
