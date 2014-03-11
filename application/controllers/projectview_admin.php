@@ -10,6 +10,7 @@ class projectview_admin extends CI_Controller {
 		$this->load->library('Datamodel');
 		$this->load->model('Project_model');
 		$this->load->model('Member_model');
+		$this->load->model('test_models');
 		session_start();
 	}
 	
@@ -221,20 +222,66 @@ class projectview_admin extends CI_Controller {
 	}
 	public function download_excel(){
 		
+		$this->load->helper('url');
+		$this->load->model('score_model');
+		$model = new score_model();
+		$test_model = new test_models();
 		$pm = new Project_model;
 		$this->data = $this->uri->uri_to_assoc(3);
+		
+		$children['name'] = "";
+		$children['score'] = "";
 		
 		$this->data['project_name'] = $pm->getProjectName($this->data['project_id']);
 		
 		$project_name = $this->data['project_name'];
-		
 		$project_id = $this->data['project_id'];
 		
-		$this->data = $pm->getTestingList($project_id);
-		$this->data['project_id'] = $project_id;
-		//$this->load->view('subjects_list_admin',$this->data);
-		print_r($this->data);
-		/*
+		$this->data['children_data'] = $pm->getTestingList($project_id);
+		
+		$length = count($this->data['children_data']);
+		$nb = 0;
+		
+		for($i = 0;$i < $length; $i++)
+		{
+			$testing_id = $test_model->excel_change_testing_id($this->data['children_data'][$i]->id);
+			
+			$testing_list_id = $testing_id[0]->id;
+			$member_id = 1;
+			$office_id = 0;
+			
+			$data['intern'] = $model->score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id);
+			$result['data'] = $data['intern']->result();
+			
+			if($result['data'] == null)
+			{
+				
+			}
+			else
+			{
+				$children['name'][$nb] = $result['data'][0]->cname;
+				
+				$length2 = count($result['data']);
+				
+				for($j = 0;$j < $length2;$j++)
+				{
+					$children['score'][$nb][$j] = $result['data'][$j]->wrongcode;
+				}
+				$nb++;
+			}
+			
+			
+		}
+		//print_r($children['score']);
+		//$slide1 = explode(",,",$children['score'][0][37]);
+		//print_r($slide1);
+		
+			/*$slide4 = explode(",,",$children['score'][0][3]);
+			$slide4_re = $slide4[count($slide4)-3];
+			$slide4_result = explode(",",$slide4_re);*/
+		
+		
+		
 		// Error reporting 
 		
 		error_reporting(E_ALL);
@@ -353,100 +400,228 @@ class projectview_admin extends CI_Controller {
 		$objPHPExcel->getActiveSheet()->setCellValue('CL1', 'ㄆㄚ ㄊㄚ ㄎㄚ');
 		$objPHPExcel->getActiveSheet()->setCellValue('CM1', '次數/秒數');
 		$objPHPExcel->getActiveSheet()->setCellValue('CN1', '說故事');
-
-		for ($i = 2; $i < 5; $i++) {
-			$objPHPExcel->getActiveSheet()->setCellValue('A' . $i, '學生姓名');
-			$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('J' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('L' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('M' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('N' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('O' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('P' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('Q' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('R' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('S' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('T' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('U' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('V' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('W' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('X' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('Y' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('Z' . $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AA'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AB'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AC'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AD'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AE'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AF'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AG'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AH'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AI'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AJ'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AK'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AL'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AM'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AN'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AO'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AP'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AQ'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AR'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AS'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AT'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AU'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AV'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AW'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AX'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AY'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('AZ'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BA'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BB'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BC'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BD'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BE'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BF'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BG'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BH'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BI'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BJ'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BK'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BL'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BM'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BN'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BO'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BP'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BQ'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BR'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BS'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BT'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BU'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BV'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BW'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BX'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BY'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('BZ'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CA'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CB'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CC'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CD'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CH'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CI'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, 'Test value');
-			$objPHPExcel->getActiveSheet()->setCellValue('CN'. $i, 'Test value');
+		
+		$n = 0;
+		for ($i = 2; $i < count($children['name']) + 2; $i++) 
+		//for ($i = 2; $i < 3; $i++) 
+		{
+			$objPHPExcel->getActiveSheet()->setCellValue('A' . $i, $children['name'][$n]);//小孩姓名
+			
+			$slide1 = explode(",,",$children['score'][$n][0]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);			
+			$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $slide1_result[count($slide1_result)-3]);//ㄅ
+			$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][1]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $slide1_result[count($slide1_result)-3]);//ㄆ
+			$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][2]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $slide1_result[count($slide1_result)-3]);//ㄇ
+			$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('J' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][3]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-3]);//ㄉ
+			$objPHPExcel->getActiveSheet()->setCellValue('L' . $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('M' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][4]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('N' . $i, $slide1_result[count($slide1_result)-3]);//ㄊ
+			$objPHPExcel->getActiveSheet()->setCellValue('O' . $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('P' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][5]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('Q' . $i, $slide1_result[count($slide1_result)-3]);// ㄋ
+			$objPHPExcel->getActiveSheet()->setCellValue('R' . $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('S' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][6]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('T' . $i, $slide1_result[count($slide1_result)-3]);// ㄌ
+			$objPHPExcel->getActiveSheet()->setCellValue('U' . $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('V' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][7]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('W' . $i, $slide1_result[count($slide1_result)-3]);// ㄏ
+			$objPHPExcel->getActiveSheet()->setCellValue('X' . $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('Y' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][8]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('Z' . $i, $slide1_result[count($slide1_result)-3]);// ㄍ
+			$objPHPExcel->getActiveSheet()->setCellValue('AA'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('AB'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][9]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('AC'. $i, $slide1_result[count($slide1_result)-3]);//ㄎ
+			$objPHPExcel->getActiveSheet()->setCellValue('AD'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('AE'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][10]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('AF'. $i, $slide1_result[count($slide1_result)-3]);//ㄐ
+			$objPHPExcel->getActiveSheet()->setCellValue('AG'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('AH'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][11]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('AI'. $i, $slide1_result[count($slide1_result)-3]);//ㄑ
+			$objPHPExcel->getActiveSheet()->setCellValue('AJ'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('AK'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][12]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('AL'. $i, $slide1_result[count($slide1_result)-3]);//ㄒ
+			$objPHPExcel->getActiveSheet()->setCellValue('AM'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('AN'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][13]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('AO'. $i, $slide1_result[count($slide1_result)-3]);//ㄗ
+			$objPHPExcel->getActiveSheet()->setCellValue('AP'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('AQ'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][14]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('AR'. $i, $slide1_result[count($slide1_result)-3]);//ㄘ
+			$objPHPExcel->getActiveSheet()->setCellValue('AS'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('AT'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][15]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('AU'. $i, $slide1_result[count($slide1_result)-3]);//ㄙ
+			$objPHPExcel->getActiveSheet()->setCellValue('AV'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('AW'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][16]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('AX'. $i, $slide1_result[count($slide1_result)-3]);//ㄓ
+			$objPHPExcel->getActiveSheet()->setCellValue('AY'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('AZ'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][17]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('BA'. $i, $slide1_result[count($slide1_result)-3]);//ㄔ
+			$objPHPExcel->getActiveSheet()->setCellValue('BB'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BC'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][18]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('BD'. $i, $slide1_result[count($slide1_result)-3]);//ㄕ
+			$objPHPExcel->getActiveSheet()->setCellValue('BE'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BF'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][19]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('BG'. $i, $slide1_result[count($slide1_result)-3]);//ㄖ
+			$objPHPExcel->getActiveSheet()->setCellValue('BH'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BI'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1 = explode(",,",$children['score'][$n][20]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			$objPHPExcel->getActiveSheet()->setCellValue('BJ'. $i, $slide1_result[count($slide1_result)-3]);//ㄈ
+			$objPHPExcel->getActiveSheet()->setCellValue('BK'. $i, $slide1_result[count($slide1_result)-2]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BL'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$slide1_result = explode(",",$children['score'][$n][21]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BM'. $i, $slide1_result[count($slide1_result)-2]);//ㄚ
+			
+			$slide1_result = explode(",",$children['score'][$n][22]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BN'. $i, $slide1_result[count($slide1_result)-2]);//ㄜ
+			
+			$slide1_result = explode(",",$children['score'][$n][23]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BO'. $i, $slide1_result[count($slide1_result)-2]);//ㄨ
+			
+			$slide1_result = explode(",",$children['score'][$n][24]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BP'. $i, $slide1_result[count($slide1_result)-2]);//ㄧ
+			
+			$slide1_result = explode(",",$children['score'][$n][25]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BQ'. $i, $slide1_result[count($slide1_result)-2]);//ㄩ
+			
+			$slide1_result = explode(",",$children['score'][$n][26]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BR'. $i, $slide1_result[count($slide1_result)-2]);//ㄝ
+			
+			$slide1_result = explode(",",$children['score'][$n][27]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BS'. $i, $slide1_result[count($slide1_result)-2]);//ㄛ
+			
+			$slide1_result = explode(",",$children['score'][$n][28]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BT'. $i, $slide1_result[count($slide1_result)-2]);//ㄠ
+			
+			$slide1_result = explode(",",$children['score'][$n][29]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BU'. $i, $slide1_result[count($slide1_result)-2]);//ㄡ
+			
+			$slide1_result = explode(",",$children['score'][$n][30]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BV'. $i, $slide1_result[count($slide1_result)-2]);//ㄟ
+			
+			$slide1_result = explode(",",$children['score'][$n][31]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BW'. $i, $slide1_result[count($slide1_result)-2]);//ㄞ
+			
+			$slide1_result = explode(",",$children['score'][$n][32]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BX'. $i, $slide1_result[count($slide1_result)-2]);//ㄤ
+			
+			$slide1_result = explode(",",$children['score'][$n][33]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BY'. $i, $slide1_result[count($slide1_result)-2]);//ㄥ
+			
+			$slide1_result = explode(",",$children['score'][$n][34]);
+			$objPHPExcel->getActiveSheet()->setCellValue('BZ'. $i, $slide1_result[count($slide1_result)-2]);//ㄣ
+			
+			$slide1_result = explode(",",$children['score'][$n][35]);
+			$objPHPExcel->getActiveSheet()->setCellValue('CA'. $i, $slide1_result[count($slide1_result)-2]);//ㄢ
+			
+			$slide1_result = explode(",",$children['score'][$n][36]);
+			$objPHPExcel->getActiveSheet()->setCellValue('CB'. $i, $slide1_result[count($slide1_result)-2]);//ㄦ
+			
+			$slide1 = explode(",,",$children['score'][$n][37]);
+			$objPHPExcel->getActiveSheet()->setCellValue('CC'. $i, $slide1[count($slide1)-7]);//爸爸抱寶寶
+			$objPHPExcel->getActiveSheet()->setCellValue('CD'. $i, $slide1[count($slide1)-3]);//氣球輕輕飄
+			$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, $slide1[count($slide1)-6]);//弟弟學兔子跳
+			$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $slide1[count($slide1)-2]);//姊姊喜歡吃西瓜
+			$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $slide1[count($slide1)-5]);//哥哥愛喝可口可樂
+			$objPHPExcel->getActiveSheet()->setCellValue('CH'. $i, $slide1[count($slide1)-1]);//一二三大家來賽跑
+			$objPHPExcel->getActiveSheet()->setCellValue('CI'. $i, $slide1[count($slide1)-4]);//警察伯伯吹哨子抓小偷
+			
+			$slide1 = explode(",,",$children['score'][$n][38]);
+			$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, $slide1[count($slide1)-1]);//1 2 3 4 5
+			$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, $slide1[count($slide1)-2]);//6 7 8 9 10
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $children['score'][$n][40]);//ㄆㄚ ㄊㄚ ㄎㄚ
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, '');//次數/秒數
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('CN'. $i, '');//說故事
+			
+			$n++;
 		}
 
 		// Rename worksheet
@@ -464,7 +639,7 @@ class projectview_admin extends CI_Controller {
 
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 		$objWriter->save('php://output');
-		exit;*/
+		exit;
 	}
 }
 
