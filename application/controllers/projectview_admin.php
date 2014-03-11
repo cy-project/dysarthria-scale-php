@@ -272,7 +272,8 @@ class projectview_admin extends CI_Controller {
 			
 			
 		}
-		//print_r($children['score']);
+		//print_r($children['score'][8]);
+		//print_r($children);
 		//$slide1 = explode(",,",$children['score'][0][37]);
 		//print_r($slide1);
 		
@@ -615,7 +616,7 @@ class projectview_admin extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, $slide1[count($slide1)-1]);//1 2 3 4 5
 			$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, $slide1[count($slide1)-2]);//6 7 8 9 10
 			
-			$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $children['score'][$n][40]);//ㄆㄚ ㄊㄚ ㄎㄚ
+			//$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $children['score'][$n][40]);//ㄆㄚ ㄊㄚ ㄎㄚ
 			
 			$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, '');//次數/秒數
 			
