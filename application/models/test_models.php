@@ -153,5 +153,16 @@ class test_models extends CI_model
 		return $count;
 	}
 	
-	
+	public function excel_equals_topic($script_id)
+	{
+		$this->db->select("`script`");
+		$this->db->from('topic');
+		$this->db->where('id',$script_id);
+		
+		$data = $this->db->get()->result();
+		$data_result = $data[0]->script;
+		
+		return $data_result;
+		
+	}
 }

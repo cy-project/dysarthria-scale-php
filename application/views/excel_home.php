@@ -38,7 +38,8 @@
 												<th><a href="#">專案管理員</a></th>
 												<th><a href="#">專案起始日期</a></th>
 												<th class="sorttable_nosort">檢視</th>
-												<th class="sorttable_nosort">匯出</th>
+												<th class="sorttable_nosort">匯出專案</th>
+												<th class="sorttable_nosort"></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -54,7 +55,8 @@
 												<td>
 													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-eye-open"></i></a>
 												</td>
-												<td><a href="<?=base_url("/projectview_admin/download_excel")?>/project_id/<?=$row->id;?>">匯出專案</a></td>
+												<td><a href="<?=base_url("/projectview_admin/download_excel")?>/office_id/0/project_id/<?=$row->id;?>">實習生</a></td>
+												<td><a href="<?=base_url("/projectview_admin/download_excel")?>/office_id/1/project_id/<?=$row->id;?>">語言治療師</a></td>
 											</tr>
 											<?php endforeach;?>
 										</tbody>
