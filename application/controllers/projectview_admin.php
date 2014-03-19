@@ -1851,8 +1851,8 @@ class projectview_admin extends CI_Controller {
 			}
 			else if($data['script'][84] == $scriptslide[count($scriptslide)-3])
 			{
-				$topic_slide = explode(",",$slide1[count($slide1)-4]);
-				$script_slide = explode(" ",$scriptslide[count($scriptslide)-4]);
+				$topic_slide = explode(",",$slide1[count($slide1)-3]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-3]);
 				
 				$objPHPExcel->getActiveSheet()->setCellValue('CZ'. $i, $topic_slide[0]);//哥
 				$objPHPExcel->getActiveSheet()->setCellValue('DA'. $i, $topic_slide[1]);//哥
