@@ -63,6 +63,8 @@
 			
 			$note_str=explode("-",$note_str[0]);
 			
+			
+			
 			$note="";
 			
 			for($r=0;$r<count($note_str);$r++){
@@ -75,7 +77,7 @@
 			
 			}
 			
-			
+			//print_r($note);
 		
 			
 		

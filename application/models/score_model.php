@@ -278,18 +278,24 @@ testing_list.project_id =  '".$project_id."'";
 		if($permission_check ==1){
 		
 			$sql.=" AND testing_list.rater =  '".$member_id."'";
+			$query=$this->db->query($sql);
+			
+			return $query;
 			
 			}elseif($permission_check ==2){
 		
 			$sql.=" AND testing_list.detect =  '".$member_id."'";
-		}
-	
-		
+			$query=$this->db->query($sql);
 			
-		$query=$this->db->query($sql);
+			return $query;
+			
+		}else{
+		
+			return 0;
+		
+		}
 		
 		
-		return $query;
 		
 	}
 	
