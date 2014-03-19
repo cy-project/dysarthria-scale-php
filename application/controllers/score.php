@@ -77,7 +77,6 @@ class score extends CI_Controller {
 		$data['children'] = $score->score_children($data['project_id'],$data['member_id'],$data['permission_check']);
 		
 		
-		
 		$this->load->view('score_views_children',$data);
 	
 	}

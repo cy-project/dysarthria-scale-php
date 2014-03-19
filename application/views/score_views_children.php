@@ -18,9 +18,13 @@
 				</thead>
 
 			<tbody>
-			<?php 
+			<?php
+			
+			
+			if(gettype($children)=="object"){
+			
 			 foreach($children->result() as $row): 
-			 //if($row->member_namee == $_SESSION["username"]){
+			
 			 ?>
 				<tr>
 					<td><?=$row->testing_list_id?></td>
@@ -69,8 +73,15 @@
 					
 					</td>
 					<?php  
-					//}
-					endforeach;?> 	
+					
+					endforeach;
+					
+					}else{
+					
+							echo "[尚無任何可評測的小孩，請向管理員申請評測權限!!]"; 
+					
+					}
+					?> 	
 				</tr>
 			</tbody>
 		</table>
