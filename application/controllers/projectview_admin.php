@@ -231,6 +231,7 @@ class projectview_admin extends CI_Controller {
 		
 		$children['name'] = "";
 		$children['score'] = "";
+		$office_id = $this->data['office_id'];
 		
 		$this->data['project_name'] = $pm->getProjectName($this->data['project_id']);
 		
@@ -248,7 +249,6 @@ class projectview_admin extends CI_Controller {
 			
 			$testing_list_id = $testing_id[0]->id;
 			$member_id = 1;
-			$office_id = 0;
 			
 			$data['intern'] = $model->score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id);
 			$result['data'] = $data['intern']->result();
@@ -265,20 +265,24 @@ class projectview_admin extends CI_Controller {
 				
 				for($j = 0;$j < $length2;$j++)
 				{
+					$children['script'][$nb][$j] = $result['data'][$j]->script;
 					$children['score'][$nb][$j] = $result['data'][$j]->wrongcode;
+					
+					
 				}
 				$nb++;
 			}
 			
 			
 		}
-		//print_r($children['score']);
-		//$slide1 = explode(",,",$children['score'][0][37]);
-		//print_r($slide1);
+		//print_r($test_model->count_topics());
+		for($s = 1;$s <= $test_model->count_topics();$s++)
+		{
+			$data['script'][$s] = $test_model->excel_equals_topic($s);
+		}
 		
-			/*$slide4 = explode(",,",$children['score'][0][3]);
-			$slide4_re = $slide4[count($slide4)-3];
-			$slide4_result = explode(",",$slide4_re);*/
+		//print_r($children);
+		
 		
 		
 		
@@ -388,171 +392,1020 @@ class projectview_admin extends CI_Controller {
 		$objPHPExcel->getActiveSheet()->setCellValue('BZ1', 'ㄣ 恩惠');
 		$objPHPExcel->getActiveSheet()->setCellValue('CA1', 'ㄢ 安全');
 		$objPHPExcel->getActiveSheet()->setCellValue('CB1', 'ㄦ 耳朵');
-		$objPHPExcel->getActiveSheet()->setCellValue('CC1', '爸爸抱寶寶');
-		$objPHPExcel->getActiveSheet()->setCellValue('CD1', '氣球輕輕飄');
-		$objPHPExcel->getActiveSheet()->setCellValue('CE1', '弟弟學兔子跳');
-		$objPHPExcel->getActiveSheet()->setCellValue('CF1', '姊姊喜歡吃西瓜');
-		$objPHPExcel->getActiveSheet()->setCellValue('CG1', '哥哥愛喝可口可樂');
-		$objPHPExcel->getActiveSheet()->setCellValue('CH1', '一二三大家來賽跑');
-		$objPHPExcel->getActiveSheet()->setCellValue('CI1', '警察伯伯吹哨子抓小偷');
-		$objPHPExcel->getActiveSheet()->setCellValue('CJ1', '1 2 3 4 5');
-		$objPHPExcel->getActiveSheet()->setCellValue('CK1', '6 7 8 9 10');
-		$objPHPExcel->getActiveSheet()->setCellValue('CL1', 'ㄆㄚ ㄊㄚ ㄎㄚ');
-		$objPHPExcel->getActiveSheet()->setCellValue('CM1', '次數/秒數');
-		$objPHPExcel->getActiveSheet()->setCellValue('CN1', '說故事');
+		$objPHPExcel->getActiveSheet()->setCellValue('CC1', '爸');
+		$objPHPExcel->getActiveSheet()->setCellValue('CD1', '爸');
+		$objPHPExcel->getActiveSheet()->setCellValue('CE1', '抱');
+		$objPHPExcel->getActiveSheet()->setCellValue('CF1', '寶');
+		$objPHPExcel->getActiveSheet()->setCellValue('CG1', '寶');
+		$objPHPExcel->getActiveSheet()->setCellValue('CH1', '氣');
+		$objPHPExcel->getActiveSheet()->setCellValue('CI1', '球');
+		$objPHPExcel->getActiveSheet()->setCellValue('CJ1', '輕');
+		$objPHPExcel->getActiveSheet()->setCellValue('CK1', '輕');
+		$objPHPExcel->getActiveSheet()->setCellValue('CL1', '飄');
+		$objPHPExcel->getActiveSheet()->setCellValue('CM1', '弟');
+		$objPHPExcel->getActiveSheet()->setCellValue('CN1', '弟');
+		$objPHPExcel->getActiveSheet()->setCellValue('CO1', '學');
+		$objPHPExcel->getActiveSheet()->setCellValue('CP1', '兔');
+		$objPHPExcel->getActiveSheet()->setCellValue('CQ1', '子');
+		$objPHPExcel->getActiveSheet()->setCellValue('CR1', '跳');
+		$objPHPExcel->getActiveSheet()->setCellValue('CS1', '姊');
+		$objPHPExcel->getActiveSheet()->setCellValue('CT1', '姊');
+		$objPHPExcel->getActiveSheet()->setCellValue('CU1', '喜');
+		$objPHPExcel->getActiveSheet()->setCellValue('CV1', '歡');
+		$objPHPExcel->getActiveSheet()->setCellValue('CW1', '吃');
+		$objPHPExcel->getActiveSheet()->setCellValue('CX1', '西');
+		$objPHPExcel->getActiveSheet()->setCellValue('CY1', '瓜');
+		$objPHPExcel->getActiveSheet()->setCellValue('CZ1', '哥');
+		$objPHPExcel->getActiveSheet()->setCellValue('DA1', '哥');
+		$objPHPExcel->getActiveSheet()->setCellValue('DB1', '愛');
+		$objPHPExcel->getActiveSheet()->setCellValue('DC1', '喝');
+		$objPHPExcel->getActiveSheet()->setCellValue('DD1', '可');
+		$objPHPExcel->getActiveSheet()->setCellValue('DE1', '口');
+		$objPHPExcel->getActiveSheet()->setCellValue('DF1', '可');
+		$objPHPExcel->getActiveSheet()->setCellValue('DG1', '樂');
+		$objPHPExcel->getActiveSheet()->setCellValue('DH1', '一');
+		$objPHPExcel->getActiveSheet()->setCellValue('DI1', '二');
+		$objPHPExcel->getActiveSheet()->setCellValue('DJ1', '三');
+		$objPHPExcel->getActiveSheet()->setCellValue('DK1', '大');
+		$objPHPExcel->getActiveSheet()->setCellValue('DL1', '家');
+		$objPHPExcel->getActiveSheet()->setCellValue('DM1', '來');
+		$objPHPExcel->getActiveSheet()->setCellValue('DN1', '賽');
+		$objPHPExcel->getActiveSheet()->setCellValue('DO1', '跑');
+		$objPHPExcel->getActiveSheet()->setCellValue('DP1', '警');
+		$objPHPExcel->getActiveSheet()->setCellValue('DQ1', '察');
+		$objPHPExcel->getActiveSheet()->setCellValue('DR1', '伯');
+		$objPHPExcel->getActiveSheet()->setCellValue('DS1', '伯');
+		$objPHPExcel->getActiveSheet()->setCellValue('DT1', '吹');
+		$objPHPExcel->getActiveSheet()->setCellValue('DU1', '哨');
+		$objPHPExcel->getActiveSheet()->setCellValue('DV1', '子');
+		$objPHPExcel->getActiveSheet()->setCellValue('DW1', '抓');
+		$objPHPExcel->getActiveSheet()->setCellValue('DX1', '小');
+		$objPHPExcel->getActiveSheet()->setCellValue('DY1', '偷');
+		$objPHPExcel->getActiveSheet()->setCellValue('DZ1', '1');
+		$objPHPExcel->getActiveSheet()->setCellValue('EA1', '2');
+		$objPHPExcel->getActiveSheet()->setCellValue('EB1', '3');
+		$objPHPExcel->getActiveSheet()->setCellValue('EC1', '4');
+		$objPHPExcel->getActiveSheet()->setCellValue('ED1', '5');
+		$objPHPExcel->getActiveSheet()->setCellValue('EE1', '6');
+		$objPHPExcel->getActiveSheet()->setCellValue('EF1', '7');
+		$objPHPExcel->getActiveSheet()->setCellValue('EG1', '8');
+		$objPHPExcel->getActiveSheet()->setCellValue('EH1', '9');
+		$objPHPExcel->getActiveSheet()->setCellValue('EI1', '10');
+		$objPHPExcel->getActiveSheet()->setCellValue('EJ1', 'ㄆㄚ');
+		$objPHPExcel->getActiveSheet()->setCellValue('EK1', 'ㄊㄚ');
+		$objPHPExcel->getActiveSheet()->setCellValue('EL1', 'ㄎㄚ');
+		$objPHPExcel->getActiveSheet()->setCellValue('EM1', '次數/秒數');
+		$objPHPExcel->getActiveSheet()->setCellValue('EN1', '說故事');
 		
 		$n = 0;
 		for ($i = 2; $i < count($children['name']) + 2; $i++) 
-		//for ($i = 2; $i < 3; $i++) 
 		{
 			$objPHPExcel->getActiveSheet()->setCellValue('A' . $i, $children['name'][$n]);//小孩姓名
 			
 			$slide1 = explode(",,",$children['score'][$n][0]);
 			$slide1_re = $slide1[count($slide1)-3];
-			$slide1_result = explode(",",$slide1_re);			
-			$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $slide1_result[count($slide1_result)-3]);//ㄅ
-			$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $slide1_result[count($slide1_result)-1]);
+			$slide1_result = explode(",",$slide1_re);
+			
+			$scriptslide = explode(",",$children['script'][$n][0]);
+			
+			if($data['script'][1] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $slide1_result[count($slide1_result)-3]);//ㄅ 杯子
+			}
+			else if($data['script'][1] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $slide1_result[count($slide1_result)-2]);//ㄅ
+			}
+			else if($data['script'][1] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $slide1_result[count($slide1_result)-1]);//ㄅ
+			}
+			
+			if($data['script'][2] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $slide1_result[count($slide1_result)-3]);//ㄅ爸爸
+			}
+			else if($data['script'][2] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $slide1_result[count($slide1_result)-2]);//ㄅ
+			}
+			else if($data['script'][2] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $slide1_result[count($slide1_result)-1]);//ㄅ
+			}
+			
+			if($data['script'][3] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $slide1_result[count($slide1_result)-3]);//ㄅ筆
+			}
+			else if($data['script'][3] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $slide1_result[count($slide1_result)-2]);//ㄅ
+			}
+			else if($data['script'][3] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $slide1_result[count($slide1_result)-1]);//ㄅ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][1]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $slide1_result[count($slide1_result)-3]);//ㄆ
-			$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][1]);
+			
+			if($data['script'][4] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $slide1_result[count($slide1_result)-3]);//ㄆ螃蟹
+			}
+			else if($data['script'][4] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $slide1_result[count($slide1_result)-2]);//ㄆ
+			}
+			else if($data['script'][4] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $slide1_result[count($slide1_result)-1]);//ㄆ
+			}
+			
+			if($data['script'][5] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $slide1_result[count($slide1_result)-3]);//ㄆ葡萄
+			}
+			else if($data['script'][5] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $slide1_result[count($slide1_result)-2]);//ㄆ
+			}
+			else if($data['script'][5] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $slide1_result[count($slide1_result)-1]);//ㄆ
+			}
+			
+			if($data['script'][6] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $slide1_result[count($slide1_result)-3]);//ㄆ皮球
+			}
+			else if($data['script'][6] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $slide1_result[count($slide1_result)-2]);//ㄆ
+			}
+			else if($data['script'][6] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $slide1_result[count($slide1_result)-1]);//ㄆ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][2]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $slide1_result[count($slide1_result)-3]);//ㄇ
-			$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('J' . $i, $slide1_result[count($slide1_result)-1]);
 			
-			$slide1 = explode(",,",$children['score'][$n][3]);
-			$slide1_re = $slide1[count($slide1)-3];
-			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-3]);//ㄉ
-			$objPHPExcel->getActiveSheet()->setCellValue('L' . $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('M' . $i, $slide1_result[count($slide1_result)-1]);
+			$scriptslide = explode(",",$children['script'][$n][2]);
+			
+			if($data['script'][7] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $slide1_result[count($slide1_result)-3]);//ㄇ
+			}
+			else if($data['script'][7] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $slide1_result[count($slide1_result)-2]);//ㄇ
+			}
+			else if($data['script'][7] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $slide1_result[count($slide1_result)-1]);//ㄇ
+			}
+			
+			if($data['script'][8] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $slide1_result[count($slide1_result)-3]);//ㄇ
+			}
+			else if($data['script'][8] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $slide1_result[count($slide1_result)-2]);//ㄇ
+			}
+			else if($data['script'][8] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $slide1_result[count($slide1_result)-1]);//ㄇ
+			}
+			
+			if($data['script'][9] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('J' . $i, $slide1_result[count($slide1_result)-3]);//ㄇ
+			}
+			else if($data['script'][9] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('J' . $i, $slide1_result[count($slide1_result)-2]);//ㄇ
+			}
+			else if($data['script'][9] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('J' . $i, $slide1_result[count($slide1_result)-1]);//ㄇ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][4]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('N' . $i, $slide1_result[count($slide1_result)-3]);//ㄊ
-			$objPHPExcel->getActiveSheet()->setCellValue('O' . $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('P' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][4]);
+			
+			if($data['script'][10] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-3]);//ㄉ
+			}
+			else if($data['script'][10] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-2]);//ㄉ
+			}
+			else if($data['script'][10] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-1]);//ㄉ
+			}
+			
+			if($data['script'][11] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('L' . $i, $slide1_result[count($slide1_result)-3]);//ㄉ
+			}
+			else if($data['script'][11] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('L' . $i, $slide1_result[count($slide1_result)-2]);//ㄉ
+			}
+			else if($data['script'][11] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('L' . $i, $slide1_result[count($slide1_result)-1]);//ㄉ
+			}
+			
+			if($data['script'][12] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('M' . $i, $slide1_result[count($slide1_result)-3]);//ㄉ
+			}
+			else if($data['script'][12] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('M' . $i, $slide1_result[count($slide1_result)-2]);//ㄉ
+			}
+			else if($data['script'][12] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('M' . $i, $slide1_result[count($slide1_result)-1]);//ㄉ
+			}
+			
+			$slide1 = explode(",,",$children['score'][$n][4]);
+			$slide1_re = $slide1[count($slide1)-3];
+			$slide1_result = explode(",",$slide1_re);
+			
+			$scriptslide = explode(",",$children['script'][$n][5]);
+			
+			if($data['script'][13] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('N' . $i, $slide1_result[count($slide1_result)-3]);//ㄊ
+			}
+			else if($data['script'][13] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('N' . $i, $slide1_result[count($slide1_result)-2]);//ㄊ
+			}
+			else if($data['script'][13] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('N' . $i, $slide1_result[count($slide1_result)-1]);//ㄊ
+			}
+			
+			if($data['script'][14] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('O' . $i, $slide1_result[count($slide1_result)-3]);//ㄊ
+			}
+			else if($data['script'][14] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('O' . $i, $slide1_result[count($slide1_result)-2]);//ㄊ
+			}
+			else if($data['script'][14] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('O' . $i, $slide1_result[count($slide1_result)-1]);//ㄊ
+			}
+			
+			if($data['script'][15] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('P' . $i, $slide1_result[count($slide1_result)-3]);//ㄊ
+			}
+			else if($data['script'][15] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('P' . $i, $slide1_result[count($slide1_result)-2]);//ㄊ
+			}
+			else if($data['script'][15] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('P' . $i, $slide1_result[count($slide1_result)-1]);//ㄊ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][5]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('Q' . $i, $slide1_result[count($slide1_result)-3]);// ㄋ
-			$objPHPExcel->getActiveSheet()->setCellValue('R' . $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('S' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][6]);
+			
+			if($data['script'][16] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('Q' . $i, $slide1_result[count($slide1_result)-3]);//ㄋ
+			}
+			else if($data['script'][16] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('Q' . $i, $slide1_result[count($slide1_result)-2]);//ㄋ
+			}
+			else if($data['script'][16] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('Q' . $i, $slide1_result[count($slide1_result)-1]);//ㄋ
+			}
+			
+			if($data['script'][17] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('R' . $i, $slide1_result[count($slide1_result)-3]);//ㄋ
+			}
+			else if($data['script'][17] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('R' . $i, $slide1_result[count($slide1_result)-2]);//ㄋ
+			}
+			else if($data['script'][17] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('R' . $i, $slide1_result[count($slide1_result)-1]);//ㄋ
+			}
+			
+			if($data['script'][18] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('S' . $i, $slide1_result[count($slide1_result)-3]);//ㄋ
+			}
+			else if($data['script'][18] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('S' . $i, $slide1_result[count($slide1_result)-2]);//ㄋ
+			}
+			else if($data['script'][18] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('S' . $i, $slide1_result[count($slide1_result)-1]);//ㄋ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][6]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('T' . $i, $slide1_result[count($slide1_result)-3]);// ㄌ
-			$objPHPExcel->getActiveSheet()->setCellValue('U' . $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('V' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][7]);
+			
+			if($data['script'][19] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('T' . $i, $slide1_result[count($slide1_result)-3]);//ㄌ
+			}
+			else if($data['script'][19] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('T' . $i, $slide1_result[count($slide1_result)-2]);//ㄌ
+			}
+			else if($data['script'][19] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('T' . $i, $slide1_result[count($slide1_result)-1]);//ㄌ
+			}
+			
+			if($data['script'][20] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('U' . $i, $slide1_result[count($slide1_result)-3]);//ㄌ
+			}
+			else if($data['script'][20] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('U' . $i, $slide1_result[count($slide1_result)-2]);//ㄌ
+			}
+			else if($data['script'][20] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('U' . $i, $slide1_result[count($slide1_result)-1]);//ㄌ
+			}
+			
+			if($data['script'][21] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('V' . $i, $slide1_result[count($slide1_result)-3]);//ㄌ
+			}
+			else if($data['script'][21] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('V' . $i, $slide1_result[count($slide1_result)-2]);//ㄌ
+			}
+			else if($data['script'][21] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('V' . $i, $slide1_result[count($slide1_result)-1]);//ㄌ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][7]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('W' . $i, $slide1_result[count($slide1_result)-3]);// ㄏ
-			$objPHPExcel->getActiveSheet()->setCellValue('X' . $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('Y' . $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][10]);
+			
+			if($data['script'][22] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('W' . $i, $slide1_result[count($slide1_result)-3]);//ㄏ
+			}
+			else if($data['script'][22] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('W' . $i, $slide1_result[count($slide1_result)-2]);//ㄏ
+			}
+			else if($data['script'][22] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('W' . $i, $slide1_result[count($slide1_result)-1]);//ㄏ
+			}
+			
+			if($data['script'][23] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('X' . $i, $slide1_result[count($slide1_result)-3]);//ㄏ
+			}
+			else if($data['script'][23] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('X' . $i, $slide1_result[count($slide1_result)-2]);//ㄏ
+			}
+			else if($data['script'][23] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('X' . $i, $slide1_result[count($slide1_result)-1]);//ㄏ
+			}
+			
+			if($data['script'][24] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('Y' . $i, $slide1_result[count($slide1_result)-3]);//ㄏ
+			}
+			else if($data['script'][24] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('Y' . $i, $slide1_result[count($slide1_result)-2]);//ㄏ
+			}
+			else if($data['script'][24] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('Y' . $i, $slide1_result[count($slide1_result)-1]);//ㄏ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][8]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('Z' . $i, $slide1_result[count($slide1_result)-3]);// ㄍ
-			$objPHPExcel->getActiveSheet()->setCellValue('AA'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('AB'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][8]);
+			
+			if($data['script'][25] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('Z' . $i, $slide1_result[count($slide1_result)-3]);//ㄍ
+			}
+			else if($data['script'][25] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('Z' . $i, $slide1_result[count($slide1_result)-2]);//ㄍ
+			}
+			else if($data['script'][25] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('Z' . $i, $slide1_result[count($slide1_result)-1]);//ㄍ
+			}
+			
+			if($data['script'][26] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AA' . $i, $slide1_result[count($slide1_result)-3]);//ㄍ
+			}
+			else if($data['script'][26] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AA' . $i, $slide1_result[count($slide1_result)-2]);//ㄍ
+			}
+			else if($data['script'][26] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AA' . $i, $slide1_result[count($slide1_result)-1]);//ㄍ
+			}
+			
+			if($data['script'][27] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AB' . $i, $slide1_result[count($slide1_result)-3]);//ㄍ
+			}
+			else if($data['script'][27] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AB' . $i, $slide1_result[count($slide1_result)-2]);//ㄍ
+			}
+			else if($data['script'][27] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AB' . $i, $slide1_result[count($slide1_result)-1]);//ㄍ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][9]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('AC'. $i, $slide1_result[count($slide1_result)-3]);//ㄎ
-			$objPHPExcel->getActiveSheet()->setCellValue('AD'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('AE'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][9]);
+			
+			if($data['script'][28] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AC'. $i, $slide1_result[count($slide1_result)-3]);//ㄎ
+			}
+			else if($data['script'][28] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AC'. $i, $slide1_result[count($slide1_result)-2]);//ㄎ
+			}
+			else if($data['script'][28] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AC'. $i, $slide1_result[count($slide1_result)-1]);//ㄎ
+			}
+			
+			if($data['script'][29] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AD'. $i, $slide1_result[count($slide1_result)-3]);//ㄎ
+			}
+			else if($data['script'][29] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AD'. $i, $slide1_result[count($slide1_result)-2]);//ㄎ
+			}
+			else if($data['script'][29] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AD'. $i, $slide1_result[count($slide1_result)-1]);//ㄎ
+			}
+			
+			if($data['script'][30] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AE'. $i, $slide1_result[count($slide1_result)-3]);//ㄎ
+			}
+			else if($data['script'][30] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AE'. $i, $slide1_result[count($slide1_result)-2]);//ㄎ
+			}
+			else if($data['script'][30] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AE'. $i, $slide1_result[count($slide1_result)-1]);//ㄎ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][10]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('AF'. $i, $slide1_result[count($slide1_result)-3]);//ㄐ
-			$objPHPExcel->getActiveSheet()->setCellValue('AG'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('AH'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][11]);
+			
+			if($data['script'][31] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AF'. $i, $slide1_result[count($slide1_result)-3]);//ㄐ
+			}
+			else if($data['script'][31] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AF'. $i, $slide1_result[count($slide1_result)-2]);//ㄐ
+			}
+			else if($data['script'][31] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AF'. $i, $slide1_result[count($slide1_result)-1]);//ㄐ
+			}
+			
+			if($data['script'][32] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AG'. $i, $slide1_result[count($slide1_result)-3]);//ㄐ
+			}
+			else if($data['script'][32] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AG'. $i, $slide1_result[count($slide1_result)-2]);//ㄐ
+			}
+			else if($data['script'][32] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AG'. $i, $slide1_result[count($slide1_result)-1]);//ㄐ
+			}
+			
+			if($data['script'][33] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AH'. $i, $slide1_result[count($slide1_result)-3]);//ㄐ
+			}
+			else if($data['script'][33] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AH'. $i, $slide1_result[count($slide1_result)-2]);//ㄐ
+			}
+			else if($data['script'][33] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AH'. $i, $slide1_result[count($slide1_result)-1]);//ㄐ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][11]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('AI'. $i, $slide1_result[count($slide1_result)-3]);//ㄑ
-			$objPHPExcel->getActiveSheet()->setCellValue('AJ'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('AK'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][12]);
+			
+			if($data['script'][34] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AI'. $i, $slide1_result[count($slide1_result)-3]);//ㄑ
+			}
+			else if($data['script'][34] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AI'. $i, $slide1_result[count($slide1_result)-2]);//ㄑ
+			}
+			else if($data['script'][34] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AI'. $i, $slide1_result[count($slide1_result)-1]);//ㄑ
+			}
+			
+			if($data['script'][35] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AJ'. $i, $slide1_result[count($slide1_result)-3]);//ㄑ
+			}
+			else if($data['script'][35] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AJ'. $i, $slide1_result[count($slide1_result)-2]);//ㄑ
+			}
+			else if($data['script'][35] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AJ'. $i, $slide1_result[count($slide1_result)-1]);//ㄑ
+			}
+			
+			if($data['script'][36] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AK'. $i, $slide1_result[count($slide1_result)-3]);//ㄑ
+			}
+			else if($data['script'][36] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AK'. $i, $slide1_result[count($slide1_result)-2]);//ㄑ
+			}
+			else if($data['script'][36] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AK'. $i, $slide1_result[count($slide1_result)-1]);//ㄑ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][12]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('AL'. $i, $slide1_result[count($slide1_result)-3]);//ㄒ
-			$objPHPExcel->getActiveSheet()->setCellValue('AM'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('AN'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][13]);
+			
+			if($data['script'][37] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AL'. $i, $slide1_result[count($slide1_result)-3]);//ㄒ
+			}
+			else if($data['script'][37] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AL'. $i, $slide1_result[count($slide1_result)-2]);//ㄒ
+			}
+			else if($data['script'][37] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AL'. $i, $slide1_result[count($slide1_result)-1]);//ㄒ
+			}
+			
+			if($data['script'][38] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AM'. $i, $slide1_result[count($slide1_result)-3]);//ㄒ
+			}
+			else if($data['script'][38] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AM'. $i, $slide1_result[count($slide1_result)-2]);//ㄒ
+			}
+			else if($data['script'][38] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AM'. $i, $slide1_result[count($slide1_result)-1]);//ㄒ
+			}
+			
+			if($data['script'][39] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AN'. $i, $slide1_result[count($slide1_result)-3]);//ㄒ
+			}
+			else if($data['script'][39] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AN'. $i, $slide1_result[count($slide1_result)-2]);//ㄒ
+			}
+			else if($data['script'][39] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AN'. $i, $slide1_result[count($slide1_result)-1]);//ㄒ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][13]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('AO'. $i, $slide1_result[count($slide1_result)-3]);//ㄗ
-			$objPHPExcel->getActiveSheet()->setCellValue('AP'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('AQ'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][18]);
+			
+			if($data['script'][40] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AO'. $i, $slide1_result[count($slide1_result)-3]);//ㄗ
+			}
+			else if($data['script'][40] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AO'. $i, $slide1_result[count($slide1_result)-2]);//ㄗ
+			}
+			else if($data['script'][40] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AO'. $i, $slide1_result[count($slide1_result)-1]);//ㄗ
+			}
+			
+			if($data['script'][41] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AP'. $i, $slide1_result[count($slide1_result)-3]);//ㄗ
+			}
+			else if($data['script'][41] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AP'. $i, $slide1_result[count($slide1_result)-2]);//ㄗ
+			}
+			else if($data['script'][41] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AP'. $i, $slide1_result[count($slide1_result)-1]);//ㄗ
+			}
+			
+			if($data['script'][42] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AQ'. $i, $slide1_result[count($slide1_result)-3]);//ㄗ
+			}
+			else if($data['script'][42] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AQ'. $i, $slide1_result[count($slide1_result)-2]);//ㄗ
+			}
+			else if($data['script'][42] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AQ'. $i, $slide1_result[count($slide1_result)-1]);//ㄗ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][14]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('AR'. $i, $slide1_result[count($slide1_result)-3]);//ㄘ
-			$objPHPExcel->getActiveSheet()->setCellValue('AS'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('AT'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][19]);
+			
+			if($data['script'][43] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AR'. $i, $slide1_result[count($slide1_result)-3]);//ㄘ
+			}
+			else if($data['script'][43] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AR'. $i, $slide1_result[count($slide1_result)-2]);//ㄘ
+			}
+			else if($data['script'][43] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AR'. $i, $slide1_result[count($slide1_result)-1]);//ㄘ
+			}
+			
+			if($data['script'][44] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AS'. $i, $slide1_result[count($slide1_result)-3]);//ㄘ
+			}
+			else if($data['script'][44] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AS'. $i, $slide1_result[count($slide1_result)-2]);//ㄘ
+			}
+			else if($data['script'][44] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AS'. $i, $slide1_result[count($slide1_result)-1]);//ㄘ
+			}
+			
+			if($data['script'][45] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AT'. $i, $slide1_result[count($slide1_result)-3]);//ㄘ
+			}
+			else if($data['script'][45] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AT'. $i, $slide1_result[count($slide1_result)-2]);//ㄘ
+			}
+			else if($data['script'][45] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AT'. $i, $slide1_result[count($slide1_result)-1]);//ㄘ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][15]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('AU'. $i, $slide1_result[count($slide1_result)-3]);//ㄙ
-			$objPHPExcel->getActiveSheet()->setCellValue('AV'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('AW'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][20]);
+			
+			if($data['script'][46] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AU'. $i, $slide1_result[count($slide1_result)-3]);//ㄙ
+			}
+			else if($data['script'][46] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AU'. $i, $slide1_result[count($slide1_result)-2]);//ㄙ
+			}
+			else if($data['script'][46] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AU'. $i, $slide1_result[count($slide1_result)-1]);//ㄙ
+			}
+			
+			if($data['script'][47] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AV'. $i, $slide1_result[count($slide1_result)-3]);//ㄙ
+			}
+			else if($data['script'][47] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AV'. $i, $slide1_result[count($slide1_result)-2]);//ㄙ
+			}
+			else if($data['script'][47] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AV'. $i, $slide1_result[count($slide1_result)-1]);//ㄙ
+			}
+			
+			if($data['script'][48] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AW'. $i, $slide1_result[count($slide1_result)-3]);//ㄙ
+			}
+			else if($data['script'][48] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AW'. $i, $slide1_result[count($slide1_result)-2]);//ㄙ
+			}
+			else if($data['script'][48] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AW'. $i, $slide1_result[count($slide1_result)-1]);//ㄙ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][16]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('AX'. $i, $slide1_result[count($slide1_result)-3]);//ㄓ
-			$objPHPExcel->getActiveSheet()->setCellValue('AY'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('AZ'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][14]);
+			
+			if($data['script'][49] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AX'. $i, $slide1_result[count($slide1_result)-3]);//ㄓ
+			}
+			else if($data['script'][49] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AX'. $i, $slide1_result[count($slide1_result)-2]);//ㄓ
+			}
+			else if($data['script'][49] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AX'. $i, $slide1_result[count($slide1_result)-1]);//ㄓ
+			}
+			
+			if($data['script'][50] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AY'. $i, $slide1_result[count($slide1_result)-3]);//ㄓ
+			}
+			else if($data['script'][50] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AY'. $i, $slide1_result[count($slide1_result)-2]);//ㄓ
+			}
+			else if($data['script'][50] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AY'. $i, $slide1_result[count($slide1_result)-1]);//ㄓ
+			}
+			
+			if($data['script'][51] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AZ'. $i, $slide1_result[count($slide1_result)-3]);//ㄓ
+			}
+			else if($data['script'][51] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AZ'. $i, $slide1_result[count($slide1_result)-2]);//ㄓ
+			}
+			else if($data['script'][51] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('AZ'. $i, $slide1_result[count($slide1_result)-1]);//ㄓ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][17]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('BA'. $i, $slide1_result[count($slide1_result)-3]);//ㄔ
-			$objPHPExcel->getActiveSheet()->setCellValue('BB'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('BC'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][15]);
+			
+			if($data['script'][52] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BA'. $i, $slide1_result[count($slide1_result)-3]);//ㄔ
+			}
+			else if($data['script'][52] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BA'. $i, $slide1_result[count($slide1_result)-2]);//ㄔ
+			}
+			else if($data['script'][52] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BA'. $i, $slide1_result[count($slide1_result)-1]);//ㄔ
+			}
+			
+			if($data['script'][53] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BB'. $i, $slide1_result[count($slide1_result)-3]);//ㄔ
+			}
+			else if($data['script'][53] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BB'. $i, $slide1_result[count($slide1_result)-2]);//ㄔ
+			}
+			else if($data['script'][53] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BB'. $i, $slide1_result[count($slide1_result)-1]);//ㄔ
+			}
+			
+			if($data['script'][54] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BC'. $i, $slide1_result[count($slide1_result)-3]);//ㄔ
+			}
+			else if($data['script'][54] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BC'. $i, $slide1_result[count($slide1_result)-2]);//ㄔ
+			}
+			else if($data['script'][54] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BC'. $i, $slide1_result[count($slide1_result)-1]);//ㄔ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][18]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('BD'. $i, $slide1_result[count($slide1_result)-3]);//ㄕ
-			$objPHPExcel->getActiveSheet()->setCellValue('BE'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('BF'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][16]);
+			
+			if($data['script'][55] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BD'. $i, $slide1_result[count($slide1_result)-3]);//ㄕ
+			}
+			else if($data['script'][55] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BD'. $i, $slide1_result[count($slide1_result)-2]);//ㄕ
+			}
+			else if($data['script'][55] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BD'. $i, $slide1_result[count($slide1_result)-1]);//ㄕ
+			}
+			
+			if($data['script'][56] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BE'. $i, $slide1_result[count($slide1_result)-3]);//ㄕ
+			}
+			else if($data['script'][56] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BE'. $i, $slide1_result[count($slide1_result)-2]);//ㄕ
+			}
+			else if($data['script'][56] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BE'. $i, $slide1_result[count($slide1_result)-1]);//ㄕ
+			}
+			
+			if($data['script'][57] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BF'. $i, $slide1_result[count($slide1_result)-3]);//ㄕ
+			}
+			else if($data['script'][57] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BF'. $i, $slide1_result[count($slide1_result)-2]);//ㄕ
+			}
+			else if($data['script'][57] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BF'. $i, $slide1_result[count($slide1_result)-1]);//ㄕ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][19]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('BG'. $i, $slide1_result[count($slide1_result)-3]);//ㄖ
-			$objPHPExcel->getActiveSheet()->setCellValue('BH'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('BI'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][17]);
+			
+			if($data['script'][58] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BG'. $i, $slide1_result[count($slide1_result)-3]);//ㄖ
+			}
+			else if($data['script'][58] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BG'. $i, $slide1_result[count($slide1_result)-2]);//ㄖ
+			}
+			else if($data['script'][58] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BG'. $i, $slide1_result[count($slide1_result)-1]);//ㄖ
+			}
+			
+			if($data['script'][59] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BH'. $i, $slide1_result[count($slide1_result)-3]);//ㄖ
+			}
+			else if($data['script'][59] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BH'. $i, $slide1_result[count($slide1_result)-2]);//ㄖ
+			}
+			else if($data['script'][59] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BH'. $i, $slide1_result[count($slide1_result)-1]);//ㄖ
+			}
+			
+			if($data['script'][60] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BI'. $i, $slide1_result[count($slide1_result)-3]);//ㄖ
+			}
+			else if($data['script'][60] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BI'. $i, $slide1_result[count($slide1_result)-2]);//ㄖ
+			}
+			else if($data['script'][60] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BI'. $i, $slide1_result[count($slide1_result)-1]);//ㄖ
+			}
 			
 			$slide1 = explode(",,",$children['score'][$n][20]);
 			$slide1_re = $slide1[count($slide1)-3];
 			$slide1_result = explode(",",$slide1_re);
-			$objPHPExcel->getActiveSheet()->setCellValue('BJ'. $i, $slide1_result[count($slide1_result)-3]);//ㄈ
-			$objPHPExcel->getActiveSheet()->setCellValue('BK'. $i, $slide1_result[count($slide1_result)-2]);
-			$objPHPExcel->getActiveSheet()->setCellValue('BL'. $i, $slide1_result[count($slide1_result)-1]);
+			
+			$scriptslide = explode(",",$children['script'][$n][3]);
+			
+			if($data['script'][61] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BJ'. $i, $slide1_result[count($slide1_result)-3]);//ㄈ
+			}
+			else if($data['script'][61] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BJ'. $i, $slide1_result[count($slide1_result)-2]);//ㄈ
+			}
+			else if($data['script'][61] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BJ'. $i, $slide1_result[count($slide1_result)-1]);//ㄈ
+			}
+			
+			if($data['script'][62] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BK'. $i, $slide1_result[count($slide1_result)-3]);//ㄈ
+			}
+			else if($data['script'][62] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BK'. $i, $slide1_result[count($slide1_result)-2]);//ㄈ
+			}
+			else if($data['script'][62] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BK'. $i, $slide1_result[count($slide1_result)-1]);//ㄈ
+			}
+			
+			if($data['script'][63] == $scriptslide[count($scriptslide)-3])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BL'. $i, $slide1_result[count($slide1_result)-3]);//ㄈ
+			}
+			else if($data['script'][63] == $scriptslide[count($scriptslide)-2])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BL'. $i, $slide1_result[count($slide1_result)-2]);//ㄈ
+			}
+			else if($data['script'][63] == $scriptslide[count($scriptslide)-1])
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('BL'. $i, $slide1_result[count($slide1_result)-1]);//ㄈ
+			}
 			
 			$slide1_result = explode(",",$children['score'][$n][21]);
 			$objPHPExcel->getActiveSheet()->setCellValue('BM'. $i, $slide1_result[count($slide1_result)-2]);//ㄚ
@@ -603,23 +1456,714 @@ class projectview_admin extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->setCellValue('CB'. $i, $slide1_result[count($slide1_result)-2]);//ㄦ
 			
 			$slide1 = explode(",,",$children['score'][$n][37]);
-			$objPHPExcel->getActiveSheet()->setCellValue('CC'. $i, $slide1[count($slide1)-7]);//爸爸抱寶寶
-			$objPHPExcel->getActiveSheet()->setCellValue('CD'. $i, $slide1[count($slide1)-3]);//氣球輕輕飄
-			$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, $slide1[count($slide1)-6]);//弟弟學兔子跳
-			$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $slide1[count($slide1)-2]);//姊姊喜歡吃西瓜
-			$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $slide1[count($slide1)-5]);//哥哥愛喝可口可樂
-			$objPHPExcel->getActiveSheet()->setCellValue('CH'. $i, $slide1[count($slide1)-1]);//一二三大家來賽跑
-			$objPHPExcel->getActiveSheet()->setCellValue('CI'. $i, $slide1[count($slide1)-4]);//警察伯伯吹哨子抓小偷
+			
+			$scriptslide = explode(",",$children['script'][$n][37]);
+			
+			if($data['script'][80] == $scriptslide[count($scriptslide)-7])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-7]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-7]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CC'. $i, $topic_slide[0]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CD'. $i, $topic_slide[1]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, $topic_slide[2]);//抱
+				$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $topic_slide[3]);//寶
+				$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $topic_slide[4]);//寶
+			}
+			else if($data['script'][80] == $scriptslide[count($scriptslide)-6])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-6]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-6]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CC'. $i, $topic_slide[0]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CD'. $i, $topic_slide[1]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, $topic_slide[2]);//抱
+				$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $topic_slide[3]);//寶
+				$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $topic_slide[4]);//寶
+			}
+			else if($data['script'][80] == $scriptslide[count($scriptslide)-5])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-5]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-5]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CC'. $i, $topic_slide[0]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CD'. $i, $topic_slide[1]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, $topic_slide[2]);//抱
+				$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $topic_slide[3]);//寶
+				$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $topic_slide[4]);//寶
+			}
+			else if($data['script'][80] == $scriptslide[count($scriptslide)-4])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-4]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-4]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CC'. $i, $topic_slide[0]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CD'. $i, $topic_slide[1]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, $topic_slide[2]);//抱
+				$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $topic_slide[3]);//寶
+				$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $topic_slide[4]);//寶
+			}
+			else if($data['script'][80] == $scriptslide[count($scriptslide)-3])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-3]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-3]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CC'. $i, $topic_slide[0]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CD'. $i, $topic_slide[1]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, $topic_slide[2]);//抱
+				$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $topic_slide[3]);//寶
+				$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $topic_slide[4]);//寶
+			}
+			else if($data['script'][80] == $scriptslide[count($scriptslide)-2])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-2]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-2]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CC'. $i, $topic_slide[0]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CD'. $i, $topic_slide[1]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, $topic_slide[2]);//抱
+				$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $topic_slide[3]);//寶
+				$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $topic_slide[4]);//寶
+			}
+			else if($data['script'][80] == $scriptslide[count($scriptslide)-1])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-1]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-1]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CC'. $i, $topic_slide[0]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CD'. $i, $topic_slide[1]);//爸
+				$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, $topic_slide[2]);//抱
+				$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $topic_slide[3]);//寶
+				$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $topic_slide[4]);//寶
+			}
+			
+			if($data['script'][81] == $scriptslide[count($scriptslide)-7])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-7]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-7]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CH'. $i, $topic_slide[0]);//氣
+				$objPHPExcel->getActiveSheet()->setCellValue('CI'. $i, $topic_slide[1]);//球
+				$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, $topic_slide[2]);//輕
+				$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, $topic_slide[3]);//飄
+				$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $topic_slide[4]);//飄
+			}
+			else if($data['script'][81] == $scriptslide[count($scriptslide)-6])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-6]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-6]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CH'. $i, $topic_slide[0]);//氣
+				$objPHPExcel->getActiveSheet()->setCellValue('CI'. $i, $topic_slide[1]);//球
+				$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, $topic_slide[2]);//輕
+				$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, $topic_slide[3]);//飄
+				$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $topic_slide[4]);//飄
+			}
+			else if($data['script'][81] == $scriptslide[count($scriptslide)-5])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-5]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-5]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CH'. $i, $topic_slide[0]);//氣
+				$objPHPExcel->getActiveSheet()->setCellValue('CI'. $i, $topic_slide[1]);//球
+				$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, $topic_slide[2]);//輕
+				$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, $topic_slide[3]);//飄
+				$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $topic_slide[4]);//飄
+			}
+			else if($data['script'][81] == $scriptslide[count($scriptslide)-4])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-4]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-4]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CH'. $i, $topic_slide[0]);//氣
+				$objPHPExcel->getActiveSheet()->setCellValue('CI'. $i, $topic_slide[1]);//球
+				$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, $topic_slide[2]);//輕
+				$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, $topic_slide[3]);//飄
+				$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $topic_slide[4]);//飄
+			}
+			else if($data['script'][81] == $scriptslide[count($scriptslide)-3])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-3]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-3]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CH'. $i, $topic_slide[0]);//氣
+				$objPHPExcel->getActiveSheet()->setCellValue('CI'. $i, $topic_slide[1]);//球
+				$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, $topic_slide[2]);//輕
+				$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, $topic_slide[3]);//飄
+				$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $topic_slide[4]);//飄
+			}
+			else if($data['script'][81] == $scriptslide[count($scriptslide)-2])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-2]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-2]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CH'. $i, $topic_slide[0]);//氣
+				$objPHPExcel->getActiveSheet()->setCellValue('CI'. $i, $topic_slide[1]);//球
+				$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, $topic_slide[2]);//輕
+				$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, $topic_slide[3]);//飄
+				$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $topic_slide[4]);//飄
+			}
+			else if($data['script'][81] == $scriptslide[count($scriptslide)-1])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-1]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-1]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CH'. $i, $topic_slide[0]);//氣
+				$objPHPExcel->getActiveSheet()->setCellValue('CI'. $i, $topic_slide[1]);//球
+				$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, $topic_slide[2]);//輕
+				$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, $topic_slide[3]);//飄
+				$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $topic_slide[4]);//飄
+			}
+			
+			if($data['script'][82] == $scriptslide[count($scriptslide)-7])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-7]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-7]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, $topic_slide[0]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CN'. $i, $topic_slide[1]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CO'. $i, $topic_slide[2]);//學
+				$objPHPExcel->getActiveSheet()->setCellValue('CP'. $i, $topic_slide[3]);//兔
+				$objPHPExcel->getActiveSheet()->setCellValue('CQ'. $i, $topic_slide[4]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('CR'. $i, $topic_slide[5]);//跳
+			}
+			else if($data['script'][82] == $scriptslide[count($scriptslide)-6])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-6]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-6]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, $topic_slide[0]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CN'. $i, $topic_slide[1]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CO'. $i, $topic_slide[2]);//學
+				$objPHPExcel->getActiveSheet()->setCellValue('CP'. $i, $topic_slide[3]);//兔
+				$objPHPExcel->getActiveSheet()->setCellValue('CQ'. $i, $topic_slide[4]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('CR'. $i, $topic_slide[5]);//跳
+			}
+			else if($data['script'][82] == $scriptslide[count($scriptslide)-5])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-5]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-5]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, $topic_slide[0]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CN'. $i, $topic_slide[1]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CO'. $i, $topic_slide[2]);//學
+				$objPHPExcel->getActiveSheet()->setCellValue('CP'. $i, $topic_slide[3]);//兔
+				$objPHPExcel->getActiveSheet()->setCellValue('CQ'. $i, $topic_slide[4]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('CR'. $i, $topic_slide[5]);//跳
+			}
+			else if($data['script'][82] == $scriptslide[count($scriptslide)-4])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-4]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-4]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, $topic_slide[0]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CN'. $i, $topic_slide[1]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CO'. $i, $topic_slide[2]);//學
+				$objPHPExcel->getActiveSheet()->setCellValue('CP'. $i, $topic_slide[3]);//兔
+				$objPHPExcel->getActiveSheet()->setCellValue('CQ'. $i, $topic_slide[4]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('CR'. $i, $topic_slide[5]);//跳
+			}
+			else if($data['script'][82] == $scriptslide[count($scriptslide)-3])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-3]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-3]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, $topic_slide[0]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CN'. $i, $topic_slide[1]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CO'. $i, $topic_slide[2]);//學
+				$objPHPExcel->getActiveSheet()->setCellValue('CP'. $i, $topic_slide[3]);//兔
+				$objPHPExcel->getActiveSheet()->setCellValue('CQ'. $i, $topic_slide[4]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('CR'. $i, $topic_slide[5]);//跳
+			}
+			else if($data['script'][82] == $scriptslide[count($scriptslide)-2])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-2]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-2]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, $topic_slide[0]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CN'. $i, $topic_slide[1]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CO'. $i, $topic_slide[2]);//學
+				$objPHPExcel->getActiveSheet()->setCellValue('CP'. $i, $topic_slide[3]);//兔
+				$objPHPExcel->getActiveSheet()->setCellValue('CQ'. $i, $topic_slide[4]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('CR'. $i, $topic_slide[5]);//跳
+			}
+			else if($data['script'][82] == $scriptslide[count($scriptslide)-1])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-1]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-1]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, $topic_slide[0]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CN'. $i, $topic_slide[1]);//弟
+				$objPHPExcel->getActiveSheet()->setCellValue('CO'. $i, $topic_slide[2]);//學
+				$objPHPExcel->getActiveSheet()->setCellValue('CP'. $i, $topic_slide[3]);//兔
+				$objPHPExcel->getActiveSheet()->setCellValue('CQ'. $i, $topic_slide[4]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('CR'. $i, $topic_slide[5]);//跳
+			}
+			
+			if($data['script'][83] == $scriptslide[count($scriptslide)-7])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-7]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-7]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CS'. $i, $topic_slide[0]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CT'. $i, $topic_slide[1]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CU'. $i, $topic_slide[2]);//喜
+				$objPHPExcel->getActiveSheet()->setCellValue('CV'. $i, $topic_slide[3]);//歡
+				$objPHPExcel->getActiveSheet()->setCellValue('CW'. $i, $topic_slide[4]);//吃
+				$objPHPExcel->getActiveSheet()->setCellValue('CX'. $i, $topic_slide[5]);//西
+				$objPHPExcel->getActiveSheet()->setCellValue('CY'. $i, $topic_slide[6]);//瓜
+				
+			}
+			else if($data['script'][83] == $scriptslide[count($scriptslide)-6])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-6]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-6]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CS'. $i, $topic_slide[0]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CT'. $i, $topic_slide[1]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CU'. $i, $topic_slide[2]);//喜
+				$objPHPExcel->getActiveSheet()->setCellValue('CV'. $i, $topic_slide[3]);//歡
+				$objPHPExcel->getActiveSheet()->setCellValue('CW'. $i, $topic_slide[4]);//吃
+				$objPHPExcel->getActiveSheet()->setCellValue('CX'. $i, $topic_slide[5]);//西
+				$objPHPExcel->getActiveSheet()->setCellValue('CY'. $i, $topic_slide[6]);//瓜
+			}
+			else if($data['script'][83] == $scriptslide[count($scriptslide)-5])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-5]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-5]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CS'. $i, $topic_slide[0]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CT'. $i, $topic_slide[1]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CU'. $i, $topic_slide[2]);//喜
+				$objPHPExcel->getActiveSheet()->setCellValue('CV'. $i, $topic_slide[3]);//歡
+				$objPHPExcel->getActiveSheet()->setCellValue('CW'. $i, $topic_slide[4]);//吃
+				$objPHPExcel->getActiveSheet()->setCellValue('CX'. $i, $topic_slide[5]);//西
+				$objPHPExcel->getActiveSheet()->setCellValue('CY'. $i, $topic_slide[6]);//瓜
+			}
+			else if($data['script'][83] == $scriptslide[count($scriptslide)-4])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-4]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-4]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CS'. $i, $topic_slide[0]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CT'. $i, $topic_slide[1]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CU'. $i, $topic_slide[2]);//喜
+				$objPHPExcel->getActiveSheet()->setCellValue('CV'. $i, $topic_slide[3]);//歡
+				$objPHPExcel->getActiveSheet()->setCellValue('CW'. $i, $topic_slide[4]);//吃
+				$objPHPExcel->getActiveSheet()->setCellValue('CX'. $i, $topic_slide[5]);//西
+				$objPHPExcel->getActiveSheet()->setCellValue('CY'. $i, $topic_slide[6]);//瓜
+			}
+			else if($data['script'][83] == $scriptslide[count($scriptslide)-3])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-3]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-3]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CS'. $i, $topic_slide[0]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CT'. $i, $topic_slide[1]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CU'. $i, $topic_slide[2]);//喜
+				$objPHPExcel->getActiveSheet()->setCellValue('CV'. $i, $topic_slide[3]);//歡
+				$objPHPExcel->getActiveSheet()->setCellValue('CW'. $i, $topic_slide[4]);//吃
+				$objPHPExcel->getActiveSheet()->setCellValue('CX'. $i, $topic_slide[5]);//西
+				$objPHPExcel->getActiveSheet()->setCellValue('CY'. $i, $topic_slide[6]);//瓜
+			}
+			else if($data['script'][83] == $scriptslide[count($scriptslide)-2])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-2]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-2]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CS'. $i, $topic_slide[0]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CT'. $i, $topic_slide[1]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CU'. $i, $topic_slide[2]);//喜
+				$objPHPExcel->getActiveSheet()->setCellValue('CV'. $i, $topic_slide[3]);//歡
+				$objPHPExcel->getActiveSheet()->setCellValue('CW'. $i, $topic_slide[4]);//吃
+				$objPHPExcel->getActiveSheet()->setCellValue('CX'. $i, $topic_slide[5]);//西
+				$objPHPExcel->getActiveSheet()->setCellValue('CY'. $i, $topic_slide[6]);//瓜
+			}
+			else if($data['script'][83] == $scriptslide[count($scriptslide)-1])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-1]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-1]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CS'. $i, $topic_slide[0]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CT'. $i, $topic_slide[1]);//姊
+				$objPHPExcel->getActiveSheet()->setCellValue('CU'. $i, $topic_slide[2]);//喜
+				$objPHPExcel->getActiveSheet()->setCellValue('CV'. $i, $topic_slide[3]);//歡
+				$objPHPExcel->getActiveSheet()->setCellValue('CW'. $i, $topic_slide[4]);//吃
+				$objPHPExcel->getActiveSheet()->setCellValue('CX'. $i, $topic_slide[5]);//西
+				$objPHPExcel->getActiveSheet()->setCellValue('CY'. $i, $topic_slide[6]);//瓜
+			}
+			
+			if($data['script'][84] == $scriptslide[count($scriptslide)-7])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-7]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-7]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CZ'. $i, $topic_slide[0]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DA'. $i, $topic_slide[1]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DB'. $i, $topic_slide[2]);//愛
+				$objPHPExcel->getActiveSheet()->setCellValue('DC'. $i, $topic_slide[3]);//喝
+				$objPHPExcel->getActiveSheet()->setCellValue('DD'. $i, $topic_slide[4]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DE'. $i, $topic_slide[5]);//口
+				$objPHPExcel->getActiveSheet()->setCellValue('DF'. $i, $topic_slide[6]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DG'. $i, $topic_slide[7]);//樂
+			}
+			else if($data['script'][84] == $scriptslide[count($scriptslide)-6])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-6]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-6]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CZ'. $i, $topic_slide[0]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DA'. $i, $topic_slide[1]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DB'. $i, $topic_slide[2]);//愛
+				$objPHPExcel->getActiveSheet()->setCellValue('DC'. $i, $topic_slide[3]);//喝
+				$objPHPExcel->getActiveSheet()->setCellValue('DD'. $i, $topic_slide[4]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DE'. $i, $topic_slide[5]);//口
+				$objPHPExcel->getActiveSheet()->setCellValue('DF'. $i, $topic_slide[6]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DG'. $i, $topic_slide[7]);//樂
+			}
+			else if($data['script'][84] == $scriptslide[count($scriptslide)-5])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-5]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-5]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CZ'. $i, $topic_slide[0]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DA'. $i, $topic_slide[1]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DB'. $i, $topic_slide[2]);//愛
+				$objPHPExcel->getActiveSheet()->setCellValue('DC'. $i, $topic_slide[3]);//喝
+				$objPHPExcel->getActiveSheet()->setCellValue('DD'. $i, $topic_slide[4]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DE'. $i, $topic_slide[5]);//口
+				$objPHPExcel->getActiveSheet()->setCellValue('DF'. $i, $topic_slide[6]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DG'. $i, $topic_slide[7]);//樂
+			}
+			else if($data['script'][84] == $scriptslide[count($scriptslide)-4])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-4]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-4]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CZ'. $i, $topic_slide[0]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DA'. $i, $topic_slide[1]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DB'. $i, $topic_slide[2]);//愛
+				$objPHPExcel->getActiveSheet()->setCellValue('DC'. $i, $topic_slide[3]);//喝
+				$objPHPExcel->getActiveSheet()->setCellValue('DD'. $i, $topic_slide[4]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DE'. $i, $topic_slide[5]);//口
+				$objPHPExcel->getActiveSheet()->setCellValue('DF'. $i, $topic_slide[6]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DG'. $i, $topic_slide[7]);//樂
+			}
+			else if($data['script'][84] == $scriptslide[count($scriptslide)-3])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-4]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-4]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CZ'. $i, $topic_slide[0]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DA'. $i, $topic_slide[1]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DB'. $i, $topic_slide[2]);//愛
+				$objPHPExcel->getActiveSheet()->setCellValue('DC'. $i, $topic_slide[3]);//喝
+				$objPHPExcel->getActiveSheet()->setCellValue('DD'. $i, $topic_slide[4]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DE'. $i, $topic_slide[5]);//口
+				$objPHPExcel->getActiveSheet()->setCellValue('DF'. $i, $topic_slide[6]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DG'. $i, $topic_slide[7]);//樂
+			}
+			else if($data['script'][84] == $scriptslide[count($scriptslide)-2])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-2]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-2]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CZ'. $i, $topic_slide[0]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DA'. $i, $topic_slide[1]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DB'. $i, $topic_slide[2]);//愛
+				$objPHPExcel->getActiveSheet()->setCellValue('DC'. $i, $topic_slide[3]);//喝
+				$objPHPExcel->getActiveSheet()->setCellValue('DD'. $i, $topic_slide[4]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DE'. $i, $topic_slide[5]);//口
+				$objPHPExcel->getActiveSheet()->setCellValue('DF'. $i, $topic_slide[6]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DG'. $i, $topic_slide[7]);//樂
+			}
+			else if($data['script'][84] == $scriptslide[count($scriptslide)-1])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-1]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-1]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('CZ'. $i, $topic_slide[0]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DA'. $i, $topic_slide[1]);//哥
+				$objPHPExcel->getActiveSheet()->setCellValue('DB'. $i, $topic_slide[2]);//愛
+				$objPHPExcel->getActiveSheet()->setCellValue('DC'. $i, $topic_slide[3]);//喝
+				$objPHPExcel->getActiveSheet()->setCellValue('DD'. $i, $topic_slide[4]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DE'. $i, $topic_slide[5]);//口
+				$objPHPExcel->getActiveSheet()->setCellValue('DF'. $i, $topic_slide[6]);//可
+				$objPHPExcel->getActiveSheet()->setCellValue('DG'. $i, $topic_slide[7]);//樂
+			}
+			
+			if($data['script'][85] == $scriptslide[count($scriptslide)-7])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-7]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-7]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DH'. $i, $topic_slide[0]);//一
+				$objPHPExcel->getActiveSheet()->setCellValue('DI'. $i, $topic_slide[1]);//二
+				$objPHPExcel->getActiveSheet()->setCellValue('DJ'. $i, $topic_slide[2]);//三
+				$objPHPExcel->getActiveSheet()->setCellValue('DK'. $i, $topic_slide[3]);//大
+				$objPHPExcel->getActiveSheet()->setCellValue('DL'. $i, $topic_slide[4]);//家
+				$objPHPExcel->getActiveSheet()->setCellValue('DM'. $i, $topic_slide[5]);//來
+				$objPHPExcel->getActiveSheet()->setCellValue('DN'. $i, $topic_slide[6]);//賽
+				$objPHPExcel->getActiveSheet()->setCellValue('DO'. $i, $topic_slide[7]);//跑
+			}
+			else if($data['script'][85] == $scriptslide[count($scriptslide)-6])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-6]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-6]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DH'. $i, $topic_slide[0]);//一
+				$objPHPExcel->getActiveSheet()->setCellValue('DI'. $i, $topic_slide[1]);//二
+				$objPHPExcel->getActiveSheet()->setCellValue('DJ'. $i, $topic_slide[2]);//三
+				$objPHPExcel->getActiveSheet()->setCellValue('DK'. $i, $topic_slide[3]);//大
+				$objPHPExcel->getActiveSheet()->setCellValue('DL'. $i, $topic_slide[4]);//家
+				$objPHPExcel->getActiveSheet()->setCellValue('DM'. $i, $topic_slide[5]);//來
+				$objPHPExcel->getActiveSheet()->setCellValue('DN'. $i, $topic_slide[6]);//賽
+				$objPHPExcel->getActiveSheet()->setCellValue('DO'. $i, $topic_slide[7]);//跑
+			}
+			else if($data['script'][85] == $scriptslide[count($scriptslide)-5])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-5]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-5]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DH'. $i, $topic_slide[0]);//一
+				$objPHPExcel->getActiveSheet()->setCellValue('DI'. $i, $topic_slide[1]);//二
+				$objPHPExcel->getActiveSheet()->setCellValue('DJ'. $i, $topic_slide[2]);//三
+				$objPHPExcel->getActiveSheet()->setCellValue('DK'. $i, $topic_slide[3]);//大
+				$objPHPExcel->getActiveSheet()->setCellValue('DL'. $i, $topic_slide[4]);//家
+				$objPHPExcel->getActiveSheet()->setCellValue('DM'. $i, $topic_slide[5]);//來
+				$objPHPExcel->getActiveSheet()->setCellValue('DN'. $i, $topic_slide[6]);//賽
+				$objPHPExcel->getActiveSheet()->setCellValue('DO'. $i, $topic_slide[7]);//跑
+			}
+			else if($data['script'][85] == $scriptslide[count($scriptslide)-4])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-4]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-4]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DH'. $i, $topic_slide[0]);//一
+				$objPHPExcel->getActiveSheet()->setCellValue('DI'. $i, $topic_slide[1]);//二
+				$objPHPExcel->getActiveSheet()->setCellValue('DJ'. $i, $topic_slide[2]);//三
+				$objPHPExcel->getActiveSheet()->setCellValue('DK'. $i, $topic_slide[3]);//大
+				$objPHPExcel->getActiveSheet()->setCellValue('DL'. $i, $topic_slide[4]);//家
+				$objPHPExcel->getActiveSheet()->setCellValue('DM'. $i, $topic_slide[5]);//來
+				$objPHPExcel->getActiveSheet()->setCellValue('DN'. $i, $topic_slide[6]);//賽
+				$objPHPExcel->getActiveSheet()->setCellValue('DO'. $i, $topic_slide[7]);//跑
+			}
+			else if($data['script'][85] == $scriptslide[count($scriptslide)-3])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-3]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-3]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DH'. $i, $topic_slide[0]);//一
+				$objPHPExcel->getActiveSheet()->setCellValue('DI'. $i, $topic_slide[1]);//二
+				$objPHPExcel->getActiveSheet()->setCellValue('DJ'. $i, $topic_slide[2]);//三
+				$objPHPExcel->getActiveSheet()->setCellValue('DK'. $i, $topic_slide[3]);//大
+				$objPHPExcel->getActiveSheet()->setCellValue('DL'. $i, $topic_slide[4]);//家
+				$objPHPExcel->getActiveSheet()->setCellValue('DM'. $i, $topic_slide[5]);//來
+				$objPHPExcel->getActiveSheet()->setCellValue('DN'. $i, $topic_slide[6]);//賽
+				$objPHPExcel->getActiveSheet()->setCellValue('DO'. $i, $topic_slide[7]);//跑
+			}
+			else if($data['script'][85] == $scriptslide[count($scriptslide)-2])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-2]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-2]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DH'. $i, $topic_slide[0]);//一
+				$objPHPExcel->getActiveSheet()->setCellValue('DI'. $i, $topic_slide[1]);//二
+				$objPHPExcel->getActiveSheet()->setCellValue('DJ'. $i, $topic_slide[2]);//三
+				$objPHPExcel->getActiveSheet()->setCellValue('DK'. $i, $topic_slide[3]);//大
+				$objPHPExcel->getActiveSheet()->setCellValue('DL'. $i, $topic_slide[4]);//家
+				$objPHPExcel->getActiveSheet()->setCellValue('DM'. $i, $topic_slide[5]);//來
+				$objPHPExcel->getActiveSheet()->setCellValue('DN'. $i, $topic_slide[6]);//賽
+				$objPHPExcel->getActiveSheet()->setCellValue('DO'. $i, $topic_slide[7]);//跑
+			}
+			else if($data['script'][85] == $scriptslide[count($scriptslide)-1])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-1]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-1]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DH'. $i, $topic_slide[0]);//一
+				$objPHPExcel->getActiveSheet()->setCellValue('DI'. $i, $topic_slide[1]);//二
+				$objPHPExcel->getActiveSheet()->setCellValue('DJ'. $i, $topic_slide[2]);//三
+				$objPHPExcel->getActiveSheet()->setCellValue('DK'. $i, $topic_slide[3]);//大
+				$objPHPExcel->getActiveSheet()->setCellValue('DL'. $i, $topic_slide[4]);//家
+				$objPHPExcel->getActiveSheet()->setCellValue('DM'. $i, $topic_slide[5]);//來
+				$objPHPExcel->getActiveSheet()->setCellValue('DN'. $i, $topic_slide[6]);//賽
+				$objPHPExcel->getActiveSheet()->setCellValue('DO'. $i, $topic_slide[7]);//跑
+			}
+			
+			if($data['script'][86] == $scriptslide[count($scriptslide)-7])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-7]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-7]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DP'. $i, $topic_slide[0]);//警
+				$objPHPExcel->getActiveSheet()->setCellValue('DQ'. $i, $topic_slide[1]);//察
+				$objPHPExcel->getActiveSheet()->setCellValue('DR'. $i, $topic_slide[2]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DS'. $i, $topic_slide[3]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DT'. $i, $topic_slide[4]);//吹
+				$objPHPExcel->getActiveSheet()->setCellValue('DU'. $i, $topic_slide[5]);//哨
+				$objPHPExcel->getActiveSheet()->setCellValue('DV'. $i, $topic_slide[6]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('DW'. $i, $topic_slide[7]);//抓
+				$objPHPExcel->getActiveSheet()->setCellValue('DX'. $i, $topic_slide[8]);//小
+				$objPHPExcel->getActiveSheet()->setCellValue('DY'. $i, $topic_slide[9]);//偷
+			}
+			else if($data['script'][86] == $scriptslide[count($scriptslide)-6])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-6]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-6]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DP'. $i, $topic_slide[0]);//警
+				$objPHPExcel->getActiveSheet()->setCellValue('DQ'. $i, $topic_slide[1]);//察
+				$objPHPExcel->getActiveSheet()->setCellValue('DR'. $i, $topic_slide[2]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DS'. $i, $topic_slide[3]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DT'. $i, $topic_slide[4]);//吹
+				$objPHPExcel->getActiveSheet()->setCellValue('DU'. $i, $topic_slide[5]);//哨
+				$objPHPExcel->getActiveSheet()->setCellValue('DV'. $i, $topic_slide[6]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('DW'. $i, $topic_slide[7]);//抓
+				$objPHPExcel->getActiveSheet()->setCellValue('DX'. $i, $topic_slide[8]);//小
+				$objPHPExcel->getActiveSheet()->setCellValue('DY'. $i, $topic_slide[9]);//偷
+			}
+			else if($data['script'][86] == $scriptslide[count($scriptslide)-5])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-5]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-5]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DP'. $i, $topic_slide[0]);//警
+				$objPHPExcel->getActiveSheet()->setCellValue('DQ'. $i, $topic_slide[1]);//察
+				$objPHPExcel->getActiveSheet()->setCellValue('DR'. $i, $topic_slide[2]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DS'. $i, $topic_slide[3]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DT'. $i, $topic_slide[4]);//吹
+				$objPHPExcel->getActiveSheet()->setCellValue('DU'. $i, $topic_slide[5]);//哨
+				$objPHPExcel->getActiveSheet()->setCellValue('DV'. $i, $topic_slide[6]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('DW'. $i, $topic_slide[7]);//抓
+				$objPHPExcel->getActiveSheet()->setCellValue('DX'. $i, $topic_slide[8]);//小
+				$objPHPExcel->getActiveSheet()->setCellValue('DY'. $i, $topic_slide[9]);//偷
+			}
+			else if($data['script'][86] == $scriptslide[count($scriptslide)-4])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-4]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-4]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DP'. $i, $topic_slide[0]);//警
+				$objPHPExcel->getActiveSheet()->setCellValue('DQ'. $i, $topic_slide[1]);//察
+				$objPHPExcel->getActiveSheet()->setCellValue('DR'. $i, $topic_slide[2]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DS'. $i, $topic_slide[3]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DT'. $i, $topic_slide[4]);//吹
+				$objPHPExcel->getActiveSheet()->setCellValue('DU'. $i, $topic_slide[5]);//哨
+				$objPHPExcel->getActiveSheet()->setCellValue('DV'. $i, $topic_slide[6]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('DW'. $i, $topic_slide[7]);//抓
+				$objPHPExcel->getActiveSheet()->setCellValue('DX'. $i, $topic_slide[8]);//小
+				$objPHPExcel->getActiveSheet()->setCellValue('DY'. $i, $topic_slide[9]);//偷
+			}
+			else if($data['script'][86] == $scriptslide[count($scriptslide)-3])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-3]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-3]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DP'. $i, $topic_slide[0]);//警
+				$objPHPExcel->getActiveSheet()->setCellValue('DQ'. $i, $topic_slide[1]);//察
+				$objPHPExcel->getActiveSheet()->setCellValue('DR'. $i, $topic_slide[2]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DS'. $i, $topic_slide[3]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DT'. $i, $topic_slide[4]);//吹
+				$objPHPExcel->getActiveSheet()->setCellValue('DU'. $i, $topic_slide[5]);//哨
+				$objPHPExcel->getActiveSheet()->setCellValue('DV'. $i, $topic_slide[6]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('DW'. $i, $topic_slide[7]);//抓
+				$objPHPExcel->getActiveSheet()->setCellValue('DX'. $i, $topic_slide[8]);//小
+				$objPHPExcel->getActiveSheet()->setCellValue('DY'. $i, $topic_slide[9]);//偷
+			}
+			else if($data['script'][86] == $scriptslide[count($scriptslide)-2])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-2]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-2]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DP'. $i, $topic_slide[0]);//警
+				$objPHPExcel->getActiveSheet()->setCellValue('DQ'. $i, $topic_slide[1]);//察
+				$objPHPExcel->getActiveSheet()->setCellValue('DR'. $i, $topic_slide[2]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DS'. $i, $topic_slide[3]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DT'. $i, $topic_slide[4]);//吹
+				$objPHPExcel->getActiveSheet()->setCellValue('DU'. $i, $topic_slide[5]);//哨
+				$objPHPExcel->getActiveSheet()->setCellValue('DV'. $i, $topic_slide[6]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('DW'. $i, $topic_slide[7]);//抓
+				$objPHPExcel->getActiveSheet()->setCellValue('DX'. $i, $topic_slide[8]);//小
+				$objPHPExcel->getActiveSheet()->setCellValue('DY'. $i, $topic_slide[9]);//偷
+			}
+			else if($data['script'][86] == $scriptslide[count($scriptslide)-1])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-1]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-1]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DP'. $i, $topic_slide[0]);//警
+				$objPHPExcel->getActiveSheet()->setCellValue('DQ'. $i, $topic_slide[1]);//察
+				$objPHPExcel->getActiveSheet()->setCellValue('DR'. $i, $topic_slide[2]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DS'. $i, $topic_slide[3]);//伯
+				$objPHPExcel->getActiveSheet()->setCellValue('DT'. $i, $topic_slide[4]);//吹
+				$objPHPExcel->getActiveSheet()->setCellValue('DU'. $i, $topic_slide[5]);//哨
+				$objPHPExcel->getActiveSheet()->setCellValue('DV'. $i, $topic_slide[6]);//子
+				$objPHPExcel->getActiveSheet()->setCellValue('DW'. $i, $topic_slide[7]);//抓
+				$objPHPExcel->getActiveSheet()->setCellValue('DX'. $i, $topic_slide[8]);//小
+				$objPHPExcel->getActiveSheet()->setCellValue('DY'. $i, $topic_slide[9]);//偷
+			}
+			
 			
 			$slide1 = explode(",,",$children['score'][$n][38]);
-			$objPHPExcel->getActiveSheet()->setCellValue('CJ'. $i, $slide1[count($slide1)-1]);//1 2 3 4 5
-			$objPHPExcel->getActiveSheet()->setCellValue('CK'. $i, $slide1[count($slide1)-2]);//6 7 8 9 10
 			
-			$objPHPExcel->getActiveSheet()->setCellValue('CL'. $i, $children['score'][$n][40]);//ㄆㄚ ㄊㄚ ㄎㄚ
+			$scriptslide = explode(",",$children['script'][$n][38]);
 			
-			$objPHPExcel->getActiveSheet()->setCellValue('CM'. $i, '');//次數/秒數
+			if($data['script'][87] == $scriptslide[count($scriptslide)-2])
+			{		
+				$topic_slide = explode(",",$slide1[count($slide1)-2]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-2]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DZ'. $i, $topic_slide[0]);//1
+				$objPHPExcel->getActiveSheet()->setCellValue('EA'. $i, $topic_slide[1]);//2
+				$objPHPExcel->getActiveSheet()->setCellValue('EB'. $i, $topic_slide[2]);//3
+				$objPHPExcel->getActiveSheet()->setCellValue('EC'. $i, $topic_slide[3]);//4
+				$objPHPExcel->getActiveSheet()->setCellValue('ED'. $i, $topic_slide[4]);//5
+			}
+			else if($data['script'][87] == $scriptslide[count($scriptslide)-1])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-1]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-1]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('DZ'. $i, $topic_slide[0]);//1
+				$objPHPExcel->getActiveSheet()->setCellValue('EA'. $i, $topic_slide[1]);//2
+				$objPHPExcel->getActiveSheet()->setCellValue('EB'. $i, $topic_slide[2]);//3
+				$objPHPExcel->getActiveSheet()->setCellValue('EC'. $i, $topic_slide[3]);//4
+				$objPHPExcel->getActiveSheet()->setCellValue('ED'. $i, $topic_slide[4]);//5
+			}
 			
-			$objPHPExcel->getActiveSheet()->setCellValue('CN'. $i, '');//說故事
+			if($data['script'][88] == $scriptslide[count($scriptslide)-2])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-2]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-2]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('EE'. $i, $topic_slide[0]);//6
+				$objPHPExcel->getActiveSheet()->setCellValue('EF'. $i, $topic_slide[1]);//7
+				$objPHPExcel->getActiveSheet()->setCellValue('EG'. $i, $topic_slide[2]);//8
+				$objPHPExcel->getActiveSheet()->setCellValue('EH'. $i, $topic_slide[3]);//9
+				$objPHPExcel->getActiveSheet()->setCellValue('EI'. $i, $topic_slide[4]);//10
+			}
+			else if($data['script'][88] == $scriptslide[count($scriptslide)-1])
+			{
+				$topic_slide = explode(",",$slide1[count($slide1)-1]);
+				$script_slide = explode(" ",$scriptslide[count($scriptslide)-1]);
+				
+				$objPHPExcel->getActiveSheet()->setCellValue('EE'. $i, $topic_slide[0]);//6
+				$objPHPExcel->getActiveSheet()->setCellValue('EF'. $i, $topic_slide[1]);//7
+				$objPHPExcel->getActiveSheet()->setCellValue('EG'. $i, $topic_slide[2]);//8
+				$objPHPExcel->getActiveSheet()->setCellValue('EH'. $i, $topic_slide[3]);//9
+				$objPHPExcel->getActiveSheet()->setCellValue('EI'. $i, $topic_slide[4]);//10
+			}
+			
+			$slide1 = explode(",",$children['score'][$n][40]);
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('EJ'. $i, $slide1[0]);//ㄆㄚ
+			$objPHPExcel->getActiveSheet()->setCellValue('EK'. $i, $slide1[1]);//ㄊㄚ
+			$objPHPExcel->getActiveSheet()->setCellValue('EL'. $i, $slide1[2]);//ㄎㄚ
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('EM'. $i, '');//次數/秒數
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('EN'. $i, '');//說故事
 			
 			$n++;
 		}
