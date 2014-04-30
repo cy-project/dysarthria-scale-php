@@ -20,7 +20,7 @@
 			
 		    $Stringall="";
 			$Stringall2="";
-			$temp=1;
+			$temp=91;
 		    foreach($speech->result() as $row):?>
 		
 			<?php

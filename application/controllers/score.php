@@ -174,7 +174,7 @@ class score extends CI_Controller {
 	$project_id = $this->input->post('project_id');
 	$office_id = $this->input->post('office_id');
 	
-	$data['speech'] = $model->score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id);
+	$data['speech'] = $model->score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id); //注音資料
 	
 	$data['speech2'] = $model->score_intern_speech_ajax_2($testing_list_id,$member_id,$project_id,$office_id); //念句子 數數字 輪替唸音 說故事 資料
 	

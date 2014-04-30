@@ -243,15 +243,20 @@ class projectview_admin extends CI_Controller {
 		$length = count($this->data['children_data']);
 		$nb = 0;
 		
-		for($i = 0;$i < $length; $i++)
+		for($i = 0;$i < 1; $i++)
 		{
 			$testing_id = $test_model->excel_change_testing_id($this->data['children_data'][$i]->id);
 			
 			$testing_list_id = $testing_id[0]->id;
 			$member_id = 1;
 			
-			$data['intern'] = $model->score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id);
+			$data['intern'] = $model->score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id); //注音
+			
+			$data['intern2'] = $model->score_intern_speech_ajax_2($testing_list_id,$member_id,$project_id,$office_id); //念句子 數數字 輪替唸音 說故事 資料
+			
 			$result['data'] = $data['intern']->result();
+			
+			$result2['data'] = $data['intern2']->result();
 			
 			if($result['data'] == null)
 			{
@@ -270,6 +275,16 @@ class projectview_admin extends CI_Controller {
 					
 					
 				}
+				
+				$length3 = count($result2['data']);
+				
+				for($j = 0;$j < $length3;$j++)
+				{
+					$children['script2'][$nb][$j] = $result2['data'][$j]->script;
+					$children['score2'][$nb][$j] = $result2['data'][$j]->wrongcode;
+					
+					
+				}
 				$nb++;
 			}
 			
@@ -281,10 +296,17 @@ class projectview_admin extends CI_Controller {
 			$data['script'][$s] = $test_model->excel_equals_topic($s);
 		}
 		
-		//print_r($children);
+		//print_r($office_id);
+		print_r($children['script'][0]);
+		//print_r($data['script']);
+		print_r($children['script2'][0]);
+		//print_r($children['score'][0][0]);
+		
+		//$slide1 = explode(",,",$children['score2'][0][0]);
+		//print_r($slide1);
 		
 		
-		
+		/*
 		
 		// Error reporting 
 		
@@ -605,15 +627,15 @@ class projectview_admin extends CI_Controller {
 			
 			if($data['script'][10] == $scriptslide[count($scriptslide)-3])
 			{
-				$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-3]);//ㄉ
+				$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-3].$data['script'][10]);//ㄉ
 			}
 			else if($data['script'][10] == $scriptslide[count($scriptslide)-2])
 			{
-				$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-2]);//ㄉ
+				$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-2].$data['script'][10]);//ㄉ
 			}
 			else if($data['script'][10] == $scriptslide[count($scriptslide)-1])
 			{
-				$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-1]);//ㄉ
+				$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-1].$data['script'][10]);//ㄉ
 			}
 			
 			if($data['script'][11] == $scriptslide[count($scriptslide)-3])
@@ -1454,10 +1476,10 @@ class projectview_admin extends CI_Controller {
 			
 			$slide1_result = explode(",",$children['score'][$n][36]);
 			$objPHPExcel->getActiveSheet()->setCellValue('CB'. $i, $slide1_result[count($slide1_result)-2]);//ㄦ
+			/*
+			$slide1 = explode(",,",$children['score2'][$n][0]);
 			
-			$slide1 = explode(",,",$children['score'][$n][37]);
-			
-			$scriptslide = explode(",",$children['script'][$n][37]);
+			$scriptslide = explode(",",$children['script2'][$n][0]);
 			
 			if($data['script'][80] == $scriptslide[count($scriptslide)-7])
 			{
@@ -1469,7 +1491,7 @@ class projectview_admin extends CI_Controller {
 				$objPHPExcel->getActiveSheet()->setCellValue('CE'. $i, $topic_slide[2]);//抱
 				$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $topic_slide[3]);//寶
 				$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $topic_slide[4]);//寶
-			}
+			}/*
 			else if($data['script'][80] == $scriptslide[count($scriptslide)-6])
 			{
 				$topic_slide = explode(",",$slide1[count($slide1)-6]);
@@ -1536,7 +1558,7 @@ class projectview_admin extends CI_Controller {
 				$objPHPExcel->getActiveSheet()->setCellValue('CF'. $i, $topic_slide[3]);//寶
 				$objPHPExcel->getActiveSheet()->setCellValue('CG'. $i, $topic_slide[4]);//寶
 			}
-			
+			/*
 			if($data['script'][81] == $scriptslide[count($scriptslide)-7])
 			{
 				$topic_slide = explode(",",$slide1[count($slide1)-7]);
@@ -1661,7 +1683,7 @@ class projectview_admin extends CI_Controller {
 				$objPHPExcel->getActiveSheet()->setCellValue('CO'. $i, $topic_slide[2]);//學
 				$objPHPExcel->getActiveSheet()->setCellValue('CP'. $i, $topic_slide[3]);//兔
 				$objPHPExcel->getActiveSheet()->setCellValue('CQ'. $i, $topic_slide[4]);//子
-				$objPHPExcel->getActiveSheet()->setCellValue('CR'. $i, $topic_slide[5]);//跳
+				//$objPHPExcel->getActiveSheet()->setCellValue('CR'. $i, $topic_slide[5]);//跳
 			}
 			else if($data['script'][82] == $scriptslide[count($scriptslide)-3])
 			{
@@ -1737,8 +1759,8 @@ class projectview_admin extends CI_Controller {
 				$objPHPExcel->getActiveSheet()->setCellValue('CU'. $i, $topic_slide[2]);//喜
 				$objPHPExcel->getActiveSheet()->setCellValue('CV'. $i, $topic_slide[3]);//歡
 				$objPHPExcel->getActiveSheet()->setCellValue('CW'. $i, $topic_slide[4]);//吃
-				$objPHPExcel->getActiveSheet()->setCellValue('CX'. $i, $topic_slide[5]);//西
-				$objPHPExcel->getActiveSheet()->setCellValue('CY'. $i, $topic_slide[6]);//瓜
+				//$objPHPExcel->getActiveSheet()->setCellValue('CX'. $i, $topic_slide[5]);//西
+				//$objPHPExcel->getActiveSheet()->setCellValue('CY'. $i, $topic_slide[6]);//瓜
 			}
 			else if($data['script'][83] == $scriptslide[count($scriptslide)-4])
 			{
@@ -1817,9 +1839,9 @@ class projectview_admin extends CI_Controller {
 				$objPHPExcel->getActiveSheet()->setCellValue('DB'. $i, $topic_slide[2]);//愛
 				$objPHPExcel->getActiveSheet()->setCellValue('DC'. $i, $topic_slide[3]);//喝
 				$objPHPExcel->getActiveSheet()->setCellValue('DD'. $i, $topic_slide[4]);//可
-				$objPHPExcel->getActiveSheet()->setCellValue('DE'. $i, $topic_slide[5]);//口
-				$objPHPExcel->getActiveSheet()->setCellValue('DF'. $i, $topic_slide[6]);//可
-				$objPHPExcel->getActiveSheet()->setCellValue('DG'. $i, $topic_slide[7]);//樂
+				//$objPHPExcel->getActiveSheet()->setCellValue('DE'. $i, $topic_slide[5]);//口
+				//$objPHPExcel->getActiveSheet()->setCellValue('DF'. $i, $topic_slide[6]);//可
+				//$objPHPExcel->getActiveSheet()->setCellValue('DG'. $i, $topic_slide[7]);//樂
 			}
 			else if($data['script'][84] == $scriptslide[count($scriptslide)-5])
 			{
@@ -1902,8 +1924,8 @@ class projectview_admin extends CI_Controller {
 				$objPHPExcel->getActiveSheet()->setCellValue('DJ'. $i, $topic_slide[2]);//三
 				$objPHPExcel->getActiveSheet()->setCellValue('DK'. $i, $topic_slide[3]);//大
 				$objPHPExcel->getActiveSheet()->setCellValue('DL'. $i, $topic_slide[4]);//家
-				$objPHPExcel->getActiveSheet()->setCellValue('DM'. $i, $topic_slide[5]);//來
-				$objPHPExcel->getActiveSheet()->setCellValue('DN'. $i, $topic_slide[6]);//賽
+				//$objPHPExcel->getActiveSheet()->setCellValue('DM'. $i, $topic_slide[5]);//來
+				//$objPHPExcel->getActiveSheet()->setCellValue('DN'. $i, $topic_slide[6]);//賽
 				$objPHPExcel->getActiveSheet()->setCellValue('DO'. $i, $topic_slide[7]);//跑
 			}
 			else if($data['script'][85] == $scriptslide[count($scriptslide)-6])
@@ -2159,7 +2181,7 @@ class projectview_admin extends CI_Controller {
 			
 			$objPHPExcel->getActiveSheet()->setCellValue('EJ'. $i, $slide1[0]);//ㄆㄚ
 			$objPHPExcel->getActiveSheet()->setCellValue('EK'. $i, $slide1[1]);//ㄊㄚ
-			$objPHPExcel->getActiveSheet()->setCellValue('EL'. $i, $slide1[2]);//ㄎㄚ
+			//$objPHPExcel->getActiveSheet()->setCellValue('EL'. $i, $slide1[2]);//ㄎㄚ
 			
 			$objPHPExcel->getActiveSheet()->setCellValue('EM'. $i, '');//次數/秒數
 			
@@ -2183,7 +2205,7 @@ class projectview_admin extends CI_Controller {
 
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 		$objWriter->save('php://output');
-		exit;
+		exit;*/
 	}
 }
 
