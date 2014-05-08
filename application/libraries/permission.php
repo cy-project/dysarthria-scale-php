@@ -68,7 +68,7 @@ class Permission
 		return $pm->select_people_Permission($member_id ,$project_id);
 	
 	}
-	public function Permissions_list_data(){
+	public function getPermissionsList(){
 		$PermissionsList = new Permission_model;
 		$PermissionsListData = $PermissionsList->getPermisstionListData();
 		return $PermissionsListData;

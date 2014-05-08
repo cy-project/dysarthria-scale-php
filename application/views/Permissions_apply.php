@@ -12,12 +12,12 @@
     <div class="content">
         
         <div class="header">
-            <h1 class="page-title">權限管理</h1>
+            <h1 class="page-title">創見與加入</h1>
         </div>
         
         <ul class="breadcrumb">
             <li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-            <li class="active">權限管理</li>
+            <li class="active">創見與加入</li>
 
         </ul>
 
@@ -25,9 +25,6 @@
             <div class="row-fluid">
                     
 <div class="btn-toolbar">
-	<div class="btn-toolbar">
-		<a href="<?=base_url("/userapplication/newgroup")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
-	</div>
 </div>
 <div class="well">
     <table class="table">
@@ -35,9 +32,8 @@
         <tr>
           <th>#</th>
           <th>群組名稱</th>
-          <th>人數</th>
-          <th style="width: 60px;">編輯權限</th>
-          <th style="width: 60px;">刪除權限</th>
+          <th style="width: 60px;">檢視權限</th>
+          <th style="width: 60px;">申請權限</th>
         </tr>
       </thead>
       <tbody>
@@ -48,12 +44,11 @@
         <tr>
           <td><?php echo $this->data[$count]->id;?></td>
           <td><a href="#"><?php echo $this->data[$count]->name;?></a></td>
-          <td><?php echo $this->data[$count]->peoplecount;?></td>
           <td>
-              <a href="<?=base_url("/userapplication/editorgroup")?>"><i class="icon-pencil"></i></a>
+              <a href=""><i class="icon-eye-open"></i></a>
           </td>
 		  <td>
-              <a href="#myModal"><i class="icon-remove"></i></a>
+              <a href=""><i class="icon-plus"></i></a>
           </td>
         </tr>
 		<?php }?>

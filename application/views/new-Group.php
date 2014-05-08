@@ -21,51 +21,19 @@
 				<li class="active">新增群組</li>
 
 			</ul>
-
 			<div class="container-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
 						<button class="btn btn-primary" id="new_group" onclick="NewGroup()"><i class="icon-plus"></i>新增權限</button>
+						<button class="btn btn-primary" id="delete_group" onclick=""><i class="icon-plus"></i>取消</button>
+						
 					</div>
 					<p><input type="text" name="appellation" id="inputname" placeholder="名稱"></p>
 					<div class="row-fluid">
-						<div class="block">
-							<?php 
-							$length1 = count($this->data);
-							$tope = array();
-							$tope[1] = "人員管理權限";
-							$tope[2] = "專案管理權限";
-							$tope[3] = "檢測權限";
-							$tope[4] = "施測權限";
-							$tope[5] = "公告權限";
-							for($count1 = 1;$count1<=$length1;$count1++){	
-								echo "<p class='block-heading'>".$tope[$count1]."</p>
-								<div id='page-stats' class='block-body collapse in'>
-								<div class='pull-left span4 unstyled'>";
-								$length2 = count($this->data[$count1]);
-								for($count2 = 0; $count2<$length2;$count2++){
-									$length3 = count($this->data[$count1][$count2]);
-									echo "<div class='pull-left span4 unstyled'>";
-									for($count3 = 0;$count3<$length3;$count3++){
-										echo "<p><samp>".$this->data[$count1][$count2][$count3]."</samp><input type='checkbox' value='".$this->datoem[$count1][$count2][$count3]."' name='Permissions_option[]'></p>";
-									}
-									echo "</div>";
-								}
-								echo "</div></div>
-							<div class='clearfix'></div>";
-							}?>
-						
+						<div class="block div-inline">
+							<div class="test" id="Select_area"></div>
+							<div class="test" id="Options_area" ></div>
 						</div>
-					</div>
-					<div class="pagination">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
 					</div>
 
 					<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -97,24 +65,97 @@
     </div>
     
 
-
+		<style type="text/css"> 
+			.test{
+				border-color:#D7CAE4; 
+				border-style:solid;
+				width:300px; 
+				height:auto; 
+				float:left; 
+				display:inline;
+			} 
+		</style>
 		<script src="lib/bootstrap/js/bootstrap.js"></script>
 		<script type="text/javascript">
+			var options_data = [];
+			var count = 0;
+			$().ready(function() {
+				set_select(1);
+				set_select(2);
+			});
+			
+			function switch_options(f,b){
+				var StringArray = f.split("_");
+				var SelectArea = "#Select_area_"+StringArray[2];
+				var OptionsArea = "#Options_area_"+StringArray[2];
+				if(b == "2"){
+					options_data[count] = StringArray[2];
+					$(SelectArea).hide();
+					$(OptionsArea).show();
+					count++;
+				}
+				else if(b == "1"){
+					for(i = 0;i < options_data.length;i++){
+						if(options_data[i] == StringArray[2]){
+							b = i;
+						}
+					}
+					if(options_data[b] == StringArray[2]){
+						for(a = b;a<options_data.length;a++){
+							if(a == options_data.length-1){
+								options_data[a] = 0;
+							}
+							else
+								options_data[a] = options_data[a+1]; 
+						}
+						count--;
+					}
+					$(SelectArea).show();
+					$(OptionsArea).hide();
+				}
+				alert(options_data);
+			}
+			
+			function set_select(f){
+				var count;
+				var URL;
+				var number;
+				if(f == 1){
+					count = "#Select_area";
+					URL ='<?=base_url("/userapplication/Select_area_1")?>' ;
+				}
+				else if(f == 2){
+					count ="#Options_area";
+					URL ='<?=base_url("/userapplication/Options_area_2")?>' ;
+				}
+				$.ajax({
+					url: URL,
+					type: 'POST',
+					dataType:'html', 
+					error: function(xhr, ajaxOptions, thrownError) {
+						alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+						//$('#ReturnViews').html(xhr.responseText);
+					},
+					success: function(response) {
+						sorttables();
+						$(count).html(response);
+					}
+				});
+			}
 			function NewGroup()
 				{
 					var URLs='<?=base_url("/userapplication/insertGroup")?>';
-					var count = $("#inputname").val();
+					var number = $("#inputname").val();
 					var groupname = $("#inputname").val();
-					var PermissionsOption = $('input:checkbox:checked[name="Permissions_option[]"]').map(function() { return $(this).val(); }).get();
-					if(count == ""|| PermissionsOption == ""){
-						count = 2;
+					if(groupname == ""|| options_data == ""){
+						number = 2;
 						alert("內容有缺");
 					}
 					else
-						count = 1;
+						number = 1;
 					$.ajax({
 						url: URLs,
-						data: {'number': count,'permissions_option':PermissionsOption,'groupname':groupname},
+						data: {'number': number,'permissions_option':options_data,'groupname':groupname},
 						type:"POST",
 						dataType:'text',
 						success: function(msg){
