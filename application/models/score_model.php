@@ -278,18 +278,24 @@ testing_list.project_id =  '".$project_id."'";
 		if($permission_check ==1){
 		
 			$sql.=" AND testing_list.rater =  '".$member_id."'";
+			$query=$this->db->query($sql);
+			
+			return $query;
 			
 			}elseif($permission_check ==2){
 		
 			$sql.=" AND testing_list.detect =  '".$member_id."'";
-		}
-	
-		
+			$query=$this->db->query($sql);
 			
-		$query=$this->db->query($sql);
+			return $query;
+			
+		}else{
+		
+			return 0;
+		
+		}
 		
 		
-		return $query;
 		
 	}
 	
@@ -517,5 +523,145 @@ result.testing_id =  '$testing_id' and(".$str.")";
 	 return "yes";
 	}
 	
+	
+	public function  score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id){
+	
+	$select_sql="";
+	
+	if($office_id==0){ //實習生
+	
+	$select_sql="SELECT
+test_results_all_list.pname,
+test_results_all_list.cname,
+test_results_all_list.title,
+group_concat(test_results_all_list.script Order By test_results_all_list.script ASC ) AS script,
+group_concat(test_results_all_list.voice_file) AS voice_file,
+group_concat(test_results_all_list.wrongcode  Order By test_results_all_list.wrongcode ASC) AS wrongcode,
+test_results_all_list.part,
+group_concat(test_results_all_list.note) AS note
+FROM
+test_results_all_list
+WHERE
+test_results_all_list.testing_id =  '$testing_list_id' AND
+test_results_all_list.project_id =  '$project_id' AND
+test_results_all_list.available =  '$office_id' AND
+test_results_all_list.part ='1'
+GROUP BY
+test_results_all_list.title
+";
+/*	
+$select_sql="SELECT
+test_results_all_list.pname as pname,
+test_results_all_list.cname as cname,
+test_results_all_list.title as title,
+group_concat(test_results_all_list.script ORDER BY test_results_all_list.script  ASC ) as script,
+group_concat(test_results_all_list.voice_file) as voice_file,
+group_concat(test_results_all_list.wrongcode) as wrongcode,
+test_results_all_list.part as part,
+group_concat(test_results_all_list.note) as note
+FROM
+test_results_all_list
+WHERE
+test_results_all_list.testing_id =  '".$testing_list_id."' AND
+test_results_all_list.project_id =  '".$project_id."' AND
+test_results_all_list.available =  '".$office_id."'
+GROUP BY
+test_results_all_list.title";*/
+	
+	}elseif($office_id==1){ //語言治療師
+	
+	$select_sql="SELECT
+test_results_all_list.pname,
+test_results_all_list.cname,
+test_results_all_list.title,
+group_concat(test_results_all_list.script Order By test_results_all_list.script ASC ) AS script,
+group_concat(test_results_all_list.voice_file) AS voice_file,
+group_concat(test_results_all_list.wrongcode  Order By test_results_all_list.wrongcode ASC) AS wrongcode,
+test_results_all_list.part,
+group_concat(test_results_all_list.note) AS note
+FROM
+test_results_all_list
+WHERE
+test_results_all_list.testing_id =  '$testing_list_id' AND
+test_results_all_list.project_id =  '$project_id' AND
+test_results_all_list.available =  '$office_id' AND
+test_results_all_list.part ='1'
+GROUP BY
+test_results_all_list.title
+";
+	/*$select_sql="SELECT
+test_results_all_list.pname as pname,
+test_results_all_list.cname as cname,
+test_results_all_list.title as title,
+group_concat(test_results_all_list.script ORDER BY test_results_all_list.script  ASC ) as script,
+group_concat(test_results_all_list.voice_file) as voice_file,
+group_concat(test_results_all_list.wrongcode) as wrongcode,
+test_results_all_list.part as part,
+group_concat(test_results_all_list.note) as note
+FROM
+test_results_all_list
+WHERE
+test_results_all_list.testing_id =  '".$testing_list_id."' AND
+test_results_all_list.project_id =  '".$project_id."' AND
+test_results_all_list.available =  '".$office_id."'
+GROUP BY
+test_results_all_list.title";*/
+	}
+
+	
+	$query =$this->db->query($select_sql); //select
+	
+	return $query;
+	
+	
+	}
+	
+	public function score_intern_speech_name($testing_list_id,$member_id,$project_id,$office_id){
+	
+	$select_sql="SELECT
+project.`name` AS pname,
+children.`name` AS cname
+FROM
+project
+INNER JOIN testing_list AS testings ON testings.project_id = project.id
+INNER JOIN children ON testings.children_id = children.id
+WHERE
+testings.id = '".$testing_list_id."' AND
+project.id = '".$project_id."'
+";
+	
+	
+
+	
+	$query =$this->db->query($select_sql); //select
+	
+	return $query;
+	
+	
+	}
+	
+	public function score_intern_speech_ajax_2($testing_list_id,$member_id,$project_id,$office_id){
+	
+	$select_sql="SELECT
+	test_results_all_list.pname,
+	test_results_all_list.cname,
+	test_results_all_list.title,
+	test_results_all_list.script   AS script,
+	test_results_all_list.voice_file AS voice_file,
+	test_results_all_list.wrongcode  AS wrongcode,
+	test_results_all_list.part,
+	test_results_all_list.note AS note
+	FROM
+	test_results_all_list
+	WHERE
+	test_results_all_list.testing_id =  '$testing_list_id' AND
+	test_results_all_list.project_id =  '$project_id' AND
+	test_results_all_list.available =  '$office_id' AND
+	test_results_all_list.part <> '1'";
+
+	$query =$this->db->query($select_sql); //select
+	
+	return $query;
+	}
 	
 }

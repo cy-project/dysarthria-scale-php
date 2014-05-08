@@ -18,9 +18,13 @@
 				</thead>
 
 			<tbody>
-			<?php 
+			<?php
+			
+			
+			if(gettype($children)=="object"){
+			
 			 foreach($children->result() as $row): 
-			 //if($row->member_namee == $_SESSION["username"]){
+			
 			 ?>
 				<tr>
 					<td><?=$row->testing_list_id?></td>
@@ -63,14 +67,21 @@
 						<?php }else{ echo"評測結束";}?>
 						
 						<?php }?>
-						<!--
-						<a href="<?=base_url("/projectview_student/subjects_view_group_student")?>/testing_list_id/<?=$row->testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>" title="觀察檢測結果" ><i class="icon-list"></i></a>-->
+						
+						<a href="<?=base_url("/projectview_student/project_board_student_check")?>/testing_list_id/<?=$row->testing_list_id?>/member_id/<?=$member_id?>/project_id/<?=$project_id?>" title="觀察檢測結果" ><i class="icon-list"></i></a>
 						
 					
 					</td>
 					<?php  
-					//}
-					endforeach;?> 	
+					
+					endforeach;
+					
+					}else{
+					
+							echo "[尚無任何可評測的小孩，請向管理員申請評測權限!!]"; 
+					
+					}
+					?> 	
 				</tr>
 			</tbody>
 		</table>

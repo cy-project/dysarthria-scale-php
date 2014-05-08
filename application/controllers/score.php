@@ -77,7 +77,6 @@ class score extends CI_Controller {
 		$data['children'] = $score->score_children($data['project_id'],$data['member_id'],$data['permission_check']);
 		
 		
-		
 		$this->load->view('score_views_children',$data);
 	
 	}
@@ -141,6 +140,48 @@ class score extends CI_Controller {
 		echo $model->judgment_up($judgment_id);
 	}
 	
+	public function score_intern_ajax(){
+	// 顯示檢測結果  語言實習生
+	$this->load->helper('url');
+	$this->load->model('score_model');
+	$model = new score_model();
 	
+	$testing_list_id = $this->input->post('testing_list_id');
+	$member_id = $this->input->post('member_id');
+	$project_id = $this->input->post('project_id');
+	$office_id = $this->input->post('office_id');
+	
+	$data['intern'] = $model->score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id); //注音資料
+	
+	$data['intern2'] = $model->score_intern_speech_ajax_2($testing_list_id,$member_id,$project_id,$office_id); //念句子 數數字 輪替唸音 說故事 資料
+	
+	$data['intern_name'] = $model->score_intern_speech_name($testing_list_id,$member_id,$project_id,$office_id); //兒童姓名及幼稚園名稱
+	
+	
+	
+	$this->load->view('score_intern_evaluation_ajax',$data);
+	
+	}
+	
+	public function score_speech_ajax(){
+	// 顯示檢測結果 語言自療師
+	$this->load->helper('url');
+	$this->load->model('score_model');
+	$model = new score_model();
+	
+	$testing_list_id = $this->input->post('testing_list_id');
+	$member_id = $this->input->post('member_id');
+	$project_id = $this->input->post('project_id');
+	$office_id = $this->input->post('office_id');
+	
+	$data['speech'] = $model->score_intern_speech_ajax($testing_list_id,$member_id,$project_id,$office_id); //注音資料
+	
+	$data['speech2'] = $model->score_intern_speech_ajax_2($testing_list_id,$member_id,$project_id,$office_id); //念句子 數數字 輪替唸音 說故事 資料
+	
+	$data['speech_name'] = $model->score_intern_speech_name($testing_list_id,$member_id,$project_id,$office_id);
+	
+	$this->load->view('score_speech_evaluation_ajax',$data);
+	
+	}
 	
 }
