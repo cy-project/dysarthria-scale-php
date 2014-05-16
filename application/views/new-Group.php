@@ -12,23 +12,49 @@
 		<div class="content">
         
 			<div class="header">
-				<h1 class="page-title">新增群組</h1>
+				<h1 class='page-title'>
+				<?php if($count == 1){
+					echo "新增群組";
+				}
+				elseif($count == 2){
+					echo "編輯群組";
+				}?>
+				</h1>
 			</div>
-        
 			<ul class="breadcrumb">
 				<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
 				<li><a href="<?=base_url("/userapplication/usersadmin")?>">權限管理</a> <span class="divider">/</span></li>
-				<li class="active">新增群組</li>
+				<li class="active">
+				<?php 
+				if($count == 1){
+					echo "新增群組";
+				}
+				elseif($count == 2){
+					echo "編輯群組";
+				}?>
+			</li>
 
 			</ul>
 			<div class="container-fluid">
 				<div class="row-fluid">
 					<div class="btn-toolbar">
-						<button class="btn btn-primary" id="new_group" onclick="NewGroup()"><i class="icon-plus"></i>新增權限</button>
-						<button class="btn btn-primary" id="delete_group" onclick=""><i class="icon-plus"></i>取消</button>
+						<button class="btn btn-primary" id="new_group" onclick="NewGroup(1)"><i class="icon-plus"></i>
+						<?php 
+						if($count == 1){
+							echo "新增群組";
+						}
+						elseif($count == 2){
+							echo "編輯群組";
+						}?>
+				</button>
+						<a href="#"><button class="btn btn-primary" id="delete_group" onclick="NewGroup(2)"><i class="icon-plus"></i>取消</button></a>
 						
 					</div>
-					<p><input type="text" name="appellation" id="inputname" placeholder="名稱"></p>
+					<p><input type="text" name="appellation" id="inputname" placeholder="群組名稱" value="<?php 
+						if($count == 2){
+							echo $this->datoem[0]->name;
+						}
+							?>"></p>
 					<div class="row-fluid">
 						<div class="block div-inline">
 							<div class="test" id="Select_area"></div>
@@ -80,6 +106,14 @@
 			var options_data = [];
 			var count = 0;
 			$().ready(function() {
+				var ion;
+				<?php if($count == 2){
+				$length = count($this->datacount);?>
+				count = <?php echo $length; ?>;
+				<?php for($i = 0;$i<$length;$i++){?>
+				ion =<?php echo $i; ?>;
+				options_data[ion] = <?php echo $this->datacount[$i]->permission_id ;?>;
+				<?php }} ?>
 				set_select(1);
 				set_select(2);
 			});
@@ -103,7 +137,7 @@
 					if(options_data[b] == StringArray[2]){
 						for(a = b;a<options_data.length;a++){
 							if(a == options_data.length-1){
-								options_data[a] = 0;
+								options_data[a] = null;
 							}
 							else
 								options_data[a] = options_data[a+1]; 
@@ -113,24 +147,23 @@
 					$(SelectArea).show();
 					$(OptionsArea).hide();
 				}
-				alert(options_data);
 			}
 			
 			function set_select(f){
-				var count;
+				var count_view;
 				var URL;
-				var number;
 				if(f == 1){
-					count = "#Select_area";
+					count_view = "#Select_area";
 					URL ='<?=base_url("/userapplication/Select_area_1")?>' ;
 				}
 				else if(f == 2){
-					count ="#Options_area";
+					count_view ="#Options_area";
 					URL ='<?=base_url("/userapplication/Options_area_2")?>' ;
 				}
 				$.ajax({
 					url: URL,
 					type: 'POST',
+					data:{'id':<?php echo $id;?>,'count':<?php echo $count;?>},
 					dataType:'html', 
 					error: function(xhr, ajaxOptions, thrownError) {
 						alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
@@ -138,36 +171,53 @@
 					},
 					success: function(response) {
 						sorttables();
-						$(count).html(response);
+						$(count_view).html(response);
 					}
 				});
 			}
-			function NewGroup()
-				{
-					var URLs='<?=base_url("/userapplication/insertGroup")?>';
-					var number = $("#inputname").val();
-					var groupname = $("#inputname").val();
-					if(groupname == ""|| options_data == ""){
-						number = 2;
-						alert("內容有缺");
-					}
-					else
-						number = 1;
-					$.ajax({
-						url: URLs,
-						data: {'number': number,'permissions_option':options_data,'groupname':groupname},
-						type:"POST",
-						dataType:'text',
-						success: function(msg){
-							document.location.href='<?=base_url("/userapplication/")?>'+msg;
-						},
-						error:function(xhr, ajaxOptions, thrownError){
-							alert(xhr.status);
-							alert(thrownError);
+			function NewGroup(f)
+			{
+				var number;
+				var judge_value = 0;
+					var URLs;
+					count = <?php echo $count;?>;
+					if(f == 1){
+						if(count == 1){
+							URLs='<?=base_url("/userapplication/insertGroup")?>/id/<?php echo $this->data['id']; ?>';
 						}
-					});
+						else if(count == 2){
+							URLs='<?=base_url("/userapplication/EditorGroup")?>/id/<?php echo $this->data['id']; ?>';
+						}
+						var groupname = $("#inputname").val();
+						
+						if(groupname == "" ){
+							alert('內容有缺');
+							number = 2;
+							return;
+						}
+						if ( options_data[0] === undefined || options_data[0] === null)  {    
+							judge_value = 1 ; 
+						} 
+						number = 1;
+						$.ajax({
+							url: URLs,
+							data: {'number': number,'judge_value':judge_value,'permissions_option':options_data,'groupname':groupname},
+							type:"POST",
+							dataType:'text',
+							success: function(msg){
+								document.location.href='<?=base_url("/userapplication/")?>'+msg;
+							},
+							error:function(xhr, ajaxOptions, thrownError){
+								alert(xhr.status);
+								alert(thrownError);
+							}
+						});
+					}
+					else{
+						document.location.href='<?=base_url("/userapplication/usersadmin")?>';
+					}
 					
-				}
+			}
 			$("[rel=tooltip]").tooltip();
 			$(function() {
 				$('.demo-cancel-click').click(function(){return false;});

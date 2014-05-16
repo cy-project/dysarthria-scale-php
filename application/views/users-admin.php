@@ -26,7 +26,7 @@
                     
 <div class="btn-toolbar">
 	<div class="btn-toolbar">
-		<a href="<?=base_url("/userapplication/newgroup")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
+		<a href="<?=base_url("/userapplication/newgroup")?>/count/1/id/0"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
 	</div>
 </div>
 <div class="well">
@@ -47,13 +47,13 @@
 	  ?>
         <tr>
           <td><?php echo $this->data[$count]->id;?></td>
-          <td><a href="#"><?php echo $this->data[$count]->name;?></a></td>
+          <td><a href="#" onclick="dialog(<?php echo $this->data[$count]->id;?>)"><?php echo $this->data[$count]->name;?></a></td>
           <td><?php echo $this->data[$count]->peoplecount;?></td>
           <td>
-              <a href="<?=base_url("/userapplication/editorgroup")?>"><i class="icon-pencil"></i></a>
+              <a href="<?=base_url("/userapplication/newgroup")?>/count/2/id/<?php echo $this->data[$count]->id;?>"><i class="icon-pencil"></i></a>
           </td>
 		  <td>
-              <a href="#myModal"><i class="icon-remove"></i></a>
+              <a href="<?=base_url("/userapplication/RemoveGroup")?>/id/<?php echo $this->data[$count]->id;?>" ><i class="icon-remove"></i></a>
           </td>
         </tr>
 		<?php }?>
@@ -105,7 +105,28 @@
 
     <script src="lib/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript">
-		
+		function dialog(id){
+			var URL = "<?=base_url("/userapplication/showpermissions")?>";
+			$.ajax({
+					url: URL,
+					type: 'POST',
+					data:{'id':id},
+					dataType:'text', 
+					error: function(xhr, ajaxOptions, thrownError) {
+						alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+						//$('#ReturnViews').html(xhr.responseText);
+					},
+					success: function(response) {
+						if ( response === "")  {    
+							alert("未設定"); 
+						} 
+						else{
+							alert(response);
+						}
+						//alertify.alert($(count).html(response););
+					}
+				});
+		}
 		
         $("[rel=tooltip]").tooltip();
         $(function() {

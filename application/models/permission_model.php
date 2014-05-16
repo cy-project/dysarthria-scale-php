@@ -2,6 +2,7 @@
 
 class Permission_model extends CI_Model
 {
+	var $dataname = array();
 	function __construct()
 	{
 		parent::__construct();
@@ -265,7 +266,83 @@ permission.id = '15'"; //檢測可信度
 		$this->db->where('id',$id->permission_id);
 		$permission_name = $this->db->get();
 		$permissionname = $permission_name->result();
-		return $permissionname[0]->name;
+		return "";
+	}
+	
+	public function removePermissionGroup($gid){
+		$this->db->where('group_id',$gid);
+		
+		$this->db->delete('permission_group');
+	}
+	
+	public function updateGroup($id, $name){
+		$this->db->where('id',$id);
+		
+		$data['id']=$id;
+		$data['name']=$name;
+		
+		$this->db->update('group',$data);
+	}
+	
+	public function selectPermissionGroup($id){
+		$this->db->select('`permission_id`');
+		
+		$this->db->from('permission_group');
+		
+		$this->db->where('group_id',$id);
+		
+		$result = $this->db->get();
+		
+		return $result->result();
+	}
+	
+	public function selectGroupName($id){
+		$this->db->select('`name`');
+		
+		$this->db->from('group');
+		
+		$this->db->where('id',$id);
+		
+		$result = $this->db->get();
+		
+		return $result->result();
+	}
+	
+	public function RemoveGroup($gid){
+		$this->db->where('group_id',$gid);
+		
+		$this->db->delete('permission_group');
+		
+		$this->db->where('id',$gid);
+		
+		$this->db->delete('group');
+	}
+	
+	public function selectPermissionName($id){
+		
+		$this->db->select('`permission_id`');
+		
+		$this->db->from('permission_group');
+		
+		$this->db->where('group_id',$id);
+		
+		$result = $this->db->get();
+		
+		$data = $result->result();
+		
+		return $data;
+	}
+	
+	public function selectPermissionData($id){
+		$this->db->select('`name`');
+		
+		$this->db->from('permission');
+			
+		$this->db->where('id',$id);
+			
+		$result = $this->db->get();
+		
+		return $result->result();
 	}
 
 }
