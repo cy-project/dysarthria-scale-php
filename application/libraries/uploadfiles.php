@@ -12,23 +12,24 @@ class Uploadfiles
 	public function uploadFiles($files)//上傳檔案到NAS
 	{
 	
+		/** 本地端*/
+		$um = new Upload_model();
 		
 		foreach ($files as $data)
 		{
-			$um = new Upload_model();
 			
 			$file_arr = explode("/",$data->filepath ); 
 		
 			$rm_file_name = $file_arr[count($file_arr)-1];
 			
-			mkdir('./temp/children/'.$data->testing_id);
+			mkdir('../voicefile/'.$data->testing_id);
 			
-			$remote_file = './temp/children/'.$data->testing_id.'/'.$rm_file_name;
+			$remote_file = '../voicefile/'.$data->testing_id.'/'.$rm_file_name;
 			
 			$source = '';
 			
 			
-			$data->voice_file = base_url('/temp/children/'.$data->testing_id.'/'.$rm_file_name);
+			$data->voice_file = 'http://120.119.77.32/voicefile/'.$data->testing_id.'/'.$rm_file_name;
 			
 			if(copy($data->filepath, $remote_file))
 			{
@@ -42,8 +43,8 @@ class Uploadfiles
 			}
 		}
 		
-		
-		/*$ftp_server = "120.119.77.32";
+		/**上傳至NAS FTP方式*/
+		/*$ftp_server = "120.119.77.40";
 		$ftp_port = 21;
 		$ftp_user = "admin";
 		$ftp_pass = "admin";
@@ -55,11 +56,11 @@ class Uploadfiles
 		//@ftp_chdir ($ftp_connect, $ftp_path);
 		
 
-		
+		$um = new Upload_model();
 		
 		foreach ($files as $data)
 		{
-			$um = new Upload_model();
+			
 			
 			$file_arr = explode("/",$data->filepath ); 
 		
@@ -69,7 +70,7 @@ class Uploadfiles
 			
 			$remote_file = '/children/'.$data->testing_id.'/'.$rm_file_name;
 			
-			$data->voice_file = base_url('/temp/children/'.$data->testing_id.'/'.$rm_file_name);
+			$data->voice_file = 'ftp://'.$ftp_user.':'.$ftp_pass.'@'.$ftp_server.'/children/'.$data->testing_id.'/'.$rm_file_name;
 			
 			if(ftp_put($ftp_connect, $remote_file, $data->filepath, FTP_ASCII))
 			{
@@ -85,7 +86,7 @@ class Uploadfiles
 
 
 		@ftp_close ($ftp_connect);
-*/
+		*/
 	}
 	
 	public function rmFiles($array_path)

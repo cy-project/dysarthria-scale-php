@@ -285,7 +285,7 @@ class projectview_admin extends CI_Controller {
 				
 				$length3 = count($result2['data']);//句子陣列長度
 				$b = 0;
-				for($a = 0;$a < $length3;$a+=2)
+				for($a = 0;$a < $length3;$a++)
 				{
 					$children['script2'][$nb][$b] = $result2['data'][$a]->script;
 					$children['score2'][$nb][$b] = $result2['data'][$a]->wrongcode;

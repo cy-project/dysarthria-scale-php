@@ -20,25 +20,46 @@
 			
 		    $Stringall="";
 			$Stringall2="";
+			$Temporary_title="";
+			$Temporary_number=0;
 			$temp=91;
 		    foreach($speech->result() as $row):?>
 		
 			<?php
 			
-			
-			
 			if($row->part==1){
 			
-			$script_array=explode(",",$row->script);
-			
-			$voice_file_array=explode(",",$row->voice_file);
-			
-			$wrongcode_array=explode(",",$row->wrongcode);
 			
 			
-			$note=explode(",",$row->note);
+			//$voice_file_array = explode(",",$row->voice_file);
 			
+			$wrongcode_array = explode(",",$row->wrongcode);
 			
+			if( $Temporary_title == "" ){
+			
+							$note = explode(",",$row->note);
+
+							$Temporary_title = $row->title;
+						
+						
+						
+					}else if( $Temporary_title == $row->title){
+					
+							$Temporary_number++;
+			
+							$note = explode(",",$row->note);
+
+				
+				}elseif($Temporary_title != $row->title){
+			
+						$note = explode(",",$row->note);
+
+						$Temporary_title = $row->title;
+						
+						$Temporary_number=0;
+			}
+			
+			 
 			$note_str="";
 			
 			
@@ -57,9 +78,13 @@
 			}
 			
 
-			$note_str=explode(",",$note_str);
+			$note_str = explode(",",$note_str);
 			
-			$note_str=explode("-",$note_str[0]);
+			$note_str = explode("-",$note_str[0]);
+			
+			
+			
+			
 			
 			$note="";
 			
@@ -72,44 +97,38 @@
 				}
 			
 			}
-			
-			
-		
-			
-		
-			
-			
-			
-			for($i=0;$i<count($script_array);$i++){
-			
-				
+	
+					  
+							  if($wrongcode_array[$Temporary_number]=="1"){
 							  
-							  if($wrongcode_array[$i]=="1"){
-							  
-									$s2="<td>".$row->title."</td>";
+									$s2="<tr><td>".$row->title."</td>";
 									
 							  
-							  }elseif($wrongcode_array[$i]=="0"){
+							  }elseif($wrongcode_array[$Temporary_number]=="0"){
 											
 									$s2="<td><span class=\"label label-success\">".$row->title."</span></td>";
 											
-							  }elseif($wrongcode_array[$i]=="-1"){
+							  }elseif($wrongcode_array[$Temporary_number]=="-1"){
 									
 									$s2="<td><span class=\"label label-warning\">".$row->title."</span></td>";
 							  
 							  }
 							  
-				$s3="<td>".$script_array[$i]."</td><td>".$note[$i]."</td>
+				$s3="<td>".$row->script."</td><td>".$note[$Temporary_number]."</td>
 							  <td><div class=\"wavclass\" id=\"wavshow-".$temp."\"></div>
-						  <input type=\"hidden\" id=\"wavget-".$temp."\" value=\"".$voice_file_array[$i]."\" />"."</td>
+						  <input type=\"hidden\" id=\"wavget-".$temp."\" value=\"".$row->voice_file."\" />"."</td>
 						     </tr>";
 			
 				$temp++;
+				
 				$Stringall.=$s2.$s3;
-			}
+			
+			
 			
 			}
 			endforeach;
+			
+			
 			?>
 			
 			<?php

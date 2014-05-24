@@ -534,39 +534,20 @@ result.testing_id =  '$testing_id' and(".$str.")";
 test_results_all_list.pname,
 test_results_all_list.cname,
 test_results_all_list.title,
-group_concat(test_results_all_list.script Order By test_results_all_list.script ASC ) AS script,
-group_concat(test_results_all_list.voice_file) AS voice_file,
-group_concat(test_results_all_list.wrongcode  Order By test_results_all_list.wrongcode ASC) AS wrongcode,
+test_results_all_list.script AS script,
+test_results_all_list.voice_file AS voice_file,
+test_results_all_list.wrongcode AS wrongcode,
 test_results_all_list.part,
-group_concat(test_results_all_list.note) AS note
+test_results_all_list.note AS note
 FROM
-test_results_all_list
+	test_results_all_list
 WHERE
 test_results_all_list.testing_id =  '$testing_list_id' AND
 test_results_all_list.project_id =  '$project_id' AND
 test_results_all_list.available =  '$office_id' AND
-test_results_all_list.part ='1'
-GROUP BY
-test_results_all_list.title
+	test_results_all_list.part = '1'
 ";
-/*	
-$select_sql="SELECT
-test_results_all_list.pname as pname,
-test_results_all_list.cname as cname,
-test_results_all_list.title as title,
-group_concat(test_results_all_list.script ORDER BY test_results_all_list.script  ASC ) as script,
-group_concat(test_results_all_list.voice_file) as voice_file,
-group_concat(test_results_all_list.wrongcode) as wrongcode,
-test_results_all_list.part as part,
-group_concat(test_results_all_list.note) as note
-FROM
-test_results_all_list
-WHERE
-test_results_all_list.testing_id =  '".$testing_list_id."' AND
-test_results_all_list.project_id =  '".$project_id."' AND
-test_results_all_list.available =  '".$office_id."'
-GROUP BY
-test_results_all_list.title";*/
+
 	
 	}elseif($office_id==1){ //語言治療師
 	
@@ -574,38 +555,20 @@ test_results_all_list.title";*/
 test_results_all_list.pname,
 test_results_all_list.cname,
 test_results_all_list.title,
-group_concat(test_results_all_list.script Order By test_results_all_list.script ASC ) AS script,
-group_concat(test_results_all_list.voice_file) AS voice_file,
-group_concat(test_results_all_list.wrongcode  Order By test_results_all_list.wrongcode ASC) AS wrongcode,
+test_results_all_list.script AS script,
+test_results_all_list.voice_file AS voice_file,
+test_results_all_list.wrongcode AS wrongcode,
 test_results_all_list.part,
-group_concat(test_results_all_list.note) AS note
+test_results_all_list.note AS note
 FROM
-test_results_all_list
+	test_results_all_list
 WHERE
 test_results_all_list.testing_id =  '$testing_list_id' AND
 test_results_all_list.project_id =  '$project_id' AND
 test_results_all_list.available =  '$office_id' AND
-test_results_all_list.part ='1'
-GROUP BY
-test_results_all_list.title
+	test_results_all_list.part = '1'
 ";
-	/*$select_sql="SELECT
-test_results_all_list.pname as pname,
-test_results_all_list.cname as cname,
-test_results_all_list.title as title,
-group_concat(test_results_all_list.script ORDER BY test_results_all_list.script  ASC ) as script,
-group_concat(test_results_all_list.voice_file) as voice_file,
-group_concat(test_results_all_list.wrongcode) as wrongcode,
-test_results_all_list.part as part,
-group_concat(test_results_all_list.note) as note
-FROM
-test_results_all_list
-WHERE
-test_results_all_list.testing_id =  '".$testing_list_id."' AND
-test_results_all_list.project_id =  '".$project_id."' AND
-test_results_all_list.available =  '".$office_id."'
-GROUP BY
-test_results_all_list.title";*/
+
 	}
 
 	

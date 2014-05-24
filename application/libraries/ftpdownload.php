@@ -10,7 +10,7 @@ class Ftpdownload
 	
 	public function downloadfile($path)
 	{
-		$ftp_server = "192.168.137.79";
+		$ftp_server = "120.119.77.40";
 		$ftp_port = 21;
 		$ftp_user = "admin";
 		$ftp_pass = "admin";
