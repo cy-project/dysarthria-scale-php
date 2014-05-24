@@ -4,8 +4,11 @@
 		?>
 		<a href="#" class="nav-header collapsed" data-toggle="collapse"><i class="icon-folder-open"></i>專案</i></a>
         <ul id="accounts-menu" class="nav nav-list collapse in">
-            <li ><a href="<?=base_url("/projectview_student/projectview")?>">專案管理</a></li>
-        </ul>	
+            <li ><a href="<?=base_url("/projectview_student/projectview")?>">我的專案</a></li>
+        </ul>
+		<ul id="accounts-menu" class="nav nav-list collapse in">
+            <li ><a href="<?=base_url("/userapplication/Permissions_apply")?>">創見與加入</a></li>
+        </ul>
 		<?php
 			}
 			else if($_SESSION["status"] == 3) {

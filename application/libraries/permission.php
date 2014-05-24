@@ -68,12 +68,25 @@ class Permission
 		return $pm->select_people_Permission($member_id ,$project_id);
 	
 	}
-	public function Permissions_list_data(){
+	public function getPermissionsList(){
 		$PermissionsList = new Permission_model;
 		$PermissionsListData = $PermissionsList->getPermisstionListData();
 		return $PermissionsListData;
 	}
 	
+	public function selecPermissionName($id){
+		$data = array();
+		$doto = array();
+		$Permissionsdata = new Permission_model;
+		$count = $Permissionsdata->selectPermissionName($id);
+		$length = count($count);
+		for($i = 0; $i < $length ;$i++){
+			$data[$i] = $Permissionsdata->selectPermissionData($count[$i]->permission_id);
+			$doto[$i] = $data[$i][0]->name;
+		}
+		return implode("\n",$doto);
+		//return $data;
+	}
 
 }
 

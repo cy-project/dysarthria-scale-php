@@ -41,33 +41,6 @@ class Reorder
 		return $this->data;
 	}
 	
-	public function AgainSort($newdata){
-		$length = count($newdata);
-		$count = array();
-		$count1 = array();
-		for($con = 1;$con <= $length;$con++){
-			$length1 = count($newdata[$con]);
-			for($a = 0;$a<3;$a++){
-				$count1[$a] = 0;
-			}
-			for($com = 0;$com<$length1;$com++){
-				if(($com+1)%3 == 0){
-					$count[$con][2][$count1[2]] = $newdata[$con][$com];
-					$count1[2]++;
-				}
-				elseif(($com+1)%3 == 2){
-					$count[$con][1][$count1[1]] = $newdata[$con][$com];
-					$count1[1]++;
-				}
-				elseif(($com+1)%3 == 1){
-					$count[$con][0][$count1[0]] = $newdata[$con][$com];
-					$count1[0]++;
-				}
-			}
-		}
-		return $count;
-	}
-	
 	public function GroupSort1($GroupData)
 	{
 		$length = count($GroupData);

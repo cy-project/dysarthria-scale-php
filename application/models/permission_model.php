@@ -2,6 +2,7 @@
 
 class Permission_model extends CI_Model
 {
+	var $dataname = array();
 	function __construct()
 	{
 		parent::__construct();
@@ -180,12 +181,11 @@ permission.id = '15'"; //檢測可信度
 	
 	public function getGroupDetails(){
 		$this->load->library('Reorder');
-		$this->db->select('`name`,`type`');
+		$this->db->select('`name`,`type`,`id`');
 		$this->db->from('permission');
 		$result = $this->db->get();
 		$sortfunction = new Reorder();
-		$sortdata = $sortfunction->GroupSort($result->result());
-		$againsortdata = $sortfunction->AgainSort($sortdata);
+		$againsortdata = $sortfunction->GroupSort1($result->result());
 		return $againsortdata;
 	}
 	
@@ -195,8 +195,7 @@ permission.id = '15'"; //檢測可信度
 		$this->db->from('permission');
 		$result = $this->db->get();
 		$sortfunction = new Reorder();
-		$sortdata = $sortfunction->GroupSort1($result->result());
-		$againsortdata = $sortfunction->AgainSort($sortdata);
+		$againsortdata = $sortfunction->GroupSort($result->result());
 		return $againsortdata;
 	}
 	
@@ -205,19 +204,33 @@ permission.id = '15'"; //檢測可信度
 		$this->db->from('group');
 		$groupdata = $this->db->get();
 		
-		
-		
 		if ($groupdata->num_rows > 0)
 			{
+				$r = $groupdata->result();
 				$length = count($groupdata->result());
-				print_r($length);
+				$idx = 0;
+				for($cont = 0;$cont<$length;$cont++){
+					$groupparams = (array)$r[$cont];
+					foreach ($groupparams as $row)
+					{
+						$grouplistdata[$idx] = new Datamodel();
+						foreach ($groupparams as $k => $v)
+						{
+							$grouplistdata[$idx]->$k = $v;
+							$grouplistdata[$idx]->peoplecount = $this->getGroupCountData($r[$idx]->id);
+							$grouplistdata[$idx]->PermissionEntries = $this->getPermissionEntries($r[$idx]->id);
+						}
+					}
+					$idx++;
+				}
+					return $grouplistdata;
 			}
 		else
 		{
 			return 0;
 		}
 		
-		//return $groupdata->result();
+		
 	}
 	
 	public function getGroupCountData($id){
@@ -227,6 +240,109 @@ permission.id = '15'"; //檢測可信度
 		$GroupPelpleListData = $this->db->get();
 		$count = count($GroupPelpleListData->result());
 		return $count;
+	}
+	
+	public function getPermissionEntries($id){
+		$PermissionName = array();
+		$this->db->select('`permission_id`');
+		$this->db->from('permission_group');
+		$this->db->where('group_id',$id);
+		$permission_name = $this->db->get();
+		$length = count($permission_name->result());
+		$permission_id = $permission_name->result();
+		for($count1 = 0 ;$count1<$length ; $count1++){
+			$PermissionName[$count1] = $this->getPermissionName($permission_id[$count1]);
+		}
+		$length = count($PermissionName);
+		if($length >0)
+			return $PermissionName;
+		else
+			return 0;
+	}
+	
+	public function getPermissionName($id){
+		$this->db->select('`name`');
+		$this->db->from('permission');
+		$this->db->where('id',$id->permission_id);
+		$permission_name = $this->db->get();
+		$permissionname = $permission_name->result();
+		return "";
+	}
+	
+	public function removePermissionGroup($gid){
+		$this->db->where('group_id',$gid);
+		
+		$this->db->delete('permission_group');
+	}
+	
+	public function updateGroup($id, $name){
+		$this->db->where('id',$id);
+		
+		$data['id']=$id;
+		$data['name']=$name;
+		
+		$this->db->update('group',$data);
+	}
+	
+	public function selectPermissionGroup($id){
+		$this->db->select('`permission_id`');
+		
+		$this->db->from('permission_group');
+		
+		$this->db->where('group_id',$id);
+		
+		$result = $this->db->get();
+		
+		return $result->result();
+	}
+	
+	public function selectGroupName($id){
+		$this->db->select('`name`');
+		
+		$this->db->from('group');
+		
+		$this->db->where('id',$id);
+		
+		$result = $this->db->get();
+		
+		return $result->result();
+	}
+	
+	public function RemoveGroup($gid){
+		$this->db->where('group_id',$gid);
+		
+		$this->db->delete('permission_group');
+		
+		$this->db->where('id',$gid);
+		
+		$this->db->delete('group');
+	}
+	
+	public function selectPermissionName($id){
+		
+		$this->db->select('`permission_id`');
+		
+		$this->db->from('permission_group');
+		
+		$this->db->where('group_id',$id);
+		
+		$result = $this->db->get();
+		
+		$data = $result->result();
+		
+		return $data;
+	}
+	
+	public function selectPermissionData($id){
+		$this->db->select('`name`');
+		
+		$this->db->from('permission');
+			
+		$this->db->where('id',$id);
+			
+		$result = $this->db->get();
+		
+		return $result->result();
 	}
 
 }
