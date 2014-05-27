@@ -102,20 +102,20 @@
 			}
 	
 					  
-							  if($wrongcode_array[$Temporary_number]=="1"){
-							  
-									$s2="<tr><td>".$row->title."</td>";
-									
-							  
-							  }elseif($wrongcode_array[$Temporary_number]=="0"){
-											
-									$s2="<td><span class=\"label label-success\">".$row->title."</span></td>";
-											
-							  }elseif($wrongcode_array[$Temporary_number]=="-1"){
-									
-									$s2="<td><span class=\"label label-warning\">".$row->title."</span></td>";
-							  
-							  }
+				  if($wrongcode_array[$Temporary_number]=="1"){
+				  
+						$s2="<tr><td>".$row->title."</td>";
+						
+				  
+				  }elseif($wrongcode_array[$Temporary_number]=="0"){
+								
+						$s2="<td><span class=\"label label-success\">".$row->title."</span></td>";
+								
+				  }elseif($wrongcode_array[$Temporary_number]=="-1"){
+						
+						$s2="<td><span class=\"label label-warning\">".$row->title."</span></td>";
+				  
+				  }
 							  
 				$s3="<td>".$row->script."</td><td>".$note[$Temporary_number]."</td>
 							  <td><div class=\"wavclass\" id=\"wavshow-".$temp."\"></div>

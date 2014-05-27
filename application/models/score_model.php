@@ -627,4 +627,53 @@ project.id = '".$project_id."'
 	return $query;
 	}
 	
+	
+	 public function jud_del_sql(){ //清楚檢視結果 重複的問題
+	
+	 
+		$select_sql="delete from judgment where judgment.id  in
+(
+select id
+from 
+(SELECT distinct judgment.id id
+FROM
+project
+INNER JOIN testing_list AS testings ON testings.project_id = project.id
+INNER JOIN result ON result.testing_id = testings.id
+INNER JOIN topic ON result.topic_id = topic.id
+INNER JOIN judg_list ON judg_list.result_id = result.id
+INNER JOIN judgment ON judg_list.judgment_id = judgment.id
+INNER JOIN children ON testings.children_id = children.id
+WHERE
+judgment.available = '0'
+group by testings.id,topic_id
+having count(*) > 1) as aa
+) ";
+
+	$this->db->query($select_sql); //select
+	
+	$select_sql="delete from judgment where judgment.id  in
+(
+select id
+from 
+(SELECT distinct judgment.id id
+FROM
+project
+INNER JOIN testing_list AS testings ON testings.project_id = project.id
+INNER JOIN result ON result.testing_id = testings.id
+INNER JOIN topic ON result.topic_id = topic.id
+INNER JOIN judg_list ON judg_list.result_id = result.id
+INNER JOIN judgment ON judg_list.judgment_id = judgment.id
+INNER JOIN children ON testings.children_id = children.id
+WHERE
+judgment.available = '1'
+group by testings.id,topic_id
+having count(*) > 1) as aa
+) ";
+
+	$this->db->query($select_sql); //select
+	
+	}
+	
+	
 }

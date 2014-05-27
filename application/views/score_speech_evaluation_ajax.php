@@ -23,6 +23,7 @@
 			$Temporary_title="";
 			$Temporary_number=0;
 			$temp=91;
+			
 		    foreach($speech->result() as $row):?>
 		
 			<?php

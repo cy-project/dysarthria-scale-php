@@ -16,6 +16,7 @@ class Sheep extends CI_Controller
 		$this->load->library('Datamodel');
 		$this->load->library('Uploadfiles');
 		$this->load->library('Recognition');
+		$this->load->library('Statistics');
 		$this->load->model('Recognition_model');
 	}
 	
@@ -24,17 +25,19 @@ class Sheep extends CI_Controller
 		
 		$rc = new Recognition();
 		
-		
+		$s = new Statistics();
 	
 
 		$rm =  new Recognition_model();
 		
-		$data = $rm->getResultIDs();
+		//$data = $rm->getJudgmentResult(10512);
 		
+		
+		$s->Comparison();
 		//33030
-		//14034 NO 32399
+		//14034=23107 NO 32399=41472
 		
-		echo $data[32399]->id;
+		//echo $data[14034]->id;
 		
 		$i = 32400;
 		$j = 1;

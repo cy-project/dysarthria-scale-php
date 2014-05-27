@@ -304,7 +304,7 @@ class projectview_admin extends CI_Controller {
 		}
 		
 
-		//print_r($children['script']);
+		print_r($children['script']);
 		//print_r($children['score']);
 
 		
@@ -315,7 +315,7 @@ class projectview_admin extends CI_Controller {
 		}
 		else
 		{
-			
+			/*
 			// Error reporting 
 			error_reporting(E_ALL);
 			ini_set('display_errors', TRUE);
@@ -507,9 +507,9 @@ class projectview_admin extends CI_Controller {
 				else
 				{
 				
-					$slide1 = explode(",,",$children['score'][$n][0]);  //[0] => 1,1,1,,1,1,1,,1,1,1,,1,1,1,,1,1,1,,1,1,1, 切割後 [0] => 1,1,1 [1] => 1,1,1 [2] => 1,1,1 [3] => 1,1,1 [4] => 1,1,1 [5] => 1,1,1,
-					$slide1_re = $slide1[0]; 			// $slide1_re  = [0] => 1,1,1
-					$slide1_result = explode(",",$slide1_re);			// $slide1_result = [0] => 1 [1] => 1 [2] => 1
+					/*$slide1 = explode(",,",$children['score'][$n][0]);  //[0] => 1,1,1,,1,1,1,,1,1,1,,1,1,1,,1,1,1,,1,1,1, 切割後 [0] => 1,1,1 [1] => 1,1,1 [2] => 1,1,1 [3] => 1,1,1 [4] => 1,1,1 [5] => 1,1,1,
+					$slide1_re = $slide1[0];*/ 			// $slide1_re  = [0] => 1,1,1
+					/*$slide1_result = explode(",",$children['score'][$n][0]);			// $slide1_result = [0] => 1 [1] => 1 [2] => 1
 					
 					$scriptslide = explode(",",$children['script'][$n][0]); //[0] => 杯子,杯子,爸爸,爸爸,筆,筆 切割後 [0] => 杯子 [1] => 杯子 [2] => 爸爸 [3] => 爸爸 [4] => 筆 [5] => 筆
 					
@@ -968,7 +968,7 @@ class projectview_admin extends CI_Controller {
 
 			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 			$objWriter->save('php://output');
-			exit;
+			exit;*/
 		}
 	}
 }
