@@ -12,9 +12,11 @@ class Statistics
 	
 	public function getStatistics()//統計語音辨識的正確率
 	{
-	
-	
-	
+		$rm = new Recognition_model();
+		
+		$result = $rm->getStatisticsPartResult();
+		
+		return $result;
 	}
 	
 	public function Comparison()//比對

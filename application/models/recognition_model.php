@@ -204,16 +204,29 @@ class Recognition_model extends CI_Model
 	}
 	
 	
-	public function getStatisticsPartResult($part)
+	public function getStatisticsPartResult()//目前只有單音的部分
 	{
-		$this->db->select('isright');
+		/*$this->db->select('isright');
 		$this->db->from('google_judgment');
 		$this->db->join('topic','google_judgment.topic_id = topic.id');
 		$this->db->where('topic.part',$part);//目前只取單音的部分
 		$this->db->where('google_judgment.isright','1');
+		
 		$data = $this->db->count_all_results();
 		
-		echo $data;
+		*/
+		$query = $this->db->query(
+			'select a2.topic_id,a1.cou1,a2.cou2,(a2.cou2/a1.cou1) cou from 
+			(select topic_id,count(*) cou1 from `google_judgment` group by topic_id) a1
+			join
+			(select topic_id,count(*) cou2 from google_judgment Inner JOIN  topic on `google_judgment`.`topic_id` = `topic`.`id` where isright = 1 group by topic_id) a2
+			on a1.topic_id = a2.topic_id');
+		
+		$result = $query->result();
+		
+		
+		return $result;
+		
 	}
 	
 

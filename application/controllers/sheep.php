@@ -30,10 +30,10 @@ class Sheep extends CI_Controller
 
 		$rm =  new Recognition_model();
 		
-		//$data = $rm->getJudgmentResult(10512);
+		$data = $rm->getStatisticsPartResult();
 		
 		
-		$s->Comparison();
+		//$s->Comparison();
 		//33030
 		//14034=23107 NO 32399=41472
 		
