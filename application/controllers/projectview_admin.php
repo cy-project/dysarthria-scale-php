@@ -938,16 +938,7 @@ class projectview_admin extends CI_Controller {
 		{
 			$objPHPExcel->getActiveSheet()->setCellValue('A' . $i, $n+1);//
 			$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $this->data[$n]->name);//小孩姓名
-			
-			if($this->data[$n]->sex == 1)
-			{
-				$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, "男");//
-			}
-			else
-			{
-				$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, "女");//
-			}
-			
+			$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, "男");//
 			$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $this->data[$n]->bir);//
 			$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $this->data[$n]->age);//
 			$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $this->data[$n]->rank);//
@@ -955,18 +946,15 @@ class projectview_admin extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $this->data[$n]->language);//
 			$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $this->data[$n]->county);//
 			
-			
+			$objPHPExcel->getActiveSheet()->setCellValue('EN'. $i, $topic_slide[0]);
 			$n++;
 		}
-		
 		
 		// Rename worksheet
 		$objPHPExcel->getActiveSheet()->setTitle($project_name);
 
-
 		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
 		$objPHPExcel->setActiveSheetIndex(0);
-
 
 		// Redirect output to a client’s web browser (Excel2007)
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -977,13 +965,253 @@ class projectview_admin extends CI_Controller {
 		$objWriter->save('php://output');
 		exit;
 	}
+	
 	public function google_excel()
 	{
 		$rm = new recognition_model;
 		
 		$this->data = $rm->getStatisticsPartResult();
 		
-		print_r($this->data);
+		//print_r($this->data[0]->cou);
+		
+		
+		for($j = 0;$j < count($this->data);$j++)
+		{
+			$content['cou1'][$j] = $this->data[$j]->cou1;
+			$content['cou2'][$j]  = $this->data[$j]->cou2;
+			$content['cou'][$j] = $this->data[$j]->cou;
+		}
+		
+		//print_r($content);
+		
+		// Error reporting 
+		error_reporting(E_ALL);
+		ini_set('display_errors', TRUE);
+		ini_set('display_startup_errors', TRUE);
+		date_default_timezone_set('Europe/London');
+
+		if (PHP_SAPI == 'cli')
+			die('This example should only be run from a Web Browser');
+		
+		// Include PHPExcel 
+		require_once 'Classes/PHPExcel.php';
+		
+		// Create new PHPExcel object
+		$objPHPExcel = new PHPExcel();
+
+		// Set document properties
+		$objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+									 ->setLastModifiedBy("Maarten Balliauw")
+									 ->setTitle("Office 2007 XLSX Test Document")
+									 ->setSubject("Office 2007 XLSX Test Document")
+									 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+									 ->setKeywords("office 2007 openxml php")
+									 ->setCategory("Test result file");
+		
+		// Add some data
+		$objPHPExcel->getActiveSheet()->setCellValue('A1', '');
+		$objPHPExcel->getActiveSheet()->setCellValue('A2', '總題數');
+		$objPHPExcel->getActiveSheet()->setCellValue('A3', '正確題數');
+		$objPHPExcel->getActiveSheet()->setCellValue('A4', '正確率');
+		$objPHPExcel->getActiveSheet()->setCellValue('B1', 'ㄅ 杯子');
+		$objPHPExcel->getActiveSheet()->setCellValue('C1', 'ㄅ 爸爸');
+		$objPHPExcel->getActiveSheet()->setCellValue('D1', 'ㄅ 筆');
+		$objPHPExcel->getActiveSheet()->setCellValue('E1', 'ㄆ 螃蟹');
+		$objPHPExcel->getActiveSheet()->setCellValue('F1', 'ㄆ 葡萄');
+		$objPHPExcel->getActiveSheet()->setCellValue('G1', 'ㄆ 皮球');
+		$objPHPExcel->getActiveSheet()->setCellValue('H1', 'ㄇ 貓咪');
+		$objPHPExcel->getActiveSheet()->setCellValue('I1', 'ㄇ 媽媽');
+		$objPHPExcel->getActiveSheet()->setCellValue('J1', 'ㄇ 蜜蜂');
+		$objPHPExcel->getActiveSheet()->setCellValue('K1', 'ㄉ 蛋糕');
+		$objPHPExcel->getActiveSheet()->setCellValue('L1', 'ㄉ 弟弟');
+		$objPHPExcel->getActiveSheet()->setCellValue('M1', 'ㄉ 大象');
+		$objPHPExcel->getActiveSheet()->setCellValue('N1', 'ㄊ 兔子');
+		$objPHPExcel->getActiveSheet()->setCellValue('O1', 'ㄊ 太陽');
+		$objPHPExcel->getActiveSheet()->setCellValue('P1', 'ㄊ 踢皮球');
+		$objPHPExcel->getActiveSheet()->setCellValue('Q1', 'ㄋ 牛奶');
+		$objPHPExcel->getActiveSheet()->setCellValue('R1', 'ㄋ 泥巴');
+		$objPHPExcel->getActiveSheet()->setCellValue('S1', 'ㄋ 奶奶');
+		$objPHPExcel->getActiveSheet()->setCellValue('T1', 'ㄌ 老師');
+		$objPHPExcel->getActiveSheet()->setCellValue('U1', 'ㄌ 拉手');
+		$objPHPExcel->getActiveSheet()->setCellValue('V1', 'ㄌ 樓梯');
+		$objPHPExcel->getActiveSheet()->setCellValue('W1', 'ㄏ 蝴蝶');
+		$objPHPExcel->getActiveSheet()->setCellValue('X1', 'ㄏ 花朵');
+		$objPHPExcel->getActiveSheet()->setCellValue('Y1', 'ㄏ 喝水');
+		$objPHPExcel->getActiveSheet()->setCellValue('Z1', 'ㄍ 狗');
+		$objPHPExcel->getActiveSheet()->setCellValue('AA1', 'ㄍ 哥哥');
+		$objPHPExcel->getActiveSheet()->setCellValue('AB1', 'ㄍ 國旗');
+		$objPHPExcel->getActiveSheet()->setCellValue('AC1', 'ㄎ 筷子');
+		$objPHPExcel->getActiveSheet()->setCellValue('AD1', 'ㄎ 可樂');
+		$objPHPExcel->getActiveSheet()->setCellValue('AE1', 'ㄎ 卡片');
+		$objPHPExcel->getActiveSheet()->setCellValue('AF1', 'ㄐ 剪刀');
+		$objPHPExcel->getActiveSheet()->setCellValue('AG1', 'ㄐ 姊姊');
+		$objPHPExcel->getActiveSheet()->setCellValue('AH1', 'ㄐ 機器人');
+		$objPHPExcel->getActiveSheet()->setCellValue('AI1', 'ㄑ 氣球');
+		$objPHPExcel->getActiveSheet()->setCellValue('AJ1', 'ㄑ 青蛙');
+		$objPHPExcel->getActiveSheet()->setCellValue('AK1', 'ㄑ 鉛筆');
+		$objPHPExcel->getActiveSheet()->setCellValue('AL1', 'ㄒ 西瓜');
+		$objPHPExcel->getActiveSheet()->setCellValue('AM1', 'ㄒ 鞋子');
+		$objPHPExcel->getActiveSheet()->setCellValue('AN1', 'ㄒ 蝦子');
+		$objPHPExcel->getActiveSheet()->setCellValue('AO1', 'ㄗ 嘴巴');
+		$objPHPExcel->getActiveSheet()->setCellValue('AP1', 'ㄗ 走路');
+		$objPHPExcel->getActiveSheet()->setCellValue('AQ1', 'ㄗ 早安');
+		$objPHPExcel->getActiveSheet()->setCellValue('AR1', 'ㄘ 草莓');
+		$objPHPExcel->getActiveSheet()->setCellValue('AS1', 'ㄘ 擦擦手');
+		$objPHPExcel->getActiveSheet()->setCellValue('AT1', 'ㄘ 彩虹');
+		$objPHPExcel->getActiveSheet()->setCellValue('AU1', 'ㄙ 傘');
+		$objPHPExcel->getActiveSheet()->setCellValue('AV1', 'ㄙ 四');
+		$objPHPExcel->getActiveSheet()->setCellValue('AW1', 'ㄙ 掃地');
+		$objPHPExcel->getActiveSheet()->setCellValue('AX1', 'ㄓ 鐘');
+		$objPHPExcel->getActiveSheet()->setCellValue('AY1', 'ㄓ 桌子');
+		$objPHPExcel->getActiveSheet()->setCellValue('AZ1', 'ㄓ 蜘蛛');
+		$objPHPExcel->getActiveSheet()->setCellValue('BA1', 'ㄔ 船');
+		$objPHPExcel->getActiveSheet()->setCellValue('BB1', 'ㄔ 吃蛋糕');
+		$objPHPExcel->getActiveSheet()->setCellValue('BC1', 'ㄔ 吹喇叭');
+		$objPHPExcel->getActiveSheet()->setCellValue('BD1', 'ㄕ 書本');
+		$objPHPExcel->getActiveSheet()->setCellValue('BE1', 'ㄕ 獅子');
+		$objPHPExcel->getActiveSheet()->setCellValue('BF1', 'ㄕ 鯊魚');
+		$objPHPExcel->getActiveSheet()->setCellValue('BG1', 'ㄖ 人');
+		$objPHPExcel->getActiveSheet()->setCellValue('BH1', 'ㄖ 熱熱的');
+		$objPHPExcel->getActiveSheet()->setCellValue('BI1', 'ㄖ 軟軟的');
+		$objPHPExcel->getActiveSheet()->setCellValue('BJ1', 'ㄈ 飛機');
+		$objPHPExcel->getActiveSheet()->setCellValue('BK1', 'ㄈ 風箏');
+		$objPHPExcel->getActiveSheet()->setCellValue('BL1', 'ㄈ 房子');
+		$objPHPExcel->getActiveSheet()->setCellValue('BM1', 'ㄚ 阿姨');
+		$objPHPExcel->getActiveSheet()->setCellValue('BN1', 'ㄜ 白鵝');
+		$objPHPExcel->getActiveSheet()->setCellValue('BO1', 'ㄨ 烏鴉');
+		$objPHPExcel->getActiveSheet()->setCellValue('BP1', 'ㄧ 椅子');
+		$objPHPExcel->getActiveSheet()->setCellValue('BQ1', 'ㄩ 魚');
+		$objPHPExcel->getActiveSheet()->setCellValue('BR1', 'ㄝ 爺爺');
+		$objPHPExcel->getActiveSheet()->setCellValue('BS1', 'ㄛ 我');
+		$objPHPExcel->getActiveSheet()->setCellValue('BT1', 'ㄠ 凹凸');
+		$objPHPExcel->getActiveSheet()->setCellValue('BU1', 'ㄡ 猴子');
+		$objPHPExcel->getActiveSheet()->setCellValue('BV1', 'ㄟ 回家');
+		$objPHPExcel->getActiveSheet()->setCellValue('BW1', 'ㄞ 愛心');
+		$objPHPExcel->getActiveSheet()->setCellValue('BX1', 'ㄤ 骯髒');
+		$objPHPExcel->getActiveSheet()->setCellValue('BY1', 'ㄥ 英國');
+		$objPHPExcel->getActiveSheet()->setCellValue('BZ1', 'ㄣ 恩惠');
+		$objPHPExcel->getActiveSheet()->setCellValue('CA1', 'ㄢ 安全');
+		$objPHPExcel->getActiveSheet()->setCellValue('CB1', 'ㄦ 耳朵');
+		
+		
+		
+		
+		
+		$n = 0;
+		for ($i = 2; $i < 5; $i++) 
+		{
+			
+			if($i == 2)
+			{
+				$test = $content['cou1'];
+			}
+			else if($i == 3)
+			{
+				$test = $content['cou2'];
+			}
+			else
+			{
+				$test = $content['cou'];
+			}
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $test[0]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $test[1]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $test[2]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $test[3]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $test[4]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $test[5]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $test[6]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $test[7]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('J' . $i, $test[8]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $test[9]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('L' . $i, $test[10]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('M' . $i, $test[11]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('N' . $i, $test[12]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('O' . $i, $test[13]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('P' . $i, $test[14]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('Q' . $i, $test[15]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('R' . $i, $test[16]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('S' . $i, $test[17]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('T' . $i, $test[18]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('U' . $i, $test[19]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('V' . $i, $test[20]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('W' . $i, $test[21]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('X' . $i, $test[22]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('Y' . $i, $test[23]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('Z' . $i, $test[24]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AA'. $i, $test[25]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AB'. $i, $test[26]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AC'. $i, $test[27]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AD'. $i, $test[28]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AE'. $i, $test[29]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AF'. $i, $test[30]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AG'. $i, $test[31]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AH'. $i, $test[32]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AI'. $i, $test[33]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AJ'. $i, $test[34]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AK'. $i, $test[35]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AL'. $i, $test[36]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AM'. $i, $test[37]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AN'. $i, $test[38]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AO'. $i, $test[39]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AP'. $i, $test[40]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AQ'. $i, $test[41]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AR'. $i, $test[42]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AS'. $i, $test[43]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AT'. $i, $test[44]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AU'. $i, $test[45]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AV'. $i, $test[46]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AW'. $i, $test[47]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AX'. $i, $test[48]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AY'. $i, $test[49]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AZ'. $i, $test[50]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BA'. $i, $test[51]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BB'. $i, $test[52]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BC'. $i, $test[53]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BD'. $i, $test[54]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BE'. $i, $test[55]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BF'. $i, $test[56]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BG'. $i, $test[57]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BH'. $i, $test[58]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BI'. $i, $test[59]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BJ'. $i, $test[60]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BK'. $i, $test[61]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BL'. $i, $test[62]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BM'. $i, $test[63]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BN'. $i, $test[64]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BO'. $i, $test[65]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BP'. $i, $test[66]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BQ'. $i, $test[67]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BR'. $i, $test[68]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BS'. $i, $test[69]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BT'. $i, $test[70]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BU'. $i, $test[71]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BV'. $i, $test[72]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BW'. $i, $test[73]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BX'. $i, $test[74]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BY'. $i, $test[75]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BZ'. $i, $test[76]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('CA'. $i, $test[77]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('CB'. $i, $test[78]);//
+	
+			
+			$n++;
+		}
+		
+		// Rename worksheet
+		$objPHPExcel->getActiveSheet()->setTitle('google語音辨識');
+
+		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+		$objPHPExcel->setActiveSheetIndex(0);
+
+		// Redirect output to a client’s web browser (Excel2007)
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="Google語音辨識.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$objWriter->save('php://output');
+		exit;
 	}
 }
 
