@@ -25,8 +25,9 @@
 					<div class="container-fluid">
 						<div class="row-fluid">
 							<div class="btn-toolbar">
-								<a href="#"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>匯出全部專案(測試中)</button></a>
+								<a href="<?=base_url("/projectview_admin/google_excel")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>匯出Google語音辨識結果</button></a>
 							</div>
+							
 							<form action="<?=base_url("/projectview_admin/project_board")?>" method="post">
 								<div class="well">
 									<table class="table sortable">
@@ -57,6 +58,7 @@
 												</td>
 												<td><a href="<?=base_url("/projectview_admin/download_excel")?>/office_id/0/project_id/<?=$row->id;?>">實習生</a></td>
 												<td><a href="<?=base_url("/projectview_admin/download_excel")?>/office_id/1/project_id/<?=$row->id;?>">語言治療師</a></td>
+												<td><a href="<?=base_url("/projectview_admin/childrenlist_excel")?>/project_id/<?=$row->id;?>">學生清單</a></td>
 											</tr>
 											<?php endforeach;?>
 										</tbody>

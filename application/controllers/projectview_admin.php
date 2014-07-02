@@ -11,6 +11,7 @@ class projectview_admin extends CI_Controller {
 		$this->load->model('Project_model');
 		$this->load->model('Member_model');
 		$this->load->model('test_models');
+		$this->load->model('recognition_model');
 		session_start();
 	}
 	
@@ -883,6 +884,106 @@ class projectview_admin extends CI_Controller {
 			$objWriter->save('php://output');
 			exit;
 		}
+	}
+	public function childrenlist_excel()
+	{
+		$pm = new Project_model;
+		$this->data = $this->uri->uri_to_assoc(3);
+		$project_id = $this->data['project_id'];
+		
+		$this->data = $pm->getTestingList($project_id);
+		
+		$this->data1['project_name'] = $pm->getProjectName($project_id);
+		$project_name = $this->data1['project_name'][0]->name;
+		
+		//print_r($this->data[0]->name);
+		
+		// Error reporting 
+		error_reporting(E_ALL);
+		ini_set('display_errors', TRUE);
+		ini_set('display_startup_errors', TRUE);
+		date_default_timezone_set('Europe/London');
+
+		if (PHP_SAPI == 'cli')
+			die('This example should only be run from a Web Browser');
+		
+		// Include PHPExcel 
+		require_once 'Classes/PHPExcel.php';
+		
+		// Create new PHPExcel object
+		$objPHPExcel = new PHPExcel();
+
+		// Set document properties
+		$objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+									 ->setLastModifiedBy("Maarten Balliauw")
+									 ->setTitle("Office 2007 XLSX Test Document")
+									 ->setSubject("Office 2007 XLSX Test Document")
+									 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+									 ->setKeywords("office 2007 openxml php")
+									 ->setCategory("Test result file");
+		
+		// Add some data
+		$objPHPExcel->getActiveSheet()->setCellValue('A1', $project_name);
+		$objPHPExcel->getActiveSheet()->setCellValue('B1', '姓名');
+		$objPHPExcel->getActiveSheet()->setCellValue('C1', '性別');
+		$objPHPExcel->getActiveSheet()->setCellValue('D1', '生日');
+		$objPHPExcel->getActiveSheet()->setCellValue('E1', '年齡');
+		$objPHPExcel->getActiveSheet()->setCellValue('F1', '班別');
+		$objPHPExcel->getActiveSheet()->setCellValue('G1', '班級');
+		$objPHPExcel->getActiveSheet()->setCellValue('H1', '常用語言');
+		$objPHPExcel->getActiveSheet()->setCellValue('I1', '居住地');
+		
+		$n = 0;
+		for ($i = 2; $i < count($this->data) + 2; $i++) 
+		{
+			$objPHPExcel->getActiveSheet()->setCellValue('A' . $i, $n+1);//
+			$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $this->data[$n]->name);//小孩姓名
+			
+			if($this->data[$n]->sex == 1)
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, "男");//
+			}
+			else
+			{
+				$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, "女");//
+			}
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $this->data[$n]->bir);//
+			$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $this->data[$n]->age);//
+			$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $this->data[$n]->rank);//
+			$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $this->data[$n]->grade);//
+			$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $this->data[$n]->language);//
+			$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $this->data[$n]->county);//
+			
+			
+			$n++;
+		}
+		
+		
+		// Rename worksheet
+		$objPHPExcel->getActiveSheet()->setTitle($project_name);
+
+
+		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+		$objPHPExcel->setActiveSheetIndex(0);
+
+
+		// Redirect output to a client’s web browser (Excel2007)
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="' . $project_name . ' - 學生清單.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$objWriter->save('php://output');
+		exit;
+	}
+	public function google_excel()
+	{
+		$rm = new recognition_model;
+		
+		$this->data = $rm->getStatisticsPartResult();
+		
+		print_r($this->data);
 	}
 }
 
