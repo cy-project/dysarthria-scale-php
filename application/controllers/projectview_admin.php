@@ -946,7 +946,6 @@ class projectview_admin extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $this->data[$n]->language);//
 			$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $this->data[$n]->county);//
 			
-			$objPHPExcel->getActiveSheet()->setCellValue('EN'. $i, $topic_slide[0]);
 			$n++;
 		}
 		
@@ -1092,8 +1091,6 @@ class projectview_admin extends CI_Controller {
 		$objPHPExcel->getActiveSheet()->setCellValue('BZ1', 'ㄣ 恩惠');
 		$objPHPExcel->getActiveSheet()->setCellValue('CA1', 'ㄢ 安全');
 		$objPHPExcel->getActiveSheet()->setCellValue('CB1', 'ㄦ 耳朵');
-		
-		
 		
 		
 		
