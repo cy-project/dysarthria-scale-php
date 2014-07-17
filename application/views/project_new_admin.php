@@ -46,6 +46,7 @@
 			/*花蓮縣*/township[20]=["請選擇", "970 花蓮市", "971 新城鄉", "972 秀林鄉", "973 吉安鄉", "974 壽豐鄉", "975 鳳林鎮", "976 光復鄉", "977 豐濱鄉", "978 瑞穗鄉", "979 萬榮鄉", "981 玉里鎮", "982 卓溪鄉", "983 富里鄉"];
 			/*金門縣*/township[21]=["請選擇", "890 金沙", "891 金湖", "892 金寧", "893 金城", "894 烈嶼", "896 烏坵"];
 			/*連江縣*/township[22]=["請選擇", "209 南竿", "210 北竿", "211 莒光", "212 東引"];
+			/*其他*/township[23]=["請選擇", "其他"];
 			
 			
 			function county(index){
@@ -77,6 +78,15 @@
 											</select>
 											<label>專案名稱</label>
 											<input type="text" name="ProjectName" class="input-xlarge">
+											<label>學校</label>
+											<select name="SchoolName" id="subjects_school" class="input-xlarge">
+												
+											</select>
+											<a class="icon-plus btn btn-primary" onclick="newschlname()">新增學校</a>
+											<div id="school_name" style="display: none">
+												<label>學校名稱</label>
+												<input type='text' name='NewSchoolName' placeholder="機構" class='input-xlarge'>
+											</div>
 											<label>所在縣市</label>
 											<select name="Counties" id="Counties" class="input-xlarge" onChange="county(this.selectedIndex);">
 												<option value="0" selected="selected">請選擇</option>
@@ -102,6 +112,7 @@
 												<option value="花蓮縣"> 花蓮縣 </option>
 												<option value="金門縣"> 金門縣 </option>
 												<option value="連江縣"> 連江縣 </option>
+												<option value="其他"> 其他 </option>
 											</select>
 											<label>所在(鄉/鎮/區)</label>
 											<select name="Area" id="Counties" class="input-xlarge">
@@ -146,6 +157,36 @@
 			$(function() {
 				$('.demo-cancel-click').click(function(){return false;});
 			});
+			$().ready(function() {
+				Select_School();
+			});
+			
+			function Select_School(){
+				var URL = "<?=base_url("/projectadmin/select_school_name")?>";
+				$.ajax({
+					url: URL,
+					type: 'POST',
+					dataType:'text', 
+					error: function(xhr, ajaxOptions, thrownError) {
+						alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+					},
+					success: function(response) {
+						$('#subjects_school').html(response);
+					}
+				});
+			}
+			
+			function newschlname(){
+				if(document.getElementById('school_name').style.display == 'none'){
+					document.getElementById('school_name').style.display='';
+					return false;
+				}
+				else{
+					document.getElementById('school_name').style.display='none';
+					return false;
+				}
+				
+			}
 		</script>
 	</body>
 </html>

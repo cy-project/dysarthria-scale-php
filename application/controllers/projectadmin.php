@@ -23,6 +23,19 @@ class Projectadmin extends CI_Controller {
 		$this->load->view('project_new_admin');
 	}
 	
+	public function select_school_name(){
+		$schoolfuntion = new Project_model();
+		$this->data = $schoolfuntion->selectschoolname();
+		$length = count($this->data);
+		for($a = 0;$a<=$length;$a++){
+			if($a == 0)
+				$schooldata.= '<option value="0" selected="selected">請選擇</option>';
+			else
+				$schooldata.= '<option value='.$this->data[$a-1]->id.'>'.$this->data[$a-1]->name.'</option>';
+		}
+		print_r($schooldata);
+	}
+	
 	public function creating_project()
 	{
 		$project = New Project_model;
@@ -33,6 +46,7 @@ class Projectadmin extends CI_Controller {
 		date_default_timezone_set('Asia/Taipei');
         $date = date("Y/m/d");  
         $area = $this->input->post("Area");  
+        $SchoolName = $this->input->post("SchoolName");  
         $county = $this->input->post("Counties");  
         $status = $this->input->post("purview");
 		
@@ -70,6 +84,15 @@ class Projectadmin extends CI_Controller {
 		$data->county = $county;
 		$data->status = $status;
 		
+		if($SchoolName == 0){
+			$NewSchoolName = $this->input->post("NewSchoolName");
+			$data->school_id = $project->schoolname($NewSchoolName);
+			
+		}
+		else{
+			$data->school_id = $project->schoolname($SchoolName);
+		}
+		print_r($data->school_id);
 		$project->createProject($data);
 		
 		redirect(base_url("/projectadmin/project_home"));

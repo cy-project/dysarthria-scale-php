@@ -40,11 +40,12 @@
 									<option value="0">女</option>
 								</select>
 								<label>出生年月日(西元yyyy/mm/dd)</label>
-								<input type="text" name="subjects_birth" class="input-xlarge">
+								<input type="text" name="subjects_birth" id="subjects_birth" class="input-xlarge">
 								<label>所在縣市</label>
 								<input type="text" name="subjects_counties" class="input-xlarge">
-								<label>學校</label>
-								<input type="text" name="subjects_school" class="input-xlarge">
+								
+								<!--<label>學校</label>
+								<input type="text" name="subjects_school" class="input-xlarge">-->
 								<label>年級</label>
 								<input type="text" name="subjects_grade" class="input-xlarge">
 								<label>班級</label>
@@ -95,34 +96,46 @@
 			</div>
 			<script type="text/javascript">
 				var count=1;
+				$().ready(function() {
+					Select_School();
+				});
+				
 				function testnull(v)
 				{
 					if(v==2)
 					document.dbform.action="<?=base_url("/projectview_admin/project_board")?>/project_id/<?php echo $project_id;?>"; 
 					else if (v==1){
-						if (document.getElementById('subjects_name').value=='')
+						if (document.getElementById('subjects_name').value == '')
 						{
-							alert('null');
+							alert('請輸入名稱');
 							document.getElementById('subjects_name').focus();
-						}else if(document.getElementById('subjects_name').value!=''){
+						}else if((document.getElementById('subjects_name').value != '') && (document.getElementById('subjects_birth').value != '')){
+							alert("123");
+							document.dbform.action="<?=base_url("/projectview_admin/subjects_data")?>/project_id/<?php echo $project_id;?>"; 
 							$('#tab').closest('form').submit();
+						}else if(document.getElementById('subjects_birth').value == ''){
+							alert('請輸入生日');
+							document.getElementById('subjects_birth').focus();
 						}
-						document.dbform.action="<?=base_url("/projectview_admin/subjects_data")?>/project_id/<?php echo $project_id;?>"; 
 					}
 					
 				} 
+				
 				function OneClick() {
 					document.getElementById('test').disabled = true;
 					document.getElementById('new_people').disabled = false;
 				}
+				
 				function OneClick1() {
 					document.getElementById('test').disabled = false;
 					document.getElementById('new_people').disabled = false;
 				}
+				
 				function OneClick2() {
 					document.getElementById('test').disabled = true;
 					document.getElementById('new_people').disabled = true;
 				}
+				
 				function checkall() {
 					checkboxes = document.getElementsByName('selected');
 					for(var i=0, n=checkboxes.length;i<=n;i++) 
@@ -141,6 +154,8 @@
 						
 					}
 				}
+				
+				
 			</script>
 			<script src="lib/bootstrap/js/bootstrap.js"></script>
 			<script type="text/javascript">

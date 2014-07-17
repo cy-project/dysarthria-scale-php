@@ -7,6 +7,7 @@ class Test
 	{
 		$CI=& get_instance();
 		$CI->load->model('Member_model');
+		$CI->load->model('test_models');
 		$CI->load->library('Personal_data');
 	
 	}

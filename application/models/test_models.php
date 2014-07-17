@@ -165,4 +165,27 @@ class test_models extends CI_model
 		return $data_result;
 		
 	}
+	
+	public function manberdata($project_id, $position){
+		$namedata = array();
+		$count = 0;
+		$this->db->select("`member_id`");
+		$this->db->from('people_list');
+		$this->db->where('project_id', $project_id);
+		$this->db->where('position', $position);
+		$data = $this->db->get()->result();
+		foreach($data as $key => $con){
+			$namedtat[$count] = $this->membername($con->member_id);
+			$count++;
+		}
+		return $namedtat;
+	}
+	
+	public function membername($member_id){
+		$this->db->select('`name`,`id`');
+		$this->db->from('member');
+		$this->db->where('id', $member_id);
+		$data = $this->db->get()->result();
+		return $data;
+	}
 }

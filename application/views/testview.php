@@ -12,69 +12,53 @@
 		<div class="content">
         
 			<div class="header">
-				<h1 class='page-title'>
-				<?php if($count == 1){
-					echo "新增群組";
-				}
-				elseif($count == 2){
-					echo "編輯群組";
-				}?>
-				</h1>
+				<h1 class='page-title'>派遣選擇</h1>
 			</div>
 			<ul class="breadcrumb">
 				<li><a href="<?=base_url("/dysarthria/index")?>">首頁</a> <span class="divider">/</span></li>
-				<li><a href="<?=base_url("/userapplication/usersadmin")?>">權限管理</a> <span class="divider">/</span></li>
-				<li class="active">
-				<?php 
-				if($count == 1){
-					echo "新增群組";
-				}
-				elseif($count == 2){
-					echo "編輯群組";
-				}?>
-			</li>
-
+				<li><a href="<?=base_url("/projectadmin/project_home")?>">專案管理</a> <span class="divider">/</span></li>
+				<li><a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?php echo $project_id;?>"><?php echo $name;?></a> <span class="divider">/</span></li>
+				<li class="active">派遣選擇</li>
 			</ul>
-			<div class="container-fluid">
-				<div class="row-fluid">
-					<div class="btn-toolbar">
-						<button class="btn btn-primary" id="new_group" onclick="NewGroup(1)"><i class="icon-plus"></i>
-						<?php 
-						if($count == 1){
-							echo "新增群組";
-						}
-						elseif($count == 2){
-							echo "編輯群組";
-						}?>
-				</button>
-						<a href="#"><button class="btn btn-primary" id="delete_group" onclick="NewGroup(2)"><i class="icon-plus"></i>取消</button></a>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div>
+					<input type="radio" checked="checked" name="User" value="surveying" onclick="Select_People(1, 1)">施測者
+					<input type="radio" name="User" value="detect" onclick="Select_People(2, 1)">檢測者
+					<select class="input-xlarge" name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
 						
-					</div>
-					<p><input type="text" name="appellation" id="inputname" placeholder="群組名稱" value="<?php 
-						if($count == 2){
-							echo $this->datoem[0]->name;
-						}
-							?>"></p>
-					<div class="row-fluid">
-						<div class="block div-inline">
-							<div class="test" id="Select_area"></div>
-							<div class="test" id="Options_area" ></div>
+					</select>
+					   施測日期:<input name="member.birth" placeholder="年-月-日" type="time" value=""/>
+					<button class="btn btn-primary" id="new_group" onclick="NewGroup(1)"><i class="icon-plus"></i>自動派遣</button>
+				</div>
+				<div class="row-fluid">
+					<div class="well">	 
+						<div>
+							<button class="btn btn-primary"><i class="icon-plus"></i>確認派遣</button>
+						</div>
+						<div id="Menber_list">
+										<!-- ajax -->
 						</div>
 					</div>
+					<div>
+						<button class="btn btn-primary"><i class="icon-plus"></i>完成派遣</button>
+						<button class="btn btn-primary"><i class="icon-plus"></i>取消派遣</button>
+					</div>
+				</div>
 
-					<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h3 id="myModalLabel">Delete Confirmation</h3>
-						</div>
-						<div class="modal-body">
-							<p class="error-text"><i class="icon-warning-sign modal-icon"></i>Are you sure you want to delete the user?</p>
-						</div>
-						<div class="modal-footer">
-							<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-							<button class="btn btn-danger" data-dismiss="modal">Delete</button>
-						</div>
+				<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h3 id="myModalLabel">人員更換</h3>
 					</div>
+					<div class="modal-body">
+						<p class="error-text"><i class="icon-warning-sign modal-icon"></i>確定要更換?</p>
+					</div>
+					<div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true" >取消</button>
+						<button class="btn btn-danger" data-dismiss="modal" onclick="">確定</button>
+					</div>
+				</div>
 
 
                     
@@ -103,124 +87,79 @@
 		</style>
 		<script src="lib/bootstrap/js/bootstrap.js"></script>
 		<script type="text/javascript">
-			var options_data = [];
-			var count = 0;
+			var surveying_count = 0;
+			var detect_count = 0;
+			var surveying;
+			var detect;
 			$().ready(function() {
-				var ion;
-				<?php if($count == 2){
-				$length = count($this->datacount);?>
-				count = <?php echo $length; ?>;
-				<?php for($i = 0;$i<$length;$i++){?>
-				ion =<?php echo $i; ?>;
-				options_data[ion] = <?php echo $this->datacount[$i]->permission_id ;?>;
-				<?php }} ?>
-				set_select(1);
-				set_select(2);
+				Select_People(1, 1);
 			});
-			
-			function switch_options(f,b){
-				var StringArray = f.split("_");
-				var SelectArea = "#Select_area_"+StringArray[2];
-				var OptionsArea = "#Options_area_"+StringArray[2];
-				if(b == "2"){
-					options_data[count] = StringArray[2];
-					$(SelectArea).hide();
-					$(OptionsArea).show();
-					count++;
-				}
-				else if(b == "1"){
-					for(i = 0;i < options_data.length;i++){
-						if(options_data[i] == StringArray[2]){
-							b = i;
-						}
-					}
-					if(options_data[b] == StringArray[2]){
-						for(a = b;a<options_data.length;a++){
-							if(a == options_data.length-1){
-								options_data[a] = null;
-							}
-							else
-								options_data[a] = options_data[a+1]; 
-						}
-						count--;
-					}
-					$(SelectArea).show();
-					$(OptionsArea).hide();
-				}
-			}
-			
-			function set_select(f){
-				var count_view;
-				var URL;
-				if(f == 1){
-					count_view = "#Select_area";
-					URL ='<?=base_url("/userapplication/Select_area_1")?>' ;
-				}
-				else if(f == 2){
-					count_view ="#Options_area";
-					URL ='<?=base_url("/userapplication/Options_area_2")?>' ;
-				}
-				$.ajax({
-					url: URL,
-					type: 'POST',
-					data:{'id':<?php echo $id;?>,'count':<?php echo $count;?>},
-					dataType:'html', 
-					error: function(xhr, ajaxOptions, thrownError) {
-						alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
-						//$('#ReturnViews').html(xhr.responseText);
-					},
-					success: function(response) {
-						sorttables();
-						$(count_view).html(response);
-					}
-				});
-			}
-			function NewGroup(f)
-				{
-				alert('<?=base_url("/userapplication/newgroup")?>/count/'+count+'/id/<?php echo $id; ?>');
-					var number;
-					var URLs;
-					count = <?php echo $count;?>;
-					alert(count);
-					if(f == 1){
-						if(count == 1){
-							URLs='<?=base_url("/userapplication/insertGroup")?>/id/<?php echo $this->data['id']; ?>';
-						}
-						else if(count == 2){
-							URLs='<?=base_url("/userapplication/EditorGroup")?>/id/<?php echo $this->data['id']; ?>';
-						}
-						var groupname = $("#inputname").val();
-						
-						if(groupname == "" ){
-							alert('內容有缺');
-							number = 2;
-							return;
-						}
-						
-						number = 1;
-						$.ajax({
-							url: URLs,
-							data: {'number': number,'permissions_option':options_data,'groupname':groupname},
-							type:"POST",
-							dataType:'text',
-							success: function(msg){
-								document.location.href='<?=base_url("/userapplication/")?>'+msg;
-							},
-							error:function(xhr, ajaxOptions, thrownError){
-								alert(xhr.status);
-								alert(thrownError);
-							}
-						});
-					}
-					else{
-						document.location.href='<?=base_url("/userapplication/usersadmin")?>';
-					}
-					
-				}
 			$("[rel=tooltip]").tooltip();
+			
 			$(function() {
 				$('.demo-cancel-click').click(function(){return false;});
 			});
+			
+			
+			
+			function Select_People(f, con){
+				var URL = "<?=base_url("/projectview_admin/select_the_page")?>";
+				$.ajax({
+					url: URL,
+					type: 'POST',
+					data:{'id':<?php echo $project_id;?>,'selected':f},
+					dataType:'text', 
+					error: function(xhr, ajaxOptions, thrownError) {
+						alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+					},
+					success: function(response) {
+						$('#DropDownTimezone').html(response);
+						Children(f, con);
+					}
+				});
+			}
+			
+			function Children(f ,con){
+				var URL = "<?=base_url("/projectview_admin/Kids_Menu")?>";
+				if(surveying_count == 0 || detect_count == 0){
+					$.ajax({
+						url: URL,
+						type: 'POST',
+						data:{'id':<?php echo $project_id;?>,'selected':f},
+						dataType:'html', 
+						error: function(xhr, ajaxOptions, thrownError) {
+							alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+						},
+						success: function(response) {
+							$('#Menber_list').html(response);
+							if(f == 1){
+								surveying = response;
+								surveying_count++;
+							}
+								
+							else{
+								detect = response;
+								detect_count++;
+							}
+								
+						}
+					});
+				}
+				else{
+					if(f == 1)
+					{
+						$('#Menber_list').html(surveying);
+						surveying_count++;
+					}
+					else
+					{
+						$('#Menber_list').html(detect);
+						detect_count++;
+					}
+				}
+				
+				count = count+con;
+			}
 		</script>
 		
     

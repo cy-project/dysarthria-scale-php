@@ -6,7 +6,6 @@ class Dispatch_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->library('Datamodel');
 	}
 	
 	public function createDispatchJson($pid)//get testing_list
@@ -139,6 +138,60 @@ class Dispatch_model extends CI_Model
 		
 	}
 	
+	public function manberdata($project_id, $position){
+		$namedata = array();
+		$count = 0;
+		$this->db->select("`member_id`");
+		$this->db->from('people_list');
+		$this->db->where('project_id', $project_id);
+		$this->db->where('position', $position);
+		$data = $this->db->get()->result();
+		foreach($data as $key => $con){
+			$namedtat[$count] = $this->membername($con->member_id);
+			$count++;
+		}
+		return $namedtat;
+	}
 	
+	public function membername($member_id){
+		$this->db->select('`name`,`id`');
+		$this->db->from('member');
+		$this->db->where('id', $member_id);
+		$data = $this->db->get()->result();
+		return $data;
+	}
+	
+	public function getProjectChildData($project_id){
+		$this->db->select('`children_id`,`id`,`rater`, `detect`');
+		$this->db->from('testing_list');
+		$this->db->where('project_id', $project_id);
+		$this->db->where('isupload', '0');
+		$data = $this->db->get();
+		return $data;
+	}
+	
+	public function ChildBasicData($children_id){
+		$this->db->select('`id`,`name`,`sex`,`school_id`,`grade`,`rank`');
+		$this->db->from('children');
+		$this->db->where('id',$children_id);
+		$data = $this->db->get();
+		return $data->result();
+	}
+	
+	public function schoolname($school_id){
+		$this->db->select('`name`');
+		$this->db->from('school');
+		$this->db->where('id',$school_id);
+		$data = $this->db->get()->result();
+		return $data[0]->name;
+	}
+	
+	public function getMemberName($rater){
+		$this->db->select('`name`');
+		$this->db->where('id',$rater);
+		$this->db->from('member');
+		$result =  $this->db->get()->result();
+		return $result[0]->name;
+	}
 
 }

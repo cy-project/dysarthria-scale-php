@@ -24,7 +24,6 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>stylesheets/jquery.fancybox.css?v=2.1.0" media="screen" />
 
     <!-- Demo page code -->
-
     <style type="text/css">
         #line-chart {
             height:300px;

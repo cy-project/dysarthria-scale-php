@@ -8,9 +8,11 @@ class projectview_admin extends CI_Controller {
 		parent::__construct();	
 		$this->load->library('Personal_data');
 		$this->load->library('Datamodel');
+		$this->load->library('Dispatch');
 		$this->load->model('Project_model');
 		$this->load->model('Member_model');
 		$this->load->model('test_models');
+		$this->load->model('dispatch_model');
 		session_start();
 	}
 	
@@ -96,6 +98,7 @@ class projectview_admin extends CI_Controller {
 		view未做判斷
 		還未作年齡計算
 		*/
+		
 		setcookie("member_id",$_SESSION['id'],time()+3600);
 		$subjects_name=$this->input->post('subjects_name');//*
 		$subjects_sex=$this->input->post('subjects_sex');
@@ -106,17 +109,18 @@ class projectview_admin extends CI_Controller {
 		$subjects_class=$this->input->post('subjects_class');
 		$subjects_language=$this->input->post('subjects_language');
 		$date=  date("Y");
-		print_r($date);
-		
+		$test = explode("/",$subjects_birth);
+		$age = $date-$test[0];
 		
 		$child->name = $subjects_name;
 		$child->sex = $subjects_sex;
-		$child->age = 0;
+		$child->age = $age;
 		$child->grade = $subjects_grade;
 		$child->rank = $subjects_class;
 		$child->language = $subjects_language;
 		$child->county = $subjects_counties;
 		$child->school = $subjects_school;
+		$child->bir = $subjects_birth;
 		$child->project_id =  $this->data['project_id'];
 		
 		if($subjects_name != null && $count == 0){
@@ -205,6 +209,7 @@ class projectview_admin extends CI_Controller {
 		$this->data['project_name'] = $pn->getProjectName($this->data['project_id']);
 		$this->load->view('subjects-data',$this->data);
 	}
+	
 	public function practitioner_alter(){//修改人員(施測者)
 		//$this->name=$_GET['name'];
 		$this->data['name']=$this->input->post('name');
@@ -218,8 +223,38 @@ class projectview_admin extends CI_Controller {
 		$this->load->view('subjects-view-glossary',$this->data);
 	}
 	public function testview(){
-		$this->load->view('testview',$this->data);
+		
+		$project_List = new test_models;
+		$dispatch_List = new dispatch_model;
+		$this->data = $this->uri->uri_to_assoc(3);
+		$this->data['name'] = $project_List->Project_name($this->data['project_id']);
+		$this->load->view('testview', $this->data);
 	}
+	
+	public function select_the_page(){
+		$dispatch_List = new dispatch_model;
+		$project_id=$this->input->post('id');
+		$selected=$this->input->post('selected');
+		$this->data = $dispatch_List->manberdata($project_id, $selected);
+		$length = count($this->data);
+		for($a = 0;$a<$length;$a++){
+			if($a == 0)
+				$str .= '<option value="0" selected="selected">請選擇</option>';
+			foreach($this->data[$a] as $key => $vle){
+				$str .= '<option value='.$vle->id.'>'.$vle->name.'</option>';
+			}
+		}
+		print_r($str);
+	}
+	
+	public function Kids_Menu(){
+		$dispatch = new Dispatch;
+		$project_id = $this->input->post('id');
+		$count = $this->input->post('selected');
+		$this->data = $dispatch->DispatchData($project_id, $count);
+		$this->load->view('Kids_Menu',$this->data);
+	}
+	
 	public function download_excel()
 	{
 		$this->load->helper('url');

@@ -19,6 +19,7 @@ class Project_model extends CI_Model
 		$this->db->set('area',$data->area);
 		$this->db->set('county',$data->county);
 		$this->db->set('status',$data->status);
+		$this->db->set('school_id',$data->school_id);
 		
 		$this->db->insert('project');
 	
@@ -268,6 +269,7 @@ class Project_model extends CI_Model
 		$this->db->set('language',$child->language);
 		$this->db->set('county',$child->county);
 		$this->db->set('school_id',$child->school);
+		$this->db->set('bir',$child->bir);
 		
 		$this->db->insert('children');
 		
@@ -275,6 +277,35 @@ class Project_model extends CI_Model
 		
 	
 	}
+	
+	public function schoolname($name){
+		$this->db->set('name', $name);
+		
+		$this->db->insert('school');
+		
+		$id = $this->schoolid($name);
+		
+		return $id[0]->id;
+	}
+	
+	public function schoolid($name){
+		$this->db->select('`id`');
+		$this->db->where('name', $name);
+		$this->db->from('school');
+		
+		$result = $this->db->get()->result();
+		
+		return $result;
+	}
+	
+	public function selectschoolname(){
+		$this->db->select('`id`,`name`');
+		$this->db->from('school');
+		$result = $this->db->get()->result();
+		
+		return $result;
+	}
+	
 	private function addSubjects($child)
 	{
 		$this->db->select('`id`');
