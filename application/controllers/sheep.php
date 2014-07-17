@@ -5,6 +5,7 @@ class Sheep extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		ini_set("max_execution_time", "0");
 		$this->load->helper('file');
 		$this->load->library('Ftpdownload');
 		$this->load->model('Member_model');
@@ -14,27 +15,65 @@ class Sheep extends CI_Controller
 		$this->load->library('Transform');
 		$this->load->library('Datamodel');
 		$this->load->library('Uploadfiles');
+		$this->load->library('Recognition');
+		$this->load->library('Statistics');
+		$this->load->model('Recognition_model');
 	}
 	
 	public function index()
 	{
 		
+		$rc = new Recognition();
+		
+		$s = new Statistics();
+	
 
-		/*$ftp = new Ftpdownload();
-		$ftp->downloadfile();*/
+		$rm =  new Recognition_model();
 		
-		$data = new Datamodel();
+		$data = $rm->getStatisticsPartResult();
 		
-		$up = new Uploadfiles();
+		
+		//$s->Comparison();
+		//33030
+		//14034=23107 NO 32399=41472
+		
+		//echo $data[14034]->id;
+		
+		$i = 32400;
+		$j = 1;
+		/*while($i < 33030)
+		{
+			$rc->recognitionAudio($data[$i]->id);
+			$i++;
+			//sleep(2);
+			/*$j++;
+			if ($j == 100)
+			{
+				$j = 1;
+				echo $i.'<br/>';
+				sleep(5);
+				
+			}
+			echo $i.'<br/>';
+		}
+		*/
+		//echo $i;
+		
+	
+		
+	
+		//$data = new Datamodel();
+		
+		//$up = new Uploadfiles();
 		
 		
 
 	//	$data[0]->filepath = ".//test.zip";
-		$data->filepath = base_url("Deczip.class");
+		//$data->filepath = base_url("Deczip.class");
 
 		//echo $data[0]->filepath;
 		
-		$up->uploadFiles($data);
+		//$up->uploadFiles($data);
 	
 		/*$zip =  new Deczip;
 		

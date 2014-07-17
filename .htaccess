@@ -1,5 +1,4 @@
 RewriteEngine on
-RewriteCond $1 !^(index\.php|stylesheets)
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteBase /dysarthria-scale-php/
+RewriteCond $1 !^(index\.php|css|lib|flash|images|img|includes|SpryAssets|js|table|language|stylesheets|robots\.txt)
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]

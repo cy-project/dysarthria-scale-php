@@ -13,6 +13,7 @@ class projectview_admin extends CI_Controller {
 		$this->load->model('Member_model');
 		$this->load->model('test_models');
 		$this->load->model('dispatch_model');
+		$this->load->model('recognition_model');
 		session_start();
 	}
 	
@@ -320,7 +321,7 @@ class projectview_admin extends CI_Controller {
 				
 				$length3 = count($result2['data']);//句子陣列長度
 				$b = 0;
-				for($a = 0;$a < $length3;$a+=2)
+				for($a = 0;$a < $length3;$a++)
 				{
 					$children['script2'][$nb][$b] = $result2['data'][$a]->script;
 					$children['score2'][$nb][$b] = $result2['data'][$a]->wrongcode;
@@ -343,7 +344,7 @@ class projectview_admin extends CI_Controller {
 		//print_r($children['score']);
 
 		
-		if (empty($children['name'])) //如果陣列是空的 跳回同一頁   要再寫訊息給使用者看 這個EXCEL沒有結果
+		if (empty($children['name'])) //如果陣列是空的 跳回同一頁   !!!!要再寫訊息給使用者看 這個EXCEL沒有結果!!!!
 		{
 			$this->data = $pm->getProject_List($member_id);
 			$this->load->view('excel_home',$this->data);  
@@ -515,14 +516,11 @@ class projectview_admin extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->setCellValue('EG1', '8');
 			$objPHPExcel->getActiveSheet()->setCellValue('EH1', '9');
 			$objPHPExcel->getActiveSheet()->setCellValue('EI1', '10');
-			$objPHPExcel->getActiveSheet()->setCellValue('EJ1', 'ㄆ');
-			$objPHPExcel->getActiveSheet()->setCellValue('EK1', 'ㄚ');
-			$objPHPExcel->getActiveSheet()->setCellValue('EL1', 'ㄊ');
-			$objPHPExcel->getActiveSheet()->setCellValue('EM1', 'ㄚ');
-			$objPHPExcel->getActiveSheet()->setCellValue('EN1', 'ㄎ');
-			$objPHPExcel->getActiveSheet()->setCellValue('EO1', 'ㄚ');
-			$objPHPExcel->getActiveSheet()->setCellValue('EP1', '次數/秒數');
-			$objPHPExcel->getActiveSheet()->setCellValue('EQ1', '說故事');
+			$objPHPExcel->getActiveSheet()->setCellValue('EJ1', 'ㄆㄚ');
+			$objPHPExcel->getActiveSheet()->setCellValue('EK1', 'ㄊㄚ');
+			$objPHPExcel->getActiveSheet()->setCellValue('EL1', 'ㄎㄚ');
+			$objPHPExcel->getActiveSheet()->setCellValue('EM1', '次數/秒數');
+			$objPHPExcel->getActiveSheet()->setCellValue('EN1', '說故事');
 			
 			$n = 0;
 			for ($i = 2; $i < count($children['name']) + 2; $i++) 
@@ -531,310 +529,232 @@ class projectview_admin extends CI_Controller {
 				
 				//單字
 				
-				if(count($children['score'][$n]) > 37) //如果陣列長度大於37筆
+				if(count($children['score'][$n]) > 79) //如果陣列長度大於37筆
 				{
 					//沒有輸出
 				}
-				else if (count($children['score'][$n]) < 37) //如果陣列長度小於37筆
+				else if (count($children['score'][$n]) < 79) //如果陣列長度小於37筆
 				{
 					//沒有輸出
 				}
 				else
 				{
-				
-					$slide1 = explode(",,",$children['score'][$n][0]);  //[0] => 1,1,1,,1,1,1,,1,1,1,,1,1,1,,1,1,1,,1,1,1, 切割後 [0] => 1,1,1 [1] => 1,1,1 [2] => 1,1,1 [3] => 1,1,1 [4] => 1,1,1 [5] => 1,1,1,
-					$slide1_re = $slide1[0]; 			// $slide1_re  = [0] => 1,1,1
-					$slide1_result = explode(",",$slide1_re);			// $slide1_result = [0] => 1 [1] => 1 [2] => 1
 					
-					$scriptslide = explode(",",$children['script'][$n][0]); //[0] => 杯子,杯子,爸爸,爸爸,筆,筆 切割後 [0] => 杯子 [1] => 杯子 [2] => 爸爸 [3] => 爸爸 [4] => 筆 [5] => 筆
+					$slide1_result = explode(",",$children['score'][$n][0]);	//$children['score'][$n][0] => 1,1,1,		// $slide1_result = [0] => 1 [1] => 1 [2] => 1
+					$scriptslide = $children['script'][$n][0]; //[0] => 杯子 [1] => 爸爸 [2] => 筆
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $slide1_result[count($slide1_result)-3]);//ㄅ 杯子
-					$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $slide1_result[count($slide1_result)-2]);//ㄅ 爸爸
-					$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $slide1_result[count($slide1_result)-1]);//ㄅ 筆
+					$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $slide1_result[0]);//ㄅ 杯子
+					$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $slide1_result[1]);//ㄅ 爸爸
+					$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $slide1_result[2]);//ㄅ 筆
 					
+					$slide1_result = explode(",",$children['score'][$n][3]);
+					$scriptslide = $children['script'][$n][3];
 					
-					$slide1 = explode(",,",$children['score'][$n][1]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
+					$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $slide1_result[0]);//ㄆ 螃蟹
+					$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $slide1_result[1]);//ㄆ 葡萄
+					$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $slide1_result[2]);//ㄆ 皮球
 					
-					$scriptslide = explode(",",$children['script'][$n][1]);
+					$slide1_result = explode(",",$children['score'][$n][6]);
+					$scriptslide = $children['script'][$n][6];
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $slide1_result[count($slide1_result)-3]);//ㄆ 螃蟹
-					$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $slide1_result[count($slide1_result)-2]);//ㄆ 葡萄
-					$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $slide1_result[count($slide1_result)-1]);//ㄆ 皮球
+					$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $slide1_result[0]);//ㄇ 貓咪
+					$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $slide1_result[1]);//ㄇ 媽媽
+					$objPHPExcel->getActiveSheet()->setCellValue('J' . $i, $slide1_result[2]);//ㄇ 蜜蜂
 					
+					$slide1_result = explode(",",$children['score'][$n][9]);
+					$scriptslide = $children['script'][$n][9];
 					
-					$slide1 = explode(",,",$children['score'][$n][2]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
+					$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[0]);//ㄉ 蛋糕
+					$objPHPExcel->getActiveSheet()->setCellValue('L' . $i, $slide1_result[1]);//ㄉ 弟弟
+					$objPHPExcel->getActiveSheet()->setCellValue('M' . $i, $slide1_result[2]);//ㄉ 大象
 					
-					$scriptslide = explode(",",$children['script'][$n][2]);
-					
-					$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $slide1_result[count($slide1_result)-3]);//ㄇ 貓咪
-					$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $slide1_result[count($slide1_result)-2]);//ㄇ 媽媽
-					$objPHPExcel->getActiveSheet()->setCellValue('J' . $i, $slide1_result[count($slide1_result)-1]);//ㄇ 蜜蜂
-					
-					
-					$slide1 = explode(",,",$children['score'][$n][3]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
-					$scriptslide = explode(",",$children['script'][$n][3]);
-					
-					$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $slide1_result[count($slide1_result)-3]);//ㄉ 蛋糕
-					$objPHPExcel->getActiveSheet()->setCellValue('L' . $i, $slide1_result[count($slide1_result)-2]);//ㄉ 弟弟
-					$objPHPExcel->getActiveSheet()->setCellValue('M' . $i, $slide1_result[count($slide1_result)-1]);//ㄉ 大象
-					
-					
-					$slide1 = explode(",,",$children['score'][$n][4]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+					$slide1_result = explode(",",$children['score'][$n][12]);
 					$scriptslide = explode(",",$children['script'][$n][4]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('N' . $i, $slide1_result[count($slide1_result)-3]);//ㄊ 兔子
-					$objPHPExcel->getActiveSheet()->setCellValue('O' . $i, $slide1_result[count($slide1_result)-2]);//ㄊ 太陽
-					$objPHPExcel->getActiveSheet()->setCellValue('P' . $i, $slide1_result[count($slide1_result)-1]);//ㄊ 踢皮球
+					$objPHPExcel->getActiveSheet()->setCellValue('N' . $i, $slide1_result[0]);//ㄊ 兔子
+					$objPHPExcel->getActiveSheet()->setCellValue('O' . $i, $slide1_result[1]);//ㄊ 太陽
+					$objPHPExcel->getActiveSheet()->setCellValue('P' . $i, $slide1_result[2]);//ㄊ 踢皮球
 					
 					
-					$slide1 = explode(",,",$children['score'][$n][5]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+					$slide1_result = explode(",",$children['score'][$n][15]);
 					$scriptslide = explode(",",$children['script'][$n][5]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('Q' . $i, $slide1_result[count($slide1_result)-3]);//ㄋ 牛奶
-					$objPHPExcel->getActiveSheet()->setCellValue('R' . $i, $slide1_result[count($slide1_result)-2]);//ㄋ 泥巴
-					$objPHPExcel->getActiveSheet()->setCellValue('S' . $i, $slide1_result[count($slide1_result)-1]);//ㄋ 奶奶
+					$objPHPExcel->getActiveSheet()->setCellValue('Q' . $i, $slide1_result[0]);//ㄋ 牛奶
+					$objPHPExcel->getActiveSheet()->setCellValue('R' . $i, $slide1_result[1]);//ㄋ 泥巴
+					$objPHPExcel->getActiveSheet()->setCellValue('S' . $i, $slide1_result[2]);//ㄋ 奶奶
 					
 					
-					$slide1 = explode(",,",$children['score'][$n][6]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][18]);
 					$scriptslide = explode(",",$children['script'][$n][6]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('T' . $i, $slide1_result[count($slide1_result)-3]);//ㄌ 老師
-					$objPHPExcel->getActiveSheet()->setCellValue('U' . $i, $slide1_result[count($slide1_result)-2]);//ㄌ 拉手
-					$objPHPExcel->getActiveSheet()->setCellValue('V' . $i, $slide1_result[count($slide1_result)-1]);//ㄌ 樓梯
+					$objPHPExcel->getActiveSheet()->setCellValue('T' . $i, $slide1_result[0]);//ㄌ 老師
+					$objPHPExcel->getActiveSheet()->setCellValue('U' . $i, $slide1_result[1]);//ㄌ 拉手
+					$objPHPExcel->getActiveSheet()->setCellValue('V' . $i, $slide1_result[2]);//ㄌ 樓梯
 					
 					
-					$slide1 = explode(",,",$children['score'][$n][7]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][21]);
 					$scriptslide = explode(",",$children['script'][$n][7]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('W' . $i, $slide1_result[count($slide1_result)-3]);//ㄏ 蝴蝶
-					$objPHPExcel->getActiveSheet()->setCellValue('X' . $i, $slide1_result[count($slide1_result)-2]);//ㄏ 花朵
-					$objPHPExcel->getActiveSheet()->setCellValue('Y' . $i, $slide1_result[count($slide1_result)-1]);//ㄏ 喝水
+					$objPHPExcel->getActiveSheet()->setCellValue('W' . $i, $slide1_result[0]);//ㄏ 蝴蝶
+					$objPHPExcel->getActiveSheet()->setCellValue('X' . $i, $slide1_result[1]);//ㄏ 花朵
+					$objPHPExcel->getActiveSheet()->setCellValue('Y' . $i, $slide1_result[2]);//ㄏ 喝水
 					
 					
-					$slide1 = explode(",,",$children['score'][$n][8]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][24]);
 					$scriptslide = explode(",",$children['script'][$n][8]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('Z' . $i, $slide1_result[count($slide1_result)-3]);//ㄍ 狗
-					$objPHPExcel->getActiveSheet()->setCellValue('AA' . $i, $slide1_result[count($slide1_result)-2]);//ㄍ 哥哥
-					$objPHPExcel->getActiveSheet()->setCellValue('AB' . $i, $slide1_result[count($slide1_result)-1]);//ㄍ 國旗
+					$objPHPExcel->getActiveSheet()->setCellValue('Z' . $i, $slide1_result[0]);//ㄍ 狗
+					$objPHPExcel->getActiveSheet()->setCellValue('AA' . $i, $slide1_result[1]);//ㄍ 哥哥
+					$objPHPExcel->getActiveSheet()->setCellValue('AB' . $i, $slide1_result[2]);//ㄍ 國旗
 					
 					
-					$slide1 = explode(",,",$children['score'][$n][9]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][27]);
 					$scriptslide = explode(",",$children['script'][$n][9]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('AC'. $i, $slide1_result[count($slide1_result)-3]);//ㄎ 筷子
-					$objPHPExcel->getActiveSheet()->setCellValue('AD'. $i, $slide1_result[count($slide1_result)-2]);//ㄎ 可樂
-					$objPHPExcel->getActiveSheet()->setCellValue('AE'. $i, $slide1_result[count($slide1_result)-1]);//ㄎ 卡片
+					$objPHPExcel->getActiveSheet()->setCellValue('AC'. $i, $slide1_result[0]);//ㄎ 筷子
+					$objPHPExcel->getActiveSheet()->setCellValue('AD'. $i, $slide1_result[1]);//ㄎ 可樂
+					$objPHPExcel->getActiveSheet()->setCellValue('AE'. $i, $slide1_result[2]);//ㄎ 卡片
 					
 					
-					$slide1 = explode(",,",$children['score'][$n][10]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][30]);
 					$scriptslide = explode(",",$children['script'][$n][10]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('AF'. $i, $slide1_result[count($slide1_result)-3]);//ㄐ 剪刀
-					$objPHPExcel->getActiveSheet()->setCellValue('AG'. $i, $slide1_result[count($slide1_result)-2]);//ㄐ 姊姊
-					$objPHPExcel->getActiveSheet()->setCellValue('AH'. $i, $slide1_result[count($slide1_result)-1]);//ㄐ 機器人
+					$objPHPExcel->getActiveSheet()->setCellValue('AF'. $i, $slide1_result[0]);//ㄐ 剪刀
+					$objPHPExcel->getActiveSheet()->setCellValue('AG'. $i, $slide1_result[1]);//ㄐ 姊姊
+					$objPHPExcel->getActiveSheet()->setCellValue('AH'. $i, $slide1_result[2]);//ㄐ 機器人
 					
-					
-					$slide1 = explode(",,",$children['score'][$n][11]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][33]);
 					$scriptslide = explode(",",$children['script'][$n][11]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('AI'. $i, $slide1_result[count($slide1_result)-3]);//ㄑ 氣球
-					$objPHPExcel->getActiveSheet()->setCellValue('AJ'. $i, $slide1_result[count($slide1_result)-2]);//ㄑ 青蛙
-					$objPHPExcel->getActiveSheet()->setCellValue('AK'. $i, $slide1_result[count($slide1_result)-1]);//ㄑ 鉛筆
+					$objPHPExcel->getActiveSheet()->setCellValue('AI'. $i, $slide1_result[0]);//ㄑ 氣球
+					$objPHPExcel->getActiveSheet()->setCellValue('AJ'. $i, $slide1_result[1]);//ㄑ 青蛙
+					$objPHPExcel->getActiveSheet()->setCellValue('AK'. $i, $slide1_result[2]);//ㄑ 鉛筆
 					
-					
-					$slide1 = explode(",,",$children['score'][$n][12]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][36]);
 					$scriptslide = explode(",",$children['script'][$n][12]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('AL'. $i, $slide1_result[count($slide1_result)-3]);//ㄒ 西瓜
-					$objPHPExcel->getActiveSheet()->setCellValue('AM'. $i, $slide1_result[count($slide1_result)-2]);//ㄒ 鞋子
-					$objPHPExcel->getActiveSheet()->setCellValue('AN'. $i, $slide1_result[count($slide1_result)-1]);//ㄒ 蝦子
+					$objPHPExcel->getActiveSheet()->setCellValue('AL'. $i, $slide1_result[0]);//ㄒ 西瓜
+					$objPHPExcel->getActiveSheet()->setCellValue('AM'. $i, $slide1_result[1]);//ㄒ 鞋子
+					$objPHPExcel->getActiveSheet()->setCellValue('AN'. $i, $slide1_result[2]);//ㄒ 蝦子
 					
-					
-					$slide1 = explode(",,",$children['score'][$n][13]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][39]);
 					$scriptslide = explode(",",$children['script'][$n][13]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('AO'. $i, $slide1_result[count($slide1_result)-3]);//ㄗ 嘴巴
-					$objPHPExcel->getActiveSheet()->setCellValue('AP'. $i, $slide1_result[count($slide1_result)-2]);//ㄗ 走路
-					$objPHPExcel->getActiveSheet()->setCellValue('AQ'. $i, $slide1_result[count($slide1_result)-1]);//ㄗ 早安
+					$objPHPExcel->getActiveSheet()->setCellValue('AO'. $i, $slide1_result[0]);//ㄗ 嘴巴
+					$objPHPExcel->getActiveSheet()->setCellValue('AP'. $i, $slide1_result[1]);//ㄗ 走路
+					$objPHPExcel->getActiveSheet()->setCellValue('AQ'. $i, $slide1_result[2]);//ㄗ 早安
 					
-					
-					$slide1 = explode(",,",$children['score'][$n][14]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][42]);
 					$scriptslide = explode(",",$children['script'][$n][14]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('AR'. $i, $slide1_result[count($slide1_result)-3]);//ㄘ 草莓
-					$objPHPExcel->getActiveSheet()->setCellValue('AS'. $i, $slide1_result[count($slide1_result)-2]);//ㄘ 擦擦手
-					$objPHPExcel->getActiveSheet()->setCellValue('AT'. $i, $slide1_result[count($slide1_result)-1]);//ㄘ 彩虹
+					$objPHPExcel->getActiveSheet()->setCellValue('AR'. $i, $slide1_result[0]);//ㄘ 草莓
+					$objPHPExcel->getActiveSheet()->setCellValue('AS'. $i, $slide1_result[1]);//ㄘ 擦擦手
+					$objPHPExcel->getActiveSheet()->setCellValue('AT'. $i, $slide1_result[2]);//ㄘ 彩虹
 					
-					
-					$slide1 = explode(",,",$children['score'][$n][15]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][45]);
 					$scriptslide = explode(",",$children['script'][$n][15]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('AU'. $i, $slide1_result[count($slide1_result)-3]);//ㄙ 傘
-					$objPHPExcel->getActiveSheet()->setCellValue('AV'. $i, $slide1_result[count($slide1_result)-2]);//ㄙ 四
-					$objPHPExcel->getActiveSheet()->setCellValue('AW'. $i, $slide1_result[count($slide1_result)-1]);//ㄙ 掃地
+					$objPHPExcel->getActiveSheet()->setCellValue('AU'. $i, $slide1_result[0]);//ㄙ 傘
+					$objPHPExcel->getActiveSheet()->setCellValue('AV'. $i, $slide1_result[1]);//ㄙ 四
+					$objPHPExcel->getActiveSheet()->setCellValue('AW'. $i, $slide1_result[2]);//ㄙ 掃地
 					
-					
-					$slide1 = explode(",,",$children['score'][$n][16]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][48]);
 					$scriptslide = explode(",",$children['script'][$n][16]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('AX'. $i, $slide1_result[count($slide1_result)-3]);//ㄓ 鐘
-					$objPHPExcel->getActiveSheet()->setCellValue('AY'. $i, $slide1_result[count($slide1_result)-2]);//ㄓ 桌子
-					$objPHPExcel->getActiveSheet()->setCellValue('AZ'. $i, $slide1_result[count($slide1_result)-1]);//ㄓ 蜘蛛
+					$objPHPExcel->getActiveSheet()->setCellValue('AX'. $i, $slide1_result[0]);//ㄓ 鐘
+					$objPHPExcel->getActiveSheet()->setCellValue('AY'. $i, $slide1_result[1]);//ㄓ 桌子
+					$objPHPExcel->getActiveSheet()->setCellValue('AZ'. $i, $slide1_result[2]);//ㄓ 蜘蛛
 					
-					
-					$slide1 = explode(",,",$children['score'][$n][17]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][51]);
 					$scriptslide = explode(",",$children['script'][$n][17]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('BA'. $i, $slide1_result[count($slide1_result)-3]);//ㄔ 船
-					$objPHPExcel->getActiveSheet()->setCellValue('BB'. $i, $slide1_result[count($slide1_result)-2]);//ㄔ 吃蛋糕
-					$objPHPExcel->getActiveSheet()->setCellValue('BC'. $i, $slide1_result[count($slide1_result)-1]);//ㄔ 吹喇叭
+					$objPHPExcel->getActiveSheet()->setCellValue('BA'. $i, $slide1_result[0]);//ㄔ 船
+					$objPHPExcel->getActiveSheet()->setCellValue('BB'. $i, $slide1_result[1]);//ㄔ 吃蛋糕
+					$objPHPExcel->getActiveSheet()->setCellValue('BC'. $i, $slide1_result[2]);//ㄔ 吹喇叭
 					
-					
-					$slide1 = explode(",,",$children['score'][$n][18]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][54]);
 					$scriptslide = explode(",",$children['script'][$n][18]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('BD'. $i, $slide1_result[count($slide1_result)-3]);//ㄕ 書本
-					$objPHPExcel->getActiveSheet()->setCellValue('BE'. $i, $slide1_result[count($slide1_result)-2]);//ㄕ 獅子
-					$objPHPExcel->getActiveSheet()->setCellValue('BF'. $i, $slide1_result[count($slide1_result)-1]);//ㄕ 鯊魚
+					$objPHPExcel->getActiveSheet()->setCellValue('BD'. $i, $slide1_result[0]);//ㄕ 書本
+					$objPHPExcel->getActiveSheet()->setCellValue('BE'. $i, $slide1_result[1]);//ㄕ 獅子
+					$objPHPExcel->getActiveSheet()->setCellValue('BF'. $i, $slide1_result[2]);//ㄕ 鯊魚
 					
-					
-					$slide1 = explode(",,",$children['score'][$n][19]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][57]);
 					$scriptslide = explode(",",$children['script'][$n][19]);
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('BG'. $i, $slide1_result[count($slide1_result)-3]);//ㄖ 人
-					$objPHPExcel->getActiveSheet()->setCellValue('BH'. $i, $slide1_result[count($slide1_result)-2]);//ㄖ 熱熱的
-					$objPHPExcel->getActiveSheet()->setCellValue('BI'. $i, $slide1_result[count($slide1_result)-1]);//ㄖ 軟軟的
+					$objPHPExcel->getActiveSheet()->setCellValue('BG'. $i, $slide1_result[0]);//ㄖ 人
+					$objPHPExcel->getActiveSheet()->setCellValue('BH'. $i, $slide1_result[1]);//ㄖ 熱熱的
+					$objPHPExcel->getActiveSheet()->setCellValue('BI'. $i, $slide1_result[2]);//ㄖ 軟軟的
 					
-					
-					$slide1 = explode(",,",$children['score'][$n][20]);  
-					$slide1_re = $slide1[0];
-					$slide1_result = explode(",",$slide1_re);
-					
+
+					$slide1_result = explode(",",$children['score'][$n][60]);
 					$scriptslide = explode(",",$children['script'][$n][20]);
 
-					$objPHPExcel->getActiveSheet()->setCellValue('BJ'. $i, $slide1_result[count($slide1_result)-3]);//ㄈ 飛機
-					$objPHPExcel->getActiveSheet()->setCellValue('BK'. $i, $slide1_result[count($slide1_result)-2]);//ㄈ 風箏
-					$objPHPExcel->getActiveSheet()->setCellValue('BL'. $i, $slide1_result[count($slide1_result)-1]);//ㄈ 房子
+					$objPHPExcel->getActiveSheet()->setCellValue('BJ'. $i, $slide1_result[0]);//ㄈ 飛機
+					$objPHPExcel->getActiveSheet()->setCellValue('BK'. $i, $slide1_result[1]);//ㄈ 風箏
+					$objPHPExcel->getActiveSheet()->setCellValue('BL'. $i, $slide1_result[2]);//ㄈ 房子
 					
 					
-					$slide1_result = explode(",,",$children['score'][$n][21]);
-					$slide1_result = explode(",",$children['score'][$n][21]);
+					$slide1_result = explode(",",$children['score'][$n][63]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BM'. $i, $slide1_result[0]);//ㄚ 阿姨
 					
-					$slide1_result = explode(",,",$children['score'][$n][22]);
-					$slide1_result = explode(",",$children['score'][$n][22]);
+					$slide1_result = explode(",",$children['score'][$n][64]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BN'. $i, $slide1_result[0]);//ㄜ 白鵝
 					
-					$slide1_result = explode(",,",$children['score'][$n][23]);
-					$slide1_result = explode(",",$children['score'][$n][23]);
+					$slide1_result = explode(",",$children['score'][$n][65]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BO'. $i, $slide1_result[0]);//ㄨ 烏鴉
 					
-					$slide1_result = explode(",,",$children['score'][$n][24]);
-					$slide1_result = explode(",",$children['score'][$n][24]);
+					$slide1_result = explode(",",$children['score'][$n][66]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BP'. $i, $slide1_result[0]);//ㄧ 椅子
 					
-					$slide1_result = explode(",,",$children['score'][$n][25]);
-					$slide1_result = explode(",",$children['score'][$n][25]);
+					$slide1_result = explode(",",$children['score'][$n][67]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BQ'. $i, $slide1_result[0]);//ㄩ 魚
 					
-					$slide1_result = explode(",,",$children['score'][$n][26]);
-					$slide1_result = explode(",",$children['score'][$n][26]);
+					$slide1_result = explode(",",$children['score'][$n][68]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BR'. $i, $slide1_result[0]);//ㄝ 爺爺
 					
-					$slide1_result = explode(",,",$children['score'][$n][27]);
-					$slide1_result = explode(",",$children['score'][$n][27]);
+					$slide1_result = explode(",",$children['score'][$n][69]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BS'. $i, $slide1_result[0]);//ㄛ 我
 					
-					$slide1_result = explode(",,",$children['score'][$n][28]);
-					$slide1_result = explode(",",$children['score'][$n][28]);
+					$slide1_result = explode(",",$children['score'][$n][70]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BT'. $i, $slide1_result[0]);//ㄠ 凹凸
 					
-					$slide1_result = explode(",,",$children['score'][$n][29]);
-					$slide1_result = explode(",",$children['score'][$n][29]);
+					$slide1_result = explode(",",$children['score'][$n][71]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BU'. $i, $slide1_result[0]);//ㄡ 猴子
 					
-					$slide1_result = explode(",,",$children['score'][$n][30]);
-					$slide1_result = explode(",",$children['score'][$n][30]);
+					$slide1_result = explode(",",$children['score'][$n][72]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BV'. $i, $slide1_result[0]);//ㄟ 回家
 					
-					$slide1_result = explode(",,",$children['score'][$n][31]);
-					$slide1_result = explode(",",$children['score'][$n][31]);
+					$slide1_result = explode(",",$children['score'][$n][73]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BW'. $i, $slide1_result[0]);//ㄞ 愛心
 					
-					$slide1_result = explode(",,",$children['score'][$n][32]);
-					$slide1_result = explode(",",$children['score'][$n][32]);
+					$slide1_result = explode(",",$children['score'][$n][74]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BX'. $i, $slide1_result[0]);//ㄤ 骯髒
 					
-					$slide1_result = explode(",,",$children['score'][$n][33]);
-					$slide1_result = explode(",",$children['score'][$n][33]);
+					$slide1_result = explode(",",$children['score'][$n][75]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BY'. $i, $slide1_result[0]);//ㄥ 英國
 					
-					$slide1_result = explode(",,",$children['score'][$n][34]);
-					$slide1_result = explode(",",$children['score'][$n][34]);
+					$slide1_result = explode(",",$children['score'][$n][76]);
 					$objPHPExcel->getActiveSheet()->setCellValue('BZ'. $i, $slide1_result[0]);//ㄣ 安全
 					
-					$slide1_result = explode(",,",$children['score'][$n][35]);
-					$slide1_result = explode(",",$children['score'][$n][35]);
+					$slide1_result = explode(",",$children['score'][$n][77]);
 					$objPHPExcel->getActiveSheet()->setCellValue('CA'. $i, $slide1_result[0]);//ㄢ 恩惠
 					
-					$slide1_result = explode(",,",$children['score'][$n][36]);
-					$slide1_result = explode(",",$children['score'][$n][36]);
+					$slide1_result = explode(",",$children['score'][$n][78]);
 					$objPHPExcel->getActiveSheet()->setCellValue('CB'. $i, $slide1_result[0]);//ㄦ 耳朵
 				}
 				
@@ -958,30 +878,24 @@ class projectview_admin extends CI_Controller {
 					
 					if(count($topic_slide) > 5)
 					{
-						$objPHPExcel->getActiveSheet()->setCellValue('EJ'. $i, $topic_slide[0]);//ㄆ
-						$objPHPExcel->getActiveSheet()->setCellValue('EK'. $i, $topic_slide[1]);//ㄚ
-						$objPHPExcel->getActiveSheet()->setCellValue('EL'. $i, $topic_slide[2]);//ㄊ
-						$objPHPExcel->getActiveSheet()->setCellValue('EM'. $i, $topic_slide[3]);//ㄚ
-						$objPHPExcel->getActiveSheet()->setCellValue('EN'. $i, $topic_slide[4]);//ㄎ
-						$objPHPExcel->getActiveSheet()->setCellValue('EO'. $i, $topic_slide[5]);//ㄚ
+						$objPHPExcel->getActiveSheet()->setCellValue('EJ'. $i, $topic_slide[0]);//ㄆㄚ
+						$objPHPExcel->getActiveSheet()->setCellValue('EK'. $i, $topic_slide[2]);//ㄊㄚ
+						$objPHPExcel->getActiveSheet()->setCellValue('EL'. $i, $topic_slide[4]);//ㄎㄚ
 					}
 					else
 					{
-						$objPHPExcel->getActiveSheet()->setCellValue('EJ'. $i, $topic_slide[0]);//ㄆ
-						$objPHPExcel->getActiveSheet()->setCellValue('EK'. $i, $topic_slide[0]);//ㄚ
-						$objPHPExcel->getActiveSheet()->setCellValue('EL'. $i, $topic_slide[1]);//ㄊ
-						$objPHPExcel->getActiveSheet()->setCellValue('EM'. $i, $topic_slide[1]);//ㄚ
-						$objPHPExcel->getActiveSheet()->setCellValue('EN'. $i, $topic_slide[2]);//ㄎ
-						$objPHPExcel->getActiveSheet()->setCellValue('EO'. $i, $topic_slide[2]);//ㄚ
+						$objPHPExcel->getActiveSheet()->setCellValue('EJ'. $i, $topic_slide[0]);//ㄆㄚ
+						$objPHPExcel->getActiveSheet()->setCellValue('EK'. $i, $topic_slide[1]);//ㄊㄚ
+						$objPHPExcel->getActiveSheet()->setCellValue('EL'. $i, $topic_slide[2]);//ㄎㄚ
 					}
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('EP'. $i, '');//次數/秒數
+					$objPHPExcel->getActiveSheet()->setCellValue('EM'. $i, '');//次數/秒數
 					
 					
 					$topic_slide = explode(",",$children['score2'][$n][10]); 
 					$scriptslide = $children['script2'][$n][10];
 					
-					$objPHPExcel->getActiveSheet()->setCellValue('EQ'. $i, $topic_slide[0]);//說故事	
+					$objPHPExcel->getActiveSheet()->setCellValue('EN'. $i, $topic_slide[0]);//說故事	
 				}
 				
 				$n++;
@@ -1005,6 +919,331 @@ class projectview_admin extends CI_Controller {
 			$objWriter->save('php://output');
 			exit;
 		}
+	}
+	public function childrenlist_excel()
+	{
+		$pm = new Project_model;
+		$this->data = $this->uri->uri_to_assoc(3);
+		$project_id = $this->data['project_id'];
+		
+		$this->data = $pm->getTestingList($project_id);
+		
+		$this->data1['project_name'] = $pm->getProjectName($project_id);
+		$project_name = $this->data1['project_name'][0]->name;
+		
+		//print_r($this->data[0]->name);
+		
+		// Error reporting 
+		error_reporting(E_ALL);
+		ini_set('display_errors', TRUE);
+		ini_set('display_startup_errors', TRUE);
+		date_default_timezone_set('Europe/London');
+
+		if (PHP_SAPI == 'cli')
+			die('This example should only be run from a Web Browser');
+		
+		// Include PHPExcel 
+		require_once 'Classes/PHPExcel.php';
+		
+		// Create new PHPExcel object
+		$objPHPExcel = new PHPExcel();
+
+		// Set document properties
+		$objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+									 ->setLastModifiedBy("Maarten Balliauw")
+									 ->setTitle("Office 2007 XLSX Test Document")
+									 ->setSubject("Office 2007 XLSX Test Document")
+									 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+									 ->setKeywords("office 2007 openxml php")
+									 ->setCategory("Test result file");
+		
+		// Add some data
+		$objPHPExcel->getActiveSheet()->setCellValue('A1', $project_name);
+		$objPHPExcel->getActiveSheet()->setCellValue('B1', '姓名');
+		$objPHPExcel->getActiveSheet()->setCellValue('C1', '性別');
+		$objPHPExcel->getActiveSheet()->setCellValue('D1', '生日');
+		$objPHPExcel->getActiveSheet()->setCellValue('E1', '年齡');
+		$objPHPExcel->getActiveSheet()->setCellValue('F1', '班別');
+		$objPHPExcel->getActiveSheet()->setCellValue('G1', '班級');
+		$objPHPExcel->getActiveSheet()->setCellValue('H1', '常用語言');
+		$objPHPExcel->getActiveSheet()->setCellValue('I1', '居住地');
+		
+		$n = 0;
+		for ($i = 2; $i < count($this->data) + 2; $i++) 
+		{
+			$objPHPExcel->getActiveSheet()->setCellValue('A' . $i, $n+1);//
+			$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $this->data[$n]->name);//小孩姓名
+			$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, "男");//
+			$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $this->data[$n]->bir);//
+			$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $this->data[$n]->age);//
+			$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $this->data[$n]->rank);//
+			$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $this->data[$n]->grade);//
+			$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $this->data[$n]->language);//
+			$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $this->data[$n]->county);//
+			
+			$n++;
+		}
+		
+		// Rename worksheet
+		$objPHPExcel->getActiveSheet()->setTitle($project_name);
+
+		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+		$objPHPExcel->setActiveSheetIndex(0);
+
+		// Redirect output to a client’s web browser (Excel2007)
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="' . $project_name . ' - 學生清單.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$objWriter->save('php://output');
+		exit;
+	}
+	
+	public function google_excel()
+	{
+		$rm = new recognition_model;
+		
+		$this->data = $rm->getStatisticsPartResult();
+		
+		//print_r($this->data[0]->cou);
+		
+		
+		for($j = 0;$j < count($this->data);$j++)
+		{
+			$content['cou1'][$j] = $this->data[$j]->cou1;
+			$content['cou2'][$j]  = $this->data[$j]->cou2;
+			$content['cou'][$j] = $this->data[$j]->cou;
+		}
+		
+		//print_r($content);
+		
+		// Error reporting 
+		error_reporting(E_ALL);
+		ini_set('display_errors', TRUE);
+		ini_set('display_startup_errors', TRUE);
+		date_default_timezone_set('Europe/London');
+
+		if (PHP_SAPI == 'cli')
+			die('This example should only be run from a Web Browser');
+		
+		// Include PHPExcel 
+		require_once 'Classes/PHPExcel.php';
+		
+		// Create new PHPExcel object
+		$objPHPExcel = new PHPExcel();
+
+		// Set document properties
+		$objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+									 ->setLastModifiedBy("Maarten Balliauw")
+									 ->setTitle("Office 2007 XLSX Test Document")
+									 ->setSubject("Office 2007 XLSX Test Document")
+									 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+									 ->setKeywords("office 2007 openxml php")
+									 ->setCategory("Test result file");
+		
+		// Add some data
+		$objPHPExcel->getActiveSheet()->setCellValue('A1', '');
+		$objPHPExcel->getActiveSheet()->setCellValue('A2', '總題數');
+		$objPHPExcel->getActiveSheet()->setCellValue('A3', '正確題數');
+		$objPHPExcel->getActiveSheet()->setCellValue('A4', '正確率');
+		$objPHPExcel->getActiveSheet()->setCellValue('B1', 'ㄅ 杯子');
+		$objPHPExcel->getActiveSheet()->setCellValue('C1', 'ㄅ 爸爸');
+		$objPHPExcel->getActiveSheet()->setCellValue('D1', 'ㄅ 筆');
+		$objPHPExcel->getActiveSheet()->setCellValue('E1', 'ㄆ 螃蟹');
+		$objPHPExcel->getActiveSheet()->setCellValue('F1', 'ㄆ 葡萄');
+		$objPHPExcel->getActiveSheet()->setCellValue('G1', 'ㄆ 皮球');
+		$objPHPExcel->getActiveSheet()->setCellValue('H1', 'ㄇ 貓咪');
+		$objPHPExcel->getActiveSheet()->setCellValue('I1', 'ㄇ 媽媽');
+		$objPHPExcel->getActiveSheet()->setCellValue('J1', 'ㄇ 蜜蜂');
+		$objPHPExcel->getActiveSheet()->setCellValue('K1', 'ㄉ 蛋糕');
+		$objPHPExcel->getActiveSheet()->setCellValue('L1', 'ㄉ 弟弟');
+		$objPHPExcel->getActiveSheet()->setCellValue('M1', 'ㄉ 大象');
+		$objPHPExcel->getActiveSheet()->setCellValue('N1', 'ㄊ 兔子');
+		$objPHPExcel->getActiveSheet()->setCellValue('O1', 'ㄊ 太陽');
+		$objPHPExcel->getActiveSheet()->setCellValue('P1', 'ㄊ 踢皮球');
+		$objPHPExcel->getActiveSheet()->setCellValue('Q1', 'ㄋ 牛奶');
+		$objPHPExcel->getActiveSheet()->setCellValue('R1', 'ㄋ 泥巴');
+		$objPHPExcel->getActiveSheet()->setCellValue('S1', 'ㄋ 奶奶');
+		$objPHPExcel->getActiveSheet()->setCellValue('T1', 'ㄌ 老師');
+		$objPHPExcel->getActiveSheet()->setCellValue('U1', 'ㄌ 拉手');
+		$objPHPExcel->getActiveSheet()->setCellValue('V1', 'ㄌ 樓梯');
+		$objPHPExcel->getActiveSheet()->setCellValue('W1', 'ㄏ 蝴蝶');
+		$objPHPExcel->getActiveSheet()->setCellValue('X1', 'ㄏ 花朵');
+		$objPHPExcel->getActiveSheet()->setCellValue('Y1', 'ㄏ 喝水');
+		$objPHPExcel->getActiveSheet()->setCellValue('Z1', 'ㄍ 狗');
+		$objPHPExcel->getActiveSheet()->setCellValue('AA1', 'ㄍ 哥哥');
+		$objPHPExcel->getActiveSheet()->setCellValue('AB1', 'ㄍ 國旗');
+		$objPHPExcel->getActiveSheet()->setCellValue('AC1', 'ㄎ 筷子');
+		$objPHPExcel->getActiveSheet()->setCellValue('AD1', 'ㄎ 可樂');
+		$objPHPExcel->getActiveSheet()->setCellValue('AE1', 'ㄎ 卡片');
+		$objPHPExcel->getActiveSheet()->setCellValue('AF1', 'ㄐ 剪刀');
+		$objPHPExcel->getActiveSheet()->setCellValue('AG1', 'ㄐ 姊姊');
+		$objPHPExcel->getActiveSheet()->setCellValue('AH1', 'ㄐ 機器人');
+		$objPHPExcel->getActiveSheet()->setCellValue('AI1', 'ㄑ 氣球');
+		$objPHPExcel->getActiveSheet()->setCellValue('AJ1', 'ㄑ 青蛙');
+		$objPHPExcel->getActiveSheet()->setCellValue('AK1', 'ㄑ 鉛筆');
+		$objPHPExcel->getActiveSheet()->setCellValue('AL1', 'ㄒ 西瓜');
+		$objPHPExcel->getActiveSheet()->setCellValue('AM1', 'ㄒ 鞋子');
+		$objPHPExcel->getActiveSheet()->setCellValue('AN1', 'ㄒ 蝦子');
+		$objPHPExcel->getActiveSheet()->setCellValue('AO1', 'ㄗ 嘴巴');
+		$objPHPExcel->getActiveSheet()->setCellValue('AP1', 'ㄗ 走路');
+		$objPHPExcel->getActiveSheet()->setCellValue('AQ1', 'ㄗ 早安');
+		$objPHPExcel->getActiveSheet()->setCellValue('AR1', 'ㄘ 草莓');
+		$objPHPExcel->getActiveSheet()->setCellValue('AS1', 'ㄘ 擦擦手');
+		$objPHPExcel->getActiveSheet()->setCellValue('AT1', 'ㄘ 彩虹');
+		$objPHPExcel->getActiveSheet()->setCellValue('AU1', 'ㄙ 傘');
+		$objPHPExcel->getActiveSheet()->setCellValue('AV1', 'ㄙ 四');
+		$objPHPExcel->getActiveSheet()->setCellValue('AW1', 'ㄙ 掃地');
+		$objPHPExcel->getActiveSheet()->setCellValue('AX1', 'ㄓ 鐘');
+		$objPHPExcel->getActiveSheet()->setCellValue('AY1', 'ㄓ 桌子');
+		$objPHPExcel->getActiveSheet()->setCellValue('AZ1', 'ㄓ 蜘蛛');
+		$objPHPExcel->getActiveSheet()->setCellValue('BA1', 'ㄔ 船');
+		$objPHPExcel->getActiveSheet()->setCellValue('BB1', 'ㄔ 吃蛋糕');
+		$objPHPExcel->getActiveSheet()->setCellValue('BC1', 'ㄔ 吹喇叭');
+		$objPHPExcel->getActiveSheet()->setCellValue('BD1', 'ㄕ 書本');
+		$objPHPExcel->getActiveSheet()->setCellValue('BE1', 'ㄕ 獅子');
+		$objPHPExcel->getActiveSheet()->setCellValue('BF1', 'ㄕ 鯊魚');
+		$objPHPExcel->getActiveSheet()->setCellValue('BG1', 'ㄖ 人');
+		$objPHPExcel->getActiveSheet()->setCellValue('BH1', 'ㄖ 熱熱的');
+		$objPHPExcel->getActiveSheet()->setCellValue('BI1', 'ㄖ 軟軟的');
+		$objPHPExcel->getActiveSheet()->setCellValue('BJ1', 'ㄈ 飛機');
+		$objPHPExcel->getActiveSheet()->setCellValue('BK1', 'ㄈ 風箏');
+		$objPHPExcel->getActiveSheet()->setCellValue('BL1', 'ㄈ 房子');
+		$objPHPExcel->getActiveSheet()->setCellValue('BM1', 'ㄚ 阿姨');
+		$objPHPExcel->getActiveSheet()->setCellValue('BN1', 'ㄜ 白鵝');
+		$objPHPExcel->getActiveSheet()->setCellValue('BO1', 'ㄨ 烏鴉');
+		$objPHPExcel->getActiveSheet()->setCellValue('BP1', 'ㄧ 椅子');
+		$objPHPExcel->getActiveSheet()->setCellValue('BQ1', 'ㄩ 魚');
+		$objPHPExcel->getActiveSheet()->setCellValue('BR1', 'ㄝ 爺爺');
+		$objPHPExcel->getActiveSheet()->setCellValue('BS1', 'ㄛ 我');
+		$objPHPExcel->getActiveSheet()->setCellValue('BT1', 'ㄠ 凹凸');
+		$objPHPExcel->getActiveSheet()->setCellValue('BU1', 'ㄡ 猴子');
+		$objPHPExcel->getActiveSheet()->setCellValue('BV1', 'ㄟ 回家');
+		$objPHPExcel->getActiveSheet()->setCellValue('BW1', 'ㄞ 愛心');
+		$objPHPExcel->getActiveSheet()->setCellValue('BX1', 'ㄤ 骯髒');
+		$objPHPExcel->getActiveSheet()->setCellValue('BY1', 'ㄥ 英國');
+		$objPHPExcel->getActiveSheet()->setCellValue('BZ1', 'ㄣ 恩惠');
+		$objPHPExcel->getActiveSheet()->setCellValue('CA1', 'ㄢ 安全');
+		$objPHPExcel->getActiveSheet()->setCellValue('CB1', 'ㄦ 耳朵');
+		
+		
+		
+		$n = 0;
+		for ($i = 2; $i < 5; $i++) 
+		{
+			
+			if($i == 2)
+			{
+				$test = $content['cou1'];
+			}
+			else if($i == 3)
+			{
+				$test = $content['cou2'];
+			}
+			else
+			{
+				$test = $content['cou'];
+			}
+			
+			$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $test[0]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $test[1]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $test[2]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $test[3]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $test[4]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $test[5]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $test[6]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $test[7]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('J' . $i, $test[8]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $test[9]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('L' . $i, $test[10]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('M' . $i, $test[11]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('N' . $i, $test[12]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('O' . $i, $test[13]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('P' . $i, $test[14]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('Q' . $i, $test[15]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('R' . $i, $test[16]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('S' . $i, $test[17]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('T' . $i, $test[18]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('U' . $i, $test[19]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('V' . $i, $test[20]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('W' . $i, $test[21]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('X' . $i, $test[22]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('Y' . $i, $test[23]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('Z' . $i, $test[24]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AA'. $i, $test[25]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AB'. $i, $test[26]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AC'. $i, $test[27]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AD'. $i, $test[28]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AE'. $i, $test[29]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AF'. $i, $test[30]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AG'. $i, $test[31]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AH'. $i, $test[32]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AI'. $i, $test[33]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AJ'. $i, $test[34]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AK'. $i, $test[35]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AL'. $i, $test[36]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AM'. $i, $test[37]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AN'. $i, $test[38]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AO'. $i, $test[39]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AP'. $i, $test[40]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AQ'. $i, $test[41]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AR'. $i, $test[42]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AS'. $i, $test[43]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AT'. $i, $test[44]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AU'. $i, $test[45]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AV'. $i, $test[46]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AW'. $i, $test[47]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AX'. $i, $test[48]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AY'. $i, $test[49]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('AZ'. $i, $test[50]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BA'. $i, $test[51]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BB'. $i, $test[52]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BC'. $i, $test[53]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BD'. $i, $test[54]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BE'. $i, $test[55]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BF'. $i, $test[56]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BG'. $i, $test[57]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BH'. $i, $test[58]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BI'. $i, $test[59]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BJ'. $i, $test[60]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BK'. $i, $test[61]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BL'. $i, $test[62]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BM'. $i, $test[63]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BN'. $i, $test[64]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BO'. $i, $test[65]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BP'. $i, $test[66]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BQ'. $i, $test[67]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BR'. $i, $test[68]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BS'. $i, $test[69]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BT'. $i, $test[70]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BU'. $i, $test[71]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BV'. $i, $test[72]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BW'. $i, $test[73]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BX'. $i, $test[74]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BY'. $i, $test[75]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('BZ'. $i, $test[76]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('CA'. $i, $test[77]);//
+			$objPHPExcel->getActiveSheet()->setCellValue('CB'. $i, $test[78]);//
+	
+			
+			$n++;
+		}
+		
+		// Rename worksheet
+		$objPHPExcel->getActiveSheet()->setTitle('google語音辨識');
+
+		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+		$objPHPExcel->setActiveSheetIndex(0);
+
+		// Redirect output to a client’s web browser (Excel2007)
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="Google語音辨識.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$objWriter->save('php://output');
+		exit;
 	}
 }
 

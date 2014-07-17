@@ -534,39 +534,20 @@ result.testing_id =  '$testing_id' and(".$str.")";
 test_results_all_list.pname,
 test_results_all_list.cname,
 test_results_all_list.title,
-group_concat(test_results_all_list.script Order By test_results_all_list.script ASC ) AS script,
-group_concat(test_results_all_list.voice_file) AS voice_file,
-group_concat(test_results_all_list.wrongcode  Order By test_results_all_list.wrongcode ASC) AS wrongcode,
+test_results_all_list.script AS script,
+test_results_all_list.voice_file AS voice_file,
+test_results_all_list.wrongcode AS wrongcode,
 test_results_all_list.part,
-group_concat(test_results_all_list.note) AS note
+test_results_all_list.note AS note
 FROM
-test_results_all_list
+	test_results_all_list
 WHERE
 test_results_all_list.testing_id =  '$testing_list_id' AND
 test_results_all_list.project_id =  '$project_id' AND
 test_results_all_list.available =  '$office_id' AND
-test_results_all_list.part ='1'
-GROUP BY
-test_results_all_list.title
+	test_results_all_list.part = '1'
 ";
-/*	
-$select_sql="SELECT
-test_results_all_list.pname as pname,
-test_results_all_list.cname as cname,
-test_results_all_list.title as title,
-group_concat(test_results_all_list.script ORDER BY test_results_all_list.script  ASC ) as script,
-group_concat(test_results_all_list.voice_file) as voice_file,
-group_concat(test_results_all_list.wrongcode) as wrongcode,
-test_results_all_list.part as part,
-group_concat(test_results_all_list.note) as note
-FROM
-test_results_all_list
-WHERE
-test_results_all_list.testing_id =  '".$testing_list_id."' AND
-test_results_all_list.project_id =  '".$project_id."' AND
-test_results_all_list.available =  '".$office_id."'
-GROUP BY
-test_results_all_list.title";*/
+
 	
 	}elseif($office_id==1){ //語言治療師
 	
@@ -574,38 +555,20 @@ test_results_all_list.title";*/
 test_results_all_list.pname,
 test_results_all_list.cname,
 test_results_all_list.title,
-group_concat(test_results_all_list.script Order By test_results_all_list.script ASC ) AS script,
-group_concat(test_results_all_list.voice_file) AS voice_file,
-group_concat(test_results_all_list.wrongcode  Order By test_results_all_list.wrongcode ASC) AS wrongcode,
+test_results_all_list.script AS script,
+test_results_all_list.voice_file AS voice_file,
+test_results_all_list.wrongcode AS wrongcode,
 test_results_all_list.part,
-group_concat(test_results_all_list.note) AS note
+test_results_all_list.note AS note
 FROM
-test_results_all_list
+	test_results_all_list
 WHERE
 test_results_all_list.testing_id =  '$testing_list_id' AND
 test_results_all_list.project_id =  '$project_id' AND
 test_results_all_list.available =  '$office_id' AND
-test_results_all_list.part ='1'
-GROUP BY
-test_results_all_list.title
+	test_results_all_list.part = '1'
 ";
-	/*$select_sql="SELECT
-test_results_all_list.pname as pname,
-test_results_all_list.cname as cname,
-test_results_all_list.title as title,
-group_concat(test_results_all_list.script ORDER BY test_results_all_list.script  ASC ) as script,
-group_concat(test_results_all_list.voice_file) as voice_file,
-group_concat(test_results_all_list.wrongcode) as wrongcode,
-test_results_all_list.part as part,
-group_concat(test_results_all_list.note) as note
-FROM
-test_results_all_list
-WHERE
-test_results_all_list.testing_id =  '".$testing_list_id."' AND
-test_results_all_list.project_id =  '".$project_id."' AND
-test_results_all_list.available =  '".$office_id."'
-GROUP BY
-test_results_all_list.title";*/
+
 	}
 
 	
@@ -663,5 +626,54 @@ project.id = '".$project_id."'
 	
 	return $query;
 	}
+	
+	
+	 public function jud_del_sql(){ //清楚檢視結果 重複的問題
+	
+	 
+		$select_sql="delete from judgment where judgment.id  in
+(
+select id
+from 
+(SELECT distinct judgment.id id
+FROM
+project
+INNER JOIN testing_list AS testings ON testings.project_id = project.id
+INNER JOIN result ON result.testing_id = testings.id
+INNER JOIN topic ON result.topic_id = topic.id
+INNER JOIN judg_list ON judg_list.result_id = result.id
+INNER JOIN judgment ON judg_list.judgment_id = judgment.id
+INNER JOIN children ON testings.children_id = children.id
+WHERE
+judgment.available = '0'
+group by testings.id,topic_id
+having count(*) > 1) as aa
+) ";
+
+	$this->db->query($select_sql); //select
+	
+	$select_sql="delete from judgment where judgment.id  in
+(
+select id
+from 
+(SELECT distinct judgment.id id
+FROM
+project
+INNER JOIN testing_list AS testings ON testings.project_id = project.id
+INNER JOIN result ON result.testing_id = testings.id
+INNER JOIN topic ON result.topic_id = topic.id
+INNER JOIN judg_list ON judg_list.result_id = result.id
+INNER JOIN judgment ON judg_list.judgment_id = judgment.id
+INNER JOIN children ON testings.children_id = children.id
+WHERE
+judgment.available = '1'
+group by testings.id,topic_id
+having count(*) > 1) as aa
+) ";
+
+	$this->db->query($select_sql); //select
+	
+	}
+	
 	
 }
