@@ -13,6 +13,7 @@
 										<tbody>
 											<?php 
 												$length = count($this->data);
+												if($this->data != 0){
 												for($fix = 0;$fix < $length; $fix++)
 												{
 											?>
@@ -29,7 +30,7 @@
 												<td><a href="#myModal" data-toggle="modal" ><i class="icon-pencil"></i></a></td>
 											</tr>
 											<?php 
-												}?>
+												}}?>
 										</tbody>
 										</table>
 								</div>

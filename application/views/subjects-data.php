@@ -110,7 +110,6 @@
 							alert('請輸入名稱');
 							document.getElementById('subjects_name').focus();
 						}else if((document.getElementById('subjects_name').value != '') && (document.getElementById('subjects_birth').value != '')){
-							alert("123");
 							document.dbform.action="<?=base_url("/projectview_admin/subjects_data")?>/project_id/<?php echo $project_id;?>"; 
 							$('#tab').closest('form').submit();
 						}else if(document.getElementById('subjects_birth').value == ''){

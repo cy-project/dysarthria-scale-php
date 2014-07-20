@@ -77,7 +77,7 @@ class projectview_admin extends CI_Controller {
 		elseif($number_page == 2){//受測者
 			$pm = new Project_model;
 			$this->data = $pm->getTestingList($project_id);
-			$this->data['project_id'] = $project_id;
+			@$this->data['project_id'] = $project_id;
 			$this->load->view('subjects_list_admin',$this->data);
 		}
 		elseif($number_page == 3){//申請者
@@ -105,7 +105,7 @@ class projectview_admin extends CI_Controller {
 		$subjects_sex=$this->input->post('subjects_sex');
 		$subjects_birth=$this->input->post('subjects_birth');
 		$subjects_counties=$this->input->post('subjects_counties');
-		$subjects_school=$this->input->post('subjects_school');
+		$subjects_school=$project->selectschool_id($this->data['project_id']);
 		$subjects_grade=$this->input->post('subjects_grade');
 		$subjects_class=$this->input->post('subjects_class');
 		$subjects_language=$this->input->post('subjects_language');

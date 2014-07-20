@@ -42,13 +42,13 @@
 										</thead>
 										<tbody>
 										<?php
-											foreach($this->data->result() as $row):
+											foreach($this->data as $row):
 										?>
 											<tr>
 												<td><?=$row->id;?></td>
 												<td><?=$row->name;?></td>
 												<td><?=$row->area;?></td>
-												<td><?=$row->manager;?></td>
+												<td><?=$row->manger;?></td>
 												<td><?=$row->start_date;?></td>
 												<td>
 													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-eye-open"></i></a>

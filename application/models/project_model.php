@@ -20,6 +20,7 @@ class Project_model extends CI_Model
 		$this->db->set('county',$data->county);
 		$this->db->set('status',$data->status);
 		$this->db->set('school_id',$data->school_id);
+		$this->db->set('manager',$data->manager);
 		
 		$this->db->insert('project');
 	
@@ -65,10 +66,10 @@ class Project_model extends CI_Model
 							}
 							else 
 							{
-								$rater[0]->name = "尚未配置";
+								$rater = "尚未配置";
 							}
 							
-							$children[$idx]->rater = $rater[0]->name;
+							$children[$idx]->rater = $rater;
 							
 							$children[$idx]->isupload = $row->isupload;
 							
@@ -195,59 +196,45 @@ class Project_model extends CI_Model
 		$this->db->where('id',$rater);
 		$this->db->from('member');
 		
-		$result =  $this->db->get();
-		return $result->result();
+		$result =  $this->db->get()->result();
+		$dataname = $result[0]->name;
+		return $dataname;
 	}
 	
 	public function getProject_List($member_id){
-		if($member_id > 1){
-			$this->db->select('`project_id`,`position`');
-			$this->db->where('member_id',$member_id);
-			$this->db->from('people_list');
+		
+			$this->db->select('*');
+			$this->db->from('project');
+			
 			$result = $this->db->get();
+			
 			if ($result->num_rows > 0)
 			{
 				$idx = 0;
 				foreach ($result->result() as $row)
 				{
-					$data = $this->getProjectData($row->project_id);
-					if ($data->num_rows > 0)
+					$project_data[$idx] = new Datamodel();
+					foreach ($row as $k => $v)
 					{
-						$r = $data->result();
-						$length = count($r);
-						for($o = 0;$o<$length;$o++){
-							$params = (array)$r[$length-1];
-						
-							$project_data_member[$idx] = new Datamodel();
-							foreach ($params as $k => $v)
-							{
-								$project_data_member[$idx]->$k = $v;
-								$project_data_member[$idx]->manger= $this->getMemberName($project_data_member[$idx]->manager);
-							}
-							
-						}
-							$idx++;
-							
+						$project_data[$idx]->$k = $v;
+						$project_data[$idx]->manger= @$this->getMemberName($row->manager);
 					}
+					$idx++;
 				
 				}
-				return $project_data_member;
+				return $project_data;
 			}
-			else
-				return 0;
-		}
-		else{
-			$this->db->select('*');
-			$this->db->from('project');
-			
-			$result = $this->db->get();
+			return 0;
+	}
+	
+	public function selectschool_id($project_id){
+		$this->db->select('`school_id`');
+		$this->db->where('id', $project_id);
+		$this->db->from('project');
 		
-			return $result;
-		}
+		$result = $this->db->get()->result();
 		
-		
-		
-		
+		return $result[0]->school_id;
 	}
 	
 	public function getProjectData($project_id){
@@ -425,7 +412,14 @@ class Project_model extends CI_Model
 		$this->db->update('children',$array);
 	}
 	
-	
+	public function memberid($account, $username){
+		$this->db->select('`id`');
+		$this->db->where('account',$account);
+		$this->db->where('name', $username);
+		$this->db->from('member');
+		$result = $this->db->get()->result();
+		return $result[0]->id;
+	}
 
 }
 

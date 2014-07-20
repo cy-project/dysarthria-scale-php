@@ -24,6 +24,7 @@
 		<tbody>
 		<?php 
 			$length = count($this->data);
+			if(!empty($this->data)){
 			for($fix = 0;$fix < $length; $fix++)
 			{
 			if($fix != $length-1){
@@ -68,7 +69,7 @@
 					<a href="<?=base_url("/projectview_admin/subjects_view_group")?>/project_id/<?php echo $project_id;?>/child_id/<?php echo $this->data[$fix]->id;?>"><i class="icon-eye-open"></i></a>
 				</td>
 			</tr>
-		<?php	}}?>
+		<?php	}}}?>
 												
 		</tbody>
 	</table>

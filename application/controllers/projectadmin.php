@@ -83,6 +83,7 @@ class Projectadmin extends CI_Controller {
 		$data->area = $area;
 		$data->county = $county;
 		$data->status = $status;
+		$data->manager = $project->memberid($_SESSION["account"], $_SESSION["username"]);
 		
 		if($SchoolName == 0){
 			$NewSchoolName = $this->input->post("NewSchoolName");
@@ -92,7 +93,6 @@ class Projectadmin extends CI_Controller {
 		else{
 			$data->school_id = $project->schoolname($SchoolName);
 		}
-		print_r($data->school_id);
 		$project->createProject($data);
 		
 		redirect(base_url("/projectadmin/project_home"));
