@@ -3,12 +3,15 @@
 class projectview_admin extends CI_Controller {
 	var $data = array();
 	var $dato = array();
+	var $datm = array();
 	function __construct()
 	{
 		parent::__construct();	
 		$this->load->library('Personal_data');
 		$this->load->library('Datamodel');
 		$this->load->library('Dispatch');
+		$this->load->library('Dispatch_json');
+		$this->load->library('test_libraries');
 		$this->load->model('Project_model');
 		$this->load->model('Member_model');
 		$this->load->model('test_models');
@@ -97,7 +100,6 @@ class projectview_admin extends CI_Controller {
 		$this->data = $this->uri->uri_to_assoc(3);
 		/*
 		view未做判斷
-		還未作年齡計算
 		*/
 		
 		setcookie("member_id",$_SESSION['id'],time()+3600);
@@ -141,6 +143,7 @@ class projectview_admin extends CI_Controller {
 		
 		
 	}
+	
 	public function modification_data_child(){//修改受測者
 		$count = 0;
 		
@@ -224,12 +227,14 @@ class projectview_admin extends CI_Controller {
 		$this->load->view('subjects-view-glossary',$this->data);
 	}
 	public function testview(){
-		
+		$dispatch = new Dispatch;
 		$project_List = new test_models;
 		$dispatch_List = new dispatch_model;
 		$this->data = $this->uri->uri_to_assoc(3);
 		$this->data['name'] = $project_List->Project_name($this->data['project_id']);
-		$this->load->view('testview', $this->data);
+		$this->dato = $dispatch->DispatchData($this->data['project_id'], 1);
+		$this->datm = $dispatch->DispatchData($this->data['project_id'], 2);
+		$this->load->view('testview', $this->data, $this->dato, $this->datm);
 	}
 	
 	public function select_the_page(){
@@ -251,9 +256,24 @@ class projectview_admin extends CI_Controller {
 	public function Kids_Menu(){
 		$dispatch = new Dispatch;
 		$project_id = $this->input->post('id');
-		$count = $this->input->post('selected');
-		$this->data = $dispatch->DispatchData($project_id, $count);
-		$this->load->view('Kids_Menu',$this->data);
+		$selected = $this->input->post('selected');
+		$this->data = $dispatch->DispatchData($project_id, $selected);
+		$this->dato = $dispatch->DispatchData($project_id, 1);
+		$this->datm = $dispatch->DispatchData($project_id, 2);
+		$this->load->view('Kids_Menu',$this->data, $this->dato, $this->datm);
+	}
+	
+	public function StatrDispatch(){
+		$statr = new Dispatch_json;
+		$statr_time = new Project_model;
+		$disp_pid = $this->input->post('id');
+		$disp_time = $this->input->post('time');
+		$time = array(
+			'start_date' => $disp_time
+		);
+		$times = $statr_time->setStatrtime($time, $disp_pid, $disp_time);
+		$statr->dispatch($disp_pid, $times);
+		echo "OK";
 	}
 	
 	public function download_excel()

@@ -14,8 +14,8 @@ class Project_model extends CI_Model
 	public function createProject($data)
 	{
 		$this->db->set('name',$data->name);
-		$this->db->set('create_date',$data->cr_date);
-		$this->db->set('start_date',$data->cr_date);
+		$this->db->set('create_date',"0");
+		$this->db->set('start_date',"0");
 		$this->db->set('area',$data->area);
 		$this->db->set('county',$data->county);
 		$this->db->set('status',$data->status);
@@ -24,6 +24,26 @@ class Project_model extends CI_Model
 		
 		$this->db->insert('project');
 	
+	}
+	
+	public function setStatrtime($array, $pid, $time){
+		$this->db->where('id',$pid);
+		
+		$this->db->update('project',$array);
+		
+		$count = $this->statrcount($time);
+		
+		$length = count($count);
+		
+		return $length+1;
+	}
+	
+	public function statrcount($time){
+		$this->db->select('`id`');
+		$this->db->where('start_date', $time);
+		$this->db->from('project');
+		$result = $this->db->get()->result();
+		return $result;
 	}
 	
 	public function getTestingList($pid)

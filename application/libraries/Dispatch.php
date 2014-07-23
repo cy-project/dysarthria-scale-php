@@ -25,8 +25,8 @@ class Dispatch
 				$KidBasicData[$count1]->name = $Data[0]->name;
 				$KidBasicData[$count1]->sex = $Data[0]->sex;
 				$KidBasicData[$count1]->select = $count;
-				$KidBasicData[$count1]->rater_name = $DispatchModel->getMemberName($i->rater);
-				$KidBasicData[$count1]->detect_name = $DispatchModel->getMemberName($i->detect);
+				$KidBasicData[$count1]->rater_name = @$DispatchModel->getMemberName($i->rater);
+				$KidBasicData[$count1]->detect_name = @$DispatchModel->getMemberName($i->detect);
 			}
 			$count1++;
 		}

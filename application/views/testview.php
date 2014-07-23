@@ -10,7 +10,6 @@
 	  include "sidebar-nav.php";
 	?>
 		<div class="content">
-        
 			<div class="header">
 				<h1 class='page-title'>派遣選擇</h1>
 			</div>
@@ -28,20 +27,20 @@
 					<select class="input-xlarge" name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
 						
 					</select>
-					   施測日期:<input name="member.birth" placeholder="年-月-日" type="time" value=""/>
+					   施測日期:<input name="memberbirth" id="dispatchdate" placeholder="yyyy/xx/dd" type="text" value=""/>
 					<button class="btn btn-primary" id="new_group" onclick="NewGroup(1)"><i class="icon-plus"></i>自動派遣</button>
 				</div>
 				<div class="row-fluid">
 					<div class="well">	 
 						<div>
-							<button class="btn btn-primary"><i class="icon-plus"></i>確認派遣</button>
+							<button class="btn btn-primary" onclick="OKdispatch(<?php echo $project_id;?>)"><i class="icon-plus"></i>確認派遣</button>
 						</div>
 						<div id="Menber_list">
 										<!-- ajax -->
 						</div>
 					</div>
 					<div>
-						<button class="btn btn-primary"><i class="icon-plus"></i>完成派遣</button>
+						<button class="btn btn-primary" onclick="allage()"><i class="icon-plus"></i>完成派遣</button>
 						<button class="btn btn-primary"><i class="icon-plus"></i>取消派遣</button>
 					</div>
 				</div>
@@ -91,6 +90,8 @@
 			var detect_count = 0;
 			var surveying;
 			var detect;
+			var surveying_data;
+			var detect_data;
 			$().ready(function() {
 				Select_People(1, 1);
 			});
@@ -159,6 +160,21 @@
 				}
 				
 				count = count+con;
+			}
+			function OKdispatch(pid){
+				var URL = "<?=base_url("/projectview_admin/StatrDispatch")?>";
+				$.ajax({
+					url: URL,
+					type: 'POST',
+					data:{'id':<?php echo $project_id;?>,'time':$('#dispatchdate').val()},
+					dataType:'text', 
+					error: function(xhr, ajaxOptions, thrownError) {
+						alertify.alert('Ajax request 發生錯誤'+xhr.responseText);
+					},
+					success: function(response) {
+						alert(response);
+					}
+				});
 			}
 		</script>
 		

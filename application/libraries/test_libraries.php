@@ -1,6 +1,6 @@
 <?php
 
-class Test
+class test_libraries
 {
 
 	function __construct()

@@ -27,11 +27,15 @@
 				<td><?php echo $this->data[$aou]->grade; ?></td>
 				<td><?php echo $this->data[$aou]->rank; ?></td>
 				<td>
-						<?php if(($this->data[$aou]->rater == "") || ($this->data[$aou]->detect == ""))
+						<?php if(($this->data[$aou]->select == 1) && ($this->data[$aou]->rater == ""))
 						{ ?>
 					<input name="Selected" type="checkbox" value="<?php echo $this->data[$aou]->id;?>"/>
 									<?php 
 						}
+						elseif(($this->data[$aou]->detect == "") && ($this->data[$aou]->select == 2))
+						{?>
+					<input name="Selected" type="checkbox" value="<?php echo $this->data[$aou]->id;?>"/>
+						<?php }
 						else 
 						{
 							if($this->data[$aou]->select == 2){
@@ -55,11 +59,3 @@
 <?php } ?>
 		</tbody>
 	</table>
-	<script>
-		var test1;
-		var test2;
-		function Delete_Select(fun, count){
-			test1 =<?php print_r($this->data);?>
-			alert(test1);
-		}
-	</script>

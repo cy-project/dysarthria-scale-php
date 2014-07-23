@@ -44,7 +44,6 @@ class Projectadmin extends CI_Controller {
 		/*儲存新增專案資料*/
 		$projectname = $this->input->post("ProjectName");  
 		date_default_timezone_set('Asia/Taipei');
-        $date = date("Y/m/d");  
         $area = $this->input->post("Area");  
         $SchoolName = $this->input->post("SchoolName");  
         $county = $this->input->post("Counties");  
@@ -79,7 +78,6 @@ class Projectadmin extends CI_Controller {
 		}
 		
 		$data->name = $projectname;
-		$data->cr_date = $date;
 		$data->area = $area;
 		$data->county = $county;
 		$data->status = $status;

@@ -190,8 +190,10 @@ class Dispatch_model extends CI_Model
 		$this->db->select('`name`');
 		$this->db->where('id',$rater);
 		$this->db->from('member');
-		$result =  $this->db->get()->result();
-		return $result[0]->name;
+		$result =  $this->db->get();
+		$data = $result->result();
+		$name = $data[0]->name;
+		return $name;
 	}
 
 }
