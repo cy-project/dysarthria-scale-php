@@ -27,11 +27,12 @@ class Project_model extends CI_Model
 	}
 	
 	public function setStatrtime($array, $pid, $time){
+		
+		$count = $this->statrcount($time);
+		
 		$this->db->where('id',$pid);
 		
 		$this->db->update('project',$array);
-		
-		$count = $this->statrcount($time);
 		
 		$length = count($count);
 		
@@ -430,6 +431,13 @@ class Project_model extends CI_Model
 		$this->db->where('id',$uid);
 		
 		$this->db->update('children',$array);
+	}
+	
+	public function updateTestlist($uid,$array)
+	{
+		$this->db->where('id',$uid);
+		
+		$this->db->update('testing_list',$array);
 	}
 	
 	public function memberid($account, $username){

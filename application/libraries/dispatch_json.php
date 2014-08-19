@@ -19,7 +19,7 @@ class Dispatch_json
 		$date = explode("/",$date);
 		
 		$date = $date[0].$date[1].$date[2];
-
+		
 		$fp = fopen("../SCHEDULE/schedule_".$date."_".$times.".json","a");
 		fwrite($fp, json_encode($array));
 		

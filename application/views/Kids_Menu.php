@@ -27,31 +27,24 @@
 				<td><?php echo $this->data[$aou]->grade; ?></td>
 				<td><?php echo $this->data[$aou]->rank; ?></td>
 				<td>
-						<?php if(($this->data[$aou]->select == 1) && ($this->data[$aou]->rater == ""))
-						{ ?>
-					<input name="Selected" type="checkbox" value="<?php echo $this->data[$aou]->id;?>"/>
-									<?php 
-						}
-						elseif(($this->data[$aou]->detect == "") && ($this->data[$aou]->select == 2))
-						{?>
-					<input name="Selected" type="checkbox" value="<?php echo $this->data[$aou]->id;?>"/>
+						<?php if(($this->data[$aou]->select == 1) && ($this->data[$aou]->rater > 0)){ 
+						echo $this->data[$aou]->rater_name;  
+						?>
+					<a data-toggle="modal" role="button" href="#">
+						<i class="icon-remove" onclick="Delete_Select(<?php echo $this->data[$aou]->select;?>,<?php echo $this->data[$aou]->id;?>)"></i>
+					</a>
+					<?php }
+						elseif(($this->data[$aou]->select == 2) && ($this->data[$aou]->detect > 0))
+						{
+						echo $this->data[$aou]->detect_name; ?>
+					<a data-toggle="modal" role="button" href="#">
+						<i class="icon-remove" onclick="Delete_Select(<?php echo $this->data[$aou]->select;?>,<?php echo $this->data[$aou]->id;?>)"></i>
+					</a>
 						<?php }
 						else 
-						{
-							if($this->data[$aou]->select == 2){
-								echo $this->data[$aou]->detect_name;?>
-							<a data-toggle="modal" role="button" href="#">
-							<i class="icon-remove" onclick="Delete_Select(<?php echo $this->data[$aou]->select;?>,<?php echo $aou;?>)"></i>
-							</a>
-								<?php
-							}
-							if($this->data[$aou]->select == 1){
-								echo $this->data[$aou]->rater_name;?>
-							<a data-toggle="modal" role="button" href="#">
-							<i class="icon-remove" onclick="Delete_Select(<?php echo $this->data[$aou]->select;?>,<?php echo $aou;?>)"></i>
-							</a>
-								<?php
-							}
+						{ ?>
+						<input name="Selected[]" type="checkbox" value="<?php echo $this->data[$aou]->id;?>"/>
+						<?php
 						}
 						?>
 				</td>
@@ -59,3 +52,5 @@
 <?php } ?>
 		</tbody>
 	</table>
+	<script type="text/javascript">
+	</script>

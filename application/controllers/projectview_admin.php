@@ -17,6 +17,7 @@ class projectview_admin extends CI_Controller {
 		$this->load->model('test_models');
 		$this->load->model('dispatch_model');
 		$this->load->model('recognition_model');
+		$this->load->helper('cookie');
 		session_start();
 	}
 	
@@ -26,7 +27,7 @@ class projectview_admin extends CI_Controller {
 		if($number_button==1&&$number_page==2)//新增受測者
 			echo'/subjects_data_new';
 		elseif($number_button==2&&$number_page==1)//派遣
-			echo '/testview';
+			echo '/Dispatch_View';
 		elseif(($number_page==1 || $number_page==3 || $number_page==4 )&&$number_button==1)//設置專案成員位置
 			echo '/new_personnel_Practitioner';
 		
@@ -226,17 +227,22 @@ class projectview_admin extends CI_Controller {
 	public function subjects_view_glossary(){
 		$this->load->view('subjects-view-glossary',$this->data);
 	}
-	public function testview(){
+	public function Dispatch_View(){
 		$dispatch = new Dispatch;
 		$project_List = new test_models;
 		$dispatch_List = new dispatch_model;
 		$this->data = $this->uri->uri_to_assoc(3);
 		$this->data['name'] = $project_List->Project_name($this->data['project_id']);
-		$this->dato = $dispatch->DispatchData($this->data['project_id'], 1);
-		$this->datm = $dispatch->DispatchData($this->data['project_id'], 2);
-		$this->load->view('testview', $this->data, $this->dato, $this->datm);
+		$this->dato = $dispatch->KidData($this->data['project_id'], 1);
+		if (!isset($_COOKIE["selectdata"]))
+		{
+			//setcookie("selectdata",$this->dato,time()+3600);
+			$this->input->set_cookie("selectdata",$this->dato,time()+3600);
+		}
+			
+		$this->load->view('Dispatch_View', $this->data);
 	}
-	
+
 	public function select_the_page(){
 		$dispatch_List = new dispatch_model;
 		$project_id=$this->input->post('id');
@@ -252,27 +258,38 @@ class projectview_admin extends CI_Controller {
 		}
 		print_r($str);
 	}
-	
+
 	public function Kids_Menu(){
 		$dispatch = new Dispatch;
 		$project_id = $this->input->post('id');
 		$selected = $this->input->post('selected');
-		$this->data = $dispatch->DispatchData($project_id, $selected);
-		$this->dato = $dispatch->DispatchData($project_id, 1);
-		$this->datm = $dispatch->DispatchData($project_id, 2);
-		$this->load->view('Kids_Menu',$this->data, $this->dato, $this->datm);
+		$selectedata = $this->input->post('data');
+		$refreshcount = $this->input->post('count');
+		$this->data = $dispatch->DispatchData($project_id, $selected, $selectedata);
+		$this->dato = $dispatch->cookieData($selectedata);
+		if($refreshcount == 0){
+			delete_cookie("selectdata");
+			$this->input->set_cookie("selectdata",$this->dato,time()+3600);
+		}
+		$this->load->view('Kids_Menu',$this->data, $this->dato);
 	}
 	
-	public function StatrDispatch(){
+	public function StatrDispatch(){//完成派遣未完成
 		$statr = new Dispatch_json;
 		$statr_time = new Project_model;
+		$dispatchkid = new Dispatch;
 		$disp_pid = $this->input->post('id');
 		$disp_time = $this->input->post('time');
-		$time = array(
-			'start_date' => $disp_time
-		);
-		$times = $statr_time->setStatrtime($time, $disp_pid, $disp_time);
-		$statr->dispatch($disp_pid, $times);
+		$kidselectdata = $this->input->post('kidselectdata');
+		$test = $dispatchkid->setDispatchKid($kidselectdata);
+		if($test == "ok"){
+			$time = array(
+				'start_date' => $disp_time
+			);
+			$times = $statr_time->setStatrtime($time, $disp_pid, $disp_time);
+			$statr->dispatch($disp_pid, $times);
+		}
+		
 		echo "OK";
 	}
 	
