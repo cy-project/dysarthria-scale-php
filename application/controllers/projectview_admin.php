@@ -27,7 +27,7 @@ class projectview_admin extends CI_Controller {
 		if($number_button==1&&$number_page==2)//新增受測者
 			echo'/subjects_data_new';
 		elseif($number_button==2&&$number_page==1)//派遣
-			echo '/Dispatch_View';
+			echo '/DispatchView';
 		elseif(($number_page==1 || $number_page==3 || $number_page==4 )&&$number_button==1)//設置專案成員位置
 			echo '/new_personnel_Practitioner';
 		
@@ -227,10 +227,9 @@ class projectview_admin extends CI_Controller {
 	public function subjects_view_glossary(){
 		$this->load->view('subjects-view-glossary',$this->data);
 	}
-	public function Dispatch_View(){
+	public function DispatchView(){
 		$dispatch = new Dispatch;
 		$project_List = new test_models;
-		$dispatch_List = new dispatch_model;
 		$this->data = $this->uri->uri_to_assoc(3);
 		$this->data['name'] = $project_List->Project_name($this->data['project_id']);
 		$this->dato = $dispatch->KidData($this->data['project_id'], 1);

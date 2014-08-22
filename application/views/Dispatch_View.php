@@ -86,15 +86,10 @@
 		</style>
 		<script src="lib/bootstrap/js/bootstrap.js"></script>
 		<script type="text/javascript">
-			var surveying_count = 0;
-			var detect_count = 0;
-			var surveying;
-			var detect;
-			var surveying_data;
-			var detect_data;
+			var count = 0;
 			var kiddata = new Array();
 			$().ready(function() {
-				Select_People(1, 1);
+				Select_People(1, count);
 			});
 			
 			$("[rel=tooltip]").tooltip();
@@ -104,10 +99,12 @@
 			});
 			
 			function Confirm_Dispatch(){
+				count++;
 				var language = document.getElementsByName('User');
 				var selectcount = "";
 				var countdata = document.getElementById('DropDownTimezone').value;
 				var kidselectdata =document.getElementsByName('Selected[]');
+				
 				for (var i=0; i<language.length; i++)
 				{
 					if (language[i].checked)
@@ -129,16 +126,20 @@
 									if(selectcount == 'surveying')
 									{
 										kiddata[b][1] = countdata;
-										Children(1,0);
 									}
 									else{
 										kiddata[b][2] = countdata;
-										Children(2,0);
 									}
-									
 								}
 							}
 						}
+					}
+					if(selectcount == 'surveying')
+					{
+						Children(1,0);
+					}
+					else{
+						Children(2,0);
 					}
 				}
 			}
@@ -162,7 +163,7 @@
 			}
 			
 			function Children(f,c){
-				var URL = "<?=base_url("/projectview_admin/Kids_Menu")?>";
+				var URL = "<?=base_url("/projectview_admin/Kids_Menu")?>/project_id/<?php echo $project_id;?>";
 					$.ajax({
 						url: URL,
 						type: 'POST',
