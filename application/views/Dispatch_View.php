@@ -229,10 +229,16 @@
 			}
 			
 			function takeRecordData(){
+				var selectdata = new Array();
 				data = document.cookie.split(";");
-				selectarray = data[1].split("%7C");
-				for(a = 0; a<selectarray.length-1;a++){
-					kiddata[a] = selectarray[a+1].split("%2C");
+				for(a = 0;a<data.length;a++){
+					selectarray = data[a].split("%7C");
+					if(selectarray[0].match('selectdata=')!=null ){
+						selectdata = selectarray;
+					}
+				}
+				for(a = 0; a<selectdata.length-1;a++){
+					kiddata[a] = selectdata[a+1].split("%2C");
 				}
 			}
 			

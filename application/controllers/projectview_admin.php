@@ -65,6 +65,10 @@ class projectview_admin extends CI_Controller {
 		$project_List = new test_models;
 		$cont = $project_List->lond_List($_SESSION["id"]);
 		$this->data['name'] = $project_List->Project_name($dota->project_id);
+		if (isset($_COOKIE["selectdata"]))
+		{
+			delete_cookie("selectdata");
+		}
 		$this->load->view('project_board',$this->data);
 	}	
 	public function subjects_list()
@@ -270,7 +274,7 @@ class projectview_admin extends CI_Controller {
 			delete_cookie("selectdata");
 			$this->input->set_cookie("selectdata",$this->dato,time()+3600);
 		}
-		$this->load->view('Kids_Menu',$this->data, $this->dato);
+		$this->load->view('Kids_Menu',$this->data);
 	}
 	
 	public function StatrDispatch(){//完成派遣未完成

@@ -36,7 +36,7 @@ class Dispatch
 		public function DispatchData($project_id, $count, $selectedata){
 			$DispatchModel = new dispatch_model;
 			$FirstKidData = $DispatchModel->getProjectChildData($project_id);
-			$count1 = 0;
+			$count1 = 0; 
 			foreach($FirstKidData->result() as $i){
 				$KidBasicData[$count1] = new Datamodel();
 				$Data = $DispatchModel->ChildBasicData($i->children_id);
@@ -48,20 +48,23 @@ class Dispatch
 					$KidBasicData[$count1]->name = $Data[0]->name;
 					$KidBasicData[$count1]->sex = $Data[0]->sex;
 					$KidBasicData[$count1]->select = $count;
-					if($selectedata[$count1][1] == 0){
-						$KidBasicData[$count1]->rater_name = 0 ;
-						$KidBasicData[$count1]->rater = 0 ;
-					}
-					else{
-						$KidBasicData[$count1]->rater_name = @$DispatchModel->getMemberName($selectedata[$count1][1]);
-						$KidBasicData[$count1]->rater =  $selectedata[$count1][1];
-					}
-					if($selectedata[$count1][2] == 0){
-						$KidBasicData[$count1]->detect_name = 0;
-						$KidBasicData[$count1]->detect = 0;
-					}
-					else{
-						$KidBasicData[$count1]->detect_name = @$DispatchModel->getMemberName($selectedata[$count1][2]);
+					if($selectedata[$count1][0] == $KidBasicData[$count1]->id){
+						if($selectedata[$count1][1] == 0){
+							$KidBasicData[$count1]->rater_name = 0 ;
+							$KidBasicData[$count1]->rater = 0 ;
+						}
+						if($selectedata[$count1][1] != 0){
+							$KidBasicData[$count1]->rater_name = @$DispatchModel->getMemberName($selectedata[$count1][1]);
+							$KidBasicData[$count1]->rater =  $selectedata[$count1][1];
+						}
+						if($selectedata[$count1][2] == 0){
+							$KidBasicData[$count1]->detect_name = 0;
+							$KidBasicData[$count1]->detect = 0;
+						}
+						if($selectedata[$count1][2] != 0){
+							$KidBasicData[$count1]->detect_name = @$DispatchModel->getMemberName($selectedata[$count1][2]);
+							$KidBasicData[$count1]->detect =  $selectedata[$count1][2];
+						}
 					}
 				}
 				$count1++;
